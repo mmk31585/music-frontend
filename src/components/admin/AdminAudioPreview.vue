@@ -20,16 +20,16 @@
           :aria-valuenow="currentTime"
           tabindex="0"
           @click="seek"
-          @keydown.left.prevent="skip(-5)"
-          @keydown.right.prevent="skip(5)"
+          @keydown.arrow.left.prevent="skip(-5)"
+          @keydown.arrow.right.prevent="skip(5)"
         >
           <div
-            class="absolute left-0 top-0 h-full rounded-full bg-emerald-500 transition-all duration-150"
+            class="absolute inset-y-0 start-0 h-full rounded-full bg-emerald-500 transition-all duration-150"
             :style="{ width: `${duration ? (currentTime / duration) * 100 : 0}%` }"
           />
         </div>
       </div>
-      <span class="w-20 text-right text-[11px] text-slate-400 tabular-nums">
+      <span class="w-20 text-end text-[11px] text-slate-400 tabular-nums">
         {{ formatTime(currentTime) }} / {{ formatTime(duration) }}
       </span>
     </div>
