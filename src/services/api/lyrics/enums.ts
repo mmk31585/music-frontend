@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-duplicate-enum-values */
 export enum LyricsApiRoutes {
   GET_TRACK_LYRICS = 'tracks/:trackId/lyrics',
   GET_TRACK_LYRICS_ALL = 'tracks/:trackId/lyrics/all',

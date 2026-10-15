@@ -16,9 +16,6 @@ export type LoadingOptionsType<T, TBody = unknown, TQuery = Record<string, unkno
   parameters?: unknown[]
 }
 
-type PaginatedItems<T> = T extends PaginatedProps<infer U> ? U[] : never
-type ArrayItems<T> = T extends Array<infer U> ? U[] : never
-
 type LoadingResult<T> = {
   data: Ref<T | null>
   items: Ref<T extends PaginatedProps<infer U> ? U[] : T extends Array<infer U> ? U[] : T[]>
@@ -34,11 +31,7 @@ type LoadingResult<T> = {
  *
  * Accepts either a URL string (uses `useRequest`) or a fetcher function.
  */
-export function useLoading<
-  TData,
-  TBody = unknown,
-  TQuery = Record<string, unknown>,
->(
+export function useLoading<TData, TBody = unknown, TQuery = Record<string, unknown>>(
   fetcher: ((...args: unknown[]) => Promise<TData>) | string,
   options?: LoadingOptionsType<TData, TBody, TQuery>,
 ): LoadingResult<TData> {
@@ -54,10 +47,14 @@ export function useLoading<
   const pending = ref(false)
   const error = ref<Error | ApiResponseProps | null>(null)
 
-  const items: Ref<TData extends PaginatedProps<infer U> ? U[] : TData extends Array<infer U> ? U[] : TData[]> = computed(() => {
+  const items: Ref<
+    TData extends PaginatedProps<infer U> ? U[] : TData extends Array<infer U> ? U[] : TData[]
+  > = computed(() => {
     const val = data.value
     if (val && typeof val === 'object' && 'items' in val) {
-      return (val as PaginatedProps<unknown>).items as TData extends PaginatedProps<infer U> ? U[] : TData[]
+      return (val as PaginatedProps<unknown>).items as TData extends PaginatedProps<infer U>
+        ? U[]
+        : TData[]
     }
     if (Array.isArray(val)) return val as unknown as TData[]
     return val ? [val] : []
@@ -97,7 +94,12 @@ export function useLoading<
         res = await fetcher(...args)
       }
 
-      if (res && typeof res === 'object' && 'type' in res && (res as ApiResponseProps).type === 'error') {
+      if (
+        res &&
+        typeof res === 'object' &&
+        'type' in res &&
+        (res as ApiResponseProps).type === 'error'
+      ) {
         error.value = res as ApiResponseProps
       } else {
         data.value = res as TData

@@ -3,53 +3,82 @@
     ref="floatingEl"
     class="popout-player"
     :class="{ 'is-pip': isPiP, dragging: isDragging }"
-    :style="{ left: posX + 'px', top: posY + 'px', width: styleWidth, height: styleHeight, willChange: isDragging ? 'transform' : 'auto' }"
+    :style="{
+      left: posX + 'px',
+      top: posY + 'px',
+      width: styleWidth,
+      height: styleHeight,
+      willChange: isDragging ? 'transform' : 'auto',
+    }"
     @mousedown="onPointerDown"
     @touchstart.prevent="onPointerDown"
   >
     <div class="popout-backdrop" :style="backdropStyle">
-      <div v-if="coverUrl" class="popout-backdrop-image" :style="{ backgroundImage: `url(${coverUrl})` }" />
+      <div
+        v-if="coverUrl"
+        class="popout-backdrop-image"
+        :style="{ backgroundImage: `url(${coverUrl})` }"
+      />
       <div class="popout-backdrop-overlay" />
     </div>
 
     <div v-if="mode === 'expanded' || isPiP" class="popout-header">
-        <button type="button" class="popout-btn" aria-label="Minimize" @click="mode = 'mini'">
-          <Minimize2 aria-hidden="true" class=""  />
-        </button>
-        <button type="button" class="popout-btn" aria-label="Full player" @click="openFullscreen">
-          <Maximize2 aria-hidden="true" class=""  />
-        </button>
-        <button
-          type="button"
-          class="popout-btn"
-          :aria-label="isPiP ? 'Return to app' : 'Pop out'"
-          @click="onTogglePiP"
-        >
-          <component :is="isPiP ? Maximize2 : ExternalLink"<i aria-hidden="true"  /> />
-        </button>
-        <button v-if="!isPiP" type="button" class="popout-btn" aria-label="Close" @click="close">
-        <X aria-hidden="true" class=""  />
+      <button type="button" class="popout-btn" aria-label="Minimize" @click="mode = 'mini'">
+        <Minimize2 aria-hidden="true" class="" />
+      </button>
+      <button type="button" class="popout-btn" aria-label="Full player" @click="openFullscreen">
+        <Maximize2 aria-hidden="true" class="" />
+      </button>
+      <button
+        type="button"
+        class="popout-btn"
+        :aria-label="isPiP ? 'Return to app' : 'Pop out'"
+        @click="onTogglePiP"
+      >
+        <component :is="isPiP ? Maximize2 : ExternalLink" aria-hidden="true" />
+      </button>
+      <button v-if="!isPiP" type="button" class="popout-btn" aria-label="Close" @click="close">
+        <X aria-hidden="true" class="" />
       </button>
     </div>
 
     <div v-if="mode === 'mini' && !isPiP" class="popout-mini" @dblclick="mode = 'expanded'">
-      <img v-if="coverUrl" :src="coverUrl" :alt="title" loading="lazy" class="popout-cover" @error="onImgError" />
+      <img
+        v-if="coverUrl"
+        :src="coverUrl"
+        :alt="title"
+        loading="lazy"
+        class="popout-cover"
+        @error="onImgError"
+      />
       <div v-else class="popout-cover-placeholder">
-        <Music aria-hidden="true" class=""  />
+        <Music aria-hidden="true" class="" />
       </div>
-      <div v-if="isPlaying" class="popout-equalizer">
-        <span /><span /><span />
-      </div>
-      <div role="button" tabindex="0" class="popout-mini-overlay" @click="togglePlayPause" @keydown.enter="togglePlayPause" @keydown.space.prevent="togglePlayPause">
-        <component :is="isPlaying ? Pause : Play"<i aria-hidden="true"  class="popout-play-icon" /> />
+      <div v-if="isPlaying" class="popout-equalizer"><span /><span /><span /></div>
+      <div
+        role="button"
+        tabindex="0"
+        class="popout-mini-overlay"
+        @click="togglePlayPause"
+        @keydown.enter="togglePlayPause"
+        @keydown.space.prevent="togglePlayPause"
+      >
+        <component :is="isPlaying ? Pause : Play" aria-hidden="true" class="popout-play-icon" />
       </div>
     </div>
 
     <div v-else class="popout-expanded">
       <div class="popout-track-info">
-        <img v-if="coverUrl" :src="coverUrl" :alt="title" loading="lazy" class="popout-expanded-cover" @error="onImgError" />
+        <img
+          v-if="coverUrl"
+          :src="coverUrl"
+          :alt="title"
+          loading="lazy"
+          class="popout-expanded-cover"
+          @error="onImgError"
+        />
         <div v-else class="popout-expanded-cover-placeholder">
-          <Music aria-hidden="true" class=""  />
+          <Music aria-hidden="true" class="" />
         </div>
         <div class="popout-meta">
           <p class="popout-title">{{ title || 'No track' }}</p>
@@ -58,8 +87,23 @@
       </div>
 
       <div class="popout-progress">
-        <div role="button" tabindex="0" class="popout-progress-bar" ref="progressRef" @click="seekFromEvent" @keydown.enter="seekFromEvent" @keydown.space.prevent="seekFromEvent" @keydown.arrow-left.prevent="seekTo(currentTime - 5)" @keydown.arrow-right.prevent="seekTo(currentTime + 5)" @keydown.home.prevent="seekTo(0)" @keydown.end.prevent="seekTo(duration)">
-          <div class="popout-progress-fill" :style="{ transform: `scaleX(${progressPercent / 100})` }" />
+        <div
+          role="button"
+          tabindex="0"
+          class="popout-progress-bar"
+          ref="progressRef"
+          @click="seekFromEvent"
+          @keydown.enter="seekFromEvent"
+          @keydown.space.prevent="seekFromEvent"
+          @keydown.arrow-left.prevent="seekTo(currentTime - 5)"
+          @keydown.arrow-right.prevent="seekTo(currentTime + 5)"
+          @keydown.home.prevent="seekTo(0)"
+          @keydown.end.prevent="seekTo(duration)"
+        >
+          <div
+            class="popout-progress-fill"
+            :style="{ transform: `scaleX(${progressPercent / 100})` }"
+          />
         </div>
         <div class="popout-progress-labels">
           <span>{{ currentTimeLabel }}</span>
@@ -68,19 +112,42 @@
       </div>
 
       <div class="popout-controls">
-        <button type="button" class="popout-ctrl-btn" aria-label="Previous track" @click="playPrevious" :disabled="!hasPrevious">
-          <SkipBack aria-hidden="true" class=""  />
+        <button
+          type="button"
+          class="popout-ctrl-btn"
+          aria-label="Previous track"
+          @click="playPrevious"
+          :disabled="!hasPrevious"
+        >
+          <SkipBack aria-hidden="true" class="" />
         </button>
-        <button type="button" class="popout-play-btn" :style="{ background: accentColor }" :aria-label="isPlaying ? 'Pause' : 'Play'" @click="togglePlayPause">
-          <component :is="isPlaying ? Pause : Play"<i aria-hidden="true"  /> />
+        <button
+          type="button"
+          class="popout-play-btn"
+          :style="{ background: accentColor }"
+          :aria-label="isPlaying ? 'Pause' : 'Play'"
+          @click="togglePlayPause"
+        >
+          <component :is="isPlaying ? Pause : Play" aria-hidden="true" />
         </button>
-        <button type="button" class="popout-ctrl-btn" aria-label="Next track" @click="playNext" :disabled="!hasNext">
-          <SkipForward aria-hidden="true" class=""  />
+        <button
+          type="button"
+          class="popout-ctrl-btn"
+          aria-label="Next track"
+          @click="playNext"
+          :disabled="!hasNext"
+        >
+          <SkipForward aria-hidden="true" class="" />
         </button>
       </div>
 
       <div class="popout-volume">
-        <button type="button" class="popout-ctrl-btn" :aria-label="muted ? 'Unmute' : 'Mute'" @click="toggleMute">
+        <button
+          type="button"
+          class="popout-ctrl-btn"
+          :aria-label="muted ? 'Unmute' : 'Mute'"
+          @click="toggleMute"
+        >
           <i aria-hidden="true" :class="volumeIcon" />
         </button>
         <Slider
@@ -98,7 +165,17 @@
 </template>
 
 <script setup lang="ts">
-import { ExternalLink, Maximize2, Minimize2, Music, Pause, Play, SkipBack, SkipForward, X } from 'lucide-vue-next'
+import {
+  ExternalLink,
+  Maximize2,
+  Minimize2,
+  Music,
+  Pause,
+  Play,
+  SkipBack,
+  SkipForward,
+  X,
+} from 'lucide-vue-next'
 import { computed, onBeforeUnmount, ref } from 'vue'
 import { usePlayerControls } from '@/composables/player'
 import { onImgError } from '@/utils/helpers'
@@ -166,8 +243,12 @@ const posY = ref(typeof window !== 'undefined' ? window.innerHeight - 220 : 500)
 const offsetX = ref(0)
 const offsetY = ref(0)
 
-const styleWidth = computed(() => props.isPiP ? '100vw' : (mode.value === 'mini' ? '72px' : '292px'))
-const styleHeight = computed(() => props.isPiP ? '100vh' : (mode.value === 'mini' ? '72px' : 'auto'))
+const styleWidth = computed(() =>
+  props.isPiP ? '100vw' : mode.value === 'mini' ? '72px' : '292px',
+)
+const styleHeight = computed(() =>
+  props.isPiP ? '100vh' : mode.value === 'mini' ? '72px' : 'auto',
+)
 
 function onPointerDown(e: MouseEvent | TouchEvent) {
   if (props.isPiP) return
@@ -195,8 +276,10 @@ function onPointerMove(e: MouseEvent | TouchEvent) {
   if (dragRAF !== null) return
   dragRAF = requestAnimationFrame(() => {
     dragRAF = null
-    const clientX = 'touches' in e ? (e as TouchEvent).touches[0]!.clientX : (e as MouseEvent).clientX
-    const clientY = 'touches' in e ? (e as TouchEvent).touches[0]!.clientY : (e as MouseEvent).clientY
+    const clientX =
+      'touches' in e ? (e as TouchEvent).touches[0]!.clientX : (e as MouseEvent).clientX
+    const clientY =
+      'touches' in e ? (e as TouchEvent).touches[0]!.clientY : (e as MouseEvent).clientY
     const dx = clientX - dragStartX
     const dy = clientY - dragStartY
     if (floatingEl.value) {
@@ -273,10 +356,18 @@ function seekTo(seconds: number) {
   pc.seek(Math.max(0, Math.min(seconds, totalDuration)))
 }
 
-function close() { emit('update:visible', false) }
-function openFullscreen() { emit('open-fullscreen') }
-function onTogglePiP() { emit('toggle-pip') }
-function onVolume(val: number | number[]) { pc.setVolume(typeof val === 'number' ? val : val[0] ?? 0) }
+function close() {
+  emit('update:visible', false)
+}
+function openFullscreen() {
+  emit('open-fullscreen')
+}
+function onTogglePiP() {
+  emit('toggle-pip')
+}
+function onVolume(val: number | number[]) {
+  pc.setVolume(typeof val === 'number' ? val : (val[0] ?? 0))
+}
 
 onBeforeUnmount(() => {
   if (dragRAF !== null) cancelAnimationFrame(dragRAF)
@@ -420,12 +511,25 @@ onBeforeUnmount(() => {
   border-radius: 1px;
   animation: eq 0.6s infinite alternate ease-in-out;
 }
-.popout-equalizer span:nth-child(1) { height: 6px; animation-delay: 0s; }
-.popout-equalizer span:nth-child(2) { height: 10px; animation-delay: 0.2s; }
-.popout-equalizer span:nth-child(3) { height: 8px; animation-delay: 0.4s; }
+.popout-equalizer span:nth-child(1) {
+  height: 6px;
+  animation-delay: 0s;
+}
+.popout-equalizer span:nth-child(2) {
+  height: 10px;
+  animation-delay: 0.2s;
+}
+.popout-equalizer span:nth-child(3) {
+  height: 8px;
+  animation-delay: 0.4s;
+}
 @keyframes eq {
-  0% { transform: scaleY(0.4); }
-  100% { transform: scaleY(1); }
+  0% {
+    transform: scaleY(0.4);
+  }
+  100% {
+    transform: scaleY(1);
+  }
 }
 
 /* EXPANDED */

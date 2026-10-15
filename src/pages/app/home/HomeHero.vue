@@ -1,13 +1,15 @@
 <template>
-  <section
-    class="relative mb-10 overflow-hidden rounded-2xl"
-    role="region"
-    aria-label="Home hero"
-  >
-    <div class="absolute inset-0 bg-linear-to-br from-aurora-purple/20 via-black/60 to-aurora-blue/10" />
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-spotify/10 via-transparent to-transparent" />
+  <section class="relative mb-10 overflow-hidden rounded-2xl" role="region" aria-label="Home hero">
+    <div
+      class="from-aurora-purple/20 to-aurora-blue/10 absolute inset-0 bg-linear-to-br via-black/60"
+    />
+    <div
+      class="from-spotify/10 absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] via-transparent to-transparent"
+    />
 
-    <div class="relative z-10 flex flex-col gap-6 px-6 py-10 md:flex-row md:items-center md:justify-between md:px-10 md:py-14">
+    <div
+      class="relative z-10 flex flex-col gap-6 px-6 py-10 md:flex-row md:items-center md:justify-between md:px-10 md:py-14"
+    >
       <div class="max-w-xl space-y-4">
         <p class="text-[10px] font-bold tracking-[0.3em] text-white/40 uppercase">
           {{ periodLabel }}
@@ -21,18 +23,45 @@
         <div class="flex flex-wrap gap-3 pt-2">
           <button
             type="button"
-            class="inline-flex h-11 cursor-pointer items-center gap-2 rounded-full bg-spotify px-7 text-sm font-bold text-black transition hover:bg-spotify-hover hover:scale-105 active:scale-95 focus-visible:ring-2 focus-visible:ring-spotify focus-visible:ring-offset-2 focus-visible:outline-hidden"
+            class="bg-spotify hover:bg-spotify-hover focus-visible:ring-spotify inline-flex h-11 cursor-pointer items-center gap-2 rounded-full px-7 text-sm font-bold text-black transition hover:scale-105 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden active:scale-95"
             @click="$emit('explore')"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="h-4 w-4"
+            >
+              <polygon points="5 3 19 12 5 21 5 3" />
+            </svg>
             Explore Music
           </button>
           <button
             type="button"
-            class="inline-flex h-11 cursor-pointer items-center gap-2 rounded-full border border-white/15 bg-white/4 px-6 text-sm font-medium text-white/80 backdrop-blur-xs transition hover:bg-white/10 hover:text-white active:scale-95 focus-visible:ring-2 focus-visible:ring-spotify focus-visible:ring-offset-2 focus-visible:outline-hidden"
+            class="focus-visible:ring-spotify inline-flex h-11 cursor-pointer items-center gap-2 rounded-full border border-white/15 bg-white/4 px-6 text-sm font-medium text-white/80 backdrop-blur-xs transition hover:bg-white/10 hover:text-white focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden active:scale-95"
             @click="$emit('discover')"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" fill="currentColor" stroke="none"/></svg>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="h-4 w-4"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <polygon
+                points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"
+                fill="currentColor"
+                stroke="none"
+              />
+            </svg>
             Discover
           </button>
         </div>
@@ -44,10 +73,23 @@
             :src="artSrc"
             alt=""
             class="h-40 w-40 rounded-2xl object-cover shadow-2xl ring-1 ring-white/10 md:h-48 md:w-48"
-            style="transform: rotate(3deg);"
+            style="transform: rotate(3deg)"
           />
-          <div class="absolute -bottom-3 -right-3 flex h-10 w-10 items-center justify-center rounded-full bg-spotify text-black shadow-lg">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          <div
+            class="bg-spotify absolute -right-3 -bottom-3 flex h-10 w-10 items-center justify-center rounded-full text-black shadow-lg"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="h-5 w-5"
+            >
+              <polygon points="5 3 19 12 5 21 5 3" />
+            </svg>
           </div>
         </div>
       </div>

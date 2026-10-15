@@ -8,7 +8,7 @@
         <p class="mt-1 text-xs font-medium text-white/40">{{ label }}</p>
       </div>
       <div
-        class="flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 text-white/40 transition group-hover:bg-spotify/10 group-hover:text-spotify"
+        class="group-hover:bg-spotify/10 group-hover:text-spotify flex h-10 w-10 items-center justify-center rounded-xl bg-white/5 text-white/40 transition"
       >
         <i aria-hidden="true" :class="icon" />
       </div>
@@ -18,7 +18,7 @@
       class="mt-3 flex items-center gap-1 text-xs"
       :class="change >= 0 ? 'text-green-400' : 'text-red-400'"
     >
-      <component :is="change >= 0 ? ArrowUp : ArrowDown"<i aria-hidden="true"  class="text-[10px]" /> />
+      <component :is="change >= 0 ? ArrowUp : ArrowDown" aria-hidden="true" class="text-[10px]" />
       <span>{{ Math.abs(change) }}% vs last period</span>
     </div>
   </div>

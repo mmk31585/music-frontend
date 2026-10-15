@@ -9,7 +9,9 @@ vi.mock('vue-router', () => ({
   useRouter: () => ({
     push: mockRouterPush,
   }),
-  useRoute: () => ({}),
+  useRoute: () => ({
+    query: {},
+  }),
 }))
 
 vi.mock('primevue/usetoast', () => ({
@@ -18,15 +20,23 @@ vi.mock('primevue/usetoast', () => ({
   }),
 }))
 
-vi.mock('@/services/api/auth', () => ({
-  useAuthApi: () => ({
-    register: vi.fn().mockResolvedValue({
-      access_token: 'access-123',
-      refresh_token: 'refresh-456',
-      user: { id: 'user-1', email: 'test@example.com', username: 'testuser', display_name: 'Test User' },
+vi.mock('@/services/api/auth', () => {
+  const registerMock = vi.fn().mockResolvedValue({
+    access_token: 'access-123',
+    refresh_token: 'refresh-456',
+    user: {
+      id: 'user-1',
+      email: 'test@example.com',
+      username: 'testuser',
+      display_name: 'Test User',
+    },
+  })
+  return {
+    useAuthApi: () => ({
+      register: registerMock,
     }),
-  }),
-}))
+  }
+})
 
 vi.mock('@/services/storage', () => ({
   safeLocalStorage: {
@@ -74,9 +84,7 @@ describe('useAuth', () => {
 
     const auth = useAuth()
     await expect(auth.login('test@example.com', 'wrong')).rejects.toThrow('Invalid credentials')
-    expect(mockToastAdd).toHaveBeenCalledWith(
-      expect.objectContaining({ severity: 'error' }),
-    )
+    expect(mockToastAdd).toHaveBeenCalledWith(expect.objectContaining({ severity: 'error' }))
   })
 
   it('register creates account and navigates to onboarding', async () => {
@@ -93,9 +101,7 @@ describe('useAuth', () => {
 
     expect(store.setSession).toHaveBeenCalled()
     expect(mockRouterPush).toHaveBeenCalledWith({ name: 'onboarding.genres' })
-    expect(mockToastAdd).toHaveBeenCalledWith(
-      expect.objectContaining({ severity: 'success' }),
-    )
+    expect(mockToastAdd).toHaveBeenCalledWith(expect.objectContaining({ severity: 'success' }))
   })
 
   it('register shows error toast on failure', async () => {
@@ -118,9 +124,7 @@ describe('useAuth', () => {
     ).rejects.toThrow('Email already exists')
 
     expect(store.setSession).not.toHaveBeenCalled()
-    expect(mockToastAdd).toHaveBeenCalledWith(
-      expect.objectContaining({ severity: 'error' }),
-    )
+    expect(mockToastAdd).toHaveBeenCalledWith(expect.objectContaining({ severity: 'error' }))
   })
 
   it('logout navigates to login page', async () => {

@@ -1,7 +1,7 @@
 <template>
   <div class="relative overflow-hidden rounded-2xl">
     <div
-      class="absolute inset-0 bg-linear-to-b from-spotify/20 via-surface-raised/60 to-surface-raised"
+      class="from-spotify/20 via-surface-raised/60 to-surface-raised absolute inset-0 bg-linear-to-b"
     />
     <div class="absolute inset-0 bg-linear-to-t from-black/60 via-transparent to-transparent" />
 
@@ -21,9 +21,9 @@
         />
         <div
           v-else
-          class="flex h-full w-full items-center justify-center bg-linear-to-br from-spotify/30 to-surface-raised text-5xl text-white/40"
+          class="from-spotify/30 to-surface-raised flex h-full w-full items-center justify-center bg-linear-to-br text-5xl text-white/40"
         >
-          <User aria-hidden="true" class=""  />
+          <User aria-hidden="true" class="" />
         </div>
       </div>
 
@@ -32,8 +32,8 @@
           v-if="artist?.is_verified"
           class="mb-2 flex items-center justify-center gap-1.5 md:justify-start"
         >
-          <BadgeCheck aria-hidden="true" class="text-sm text-spotify"  />
-          <span class="text-xs font-medium text-spotify">Verified Artist</span>
+          <BadgeCheck aria-hidden="true" class="text-spotify text-sm" />
+          <span class="text-spotify text-xs font-medium">Verified Artist</span>
         </div>
 
         <h1 class="text-4xl leading-tight font-black text-white md:text-6xl">
@@ -52,10 +52,10 @@
         <div class="mt-6 flex flex-wrap items-center justify-center gap-3 md:justify-start">
           <button
             type="button"
-            class="inline-flex items-center gap-2 rounded-full bg-spotify px-8 py-3 text-sm font-bold text-black transition hover:scale-105 hover:bg-spotify-hover"
+            class="bg-spotify hover:bg-spotify-hover inline-flex items-center gap-2 rounded-full px-8 py-3 text-sm font-bold text-black transition hover:scale-105"
             @click="$emit('playAll')"
           >
-            <Play aria-hidden="true" class=""  />
+            <Play aria-hidden="true" class="" />
             Play
           </button>
 
@@ -64,7 +64,7 @@
             class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-8 py-3 text-sm font-bold text-white backdrop-blur-xs transition hover:bg-white/15"
             @click="$emit('shuffle')"
           >
-            <Shuffle aria-hidden="true" class=""  />
+            <Shuffle aria-hidden="true" class="" />
             Shuffle
           </button>
 
@@ -73,12 +73,12 @@
             :class="[
               'inline-flex items-center gap-2 rounded-full px-6 py-3 text-sm font-bold transition',
               isFollowing
-                ? 'border border-spotify/50 bg-spotify/10 text-spotify hover:bg-spotify/20'
+                ? 'border-spotify/50 bg-spotify/10 text-spotify hover:bg-spotify/20 border'
                 : 'border border-white/15 bg-white/10 text-white hover:bg-white/15',
             ]"
             @click="$emit('toggleFollow')"
           >
-            <component :is="isFollowing ? Check : Plus"<i aria-hidden="true"  class="text-xs" /> />
+            <component :is="isFollowing ? Check : Plus" aria-hidden="true" class="text-xs" />
             {{ isFollowing ? 'Following' : 'Follow' }}
           </button>
         </div>

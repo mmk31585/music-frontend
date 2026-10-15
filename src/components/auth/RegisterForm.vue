@@ -1,23 +1,31 @@
 <template>
   <div
-    class="auth-card w-full animate-reveal rounded-2xl border border-white/6 bg-black/40 p-8 shadow-2xl backdrop-blur-xl"
+    class="auth-card animate-reveal w-full rounded-2xl border border-white/6 bg-black/40 p-8 shadow-2xl backdrop-blur-xl"
   >
     <div class="mb-8 text-center">
-      <div class="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-aurora-purple/10">
-        <Sparkles aria-hidden="true" class="text-2xl text-aurora-purple" />
+      <div
+        class="bg-aurora-purple/10 mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-xl"
+      >
+        <Sparkles aria-hidden="true" class="text-aurora-purple text-2xl" />
       </div>
-      <h1 class="font-display text-2xl font-bold text-white tracking-tight">Join Muse</h1>
+      <h1 class="font-display text-2xl font-bold tracking-tight text-white">Join Muse</h1>
       <p class="mt-1.5 text-sm text-white/40">Create your account and start discovering</p>
     </div>
 
     <form class="space-y-4" @submit.prevent="onSubmit">
       <!-- Display name -->
       <div class="group">
-        <label for="register-display-name" class="mb-1.5 block text-sm font-medium text-white/60 group-focus-within:text-spotify transition-colors duration-200">
+        <label
+          for="register-display-name"
+          class="group-focus-within:text-spotify mb-1.5 block text-sm font-medium text-white/60 transition-colors duration-200"
+        >
           Display name
         </label>
         <span class="relative block">
-          <User aria-hidden="true" class="absolute top-1/2 left-3 -translate-y-1/2 text-sm text-white/30" />
+          <User
+            aria-hidden="true"
+            class="absolute top-1/2 left-3 -translate-y-1/2 text-sm text-white/30"
+          />
           <InputText
             id="register-display-name"
             v-model.trim="form.displayName"
@@ -43,11 +51,17 @@
 
       <!-- Username -->
       <div class="group">
-        <label for="register-username" class="mb-1.5 block text-sm font-medium text-white/60 group-focus-within:text-spotify transition-colors duration-200">
+        <label
+          for="register-username"
+          class="group-focus-within:text-spotify mb-1.5 block text-sm font-medium text-white/60 transition-colors duration-200"
+        >
           Username
         </label>
         <span class="relative block">
-          <AtSign aria-hidden="true" class="absolute top-1/2 left-3 -translate-y-1/2 text-sm text-white/30" />
+          <AtSign
+            aria-hidden="true"
+            class="absolute top-1/2 left-3 -translate-y-1/2 text-sm text-white/30"
+          />
           <InputText
             id="register-username"
             v-model.trim="form.username"
@@ -73,11 +87,17 @@
 
       <!-- Email -->
       <div class="group">
-        <label for="register-email" class="mb-1.5 block text-sm font-medium text-white/60 group-focus-within:text-spotify transition-colors duration-200">
+        <label
+          for="register-email"
+          class="group-focus-within:text-spotify mb-1.5 block text-sm font-medium text-white/60 transition-colors duration-200"
+        >
           Email
         </label>
         <span class="relative block">
-          <Mail aria-hidden="true" class="absolute top-1/2 left-3 -translate-y-1/2 text-sm text-white/30" />
+          <Mail
+            aria-hidden="true"
+            class="absolute top-1/2 left-3 -translate-y-1/2 text-sm text-white/30"
+          />
           <InputText
             id="register-email"
             v-model.trim="form.email"
@@ -104,11 +124,17 @@
 
       <!-- Password -->
       <div class="group">
-        <label for="register-password" class="mb-1.5 block text-sm font-medium text-white/60 group-focus-within:text-spotify transition-colors duration-200">
+        <label
+          for="register-password"
+          class="group-focus-within:text-spotify mb-1.5 block text-sm font-medium text-white/60 transition-colors duration-200"
+        >
           Password
         </label>
         <span class="relative block">
-          <Lock aria-hidden="true" class="absolute top-1/2 left-3 -translate-y-1/2 text-sm text-white/30 z-10" />
+          <Lock
+            aria-hidden="true"
+            class="absolute top-1/2 left-3 z-10 -translate-y-1/2 text-sm text-white/30"
+          />
           <Password
             id="register-password"
             v-model="form.password"
@@ -155,13 +181,16 @@
         icon-pos="right"
         :loading="loading"
         :disabled="loading"
-        class="auth-btn w-full border-0 bg-spotify text-black font-semibold hover:bg-spotify-hover transition-all duration-200 mt-6"
+        class="auth-btn bg-spotify hover:bg-spotify-hover mt-6 w-full border-0 font-semibold text-black transition-all duration-200"
       />
 
       <!-- Switch to login -->
       <p class="text-center text-sm text-white/40">
         Already have an account?
-        <RouterLink to="/auth/login" class="font-medium text-spotify transition-colors duration-200 hover:text-spotify-hover">
+        <RouterLink
+          to="/auth/login"
+          class="text-spotify hover:text-spotify-hover font-medium transition-colors duration-200"
+        >
           Log in
         </RouterLink>
       </p>

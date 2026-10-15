@@ -39,8 +39,8 @@
     <div class="relative z-10 flex h-full items-center px-6 md:px-10">
       <div class="flex w-full items-center justify-between">
         <div
-          class="max-w-lg rounded-2xl border border-white/10 bg-black/30 px-8 py-8 backdrop-blur-xl shadow-2xl"
-          style="backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);"
+          class="max-w-lg rounded-2xl border border-white/10 bg-black/30 px-8 py-8 shadow-2xl backdrop-blur-xl"
+          style="backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px)"
           :style="{
             opacity: slideVisible ? 1 : 0,
             transform: slideVisible ? 'translateY(0)' : 'translateY(12px)',
@@ -53,7 +53,10 @@
           >
             {{ currentItem.badge }}
           </span>
-          <h2 class="font-hero text-4xl font-black leading-tight text-white md:text-5xl lg:text-6xl" style="letter-spacing: -0.03em">
+          <h2
+            class="font-hero text-4xl leading-tight font-black text-white md:text-5xl lg:text-6xl"
+            style="letter-spacing: -0.03em"
+          >
             {{ currentItem.title }}
           </h2>
           <p class="mt-3 text-lg text-white/60 md:text-xl">
@@ -62,19 +65,19 @@
           <div class="mt-5 flex flex-wrap gap-3">
             <button
               type="button"
-              class="glow-green inline-flex h-12 cursor-pointer items-center gap-2 rounded-full bg-spotify px-8 text-base font-bold text-black transition-all hover:bg-spotify-hover hover:scale-105 active:scale-95 focus-visible:ring-2 focus-visible:ring-spotify focus-visible:ring-offset-2 focus-visible:outline-hidden"
+              class="glow-green bg-spotify hover:bg-spotify-hover focus-visible:ring-spotify inline-flex h-12 cursor-pointer items-center gap-2 rounded-full px-8 text-base font-bold text-black transition-all hover:scale-105 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden active:scale-95"
               :aria-label="'پخش ' + currentItem.title"
               @click="$emit('play', currentItem)"
             >
-              <Play aria-hidden="true" class="text-sm"  />
+              <Play aria-hidden="true" class="text-sm" />
               پخش
             </button>
             <button
               type="button"
-              class="inline-flex h-12 cursor-pointer items-center gap-2 rounded-full border border-white/15 bg-white/4 px-6 text-base font-medium text-white backdrop-blur-xs transition-all hover:bg-white/10 active:scale-95 focus-visible:ring-2 focus-visible:ring-spotify focus-visible:ring-offset-2 focus-visible:outline-hidden"
+              class="focus-visible:ring-spotify inline-flex h-12 cursor-pointer items-center gap-2 rounded-full border border-white/15 bg-white/4 px-6 text-base font-medium text-white backdrop-blur-xs transition-all hover:bg-white/10 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden active:scale-95"
               @click="$emit('add-to-library', currentItem)"
             >
-              <Plus aria-hidden="true" class="text-sm"  />
+              <Plus aria-hidden="true" class="text-sm" />
               افزودن به کتابخانه
             </button>
           </div>
@@ -105,7 +108,7 @@
       aria-label="اسلاید قبلی"
       @click="prev"
     >
-      <ChevronRight aria-hidden="true" class="text-sm"  />
+      <ChevronRight aria-hidden="true" class="text-sm" />
     </button>
     <button
       type="button"
@@ -114,7 +117,7 @@
       aria-label="اسلاید بعدی"
       @click="next"
     >
-      <ChevronLeft aria-hidden="true" class="text-sm"  />
+      <ChevronLeft aria-hidden="true" class="text-sm" />
     </button>
 
     <!-- Indicators -->
@@ -124,9 +127,7 @@
         :key="i"
         type="button"
         class="cursor-pointer rounded-full transition-all"
-        :class="i === activeIndex
-          ? 'w-6 bg-white'
-          : 'w-2 bg-white/30'"
+        :class="i === activeIndex ? 'w-6 bg-white' : 'w-2 bg-white/30'"
         :style="{ height: '8px', transition: 'width 300ms cubic-bezier(0.19, 1, 0.22, 1)' }"
         :aria-label="'برو به اسلاید ' + (i + 1)"
         @click="goTo(i)"
@@ -140,7 +141,7 @@
       :aria-label="autoRotating ? 'توقف چرخش خودکار' : 'شروع چرخش خودکار'"
       @click="toggleAutoRotate"
     >
-      <component :is="autoRotating ? Pause : Play"<i aria-hidden="true"  class="text-xs" /> />
+      <component :is="autoRotating ? Pause : Play" aria-hidden="true" class="text-xs" />
     </button>
   </section>
 </template>
@@ -160,12 +161,15 @@ export interface HeroItem {
   videoSrc?: string
 }
 
-const props = withDefaults(defineProps<{
-  items: HeroItem[]
-  interval?: number
-}>(), {
-  interval: 8000,
-})
+const props = withDefaults(
+  defineProps<{
+    items: HeroItem[]
+    interval?: number
+  }>(),
+  {
+    interval: 8000,
+  },
+)
 
 defineEmits<{
   play: [item: HeroItem]
@@ -191,9 +195,7 @@ const heroHeight = computed(() => {
 
 const badgeClass = computed(() => {
   const v = currentItem.value.badgeVariant || 'green'
-  return v === 'purple'
-    ? 'bg-aurora-purple/20 text-aurora-purple'
-    : 'bg-spotify/20 text-spotify'
+  return v === 'purple' ? 'bg-aurora-purple/20 text-aurora-purple' : 'bg-spotify/20 text-spotify'
 })
 
 function startTimer() {

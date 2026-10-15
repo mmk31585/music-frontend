@@ -10,12 +10,12 @@
 
     <!-- Not a creator -->
     <div v-else-if="!isCreator" class="flex flex-col items-center gap-4 py-24 text-center">
-      <Megaphone aria-hidden="true" class="text-4xl text-slate-500"  />
+      <Megaphone aria-hidden="true" class="text-4xl text-slate-500" />
       <h2 class="text-xl font-bold text-white">Creator Studio</h2>
       <p class="max-w-md text-sm text-slate-400">
         Upload tracks and build your audience to unlock creator analytics.
       </p>
-      <RouterLink to="/" class="text-sm font-medium text-spotify underline underline-offset-2"
+      <RouterLink to="/" class="text-spotify text-sm font-medium underline underline-offset-2"
         >Browse music</RouterLink
       >
     </div>
@@ -25,13 +25,13 @@
       <!-- Header -->
       <div class="relative mb-8 overflow-hidden rounded-2xl p-8 md:p-10">
         <div
-          class="absolute inset-0 bg-linear-to-br from-spotify/8 via-transparent to-transparent"
+          class="from-spotify/8 absolute inset-0 bg-linear-to-br via-transparent to-transparent"
         />
         <div
           class="relative z-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between"
         >
           <div>
-            <p class="text-xs font-bold tracking-[0.25em] text-spotify uppercase">Studio</p>
+            <p class="text-spotify text-xs font-bold tracking-[0.25em] uppercase">Studio</p>
             <h1 class="mt-2 text-3xl font-black text-white md:text-4xl">Creator Studio</h1>
             <p class="mt-1 text-sm text-white/40">
               Analytics, earnings, audience, and content management
@@ -40,9 +40,9 @@
           <div class="flex items-center gap-3">
             <RouterLink
               to="/admin/media"
-              class="inline-flex items-center gap-2 rounded-full bg-spotify px-6 py-2.5 text-sm font-bold text-black transition hover:scale-105 hover:bg-spotify-hover"
+              class="bg-spotify hover:bg-spotify-hover inline-flex items-center gap-2 rounded-full px-6 py-2.5 text-sm font-bold text-black transition hover:scale-105"
             >
-              <Upload aria-hidden="true" class="text-xs"  /> Upload
+              <Upload aria-hidden="true" class="text-xs" /> Upload
             </RouterLink>
             <button
               type="button"
@@ -50,7 +50,11 @@
               @click="refreshStats"
               class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/4 px-5 py-2.5 text-sm font-medium text-white backdrop-blur-xs transition hover:bg-white/10 disabled:opacity-50"
             >
-              <component :is="refreshing ? Loader2 : RefreshCw"<i aria-hidden="true"  /> :class="refreshing ? 'animate-spin' : ''" />
+              <component
+                :is="refreshing ? Loader2 : RefreshCw"
+                aria-hidden="true"
+                :class="refreshing ? 'animate-spin' : ''"
+              />
               {{ refreshing ? 'RefreshCwing...' : 'RefreshCw' }}
             </button>
           </div>
@@ -102,7 +106,7 @@
               v-if="dailyStats.length === 0"
               class="flex flex-col items-center gap-3 py-16 text-center"
             >
-              <Inbox aria-hidden="true" class="text-4xl text-slate-500"  />
+              <Inbox aria-hidden="true" class="text-4xl text-slate-500" />
               <p class="text-sm text-slate-400">No daily data yet</p>
             </div>
             <div v-else class="space-y-2">
@@ -111,10 +115,12 @@
                 :key="String(day.id)"
                 class="flex items-center gap-3"
               >
-                <span class="w-24 shrink-0 text-xs text-slate-400">{{ formatDate(String(day.date)) }}</span>
+                <span class="w-24 shrink-0 text-xs text-slate-400">{{
+                  formatDate(String(day.date))
+                }}</span>
                 <div class="h-6 flex-1 overflow-hidden rounded-full bg-white/6">
                   <div
-                    class="h-full rounded-full bg-linear-to-r from-spotify to-spotify-hover transition-all duration-500"
+                    class="from-spotify to-spotify-hover h-full rounded-full bg-linear-to-r transition-all duration-500"
                     :style="{ width: barWidth(Number(day.plays)) + '%' }"
                   />
                 </div>
@@ -130,7 +136,7 @@
         <section>
           <h3 class="mb-3 text-lg font-bold text-white">Top Tracks</h3>
           <div v-if="!trackStats.length" class="flex flex-col items-center gap-3 py-16 text-center">
-            <Inbox aria-hidden="true" class="text-4xl text-slate-500"  />
+            <Inbox aria-hidden="true" class="text-4xl text-slate-500" />
             <p class="text-sm text-slate-400">No track stats yet</p>
           </div>
           <div v-else class="space-y-2">
@@ -231,8 +237,11 @@
 
         <section>
           <h3 class="mb-3 text-lg font-bold text-white">Payout History</h3>
-          <div v-if="payouts.length === 0" class="flex flex-col items-center gap-3 py-16 text-center">
-            <Inbox class="text-4xl text-slate-500"<i aria-hidden="true"  /> />
+          <div
+            v-if="payouts.length === 0"
+            class="flex flex-col items-center gap-3 py-16 text-center"
+          >
+            <Inbox class="text-4xl text-slate-500" aria-hidden="true" />
             <p class="text-sm text-slate-400">No payouts yet</p>
           </div>
           <div v-else class="space-y-2">
@@ -247,14 +256,7 @@
                   {{ p.method }} · {{ formatDate(p.created_at) }}
                 </p>
               </div>
-              <span
-                class="rounded-full px-2.5 py-0.5 text-[10px] font-medium tracking-wider uppercase"
-                :class="
-                  p.status === 'paid'
-                    ? 'bg-green-500/10 text-green-400'
-                    : 'bg-amber-500/10 text-amber-400'
-                "
-              >
+              <span class="rounded-full px-2.5 py-0.5 text-[10px] font-medium tracking-wider uppercase" :class="p.status === 'paid' ? 'bg-green-500/10 text-green-400' : 'bg-amber-500/10 text-amber-400'">
                 {{ p.status }}
               </span>
             </div>
@@ -287,7 +289,7 @@
             v-if="audience.top_listeners?.length === 0"
             class="flex flex-col items-center gap-3 py-16 text-center"
           >
-            <Inbox aria-hidden="true" class="text-4xl text-slate-500"  />
+            <Inbox aria-hidden="true" class="text-4xl text-slate-500" />
             <p class="text-sm text-slate-400">No listener data yet</p>
           </div>
           <div v-else class="space-y-2">
@@ -326,7 +328,7 @@
             v-if="audience.geographics?.length === 0"
             class="flex flex-col items-center gap-3 py-16 text-center"
           >
-            <Inbox aria-hidden="true" class="text-4xl text-slate-500"  />
+            <Inbox aria-hidden="true" class="text-4xl text-slate-500" />
             <p class="text-sm text-slate-400">No geo data yet</p>
           </div>
           <div v-else class="space-y-2">
@@ -352,8 +354,11 @@
           <h3 class="mb-3 text-lg font-bold text-white">
             Tracks ({{ contentData.tracks?.length || 0 }})
           </h3>
-          <div v-if="!contentData.tracks?.length" class="flex flex-col items-center gap-3 py-16 text-center">
-            <Inbox aria-hidden="true" class="text-4xl text-slate-500"  />
+          <div
+            v-if="!contentData.tracks?.length"
+            class="flex flex-col items-center gap-3 py-16 text-center"
+          >
+            <Inbox aria-hidden="true" class="text-4xl text-slate-500" />
             <p class="text-sm text-slate-400">No tracks uploaded yet</p>
           </div>
           <div v-else class="space-y-2">
@@ -368,7 +373,7 @@
               </div>
               <button
                 class="rounded-lg bg-white/5 px-3 py-1.5 text-xs text-white/40 transition hover:bg-white/10 hover:text-white"
-                @click="editTrack = track; showTrackModal = true"
+                @click="openEditTrackModal(track)"
               >
                 Edit
               </button>
@@ -380,8 +385,11 @@
           <h3 class="mb-3 text-lg font-bold text-white">
             Albums ({{ contentData.albums?.length || 0 }})
           </h3>
-          <div v-if="!contentData.albums?.length" class="flex flex-col items-center gap-3 py-16 text-center">
-            <Inbox aria-hidden="true" class="text-4xl text-slate-500"  />
+          <div
+            v-if="!contentData.albums?.length"
+            class="flex flex-col items-center gap-3 py-16 text-center"
+          >
+            <Inbox aria-hidden="true" class="text-4xl text-slate-500" />
             <p class="text-sm text-slate-400">No albums yet</p>
           </div>
           <div v-else class="grid grid-cols-2 gap-4 md:grid-cols-4">
@@ -399,7 +407,7 @@
                   @error="onImgError"
                 />
                 <div v-else class="flex h-full items-center justify-center text-white/20">
-                  <Disc3 aria-hidden="true" class="text-2xl"  />
+                  <Disc3 aria-hidden="true" class="text-2xl" />
                 </div>
               </div>
               <p class="truncate text-sm font-medium text-white">{{ album.title }}</p>
@@ -451,7 +459,7 @@
               <input
                 v-model="editForm.explicit"
                 type="checkbox"
-                class="h-5 w-5 rounded border-white/10 bg-white/5 accent-accent"
+                class="accent-accent h-5 w-5 rounded border-white/10 bg-white/5"
               />
               <span class="text-sm text-white/60">Explicit</span>
             </label>
@@ -464,7 +472,7 @@
               Cancel
             </button>
             <button
-              class="flex-1 rounded-xl bg-spotify py-3 text-sm font-bold text-black hover:bg-spotify/90"
+              class="bg-spotify hover:bg-spotify/90 flex-1 rounded-xl py-3 text-sm font-bold text-black"
               @click="saveTrack"
             >
               Save
@@ -629,13 +637,20 @@ async function refreshStats() {
 }
 
 function playTrack(track: Record<string, unknown>) {
-  player.playTrack(buildPlaybackTrack({
-    id: String(track.track_id ?? ''),
-    title: String(track.title ?? ''),
-    artist_name: String(track.artist_name || 'Unknown'),
-    cover_url: String(track.cover_url ?? ''),
-    duration_seconds: Number(track.duration ?? 0),
-  }))
+  player.playTrack(
+    buildPlaybackTrack({
+      id: String(track.track_id ?? ''),
+      title: String(track.title ?? ''),
+      artist_name: String(track.artist_name || 'Unknown'),
+      cover_url: String(track.cover_url ?? ''),
+      duration_seconds: Number(track.duration ?? 0),
+    }),
+  )
+}
+
+function openEditTrackModal(track: TrackStats) {
+  editTrack.value = track
+  showTrackModal.value = true
 }
 
 async function saveTrack() {
@@ -713,7 +728,5 @@ function openContextMenu(e: MouseEvent, track: TrackStats) {
   menuVisible.value = true
 }
 
-const { sections, header, accentColor } = useTrackContextMenu(
-  computed(() => contextTrack.value),
-)
+const { sections, header, accentColor } = useTrackContextMenu(computed(() => contextTrack.value))
 </script>

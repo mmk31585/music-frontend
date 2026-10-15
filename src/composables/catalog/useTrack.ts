@@ -1,8 +1,5 @@
 import { ref, computed } from 'vue'
-import {
-  useTracksApi,
-  type Track,
-} from '@/services/api/catalog/tracks'
+import { useTracksApi, type Track } from '@/services/api/catalog/tracks'
 import { useRecommendationsApi, type RecommendationTrack } from '@/services/api/recommendation'
 import { useLibraryApi } from '@/services/api/library'
 import { useLyricsApi, type Lyrics } from '@/services/api/lyrics'
@@ -16,8 +13,19 @@ export function useTrack(id: string | number) {
   const track = ref<Track | null>(null)
   const similarTracks = ref<RecommendationTrack[]>([])
   const lyrics = ref<Lyrics | null>(null)
-  interface TrackArtist { id: string | number; role?: string; name: string; artistId?: string | number }
-  interface TrackCredit { id: string | number; role?: string; name?: string; artistName?: string; creditType?: string }
+  interface TrackArtist {
+    id: string | number
+    role?: string
+    name: string
+    artistId?: string | number
+  }
+  interface TrackCredit {
+    id: string | number
+    role?: string
+    name?: string
+    artistName?: string
+    creditType?: string
+  }
   const trackArtists = ref<TrackArtist[]>([])
   const trackCredits = ref<TrackCredit[]>([])
   const isLiked = ref(false)
@@ -33,7 +41,9 @@ export function useTrack(id: string | number) {
   })
 
   const featuredArtists = computed(() => {
-    return trackArtists.value.filter((a: TrackArtist) => a.role && !['main', 'primary'].includes(a.role))
+    return trackArtists.value.filter(
+      (a: TrackArtist) => a.role && !['main', 'primary'].includes(a.role),
+    )
   })
 
   const genreList = computed(() => {

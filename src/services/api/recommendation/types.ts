@@ -50,7 +50,9 @@ export const DiscoverWeeklyPlaylistMetaSchema = z.object({
 export type DiscoverWeeklyPlaylistMeta = z.infer<typeof DiscoverWeeklyPlaylistMetaSchema>
 
 export const DiscoverWeeklyResponseSchema = z.object({
-  playlist: DiscoverWeeklyPlaylistMetaSchema.optional().nullable().default({ generated_at: null, week_of: null, track_count: 0 }),
+  playlist: DiscoverWeeklyPlaylistMetaSchema.optional()
+    .nullable()
+    .default({ generated_at: null, week_of: null, track_count: 0 }),
   tracks: z.array(RecommendationTrackSchema).catch([]),
 })
 

@@ -2,7 +2,7 @@
   <div class="mx-auto w-full max-w-3xl px-4 pt-6 pb-32 md:px-6 lg:px-8">
     <div class="mb-6 flex items-center justify-between">
       <div>
-        <p class="text-xs font-bold tracking-[0.25em] text-spotify uppercase">Updates</p>
+        <p class="text-spotify text-xs font-bold tracking-[0.25em] uppercase">Updates</p>
         <h1 class="mt-1 text-3xl font-black text-white">Notifications</h1>
       </div>
       <button
@@ -60,7 +60,7 @@
       role="status"
     >
       <div class="flex h-16 w-16 items-center justify-center rounded-full bg-white/10">
-        <Bell aria-hidden="true" class="text-2xl text-slate-400"  />
+        <Bell aria-hidden="true" class="text-2xl text-slate-400" />
       </div>
       <h3 class="text-xl font-bold text-white">All caught up!</h3>
       <p class="max-w-sm text-sm text-slate-400">
@@ -72,7 +72,7 @@
       v-if="error"
       class="flex flex-col items-center gap-4 rounded-2xl border border-red-500/20 bg-red-500/5 px-6 py-16 text-center"
     >
-      <AlertTriangle aria-hidden="true" class="text-3xl text-red-400"  />
+      <AlertTriangle aria-hidden="true" class="text-3xl text-red-400" />
       <h3 class="text-xl font-bold text-white">Failed to load</h3>
       <p class="text-sm text-slate-400">{{ error }}</p>
       <button

@@ -16,11 +16,10 @@
 
     <template v-else-if="detail">
       <!-- Cover Hero -->
-      <div
-        class="relative mb-8 overflow-hidden rounded-2xl border border-white/6"
-        :style="coverBg"
-      >
-        <div class="absolute inset-0 bg-linear-to-t from-surface-base via-surface-base/70 to-transparent" />
+      <div class="relative mb-8 overflow-hidden rounded-2xl border border-white/6" :style="coverBg">
+        <div
+          class="from-surface-base via-surface-base/70 absolute inset-0 bg-linear-to-t to-transparent"
+        />
         <div class="relative z-10 flex flex-col gap-6 p-8 pt-48">
           <div>
             <div class="flex items-center gap-3">
@@ -41,7 +40,7 @@
           <div class="flex flex-wrap items-center gap-3">
             <button
               v-if="!detail.is_member"
-              class="inline-flex items-center gap-2 rounded-xl bg-spotify px-6 py-2.5 text-sm font-bold text-black transition hover:bg-spotify-hover"
+              class="bg-spotify hover:bg-spotify-hover inline-flex items-center gap-2 rounded-xl px-6 py-2.5 text-sm font-bold text-black transition"
               @click="handleJoin"
             >
               عضو شدم ✓
@@ -70,7 +69,7 @@
         <div class="space-y-8 lg:col-span-2">
           <!-- About -->
           <section class="rounded-2xl bg-white/3 p-6">
-            <h2 class="mb-3 text-sm font-bold uppercase tracking-wider text-white/30">درباره</h2>
+            <h2 class="mb-3 text-sm font-bold tracking-wider text-white/30 uppercase">درباره</h2>
             <p class="text-sm leading-relaxed text-white/60">
               {{ detail.club.description || 'هنوز توضیحی ثبت نشده.' }}
             </p>
@@ -79,27 +78,21 @@
           <!-- Shared Playlist -->
           <section class="rounded-2xl bg-white/3 p-6">
             <div class="mb-4 flex items-center justify-between">
-              <h2 class="text-sm font-bold uppercase tracking-wider text-white/30">
+              <h2 class="text-sm font-bold tracking-wider text-white/30 uppercase">
                 پلی‌لیست مشترک
               </h2>
               <button
                 v-if="detail.is_member && playlistId"
-                class="inline-flex items-center gap-1.5 rounded-lg bg-spotify/10 px-3 py-1.5 text-xs font-semibold text-spotify transition hover:bg-spotify/20"
+                class="bg-spotify/10 text-spotify hover:bg-spotify/20 inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition"
                 @click="showTrackPicker = true"
               >
                 افزودن آهنگ
               </button>
             </div>
-    <TrackList
-      v-if="mappedTracks.length > 0"
-      :tracks="mappedTracks"
-    />
-            <div
-              v-else
-              class="flex flex-col items-center gap-3 py-12 text-center"
-            >
+            <TrackList v-if="mappedTracks.length > 0" :tracks="mappedTracks" />
+            <div v-else class="flex flex-col items-center gap-3 py-12 text-center">
               <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-white/4">
-                <Music aria-hidden="true" class="text-xl text-slate-500"  />
+                <Music aria-hidden="true" class="text-xl text-slate-500" />
               </div>
               <p class="text-sm text-white/40">هنوز آهنگی به پلی‌لیست اضافه نشده.</p>
             </div>
@@ -107,17 +100,13 @@
 
           <!-- Members -->
           <section class="rounded-2xl bg-white/3 p-6">
-            <h2 class="mb-4 text-sm font-bold uppercase tracking-wider text-white/30">
+            <h2 class="mb-4 text-sm font-bold tracking-wider text-white/30 uppercase">
               اعضا ({{ detail.members.length }})
             </h2>
             <div class="flex flex-wrap gap-3">
-              <div
-                v-for="m in visibleMembers"
-                :key="m.id"
-                class="group relative"
-              >
+              <div v-for="m in visibleMembers" :key="m.id" class="group relative">
                 <div
-                  class="flex h-10 w-10 items-center justify-center rounded-full bg-spotify/20 text-xs font-bold text-spotify transition hover:bg-spotify/30"
+                  class="bg-spotify/20 text-spotify hover:bg-spotify/30 flex h-10 w-10 items-center justify-center rounded-full text-xs font-bold transition"
                   :title="m.user_id"
                 >
                   {{ initials(m.user_id) }}
@@ -136,29 +125,28 @@
           <!-- Discussions (Phase 6) -->
           <section class="rounded-2xl bg-white/3 p-6">
             <div class="mb-4 flex items-center justify-between">
-              <h2 class="text-sm font-bold uppercase tracking-wider text-white/30">
-                بحث و گفتگو
-              </h2>
+              <h2 class="text-sm font-bold tracking-wider text-white/30 uppercase">بحث و گفتگو</h2>
               <button
                 v-if="detail.is_member"
-                class="inline-flex items-center gap-1.5 rounded-lg bg-spotify/10 px-3 py-1.5 text-xs font-semibold text-spotify transition hover:bg-spotify/20"
+                class="bg-spotify/10 text-spotify hover:bg-spotify/20 inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-semibold transition"
                 @click="showCreateDiscussion = true"
               >
                 بحث جدید
               </button>
             </div>
             <div v-if="discussionsLoading" class="flex items-center justify-center py-8">
-              <span class="inline-block h-5 w-5 animate-spin rounded-full border-2 border-white/20 border-t-accent" />
+              <span
+                class="border-t-accent inline-block h-5 w-5 animate-spin rounded-full border-2 border-white/20"
+              />
             </div>
             <div
               v-else-if="discussionsError"
               class="rounded-xl bg-red-500/10 px-4 py-3 text-sm text-red-400"
             >
               {{ discussionsError }}
-              <button
-                class="mr-2 underline hover:text-red-300"
-                @click="retryLoadDiscussions"
-              >Retry</button>
+              <button class="mr-2 underline hover:text-red-300" @click="retryLoadDiscussions">
+                Retry
+              </button>
             </div>
             <ClubDiscussionThread
               v-else
@@ -180,7 +168,7 @@
         <!-- Sidebar -->
         <div class="space-y-6">
           <div class="rounded-2xl bg-white/3 p-6">
-            <h3 class="mb-3 text-xs font-bold uppercase tracking-wider text-white/30">اطلاعات</h3>
+            <h3 class="mb-3 text-xs font-bold tracking-wider text-white/30 uppercase">اطلاعات</h3>
             <div class="space-y-3 text-sm">
               <div class="flex justify-between">
                 <span class="text-white/40">وضعیت</span>
@@ -188,7 +176,9 @@
               </div>
               <div class="flex justify-between">
                 <span class="text-white/40">اعضا</span>
-                <span class="text-white/70">{{ detail.club.member_count }} / {{ detail.club.max_members }}</span>
+                <span class="text-white/70"
+                  >{{ detail.club.member_count }} / {{ detail.club.max_members }}</span
+                >
               </div>
               <div class="flex justify-between">
                 <span class="text-white/40">آهنگ‌ها</span>
@@ -220,9 +210,7 @@
         @click.self="showLeaveConfirm = false"
       >
         <div class="glass-strong mx-4 w-full max-w-sm rounded-2xl p-8 text-center">
-          <p class="mb-6 text-sm text-white/60">
-            مطمئنی می‌خوای از این کلاب خارج بشی؟
-          </p>
+          <p class="mb-6 text-sm text-white/60">مطمئنی می‌خوای از این کلاب خارج بشی؟</p>
           <div class="flex gap-3">
             <button
               class="flex-1 rounded-xl bg-white/5 py-3 text-sm font-medium text-white/50 transition hover:bg-white/10"
@@ -288,29 +276,35 @@ const showLeaveConfirm = ref(false)
 
 const playlistTracks = ref<PlaylistTrackItem[]>([])
 
-const collab = useCollaborativePlaylist('', () => loadDetail(), () => loadDetail())
+const collab = useCollaborativePlaylist(
+  '',
+  () => loadDetail(),
+  () => loadDetail(),
+)
 
-const mappedTracks = computed(() => playlistTracks.value.map(t => ({
-  id: t.track_id,
-  title: t.title,
-  duration_seconds: t.duration_seconds ?? 0,
-  audio_url: t.audio_url ?? null,
-  cover_url: t.cover_url ?? null,
-  audio_media_id: null,
-  cover_media_id: null,
-  artist_id: null,
-  album_id: null,
-  genre_id: null,
-  artist_name: t.artist_name ?? null,
-  album_title: null,
-  genres: [],
-  play_count: 0,
-  track_number: null,
-  explicit: false,
-  is_public: true,
-  created_at: null,
-  updated_at: null,
-})))
+const mappedTracks = computed(() =>
+  playlistTracks.value.map((t) => ({
+    id: t.track_id,
+    title: t.title,
+    duration_seconds: t.duration_seconds ?? 0,
+    audio_url: t.audio_url ?? null,
+    cover_url: t.cover_url ?? null,
+    audio_media_id: null,
+    cover_media_id: null,
+    artist_id: null,
+    album_id: null,
+    genre_id: null,
+    artist_name: t.artist_name ?? null,
+    album_title: null,
+    genres: [],
+    play_count: 0,
+    track_number: null,
+    explicit: false,
+    is_public: true,
+    created_at: null,
+    updated_at: null,
+  })),
+)
 
 const coverBg = computed(() => {
   if (detail.value?.club.cover_url) {
@@ -347,7 +341,10 @@ async function loadDiscussions() {
   discussionsLoading.value = true
   discussionsError.value = ''
   try {
-    const data = await socialApi.listClubDiscussions(clubId, { limit: discussionLimit.value, offset: discussionOffset.value })
+    const data = await socialApi.listClubDiscussions(clubId, {
+      limit: discussionLimit.value,
+      offset: discussionOffset.value,
+    })
     const items = Array.isArray(data) ? data : []
     if (discussionOffset.value === 0) {
       discussions.value = items
@@ -355,7 +352,8 @@ async function loadDiscussions() {
       discussions.value = [...discussions.value, ...items]
     }
   } catch (err: any) {
-    discussionsError.value = err?.response?.data?.message || err.message || 'Failed to load discussions'
+    discussionsError.value =
+      err?.response?.data?.message || err.message || 'Failed to load discussions'
     toast.error(discussionsError.value)
   } finally {
     discussionsLoading.value = false
@@ -375,7 +373,7 @@ function loadMoreDiscussions() {
 async function handleDeleteDiscussion(discussionId: string) {
   try {
     await socialApi.deleteClubDiscussion(discussionId)
-    discussions.value = discussions.value.filter(d => d.id !== discussionId)
+    discussions.value = discussions.value.filter((d) => d.id !== discussionId)
     toast.success('Discussion deleted')
   } catch (err: any) {
     toast.apiError(err, 'Failed to delete discussion')
@@ -424,7 +422,10 @@ async function handleLeave() {
 
 async function handleLaunchParty() {
   try {
-    const party = await socialApi.launchParty(clubId, { title: detail.value?.club.name, is_public: true })
+    const party = await socialApi.launchParty(clubId, {
+      title: detail.value?.club.name,
+      is_public: true,
+    })
     if (party?.id) {
       toast.success('Party launched!')
       router.push({ name: 'social.party', params: { id: party.id } })

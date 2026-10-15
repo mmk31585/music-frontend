@@ -2,7 +2,7 @@
   <div class="space-y-4">
     <!-- Category pill tabs -->
     <div
-      class="flex gap-2 overflow-x-auto pb-2 scrollbar-none"
+      class="flex scrollbar-none gap-2 overflow-x-auto pb-2"
       role="tablist"
       aria-label="Discussion categories"
     >
@@ -11,10 +11,12 @@
         :key="cat.key"
         role="tab"
         :aria-selected="activeTab === cat.key"
-        class="shrink-0 rounded-full px-4 py-2 text-xs font-medium transition focus-visible:outline-2 focus-visible:outline-accent"
-        :class="activeTab === cat.key
-          ? 'bg-white/15 text-white shadow-lg'
-          : 'bg-white/4 text-white/40 hover:bg-white/8 hover:text-white/60'"
+        class="focus-visible:outline-accent shrink-0 rounded-full px-4 py-2 text-xs font-medium transition focus-visible:outline-2"
+        :class="
+          activeTab === cat.key
+            ? 'bg-white/15 text-white shadow-lg'
+            : 'bg-white/4 text-white/40 hover:bg-white/8 hover:text-white/60'
+        "
         @click="activeTab = cat.key"
       >
         <span class="flex items-center gap-2 whitespace-nowrap">
@@ -28,10 +30,10 @@
     <div v-if="!showStartInput" class="flex justify-end">
       <button
         aria-label="Start a new discussion"
-        class="inline-flex items-center gap-1.5 rounded-full bg-spotify/10 px-4 py-2 text-xs font-semibold text-spotify transition hover:bg-spotify/20 focus-visible:outline-2 focus-visible:outline-accent"
+        class="bg-spotify/10 text-spotify hover:bg-spotify/20 focus-visible:outline-accent inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-semibold transition focus-visible:outline-2"
         @click="showStartInput = true"
       >
-        <Plus aria-hidden="true" class="text-[10px]"  />
+        <Plus aria-hidden="true" class="text-[10px]" />
         Start Discussion
       </button>
     </div>
@@ -47,11 +49,14 @@
         @keydown.enter="submitDiscussion"
       />
       <button
-        class="rounded-lg bg-spotify/10 px-4 py-2.5 text-sm font-semibold text-spotify transition hover:bg-spotify/20 disabled:opacity-30 inline-flex items-center gap-1.5"
+        class="bg-spotify/10 text-spotify hover:bg-spotify/20 inline-flex items-center gap-1.5 rounded-lg px-4 py-2.5 text-sm font-semibold transition disabled:opacity-30"
         :disabled="!newDiscussionContent.trim() || isPosting"
         @click="submitDiscussion"
       >
-        <span v-if="isPosting" class="inline-block h-3.5 w-3.5 animate-spin rounded-full border-2 border-spotify border-t-transparent" />
+        <span
+          v-if="isPosting"
+          class="border-spotify inline-block h-3.5 w-3.5 animate-spin rounded-full border-2 border-t-transparent"
+        />
         {{ isPosting ? 'Posting...' : 'Post' }}
       </button>
       <button
@@ -74,11 +79,8 @@
     </div>
 
     <!-- Empty state -->
-    <div
-      v-else
-      class="flex flex-col items-center gap-3 py-12 text-center"
-    >
-      <MessageSquare aria-hidden="true" class="text-2xl text-white/10"  />
+    <div v-else class="flex flex-col items-center gap-3 py-12 text-center">
+      <MessageSquare aria-hidden="true" class="text-2xl text-white/10" />
       <p class="text-sm text-white/30">No discussions yet in this category</p>
     </div>
   </div>
@@ -119,9 +121,8 @@ const discussionCategories = [
 
 const filteredDiscussions = computed<DiscussionCardData[]>(() => {
   const items = props.discussions || []
-  const filtered = activeTab.value === 'all'
-    ? items
-    : items.filter((d) => d.target_type === activeTab.value)
+  const filtered =
+    activeTab.value === 'all' ? items : items.filter((d) => d.target_type === activeTab.value)
 
   return filtered.map((d) => ({
     id: d.id,
@@ -129,7 +130,7 @@ const filteredDiscussions = computed<DiscussionCardData[]>(() => {
     userName: props.userNames?.[d.user_id],
     avatarUrl: props.userAvatars?.[d.user_id] || null,
     content: d.content,
-    reply_count: d.parent_id ? undefined : (items.filter((r) => r.parent_id === d.id).length),
+    reply_count: d.parent_id ? undefined : items.filter((r) => r.parent_id === d.id).length,
     created_at: d.created_at,
   }))
 })

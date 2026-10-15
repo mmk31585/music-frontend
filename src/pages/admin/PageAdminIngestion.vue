@@ -12,9 +12,11 @@
       <template #content>
         <div
           class="relative flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed p-10 transition-all"
-          :class="isDragOver
-            ? 'border-emerald-500/50 bg-emerald-500/10 scale-[1.02]'
-            : 'border-white/10 hover:border-emerald-500/30 hover:bg-white/3'"
+          :class="
+            isDragOver
+              ? 'scale-[1.02] border-emerald-500/50 bg-emerald-500/10'
+              : 'border-white/10 hover:border-emerald-500/30 hover:bg-white/3'
+          "
           @dragover.prevent="isDragOver = true"
           @dragleave.prevent="isDragOver = false"
           @drop.prevent="handleDrop"
@@ -25,19 +27,23 @@
               <CloudUpload aria-hidden="true" class="text-3xl text-slate-400"></CloudUpload>
             </div>
             <div class="text-center">
-              <p class="text-sm font-medium text-white/60">
-                Drag and drop an audio file here
-              </p>
+              <p class="text-sm font-medium text-white/60">Drag and drop an audio file here</p>
               <p class="mt-1 text-xs text-slate-500">
                 or click to browse &mdash; MP3, FLAC, OGG, M4A, AAC (max 200MB)
               </p>
             </div>
-            <Button label="Select File" icon="pi pi-folder-open" severity="secondary" outlined size="small" />
+            <Button
+              label="Select File"
+              icon="pi pi-folder-open"
+              severity="secondary"
+              outlined
+              size="small"
+            />
           </div>
 
           <div v-else class="flex flex-col items-center gap-3">
             <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-emerald-500/10">
-              <Loader2 aria-hidden="true" class="text-3xl text-emerald-400 animate-spin"></Loader2>
+              <Loader2 aria-hidden="true" class="animate-spin text-3xl text-emerald-400"></Loader2>
             </div>
             <div class="text-center">
               <p class="text-sm font-medium text-white/60">
@@ -82,21 +88,15 @@
             <div class="flex items-center gap-3">
               <Loader2 aria-hidden="true" class="text-info animate-spin"></Loader2>
               <div>
-                <p class="text-sm font-medium text-white/60">
-                  Enriching metadata
-                </p>
-                <p class="text-xs text-slate-400 mt-0.5">
+                <p class="text-sm font-medium text-white/60">Enriching metadata</p>
+                <p class="mt-0.5 text-xs text-slate-400">
                   Querying MusicBrainz, Last.fm, and Spotify&hellip;
                 </p>
               </div>
             </div>
-            <div class="flex items-center gap-3 shrink-0">
-              <ProgressBar
-                :value="enrichPercent"
-                class="h-1.5 w-32 sm:w-48"
-                :show-value="false"
-              />
-              <span class="text-xs text-slate-400 w-14 text-right tabular-nums">
+            <div class="flex shrink-0 items-center gap-3">
+              <ProgressBar :value="enrichPercent" class="h-1.5 w-32 sm:w-48" :show-value="false" />
+              <span class="w-14 text-right text-xs text-slate-400 tabular-nums">
                 {{ enrichAttempt }}/{{ enrichMaxAttempts }}
               </span>
             </div>
@@ -112,10 +112,11 @@
           <template #title>
             <div class="flex items-center justify-between">
               <div class="flex items-center gap-3">
-                <h3 class="text-lg font-semibold text-white">
-                  Extraction Results
-                </h3>
-                <Badge :value="uploadResult.status" :severity="statusSeverity(uploadResult.status)" />
+                <h3 class="text-lg font-semibold text-white">Extraction Results</h3>
+                <Badge
+                  :value="uploadResult.status"
+                  :severity="statusSeverity(uploadResult.status)"
+                />
               </div>
               <Button
                 v-if="uploadResult.status === 'pending'"
@@ -130,12 +131,18 @@
 
           <template #content>
             <!-- Enrichment Suggestions -->
-            <div v-if="showSuggestions" class="mb-6 rounded-lg border border-emerald-500/20 bg-emerald-500/5 p-5">
+            <div
+              v-if="showSuggestions"
+              class="mb-6 rounded-lg border border-emerald-500/20 bg-emerald-500/5 p-5"
+            >
               <h4 class="mb-4 flex items-center gap-2 text-sm font-semibold text-emerald-400">
                 <Wand2 aria-hidden="true" class=""></Wand2>Enrichment Suggestions
               </h4>
 
-              <div v-if="uploadResult.coverArtUrl || spotifyAlbumCover" class="mb-4 flex flex-wrap gap-4">
+              <div
+                v-if="uploadResult.coverArtUrl || spotifyAlbumCover"
+                class="mb-4 flex flex-wrap gap-4"
+              >
                 <div v-if="uploadResult.coverArtUrl">
                   <p class="mb-1.5 text-xs font-medium text-slate-500">Embedded</p>
                   <img
@@ -172,20 +179,37 @@
                   :key="suggestion.field"
                   class="flex items-center gap-2 rounded-lg bg-white/4 px-3 py-2"
                 >
-                  <span class="w-24 shrink-0 text-xs font-medium text-slate-500">{{ suggestion.field }}</span>
+                  <span class="w-24 shrink-0 text-xs font-medium text-slate-500">{{
+                    suggestion.field
+                  }}</span>
                   <span class="truncate text-xs font-semibold text-white">
                     {{ suggestion.value }}
                   </span>
                   <div class="ml-auto flex shrink-0 gap-1">
-                    <Badge :value="sourceLabel(suggestion.source)" :severity="sourceSeverity(suggestion.source)" size="small" />
-                    <Badge :value="confidenceLabel(suggestion.confidence)" :severity="confidenceSeverity(suggestion.confidence)" size="small" />
+                    <Badge
+                      :value="sourceLabel(suggestion.source)"
+                      :severity="sourceSeverity(suggestion.source)"
+                      size="small"
+                    />
+                    <Badge
+                      :value="confidenceLabel(suggestion.confidence)"
+                      :severity="confidenceSeverity(suggestion.confidence)"
+                      size="small"
+                    />
                   </div>
                 </div>
               </div>
 
-              <div v-if="musicBrainzInfo || lastFmInfo" class="mt-4 flex flex-wrap gap-x-6 gap-y-1 border-t border-emerald-500/10 pt-4 text-xs text-slate-500">
-                <span v-if="musicBrainzInfo"><Book aria-hidden="true" class="mr-1"></Book>{{ musicBrainzInfo }}</span>
-                <span v-if="lastFmInfo"><Star aria-hidden="true" class="mr-1"></Star>{{ lastFmInfo }}</span>
+              <div
+                v-if="musicBrainzInfo || lastFmInfo"
+                class="mt-4 flex flex-wrap gap-x-6 gap-y-1 border-t border-emerald-500/10 pt-4 text-xs text-slate-500"
+              >
+                <span v-if="musicBrainzInfo"
+                  ><Book aria-hidden="true" class="mr-1"></Book>{{ musicBrainzInfo }}</span
+                >
+                <span v-if="lastFmInfo"
+                  ><Star aria-hidden="true" class="mr-1"></Star>{{ lastFmInfo }}</span
+                >
               </div>
             </div>
 
@@ -193,12 +217,15 @@
             <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               <div v-for="(group, gIdx) in metadataGroups" :key="gIdx" class="space-y-2.5">
                 <div v-for="field in group" :key="field.label" class="flex items-center gap-2">
-                  <span class="w-20 shrink-0 text-xs font-medium text-slate-500">{{ field.label }}</span>
+                  <span class="w-20 shrink-0 text-xs font-medium text-slate-500">{{
+                    field.label
+                  }}</span>
                   <span
                     v-if="field.value"
                     class="flex items-center gap-1 text-xs text-emerald-600 dark:text-emerald-400"
                   >
-                    <CheckCircle class="text-[10px]" aria-hidden="true"></CheckCircle>{{ field.value }}
+                    <CheckCircle class="text-[10px]" aria-hidden="true"></CheckCircle
+                    >{{ field.value }}
                   </span>
                   <span v-else class="flex items-center gap-1 text-xs text-orange-500">
                     <AlertCircle aria-hidden="true" class="text-[10px]"></AlertCircle>Not found
@@ -209,7 +236,9 @@
 
             <div v-if="lyricsSnippet" class="mt-5 border-t border-white/8 pt-5">
               <h4 class="mb-2 text-sm font-medium text-white/60">Lyrics Snippet</h4>
-              <pre class="max-h-32 overflow-y-auto whitespace-pre-wrap rounded-lg bg-white/5 p-3 text-xs leading-relaxed text-slate-400 break-words">{{ lyricsSnippet }}</pre>
+              <pre
+                class="max-h-32 overflow-y-auto rounded-lg bg-white/5 p-3 text-xs leading-relaxed break-words whitespace-pre-wrap text-slate-400"
+                >{{ lyricsSnippet }}</pre>
             </div>
           </template>
         </Card>
@@ -221,7 +250,9 @@
       <div class="mb-4 flex flex-wrap items-center justify-between gap-3">
         <h3 class="text-lg font-semibold text-white">
           Drafts
-          <span v-if="totalItems > 0" class="ml-1.5 text-sm font-normal text-slate-400">({{ totalItems }})</span>
+          <span v-if="totalItems > 0" class="ml-1.5 text-sm font-normal text-slate-400"
+            >({{ totalItems }})</span
+          >
         </h3>
         <div class="flex items-center gap-3">
           <Button
@@ -232,7 +263,8 @@
             severity="info"
             outlined
             @click="goBulkReview"
-          /> />
+          />
+          />
           <SelectButton
             v-model="statusFilter"
             :options="statusOptions"
@@ -246,16 +278,14 @@
       </div>
 
       <Transition name="fade">
-        <Message
-          v-if="bulkReviewHint"
-          severity="info"
-          :closable="true"
-          class="mb-4"
-        >
+        <Message v-if="bulkReviewHint" severity="info" :closable="true" class="mb-4">
           <div class="flex items-center gap-2">
             <Info aria-hidden="true" class=""></Info>
             <span>
-              You have <strong>{{ draftsInReview }}</strong> draft{{ draftsInReview > 1 ? 's' : '' }} pending review.
+              You have <strong>{{ draftsInReview }}</strong> draft{{
+                draftsInReview > 1 ? 's' : ''
+              }}
+              pending review.
               <a class="cursor-pointer underline" @click="goBulkReview">Review all pending</a>
               to process them sequentially.
             </span>
@@ -273,7 +303,14 @@
         >
           <div class="flex items-center gap-3">
             <span>Failed to load drafts.</span>
-            <Button label="Retry" icon="pi pi-refresh" size="small" severity="danger" text @click="loadDrafts" />
+            <Button
+              label="Retry"
+              icon="pi pi-refresh"
+              size="small"
+              severity="danger"
+              text
+              @click="loadDrafts"
+            />
           </div>
         </Message>
       </Transition>
@@ -286,21 +323,27 @@
             striped-rows
             size="small"
             class="w-full"
-            :empty-message="loadingDrafts ? ' ' : 'No drafts found. Upload an audio file to get started.'"
+            :empty-message="
+              loadingDrafts ? ' ' : 'No drafts found. Upload an audio file to get started.'
+            "
           >
             <Column field="originalFilename" header="Filename" sortable>
               <template #body="{ data }">
                 <div class="flex items-center gap-2">
-                  <Circle aria-hidden="true" :class="data.hasCoverArt ? 'pi text-emerald-500' : 'pi text-orange-400'"
-                    class="text-sm"></Circle>
-                  <span class="truncate max-w-48">{{ data.originalFilename }}</span>
+                  <Circle
+                    aria-hidden="true"
+                    :class="data.hasCoverArt ? 'pi text-emerald-500' : 'pi text-orange-400'"
+                    class="text-sm"
+                  ></Circle>
+                  <span class="max-w-48 truncate">{{ data.originalFilename }}</span>
                 </div>
               </template>
             </Column>
             <Column field="title" header="Title" sortable>
               <template #body="{ data }">
                 <span v-if="data.title" class="text-emerald-600 dark:text-emerald-400">
-                  <CheckCircle aria-hidden="true" class="mr-1 text-xs"></CheckCircle>{{ data.title }}
+                  <CheckCircle aria-hidden="true" class="mr-1 text-xs"></CheckCircle
+                  >{{ data.title }}
                 </span>
                 <span v-else class="text-orange-500">
                   <AlertCircle aria-hidden="true" class="mr-1 text-xs"></AlertCircle>Not found
@@ -315,7 +358,8 @@
                   <span
                     v-if="hasFeatArtists(data.artist)"
                     class="ml-1.5 rounded-full bg-purple-500/15 px-1.5 py-0.5 text-[10px] font-medium text-purple-400"
-                  >feat.</span>
+                    >feat.</span
+                  >
                 </span>
                 <span v-else class="text-orange-500">
                   <AlertCircle aria-hidden="true" class="mr-1 text-xs"></AlertCircle>Not found
@@ -387,26 +431,56 @@
         </div>
         <div>
           <p class="text-sm text-white">Are you sure you want to delete this draft?</p>
-          <p class="mt-1 text-xs text-slate-400">This action cannot be undone. The audio file and all associated metadata will be permanently removed.</p>
+          <p class="mt-1 text-xs text-slate-400">
+            This action cannot be undone. The audio file and all associated metadata will be
+            permanently removed.
+          </p>
         </div>
       </div>
       <template #footer>
-        <Button label="Cancel" severity="secondary" text @click="deleteDialogVisible = false" :disabled="deleting" />
-        <Button label="Delete" severity="danger" icon="pi pi-trash" :loading="deleting" @click="handleDelete" />
+        <Button
+          label="Cancel"
+          severity="secondary"
+          text
+          @click="deleteDialogVisible = false"
+          :disabled="deleting"
+        />
+        <Button
+          label="Delete"
+          severity="danger"
+          icon="pi pi-trash"
+          :loading="deleting"
+          @click="handleDelete"
+        />
       </template>
     </Dialog>
   </div>
 </template>
 
 <script setup lang="ts">
-import { AlertCircle, AlertTriangle, Book, CheckCircle, Circle, CloudUpload, Info, Loader2, Star, Wand2 } from 'lucide-vue-next'
+import {
+  AlertCircle,
+  AlertTriangle,
+  Book,
+  CheckCircle,
+  Circle,
+  CloudUpload,
+  Info,
+  Loader2,
+  Star,
+  Wand2,
+} from 'lucide-vue-next'
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useToast } from 'primevue/usetoast'
 import AdminSectionHeader from '@/components/admin/AdminSectionHeader.vue'
 import { useIngestionApi } from '@/services/api/ingestion/routes'
 import { useEnrichmentPolling } from '@/composables/admin'
-import type { UploadResponse, DraftListItem, EnrichmentResult } from '@/services/api/ingestion/types'
+import type {
+  UploadResponse,
+  DraftListItem,
+  EnrichmentResult,
+} from '@/services/api/ingestion/types'
 import { formatDuration } from '@/utils/format'
 
 const router = useRouter()
@@ -421,9 +495,13 @@ const uploadProgress = ref('')
 const uploadError = ref<string | null>(null)
 const uploadResult = ref<UploadResponse | null>(null)
 
-const enrichingPoll = ref(false)
 const enrichMaxAttempts = 30
-const { start: startPolling, stop: stopPolling, polling: enrichPollActive, attempts: enrichAttempt } = useEnrichmentPolling()
+const {
+  start: startPolling,
+  stop: stopPolling,
+  polling: enrichPollActive,
+  attempts: enrichAttempt,
+} = useEnrichmentPolling()
 
 const enrichmentResult = ref<EnrichmentResult | null>(null)
 
@@ -448,7 +526,7 @@ const totalItems = ref(0)
 const enrichPercent = computed(() => (enrichAttempt.value / enrichMaxAttempts) * 100)
 
 const bulkReviewHint = computed(() => draftsInReview.value >= 10)
-const draftsInReview = computed(() => drafts.value.filter(d => d.status === 'review').length)
+const draftsInReview = computed(() => drafts.value.filter((d) => d.status === 'review').length)
 
 // ── Delete draft ──
 const deleteDialogVisible = ref(false)
@@ -469,20 +547,34 @@ const metadataGroups = computed(() => [
     { label: 'Album Artist', value: uploadResult.value?.extractedMetadata?.albumArtist },
   ],
   [
-    { label: 'Year', value: uploadResult.value?.extractedMetadata?.year ? String(uploadResult.value.extractedMetadata.year) : '' },
+    {
+      label: 'Year',
+      value: uploadResult.value?.extractedMetadata?.year
+        ? String(uploadResult.value.extractedMetadata.year)
+        : '',
+    },
     { label: 'Genre', value: uploadResult.value?.extractedMetadata?.genre },
     {
       label: 'Track',
-      value: formatTrack(uploadResult.value?.extractedMetadata?.trackNumber, uploadResult.value?.extractedMetadata?.trackTotal),
+      value: formatTrack(
+        uploadResult.value?.extractedMetadata?.trackNumber,
+        uploadResult.value?.extractedMetadata?.trackTotal,
+      ),
     },
     {
       label: 'Disc',
-      value: formatTrack(uploadResult.value?.extractedMetadata?.discNumber, uploadResult.value?.extractedMetadata?.discTotal),
+      value: formatTrack(
+        uploadResult.value?.extractedMetadata?.discNumber,
+        uploadResult.value?.extractedMetadata?.discTotal,
+      ),
     },
   ],
   [
     { label: 'Duration', value: formatDuration(uploadResult.value?.durationSeconds) },
-    { label: 'Bitrate', value: uploadResult.value?.bitrate ? `${uploadResult.value.bitrate} kbps` : '' },
+    {
+      label: 'Bitrate',
+      value: uploadResult.value?.bitrate ? `${uploadResult.value.bitrate} kbps` : '',
+    },
     { label: 'Format', value: uploadResult.value?.format },
     { label: 'Composer', value: uploadResult.value?.extractedMetadata?.composer },
   ],
@@ -519,39 +611,57 @@ const lastFmInfo = computed(() => {
 
 function sourceLabel(source: string): string {
   switch (source) {
-    case 'file': return 'Embedded'
-    case 'musicbrainz': return 'MusicBrainz'
-    case 'lastfm': return 'Last.fm'
-    case 'spotify': return 'Spotify'
-    default: return source
+    case 'file':
+      return 'Embedded'
+    case 'musicbrainz':
+      return 'MusicBrainz'
+    case 'lastfm':
+      return 'Last.fm'
+    case 'spotify':
+      return 'Spotify'
+    default:
+      return source
   }
 }
 
 function sourceSeverity(source: string) {
   switch (source) {
-    case 'file': return 'info'
-    case 'musicbrainz': return 'warn'
-    case 'lastfm': return 'help'
-    case 'spotify': return 'success'
-    default: return undefined
+    case 'file':
+      return 'info'
+    case 'musicbrainz':
+      return 'warn'
+    case 'lastfm':
+      return 'help'
+    case 'spotify':
+      return 'success'
+    default:
+      return undefined
   }
 }
 
 function confidenceLabel(confidence: string): string {
   switch (confidence) {
-    case 'exact_match': return 'Exact'
-    case 'fuzzy': return 'Fuzzy'
-    case 'fallback': return 'Fallback'
-    default: return confidence
+    case 'exact_match':
+      return 'Exact'
+    case 'fuzzy':
+      return 'Fuzzy'
+    case 'fallback':
+      return 'Fallback'
+    default:
+      return confidence
   }
 }
 
 function confidenceSeverity(confidence: string) {
   switch (confidence) {
-    case 'exact_match': return 'success'
-    case 'fuzzy': return 'warn'
-    case 'fallback': return 'danger'
-    default: return undefined
+    case 'exact_match':
+      return 'success'
+    case 'fuzzy':
+      return 'warn'
+    case 'fallback':
+      return 'danger'
+    default:
+      return undefined
   }
 }
 
@@ -560,7 +670,7 @@ function openReview(id: string) {
 }
 
 function goBulkReview() {
-  const reviewId = drafts.value.find(d => d.status === 'review')?.id
+  const reviewId = drafts.value.find((d) => d.status === 'review')?.id
   if (reviewId) {
     router.push({ name: 'admin.ingestion.review', params: { id: reviewId } })
   }
@@ -711,14 +821,22 @@ function formatTrack(num?: number, total?: number): string {
 
 function statusSeverity(status: string) {
   switch (status) {
-    case 'pending': return 'warn'
-    case 'enriching': return 'info'
-    case 'review': return 'info'
-    case 'accepted': return 'success'
-    case 'rejected': return 'danger'
-    case 'published': return 'success'
-    case 'enrichment_failed': return 'danger'
-    default: return undefined
+    case 'pending':
+      return 'warn'
+    case 'enriching':
+      return 'info'
+    case 'review':
+      return 'info'
+    case 'accepted':
+      return 'success'
+    case 'rejected':
+      return 'danger'
+    case 'published':
+      return 'success'
+    case 'enrichment_failed':
+      return 'danger'
+    default:
+      return undefined
   }
 }
 
@@ -726,7 +844,12 @@ function formatDate(dateStr: string): string {
   try {
     const d = new Date(dateStr)
     if (isNaN(d.getTime())) return dateStr
-    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })
+    return d.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    })
   } catch (err) {
     console.error('Date formatting failed:', err)
     return dateStr
@@ -743,7 +866,7 @@ async function handleDelete() {
   deleting.value = true
   try {
     await ingestionApi.deleteDraft(deleteTargetId.value)
-    drafts.value = drafts.value.filter(d => d.id !== deleteTargetId.value)
+    drafts.value = drafts.value.filter((d) => d.id !== deleteTargetId.value)
     totalItems.value = Math.max(0, totalItems.value - 1)
     toast.add({
       severity: 'success',
@@ -756,11 +879,21 @@ async function handleDelete() {
   } catch (err: unknown) {
     const status = (err as { status?: number })?.status
     if (status === 403) {
-      toast.add({ severity: 'error', summary: 'Permission denied', detail: "You don't have permission to delete this draft.", life: 5000 })
+      toast.add({
+        severity: 'error',
+        summary: 'Permission denied',
+        detail: "You don't have permission to delete this draft.",
+        life: 5000,
+      })
     } else if (status === 404) {
-      toast.add({ severity: 'warn', summary: 'Not found', detail: 'This draft may have already been deleted.', life: 4000 })
+      toast.add({
+        severity: 'warn',
+        summary: 'Not found',
+        detail: 'This draft may have already been deleted.',
+        life: 4000,
+      })
       // Remove from local list since it's gone
-      drafts.value = drafts.value.filter(d => d.id !== deleteTargetId.value)
+      drafts.value = drafts.value.filter((d) => d.id !== deleteTargetId.value)
       totalItems.value = Math.max(0, totalItems.value - 1)
       deleteDialogVisible.value = false
       deleteTargetId.value = null

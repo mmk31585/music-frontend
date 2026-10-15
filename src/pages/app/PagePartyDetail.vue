@@ -21,16 +21,15 @@
       <!-- Party header -->
       <div class="glass-strong rounded-2xl p-6">
         <div class="flex items-start gap-4">
-          <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-spotify/10 text-2xl">
+          <div
+            class="bg-spotify/10 flex h-16 w-16 shrink-0 items-center justify-center rounded-xl text-2xl"
+          >
             🎉
           </div>
           <div class="min-w-0 flex-1">
             <div class="flex items-center gap-3">
               <h1 class="truncate text-2xl font-black text-white">{{ party.title }}</h1>
-              <span
-                class="rounded-full px-3 py-1 text-xs font-semibold"
-                :class="statusClass"
-              >
+              <span class="rounded-full px-3 py-1 text-xs font-semibold" :class="statusClass">
                 {{ party.status }}
               </span>
             </div>
@@ -60,14 +59,14 @@
       >
         <div class="flex items-center justify-between gap-3">
           <div class="flex items-center gap-2 text-sm text-red-400">
-            <AlertCircle aria-hidden="true" class="text-xs"  />
+            <AlertCircle aria-hidden="true" class="text-xs" />
             <span>{{ playerStore.error }}</span>
           </div>
           <button
             class="inline-flex items-center gap-1 rounded-lg bg-red-500/20 px-3 py-1.5 text-xs font-semibold text-red-300 transition hover:bg-red-500/30 active:scale-95"
             @click="retryPlayback"
           >
-            <RefreshCw aria-hidden="true" class="text-xs"  />
+            <RefreshCw aria-hidden="true" class="text-xs" />
             Retry
           </button>
         </div>
@@ -80,28 +79,28 @@
           :disabled="!nowPlayingTrackId || isTrackTransitioning"
           @click="skipTrack"
         >
-          <Forward aria-hidden="true" class="text-xs"  />
+          <Forward aria-hidden="true" class="text-xs" />
           Skip
         </button>
         <button
           class="rounded-xl bg-green-500/10 px-4 py-2 text-sm font-semibold text-green-400 transition hover:bg-green-500/20"
           @click="updateStatus('active')"
         >
-          <Play aria-hidden="true" class="text-xs"  />
+          <Play aria-hidden="true" class="text-xs" />
           Resume Playback
         </button>
         <button
           class="rounded-xl bg-yellow-500/10 px-4 py-2 text-sm font-semibold text-yellow-400 transition hover:bg-yellow-500/20"
           @click="updateStatus('paused')"
         >
-          <Pause aria-hidden="true" class="text-xs"  />
+          <Pause aria-hidden="true" class="text-xs" />
           Pause Playback
         </button>
         <button
           class="rounded-xl bg-red-500/10 px-4 py-2 text-sm font-semibold text-red-400 transition hover:bg-red-500/20"
           @click="updateStatus('ended')"
         >
-          <Square aria-hidden="true" class="text-xs"  />
+          <Square aria-hidden="true" class="text-xs" />
           End Party
         </button>
       </div>
@@ -117,9 +116,11 @@
       <!-- Join/Leave -->
       <button
         class="w-full rounded-xl py-3 text-sm font-bold transition"
-        :class="isParticipant
-          ? 'border border-red-500/20 text-red-400 hover:bg-red-500/10'
-          : 'bg-spotify text-black hover:bg-spotify/90'"
+        :class="
+          isParticipant
+            ? 'border border-red-500/20 text-red-400 hover:bg-red-500/10'
+            : 'bg-spotify hover:bg-spotify/90 text-black'
+        "
         @click="isParticipant ? handleLeave() : handleJoin()"
       >
         {{ isParticipant ? 'Leave Party' : 'Join Party' }}
@@ -326,7 +327,7 @@ async function handleUnvote(candidateId: string) {
 async function fetchUserName(userId: string) {
   if (userNames.value[userId]) return
   try {
-    const profile = await useUserApi().getPublicUserProfile(userId) as Record<string, unknown>
+    const profile = (await useUserApi().getPublicUserProfile(userId)) as Record<string, unknown>
     const p = profile
     userNames.value[userId] = String(p.full_name || p.username || userId.slice(0, 8))
   } catch (err) {
@@ -342,10 +343,14 @@ function userName(userId: string): string {
 const statusClass = computed(() => {
   if (!party.value) return ''
   switch (party.value.status) {
-    case 'active': return 'bg-green-500/10 text-green-400'
-    case 'paused': return 'bg-yellow-500/10 text-yellow-400'
-    case 'ended': return 'bg-white/10 text-white/40'
-    default: return 'bg-white/10 text-white/40'
+    case 'active':
+      return 'bg-green-500/10 text-green-400'
+    case 'paused':
+      return 'bg-yellow-500/10 text-yellow-400'
+    case 'ended':
+      return 'bg-white/10 text-white/40'
+    default:
+      return 'bg-white/10 text-white/40'
   }
 })
 
@@ -371,10 +376,9 @@ watch(
 
     // If the party has an active track and nothing is playing yet, play it.
     if (p.current_track_id && !playerStore.currentTrack && !qs.now_playing) {
-      playerStore.playTrackById(p.current_track_id)
-        .catch(() => {
-          roomQueue.suggest(String(p.current_track_id))
-        })
+      playerStore.playTrackById(p.current_track_id).catch(() => {
+        roomQueue.suggest(String(p.current_track_id))
+      })
     }
   },
   { once: true },

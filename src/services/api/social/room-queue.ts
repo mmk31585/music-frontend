@@ -40,29 +40,23 @@ export async function getQueueState(roomId: string): Promise<QueueState> {
 }
 
 export async function suggestTrack(roomId: string, trackId: string): Promise<void> {
-  return useRequest<void>(
-    `/social/rooms/${roomId}/queue/suggest`,
-    { method: 'POST', data: { track_id: trackId } },
-  )
+  return useRequest<void>(`/social/rooms/${roomId}/queue/suggest`, {
+    method: 'POST',
+    data: { track_id: trackId },
+  })
 }
 
 export async function castVote(roomId: string, candidateId: string): Promise<void> {
-  return useRequest<void>(
-    `/social/rooms/${roomId}/queue/${candidateId}/vote`,
-    { method: 'POST' },
-  )
+  return useRequest<void>(`/social/rooms/${roomId}/queue/${candidateId}/vote`, { method: 'POST' })
 }
 
 export async function removeVote(roomId: string, candidateId: string): Promise<void> {
-  return useRequest<void>(
-    `/social/rooms/${roomId}/queue/${candidateId}/vote`,
-    { method: 'DELETE' },
-  )
+  return useRequest<void>(`/social/rooms/${roomId}/queue/${candidateId}/vote`, { method: 'DELETE' })
 }
 
 export async function reportTrackEnded(roomId: string, trackId: string): Promise<void> {
-  return useRequest<void>(
-    `/social/rooms/${roomId}/track-ended`,
-    { method: 'POST', data: { track_id: trackId } },
-  )
+  return useRequest<void>(`/social/rooms/${roomId}/track-ended`, {
+    method: 'POST',
+    data: { track_id: trackId },
+  })
 }

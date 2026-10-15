@@ -1,23 +1,29 @@
 <template>
   <aside
-    class="fixed start-0 top-0 z-40 flex h-screen flex-col border-e border-border-default bg-surface-raised transition-all duration-300 lg:static lg:h-screen"
+    class="border-border-default bg-surface-raised fixed start-0 top-0 z-40 flex h-screen flex-col border-e transition-all duration-300 lg:static lg:h-screen"
     :class="collapsed ? 'w-17' : 'w-72'"
   >
-    <div class="flex shrink-0 items-center gap-3" :class="collapsed ? 'justify-center px-2 pt-5 pb-4' : 'px-4 pt-5 pb-4'">
-      <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-linear-to-br from-accent to-accent-active font-bold text-accent-text text-sm shadow-lg" :style="{ boxShadow: '0 4px 16px var(--accent-glow)' }">
-        <Shield aria-hidden="true" class="text-sm"  />
+    <div
+      class="flex shrink-0 items-center gap-3"
+      :class="collapsed ? 'justify-center px-2 pt-5 pb-4' : 'px-4 pt-5 pb-4'"
+    >
+      <div
+        class="from-accent to-accent-active text-accent-text flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-linear-to-br text-sm font-bold shadow-lg"
+        :style="{ boxShadow: '0 4px 16px var(--accent-glow)' }"
+      >
+        <Shield aria-hidden="true" class="text-sm" />
       </div>
       <div v-if="!collapsed" class="overflow-hidden">
-        <h1 class="text-sm font-bold text-primary truncate leading-tight">Admin Panel</h1>
-        <p class="text-[10px] text-muted truncate leading-tight mt-0.5">Catalog & media control</p>
+        <h1 class="text-primary truncate text-sm leading-tight font-bold">Admin Panel</h1>
+        <p class="text-muted mt-0.5 truncate text-[10px] leading-tight">Catalog & media control</p>
       </div>
     </div>
 
-    <nav class="mt-2 flex-1 overflow-y-auto scroll-bar px-2">
+    <nav class="scroll-bar mt-2 flex-1 overflow-y-auto px-2">
       <template v-for="(section, sIdx) in navSections" :key="sIdx">
         <p
           v-if="!collapsed && section.label"
-          class="mb-1 mt-4 px-3 text-[10px] font-semibold tracking-wider text-muted uppercase"
+          class="text-muted mt-4 mb-1 px-3 text-[10px] font-semibold tracking-wider uppercase"
         >
           {{ section.label }}
         </p>
@@ -37,24 +43,24 @@
       </template>
     </nav>
 
-    <div class="mt-auto shrink-0 border-t border-border-subtle px-2 py-3">
+    <div class="border-border-subtle mt-auto shrink-0 border-t px-2 py-3">
       <RouterLink
         to="/"
-        class="flex items-center gap-3 rounded-xl px-3 py-2.5 text-tertiary transition hover:bg-surface-active hover:text-primary"
+        class="text-tertiary hover:bg-surface-active hover:text-primary flex items-center gap-3 rounded-xl px-3 py-2.5 transition"
         :class="collapsed ? 'justify-center' : ''"
         @click="$emit('close')"
       >
-        <Home aria-hidden="true" class=""  />
+        <Home aria-hidden="true" class="" />
         <span v-if="!collapsed" class="text-sm">Back to app</span>
       </RouterLink>
 
       <button
         type="button"
-        class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-tertiary transition hover:bg-surface-active hover:text-primary"
+        class="text-tertiary hover:bg-surface-active hover:text-primary flex w-full items-center gap-3 rounded-xl px-3 py-2.5 transition"
         :class="collapsed ? 'justify-center' : ''"
         @click="handleLogout"
       >
-        <LogOut aria-hidden="true" class=""  />
+        <LogOut aria-hidden="true" class="" />
         <span v-if="!collapsed" class="text-sm">Logout</span>
       </button>
     </div>
@@ -93,9 +99,7 @@ interface NavSection {
 const navSections: NavSection[] = [
   {
     label: 'Overview',
-    items: [
-      { label: 'Dashboard', icon: 'pi pi-th-large', to: '/admin', exact: true },
-    ],
+    items: [{ label: 'Dashboard', icon: 'pi pi-th-large', to: '/admin', exact: true }],
   },
   {
     label: 'Catalog',
@@ -152,7 +156,9 @@ function navItemClass(item: NavItem): string {
     active
       ? 'bg-accent-subtle text-accent'
       : 'text-secondary hover:bg-surface-active hover:text-primary',
-  ].filter(Boolean).join(' ')
+  ]
+    .filter(Boolean)
+    .join(' ')
 }
 
 function handleLogout() {

@@ -20,7 +20,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="flex min-h-screen bg-surface-base">
+  <div class="bg-surface-base flex min-h-screen">
     <div class="hidden flex-1 lg:block">
       <AuthHeroPanel />
     </div>

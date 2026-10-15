@@ -11,6 +11,6 @@
 </template>
 
 <script setup lang="ts">
-  import AdminSectionHeader from '@/components/admin/AdminSectionHeader.vue'
-  import AdminArtistsCard from '@/components/admin/AdminArtistsCard.vue'
+import AdminSectionHeader from '@/components/admin/AdminSectionHeader.vue'
+import AdminArtistsCard from '@/components/admin/AdminArtistsCard.vue'
 </script>

@@ -11,19 +11,19 @@
       v-if="showScroll && !isAtStart"
       type="button"
       aria-label="Scroll left"
-      class="absolute top-1/2 -left-3 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-bg-overlay/80 text-primary shadow-lg backdrop-blur-xs transition hover:bg-bg-overlay/90"
+      class="bg-bg-overlay/80 text-primary hover:bg-bg-overlay/90 absolute top-1/2 -left-3 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full shadow-lg backdrop-blur-xs transition"
       @click="scroll(-300)"
     >
-      <ChevronLeft aria-hidden="true" class="text-sm"  />
+      <ChevronLeft aria-hidden="true" class="text-sm" />
     </button>
     <button
       v-if="showScroll && !isAtEnd"
       type="button"
       aria-label="Scroll right"
-      class="absolute top-1/2 -right-3 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full bg-bg-overlay/80 text-primary shadow-lg backdrop-blur-xs transition hover:bg-bg-overlay/90"
+      class="bg-bg-overlay/80 text-primary hover:bg-bg-overlay/90 absolute top-1/2 -right-3 z-10 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full shadow-lg backdrop-blur-xs transition"
       @click="scroll(300)"
     >
-      <ChevronRight aria-hidden="true" class="text-sm"  />
+      <ChevronRight aria-hidden="true" class="text-sm" />
     </button>
   </div>
 </template>
@@ -43,7 +43,8 @@ function checkScroll() {
   if (!carouselRef.value) return
   isAtStart.value = carouselRef.value.scrollLeft <= 10
   isAtEnd.value =
-    carouselRef.value.scrollLeft >= carouselRef.value.scrollWidth - carouselRef.value.clientWidth - 10
+    carouselRef.value.scrollLeft >=
+    carouselRef.value.scrollWidth - carouselRef.value.clientWidth - 10
 }
 
 function scroll(amount: number) {
@@ -56,7 +57,11 @@ function scrollTo(dir: 'next' | 'prev') {
   carouselRef.value.scrollBy({ left: amount, behavior: 'smooth' })
 }
 
-useSwipe({ element: carouselRef, onSwipeLeft: () => scrollTo('next'), onSwipeRight: () => scrollTo('prev') })
+useSwipe({
+  element: carouselRef,
+  onSwipeLeft: () => scrollTo('next'),
+  onSwipeRight: () => scrollTo('prev'),
+})
 
 let observer: ResizeObserver | null = null
 

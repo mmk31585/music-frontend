@@ -20,8 +20,8 @@
           :aria-valuenow="currentTime"
           tabindex="0"
           @click="seek"
-          @keydown.arrow.left.prevent="skip(-5)"
-          @keydown.arrow.right.prevent="skip(5)"
+          @keydown.left.prevent="skip(-5)"
+          @keydown.right.prevent="skip(5)"
         >
           <div
             class="absolute inset-y-0 start-0 h-full rounded-full bg-emerald-500 transition-all duration-150"

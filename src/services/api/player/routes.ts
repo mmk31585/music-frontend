@@ -4,7 +4,10 @@ import { PlayerApiRoutes } from './enums'
 import { PlaybackTrackSchema, type PlaybackTrack } from './types'
 
 function getApiOrigin() {
-  return String(import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api/v1').replace(/\/$/, '')
+  return String(import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api/v1').replace(
+    /\/$/,
+    '',
+  )
 }
 
 function buildStreamUrl(path: string) {

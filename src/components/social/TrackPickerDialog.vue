@@ -7,22 +7,22 @@
         @click.self="close"
       >
         <div
-          class="mx-4 w-full max-w-xl overflow-hidden rounded-2xl bg-linear-to-b from-surface-overlay to-surface-raised shadow-2xl ring-1 ring-border-default"
+          class="from-surface-overlay to-surface-raised ring-border-default mx-4 w-full max-w-xl overflow-hidden rounded-2xl bg-linear-to-b shadow-2xl ring-1"
         >
-          <div class="flex items-center justify-between border-b border-border-default px-4 py-3">
-            <h2 class="text-sm font-bold text-primary">{{ title }}</h2>
+          <div class="border-border-default flex items-center justify-between border-b px-4 py-3">
+            <h2 class="text-primary text-sm font-bold">{{ title }}</h2>
             <button
               type="button"
-              class="flex h-7 w-7 items-center justify-center rounded-full bg-surface-active text-xs text-secondary transition hover:bg-surface-hover"
+              class="bg-surface-active text-secondary hover:bg-surface-hover flex h-7 w-7 items-center justify-center rounded-full text-xs transition"
               @click="close"
               aria-label="Close"
             >
-              <X aria-hidden="true" class=""  />
+              <X aria-hidden="true" class="" />
             </button>
           </div>
 
-          <div class="relative flex items-center border-b border-border-default px-4">
-            <Search aria-hidden="true" class="text-sm text-secondary"  />
+          <div class="border-border-default relative flex items-center border-b px-4">
+            <Search aria-hidden="true" class="text-secondary text-sm" />
             <input
               ref="inputRef"
               v-model="query"
@@ -30,31 +30,47 @@
               placeholder="Search tracks..."
               aria-label="Search tracks"
               autofocus
-              class="flex-1 bg-transparent px-3 py-3 text-sm text-primary outline-hidden placeholder:text-tertiary focus-visible:ring-2 focus-visible:ring-[var(--color-primary-400)]/50"
+              class="text-primary placeholder:text-tertiary flex-1 bg-transparent px-3 py-3 text-sm outline-hidden focus-visible:ring-2 focus-visible:ring-[var(--color-primary-400)]/50"
               @input="onInput"
               @keydown="onKeydown"
             />
-            <Loader2 aria-hidden="true" v-if="searching" class="text-xs text-secondary animate-spin"  />
+            <Loader2
+              aria-hidden="true"
+              v-if="searching"
+              class="text-secondary animate-spin text-xs"
+            />
           </div>
 
           <div class="max-h-72 overflow-y-auto p-2">
-            <div v-if="!query" class="flex items-center justify-center py-12 text-xs text-tertiary">
-              <Headphones aria-hidden="true" class="mr-2"  /> Type to search for tracks
+            <div v-if="!query" class="text-tertiary flex items-center justify-center py-12 text-xs">
+              <Headphones aria-hidden="true" class="mr-2" /> Type to search for tracks
             </div>
 
-            <div v-else-if="searching" class="flex items-center justify-center py-12 text-xs text-secondary">
+            <div
+              v-else-if="searching"
+              class="text-secondary flex items-center justify-center py-12 text-xs"
+            >
               <div class="flex flex-col items-center gap-2">
                 <div class="flex gap-1">
-                  <div class="h-2 w-2 animate-bounce rounded-full bg-slate-500 [animation-delay:0ms]" />
-                  <div class="h-2 w-2 animate-bounce rounded-full bg-slate-500 [animation-delay:150ms]" />
-                  <div class="h-2 w-2 animate-bounce rounded-full bg-slate-500 [animation-delay:300ms]" />
+                  <div
+                    class="h-2 w-2 animate-bounce rounded-full bg-slate-500 [animation-delay:0ms]"
+                  />
+                  <div
+                    class="h-2 w-2 animate-bounce rounded-full bg-slate-500 [animation-delay:150ms]"
+                  />
+                  <div
+                    class="h-2 w-2 animate-bounce rounded-full bg-slate-500 [animation-delay:300ms]"
+                  />
                 </div>
                 <span>Searching...</span>
               </div>
             </div>
 
-            <div v-else-if="!results.length" class="flex items-center justify-center py-12 text-xs text-tertiary">
-              <Info aria-hidden="true" class="mr-2"  /> No tracks found for "{{ query }}"
+            <div
+              v-else-if="!results.length"
+              class="text-tertiary flex items-center justify-center py-12 text-xs"
+            >
+              <Info aria-hidden="true" class="mr-2" /> No tracks found for "{{ query }}"
             </div>
 
             <div v-else class="space-y-1">
@@ -68,7 +84,9 @@
                 @click="selectTrack(track)"
                 @mouseenter="focusedIdx = i"
               >
-                <div class="relative h-10 w-10 shrink-0 overflow-hidden rounded-lg bg-surface-active">
+                <div
+                  class="bg-surface-active relative h-10 w-10 shrink-0 overflow-hidden rounded-lg"
+                >
                   <img
                     v-if="track.cover_url"
                     :src="track.cover_url"
@@ -77,17 +95,24 @@
                     class="h-full w-full object-cover"
                   />
                   <div v-else class="flex h-full items-center justify-center">
-                    <Headphones aria-hidden="true" class="text-xs text-tertiary"  />
+                    <Headphones aria-hidden="true" class="text-tertiary text-xs" />
                   </div>
-                  <div class="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition group-hover:opacity-100">
-                    <Plus aria-hidden="true" class="text-xs text-primary"  />
+                  <div
+                    class="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition group-hover:opacity-100"
+                  >
+                    <Plus aria-hidden="true" class="text-primary text-xs" />
                   </div>
                 </div>
                 <div class="min-w-0 flex-1">
-                  <p class="truncate text-sm font-medium text-primary">{{ track.title }}</p>
-                  <p class="truncate text-xs text-secondary">{{ track.artist_name || 'Unknown' }}</p>
+                  <p class="text-primary truncate text-sm font-medium">{{ track.title }}</p>
+                  <p class="text-secondary truncate text-xs">
+                    {{ track.artist_name || 'Unknown' }}
+                  </p>
                 </div>
-                <span v-if="track.duration_seconds" class="shrink-0 text-xs text-tertiary tabular-nums">
+                <span
+                  v-if="track.duration_seconds"
+                  class="text-tertiary shrink-0 text-xs tabular-nums"
+                >
                   {{ fmtDuration(track.duration_seconds) }}
                 </span>
               </div>
@@ -125,18 +150,21 @@ let abortController: AbortController | null = null
 const inputRef = ref<HTMLInputElement | null>(null)
 const focusedIdx = ref(-1)
 
-watch(() => props.visible, (v) => {
-  if (v) {
-    focusedIdx.value = -1
-    nextTick(() => {
-      inputRef.value?.focus()
-      inputRef.value?.select()
-    })
-  } else {
-    query.value = ''
-    results.value = []
-  }
-})
+watch(
+  () => props.visible,
+  (v) => {
+    if (v) {
+      focusedIdx.value = -1
+      nextTick(() => {
+        inputRef.value?.focus()
+        inputRef.value?.select()
+      })
+    } else {
+      query.value = ''
+      results.value = []
+    }
+  },
+)
 
 function onInput() {
   if (debounceTimer) clearTimeout(debounceTimer)
@@ -157,10 +185,16 @@ async function doSearch() {
 
   searching.value = true
   try {
-    const res = await searchApi.searchCatalog({ query: term, type: 'tracks', limit: 10 }, { signal: abortController.signal } as Record<string, unknown>)
+    const res = await searchApi.searchCatalog({ query: term, type: 'tracks', limit: 10 }, {
+      signal: abortController.signal,
+    } as Record<string, unknown>)
     results.value = (res.tracks ?? []) as unknown as Track[]
   } catch (err) {
-    if ((err as Record<string, unknown>)?.name === 'AbortError' || (err as Record<string, unknown>)?.code === 'ERR_CANCELED') return
+    if (
+      (err as Record<string, unknown>)?.name === 'AbortError' ||
+      (err as Record<string, unknown>)?.code === 'ERR_CANCELED'
+    )
+      return
     results.value = []
   } finally {
     searching.value = false
@@ -206,10 +240,14 @@ function fmtDuration(s: number) {
 
 <style scoped>
 .track-picker-fade-enter-active {
-  transition: opacity 160ms ease, transform 160ms ease;
+  transition:
+    opacity 160ms ease,
+    transform 160ms ease;
 }
 .track-picker-fade-leave-active {
-  transition: opacity 120ms ease, transform 120ms ease;
+  transition:
+    opacity 120ms ease,
+    transform 120ms ease;
 }
 .track-picker-fade-enter-from {
   opacity: 0;

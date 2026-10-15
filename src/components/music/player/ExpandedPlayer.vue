@@ -4,7 +4,7 @@
       <div
         v-if="visible"
         ref="rootEl"
-        class="fixed inset-0 z-50 flex flex-col overflow-hidden text-primary select-none outline-hidden focus-visible:ring-2 focus-visible:ring-[var(--color-primary-400)]/50"
+        class="text-primary fixed inset-0 z-50 flex flex-col overflow-hidden outline-hidden select-none focus-visible:ring-2 focus-visible:ring-[var(--color-primary-400)]/50"
         :style="resolvedBgStyle"
         @keydown="onKeydown"
         tabindex="0"
@@ -14,39 +14,38 @@
             v-if="coverUrl"
             :src="coverUrl"
             alt=""
-            class="absolute h-[120%] w-[120%] -top-[10%] -left-[10%] object-cover opacity-[0.15]"
+            class="absolute -top-[10%] -left-[10%] h-[120%] w-[120%] object-cover opacity-[0.15]"
             style="filter: blur(80px) saturate(1.2)"
           />
-          <div class="absolute inset-0 bg-bg-overlay/55" />
-          <div
-            class="absolute inset-0 transition-all duration-1000"
-            :style="auroraGradient"
-          />
+          <div class="bg-bg-overlay/55 absolute inset-0" />
+          <div class="absolute inset-0 transition-all duration-1000" :style="auroraGradient" />
         </div>
 
         <div class="relative z-10 flex h-14 items-center justify-between px-4 md:px-6">
           <button
             type="button"
-            class="flex h-10 w-10 items-center justify-center rounded-full text-secondary transition-all hover:bg-surface-active hover:text-primary focus-visible:ring-2 focus-visible:ring-accent"
+            class="text-secondary hover:bg-surface-active hover:text-primary focus-visible:ring-accent flex h-10 w-10 items-center justify-center rounded-full transition-all focus-visible:ring-2"
             @click="close"
             aria-label="بستن"
           >
-            <ChevronDown aria-hidden="true" class="text-lg"  />
+            <ChevronDown aria-hidden="true" class="text-lg" />
           </button>
 
-          <div class="text-[13px] font-semibold uppercase tracking-widest text-[rgba(255,255,255,0.6)]">
+          <div
+            class="text-[13px] font-semibold tracking-widest text-[rgba(255,255,255,0.6)] uppercase"
+          >
             NOW PLAYING
           </div>
 
           <div class="flex items-center gap-1">
             <button
               type="button"
-              class="flex h-10 w-10 items-center justify-center rounded-full text-secondary transition-all hover:bg-surface-active hover:text-primary focus-visible:ring-2 focus-visible:ring-accent"
+              class="text-secondary hover:bg-surface-active hover:text-primary focus-visible:ring-accent flex h-10 w-10 items-center justify-center rounded-full transition-all focus-visible:ring-2"
               @click="showOverflow = !showOverflow"
               aria-label="بیشتر"
               :aria-expanded="showOverflow"
             >
-              <MoreHorizontal aria-hidden="true" class="text-sm"  />
+              <MoreHorizontal aria-hidden="true" class="text-sm" />
             </button>
           </div>
         </div>
@@ -68,24 +67,26 @@
                     :alt="title"
                     loading="lazy"
                     class="h-full w-full object-cover transition-all duration-300"
-                    :class="{ 'animate-[art-pop_300ms_cubic-bezier(0.34,1.56,0.64,1)]': !!currentTrack }"
+                    :class="{
+                      'animate-[art-pop_300ms_cubic-bezier(0.34,1.56,0.64,1)]': !!currentTrack,
+                    }"
                     @error="onImgError"
                   />
                   <div
                     v-else
-                    class="flex h-full w-full items-center justify-center bg-linear-to-br from-spotify/30 to-surface-raised"
+                    class="from-spotify/30 to-surface-raised flex h-full w-full items-center justify-center bg-linear-to-br"
                   >
-                    <Music aria-hidden="true" class="text-5xl text-muted"  />
+                    <Music aria-hidden="true" class="text-muted text-5xl" />
                   </div>
                 </div>
                 <div
                   v-if="isPlaying"
-                  class="pointer-events-none absolute -inset-4 animate-[pulse-ring_2s_ease-in-out_infinite] rounded-full border border-spotify/30"
+                  class="border-spotify/30 pointer-events-none absolute -inset-4 animate-[pulse-ring_2s_ease-in-out_infinite] rounded-full border"
                 />
               </div>
 
               <div class="flex w-full max-w-md flex-col items-center gap-1 text-center">
-                <h2 class="max-w-full truncate text-[22px] font-bold text-primary" dir="auto">
+                <h2 class="text-primary max-w-full truncate text-[22px] font-bold" dir="auto">
                   {{ title }}
                 </h2>
                 <p class="text-base text-[rgba(255,255,255,0.6)]" dir="auto">
@@ -122,25 +123,29 @@
                   @mousemove="onProgressHover"
                   @mouseleave="hoverPos = null"
                 >
-                  <div class="h-1 w-full rounded-full bg-surface-active transition-all duration-150 group-hover/seeks:h-1.5">
+                  <div
+                    class="bg-surface-active h-1 w-full rounded-full transition-all duration-150 group-hover/seeks:h-1.5"
+                  >
                     <div
-                      class="relative h-full rounded-full bg-accent transition-all duration-100"
+                      class="bg-accent relative h-full rounded-full transition-all duration-100"
                       :style="{ width: `${Math.min(progressPct, 100)}%` }"
                     >
                       <div
-                        class="absolute -right-1.5 -top-1.5 h-3 w-3 scale-0 rounded-full bg-white shadow-lg transition-transform duration-150 group-hover/seeks:scale-100"
+                        class="absolute -top-1.5 -right-1.5 h-3 w-3 scale-0 rounded-full bg-white shadow-lg transition-transform duration-150 group-hover/seeks:scale-100"
                       />
                     </div>
                   </div>
                   <div
                     v-if="hoverPos !== null"
-                    class="pointer-events-none absolute -top-7 rounded-md bg-bg-overlay/80 px-2 py-1 text-xs tabular-nums text-primary"
+                    class="bg-bg-overlay/80 text-primary pointer-events-none absolute -top-7 rounded-md px-2 py-1 text-xs tabular-nums"
                     :style="{ left: `${hoverPos}%` }"
                   >
                     {{ hoverTimeLabel }}
                   </div>
                 </div>
-                <div class="mt-1 flex justify-between text-xs tabular-nums text-[rgba(255,255,255,0.35)]">
+                <div
+                  class="mt-1 flex justify-between text-xs text-[rgba(255,255,255,0.35)] tabular-nums"
+                >
                   <span>{{ currentTimeLabel }}</span>
                   <span>{{ durationLabel }}</span>
                 </div>
@@ -150,82 +155,106 @@
                 <button
                   type="button"
                   :aria-label="shuffleMode !== 'off' ? 'Shuffle on' : 'Shuffle off'"
-                  class="relative flex h-8 w-8 items-center justify-center rounded-full transition-all hover:bg-surface-active hover:text-primary active:scale-90"
+                  class="hover:bg-surface-active hover:text-primary relative flex h-8 w-8 items-center justify-center rounded-full transition-all active:scale-90"
                   :class="shuffleMode !== 'off' ? 'text-accent' : 'text-[rgba(255,255,255,0.35)]'"
-                  :title="shuffleMode === 'off' ? 'Shuffle off' : shuffleMode === 'queue' ? 'Shuffle queue' : shuffleMode === 'catalog' ? 'Random catalog tracks' : 'Similar tracks'"
+                  :title="
+                    shuffleMode === 'off'
+                      ? 'Shuffle off'
+                      : shuffleMode === 'queue'
+                        ? 'Shuffle queue'
+                        : shuffleMode === 'catalog'
+                          ? 'Random catalog tracks'
+                          : 'Similar tracks'
+                  "
                   @click="toggleShuffle"
                 >
-                  <ArrowUpDown aria-hidden="true" class="text-sm"  />
+                  <ArrowUpDown aria-hidden="true" class="text-sm" />
                   <span
                     v-if="shuffleMode !== 'off'"
-                    class="absolute -top-0.5 -right-0.5 flex h-3 w-3 items-center justify-center rounded-full bg-aurora-purple text-[7px] font-bold text-primary"
-                  >{{ shuffleMode === 'queue' ? 'Q' : shuffleMode === 'catalog' ? 'R' : 'S' }}</span>
+                    class="bg-aurora-purple text-primary absolute -top-0.5 -right-0.5 flex h-3 w-3 items-center justify-center rounded-full text-[7px] font-bold"
+                    >{{
+                      shuffleMode === 'queue' ? 'Q' : shuffleMode === 'catalog' ? 'R' : 'S'
+                    }}</span
+                  >
                 </button>
 
                 <button
                   type="button"
-                  class="flex h-10 w-10 items-center justify-center rounded-full text-secondary transition-all hover:bg-surface-active hover:text-primary active:scale-90 disabled:opacity-20"
+                  class="text-secondary hover:bg-surface-active hover:text-primary flex h-10 w-10 items-center justify-center rounded-full transition-all active:scale-90 disabled:opacity-20"
                   :disabled="!hasPrevious"
                   @click="playPrevious"
                   aria-label="قبلی"
                 >
-                  <SkipBack aria-hidden="true" class="text-xl"  />
+                  <SkipBack aria-hidden="true" class="text-xl" />
                 </button>
 
                 <button
                   type="button"
                   :aria-label="isPlaying ? 'Pause' : 'Play'"
-                  class="relative flex h-16 w-16 items-center justify-center rounded-full bg-accent text-primary shadow-lg transition-all active:scale-95 disabled:opacity-40"
-                  :style="{ transitionTimingFunction: 'var(--ease-spring)', transitionDuration: '150ms' }"
+                  class="bg-accent text-primary relative flex h-16 w-16 items-center justify-center rounded-full shadow-lg transition-all active:scale-95 disabled:opacity-40"
+                  :style="{
+                    transitionTimingFunction: 'var(--ease-spring)',
+                    transitionDuration: '150ms',
+                  }"
                   :disabled="!currentTrack || isLoadingTrack"
                   @click="togglePlayPause"
                 >
-                  <Loader2 aria-hidden="true" v-if="isLoadingTrack || isBuffering" class="text-xl animate-spin"  />
-                  <component :is="isPlaying ? Pause : Play"<i aria-hidden="true" v-else  class="text-xl" /> />
+                  <Loader2
+                    aria-hidden="true"
+                    v-if="isLoadingTrack || isBuffering"
+                    class="animate-spin text-xl"
+                  />
+                  <component
+                    :is="isPlaying ? Pause : Play"
+                    aria-hidden="true"
+                    v-else
+                    class="text-xl"
+                  />
                   <span
                     v-if="isPlaying"
-                    class="absolute inset-0 animate-[play-ring_2s_ease-out_infinite] rounded-full border-2 border-spotify/40"
+                    class="border-spotify/40 absolute inset-0 animate-[play-ring_2s_ease-out_infinite] rounded-full border-2"
                   />
                 </button>
 
                 <button
                   type="button"
-                  class="flex h-10 w-10 items-center justify-center rounded-full text-secondary transition-all hover:bg-surface-active hover:text-primary active:scale-90 disabled:opacity-20"
+                  class="text-secondary hover:bg-surface-active hover:text-primary flex h-10 w-10 items-center justify-center rounded-full transition-all active:scale-90 disabled:opacity-20"
                   :disabled="!hasNext"
                   @click="playNext"
                   aria-label="بعدی"
                 >
-                  <SkipForward aria-hidden="true" class="text-xl"  />
+                  <SkipForward aria-hidden="true" class="text-xl" />
                 </button>
 
                 <button
                   type="button"
                   :aria-label="repeatTitle"
-                  class="relative flex h-8 w-8 items-center justify-center rounded-full transition-all hover:bg-surface-active hover:text-primary active:scale-90"
+                  class="hover:bg-surface-active hover:text-primary relative flex h-8 w-8 items-center justify-center rounded-full transition-all active:scale-90"
                   :class="repeatMode !== 'off' ? 'text-accent' : 'text-[rgba(255,255,255,0.35)]'"
                   @click="toggleRepeat"
                 >
-                  <RefreshCw aria-hidden="true" class="text-sm"  />
+                  <RefreshCw aria-hidden="true" class="text-sm" />
                   <span
                     v-if="repeatMode === 'one'"
-                    class="absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-[9px] font-bold text-black"
-                  >1</span>
+                    class="bg-accent absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full text-[9px] font-bold text-black"
+                    >1</span
+                  >
                 </button>
               </div>
 
-              <div class="flex items-center gap-4 text-tertiary">
+              <div class="text-tertiary flex items-center gap-4">
                 <button
                   type="button"
-                  class="flex h-8 w-8 items-center justify-center rounded-full transition-all hover:text-primary active:scale-90"
+                  class="hover:text-primary flex h-8 w-8 items-center justify-center rounded-full transition-all active:scale-90"
                   :aria-label="muted ? 'باز کردن صدا' : 'بی صدا'"
                   @click="toggleMute"
                 >
                   <i aria-hidden="true" :class="volumeIcon" class="text-sm" />
                 </button>
                 <div class="group/vol relative flex items-center">
-                  <div class="relative h-1 w-24 overflow-hidden rounded-full bg-surface-active">
+                  <div class="bg-surface-active relative h-1 w-24 overflow-hidden rounded-full">
                     <div
-                      class="h-full rounded-full bg-surface-overlay0"
+                      class="bg-surface-overlay0 h-full rounded-full"
                       :style="{ width: `${muted ? 0 : Number(volume) * 100}%` }"
                     />
                   </div>
@@ -242,59 +271,67 @@
 
                 <button
                   type="button"
-                  class="flex h-8 items-center gap-1.5 rounded-full bg-surface-overlay/60 px-3 text-xs font-bold transition-all hover:bg-surface-active hover:text-primary active:scale-95"
+                  class="bg-surface-overlay/60 hover:bg-surface-active hover:text-primary flex h-8 items-center gap-1.5 rounded-full px-3 text-xs font-bold transition-all active:scale-95"
                   :class="{ 'bg-accent-subtle text-accent': playbackRate !== 1 }"
                   @click="cycleSpeed"
                 >
-                  <Forward aria-hidden="true" class="text-[10px]"  />
+                  <Forward aria-hidden="true" class="text-[10px]" />
                   <span class="tabular-nums">{{ speedLabel }}</span>
                 </button>
 
                 <button
                   type="button"
-                  class="flex h-8 items-center gap-1.5 rounded-full bg-surface-overlay/60 px-3 text-xs font-bold transition-all hover:bg-surface-active hover:text-primary active:scale-95"
+                  class="bg-surface-overlay/60 hover:bg-surface-active hover:text-primary flex h-8 items-center gap-1.5 rounded-full px-3 text-xs font-bold transition-all active:scale-95"
                   :class="{ 'bg-accent-subtle text-accent': sleepTimerMinutes > 0 }"
                   @click="sleepMenuOpen = !sleepMenuOpen"
                 >
-                  <Clock aria-hidden="true" class="text-[10px]"  />
-                  <span v-if="sleepTimerMinutes > 0" class="tabular-nums">{{ sleepTimerLabel }}</span>
+                  <Clock aria-hidden="true" class="text-[10px]" />
+                  <span v-if="sleepTimerMinutes > 0" class="tabular-nums">{{
+                    sleepTimerLabel
+                  }}</span>
                 </button>
 
                 <button
                   type="button"
-                  class="flex h-8 items-center gap-1.5 rounded-full bg-surface-overlay/60 px-3 text-xs font-bold transition-all hover:bg-surface-active hover:text-primary active:scale-95"
+                  class="bg-surface-overlay/60 hover:bg-surface-active hover:text-primary flex h-8 items-center gap-1.5 rounded-full px-3 text-xs font-bold transition-all active:scale-95"
                   :class="{ 'bg-accent-subtle text-accent': crossfadeDuration > 0 }"
                   @click="cycleCrossfade"
                 >
-                  <Maximize aria-hidden="true" class="text-[10px]"  />
-                  <span v-if="crossfadeDuration > 0" class="tabular-nums">{{ crossfadeDuration }}s</span>
+                  <Maximize aria-hidden="true" class="text-[10px]" />
+                  <span v-if="crossfadeDuration > 0" class="tabular-nums"
+                    >{{ crossfadeDuration }}s</span
+                  >
                 </button>
 
                 <button
                   type="button"
-                  class="flex h-8 w-8 items-center justify-center rounded-full transition-all hover:text-primary active:scale-90"
+                  class="hover:text-primary flex h-8 w-8 items-center justify-center rounded-full transition-all active:scale-90"
                   aria-label="Picture in Picture"
                   @click="onTogglePiP"
                 >
-                  <Maximize2 aria-hidden="true" class="text-xs"  />
+                  <Maximize2 aria-hidden="true" class="text-xs" />
                 </button>
               </div>
             </div>
 
-            <div v-if="upNextTracks.length" class="w-full max-w-md mt-4">
-              <p class="mb-2 px-1 text-xs font-semibold uppercase tracking-wider text-[rgba(255,255,255,0.35)]">در ادامه</p>
+            <div v-if="upNextTracks.length" class="mt-4 w-full max-w-md">
+              <p
+                class="mb-2 px-1 text-xs font-semibold tracking-wider text-[rgba(255,255,255,0.35)] uppercase"
+              >
+                در ادامه
+              </p>
               <div class="space-y-1">
                 <div
                   v-for="(track, idx) in upNextTracks"
                   :key="track.id"
                   role="button"
                   tabindex="0"
-                  class="group flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2 transition-all hover:bg-surface-overlay"
+                  class="group hover:bg-surface-overlay flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2 transition-all"
                   @click="playQueueItem(queueIndex + 1 + idx)"
                   @keydown.enter="playQueueItem(queueIndex + 1 + idx)"
                   @keydown.space.prevent="playQueueItem(queueIndex + 1 + idx)"
                 >
-                  <div class="h-8 w-8 shrink-0 overflow-hidden rounded-lg bg-surface-active">
+                  <div class="bg-surface-active h-8 w-8 shrink-0 overflow-hidden rounded-lg">
                     <img
                       v-if="track.coverUrl"
                       :src="track.coverUrl"
@@ -304,23 +341,24 @@
                       @error="onImgError"
                     />
                     <div v-else class="flex h-full items-center justify-center">
-                      <Music aria-hidden="true" class="text-xs text-muted"  />
+                      <Music aria-hidden="true" class="text-muted text-xs" />
                     </div>
                   </div>
                   <div class="min-w-0 flex-1">
-                    <p class="truncate text-sm font-medium text-primary/80" dir="auto">{{ track.title }}</p>
-                    <p class="truncate text-xs text-tertiary" dir="auto">{{ track.artistName }}</p>
+                    <p class="text-primary/80 truncate text-sm font-medium" dir="auto">
+                      {{ track.title }}
+                    </p>
+                    <p class="text-tertiary truncate text-xs" dir="auto">{{ track.artistName }}</p>
                   </div>
-                  <span class="text-xs text-muted tabular-nums">{{ formatTime(track.durationSeconds) }}</span>
+                  <span class="text-muted text-xs tabular-nums">{{
+                    formatTime(track.durationSeconds)
+                  }}</span>
                 </div>
               </div>
             </div>
           </div>
 
-          <div
-            v-if="activeTab === 'lyrics'"
-            class="relative flex flex-1 flex-col overflow-hidden"
-          >
+          <div v-if="activeTab === 'lyrics'" class="relative flex flex-1 flex-col overflow-hidden">
             <KaraokeLyrics
               :content="lyricsContent"
               :type="lyricsType"
@@ -332,15 +370,18 @@
             />
           </div>
 
-          <div
-            v-if="activeTab === 'queue'"
-            class="flex flex-1 flex-col overflow-hidden"
-          >
+          <div v-if="activeTab === 'queue'" class="flex flex-1 flex-col overflow-hidden">
             <div class="flex-1 overflow-y-auto px-4 py-4 md:px-6">
               <div v-if="currentTrack" class="mb-6">
-                <p class="mb-2 text-xs font-semibold uppercase tracking-wider text-[rgba(255,255,255,0.35)]">در حال پخش</p>
-                <div class="flex items-center gap-3 rounded-xl border-r-2 border-spotify bg-surface-overlay/50 px-4 py-3">
-                  <div class="h-10 w-10 shrink-0 overflow-hidden rounded-lg bg-surface-active">
+                <p
+                  class="mb-2 text-xs font-semibold tracking-wider text-[rgba(255,255,255,0.35)] uppercase"
+                >
+                  در حال پخش
+                </p>
+                <div
+                  class="border-spotify bg-surface-overlay/50 flex items-center gap-3 rounded-xl border-r-2 px-4 py-3"
+                >
+                  <div class="bg-surface-active h-10 w-10 shrink-0 overflow-hidden rounded-lg">
                     <img
                       v-if="currentTrack.coverUrl"
                       :src="currentTrack.coverUrl"
@@ -350,19 +391,27 @@
                       @error="onImgError"
                     />
                     <div v-else class="flex h-full items-center justify-center">
-                      <Music aria-hidden="true" class="text-xs text-muted"  />
+                      <Music aria-hidden="true" class="text-muted text-xs" />
                     </div>
                   </div>
                   <div class="min-w-0 flex-1">
-                    <p class="truncate text-sm font-bold text-primary" dir="auto">{{ currentTrack.title }}</p>
-                    <p class="truncate text-xs text-tertiary" dir="auto">{{ currentTrack.artistName }}</p>
+                    <p class="text-primary truncate text-sm font-bold" dir="auto">
+                      {{ currentTrack.title }}
+                    </p>
+                    <p class="text-tertiary truncate text-xs" dir="auto">
+                      {{ currentTrack.artistName }}
+                    </p>
                   </div>
-                  <AudioLines aria-hidden="true" class="text-lg text-accent"  />
+                  <AudioLines aria-hidden="true" class="text-accent text-lg" />
                 </div>
               </div>
 
               <div>
-                <p class="mb-2 text-xs font-semibold uppercase tracking-wider text-[rgba(255,255,255,0.35)]">در صف پخش</p>
+                <p
+                  class="mb-2 text-xs font-semibold tracking-wider text-[rgba(255,255,255,0.35)] uppercase"
+                >
+                  در صف پخش
+                </p>
                 <div v-if="queueTracks.length" class="space-y-1">
                   <div
                     v-for="(track, idx) in queueTracks"
@@ -370,7 +419,7 @@
                     :draggable="queueTracks.length > 1"
                     role="button"
                     tabindex="0"
-                    class="group flex cursor-grab items-center gap-3 rounded-xl px-3 py-2.5 transition-all hover:bg-surface-overlay"
+                    class="group hover:bg-surface-overlay flex cursor-grab items-center gap-3 rounded-xl px-3 py-2.5 transition-all"
                     @dragstart="onDragStart(idx)"
                     @dragover.prevent="onDragOver(idx)"
                     @dragend="onDragEnd"
@@ -378,10 +427,13 @@
                     @keydown.enter="playQueueItem(idx)"
                     @keydown.space.prevent="playQueueItem(idx)"
                   >
-                    <span class="cursor-grab text-[rgba(255,255,255,0.2)] hover:text-secondary" @click.stop>
-                      <Menu aria-hidden="true" class="text-xs"  />
+                    <span
+                      class="hover:text-secondary cursor-grab text-[rgba(255,255,255,0.2)]"
+                      @click.stop
+                    >
+                      <Menu aria-hidden="true" class="text-xs" />
                     </span>
-                    <div class="h-10 w-10 shrink-0 overflow-hidden rounded-lg bg-surface-active">
+                    <div class="bg-surface-active h-10 w-10 shrink-0 overflow-hidden rounded-lg">
                       <img
                         v-if="track.coverUrl"
                         :src="track.coverUrl"
@@ -391,39 +443,46 @@
                         @error="onImgError"
                       />
                       <div v-else class="flex h-full items-center justify-center">
-                        <Music aria-hidden="true" class="text-xs text-muted"  />
+                        <Music aria-hidden="true" class="text-muted text-xs" />
                       </div>
                     </div>
                     <div class="min-w-0 flex-1">
-                      <p class="truncate text-sm font-medium text-primary/80" dir="auto">{{ track.title }}</p>
-                      <p class="truncate text-xs text-tertiary" dir="auto">{{ track.artistName }}</p>
+                      <p class="text-primary/80 truncate text-sm font-medium" dir="auto">
+                        {{ track.title }}
+                      </p>
+                      <p class="text-tertiary truncate text-xs" dir="auto">
+                        {{ track.artistName }}
+                      </p>
                     </div>
-                    <span class="text-xs text-muted tabular-nums">{{ formatTime(track.durationSeconds) }}</span>
+                    <span class="text-muted text-xs tabular-nums">{{
+                      formatTime(track.durationSeconds)
+                    }}</span>
                     <button
                       type="button"
-                      class="flex h-7 w-7 items-center justify-center rounded-full text-secondary opacity-0 transition-all hover:bg-surface-active hover:text-primary/60 group-hover:opacity-100"
+                      class="text-secondary hover:bg-surface-active hover:text-primary/60 flex h-7 w-7 items-center justify-center rounded-full opacity-0 transition-all group-hover:opacity-100"
                       @click.stop="removeFromQueue(idx)"
                       aria-label="حذف از صف"
                     >
-                      <X aria-hidden="true" class="text-xs"  />
+                      <X aria-hidden="true" class="text-xs" />
                     </button>
                   </div>
                 </div>
-                <div
-                  v-else
-                  class="flex flex-col items-center justify-center py-16 text-center"
-                >
-                  <div class="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-surface-overlay">
-                    <List aria-hidden="true" class="text-lg text-secondary"  />
+                <div v-else class="flex flex-col items-center justify-center py-16 text-center">
+                  <div
+                    class="bg-surface-overlay mb-3 flex h-12 w-12 items-center justify-center rounded-2xl"
+                  >
+                    <List aria-hidden="true" class="text-secondary text-lg" />
                   </div>
-                  <p class="text-sm text-muted">صف پخش خالی است</p>
+                  <p class="text-muted text-sm">صف پخش خالی است</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
 
-        <div class="relative z-10 flex justify-center border-t border-border-subtle bg-bg-overlay/20 backdrop-blur-xs">
+        <div
+          class="border-border-subtle bg-bg-overlay/20 relative z-10 flex justify-center border-t backdrop-blur-xs"
+        >
           <div class="relative flex gap-8">
             <button
               v-for="tab in tabs"
@@ -436,7 +495,7 @@
               {{ tab.label }}
             </button>
             <div
-              class="absolute bottom-0 h-0.5 bg-accent transition-all duration-200"
+              class="bg-accent absolute bottom-0 h-0.5 transition-all duration-200"
               :style="tabIndicatorStyle"
               style="transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1)"
             />
@@ -444,16 +503,13 @@
         </div>
 
         <Transition name="fade">
-          <div
-            v-if="sleepMenuOpen"
-            class="absolute bottom-20 left-1/2 z-20 -translate-x-1/2"
-          >
+          <div v-if="sleepMenuOpen" class="absolute bottom-20 left-1/2 z-20 -translate-x-1/2">
             <div class="glass-darker flex items-center gap-1.5 rounded-full px-3 py-1.5 shadow-lg">
               <button
                 v-for="opt in sleepOptions"
                 :key="opt.value"
                 type="button"
-                class="rounded-full px-3 py-1.5 text-xs font-medium text-secondary transition-all hover:bg-surface-active hover:text-primary"
+                class="text-secondary hover:bg-surface-active hover:text-primary rounded-full px-3 py-1.5 text-xs font-medium transition-all"
                 :class="{ 'bg-accent/15! text-accent!': sleepTimerMinutes === opt.value }"
                 @click="setTimer(opt.value)"
               >
@@ -461,10 +517,10 @@
               </button>
               <button
                 type="button"
-                class="mr-1 rounded-full px-2 py-1.5 text-xs text-muted transition-colors hover:text-primary/60"
+                class="text-muted hover:text-primary/60 mr-1 rounded-full px-2 py-1.5 text-xs transition-colors"
                 @click="sleepMenuOpen = false"
               >
-                <X aria-hidden="true" class=""  />
+                <X aria-hidden="true" class="" />
               </button>
             </div>
           </div>
@@ -490,7 +546,26 @@
 </template>
 
 <script setup lang="ts">
-import { ArrowUpDown, AudioLines, ChevronDown, Clock, Disc, ExternalLink, Forward, List, Loader2, Maximize, Maximize2, Menu, MoreHorizontal, Music, Pause, Play, PlusCircle, Radio, RefreshCw, Send, SkipBack, SkipForward, User, X } from 'lucide-vue-next'
+import {
+  ArrowUpDown,
+  AudioLines,
+  ChevronDown,
+  Clock,
+  Forward,
+  List,
+  Loader2,
+  Maximize,
+  Maximize2,
+  Menu,
+  MoreHorizontal,
+  Music,
+  Pause,
+  Play,
+  RefreshCw,
+  SkipBack,
+  SkipForward,
+  X,
+} from 'lucide-vue-next'
 import { computed, inject, nextTick, onBeforeUnmount, onMounted, ref, shallowRef, watch } from 'vue'
 import { useRadio } from '@/composables/recommendation/useRadio'
 import { useRouter } from 'vue-router'
@@ -516,10 +591,19 @@ const router = useRouter()
 const player = usePlayer()
 
 const {
-  playNext, playPrevious, toggleMute, toggleShuffle, toggleRepeat,
-  setPlaybackRate, setSleepTimer, clearSleepTimer,
-  shuffleMode, repeatMode, playbackRate,
-  sleepTimerMinutes, crossfadeDuration,
+  playNext,
+  playPrevious,
+  toggleMute,
+  toggleShuffle,
+  toggleRepeat,
+  setPlaybackRate,
+  setSleepTimer,
+  clearSleepTimer,
+  shuffleMode,
+  repeatMode,
+  playbackRate,
+  sleepTimerMinutes,
+  crossfadeDuration,
 } = player
 
 const currentTrack = computed(() => player.currentTrack.value)
@@ -689,7 +773,7 @@ function onProgressHover(e: MouseEvent) {
 }
 
 function onVolume(val: number | number[]) {
-  player.setVolume(typeof val === 'number' ? val : val[0] ?? 0)
+  player.setVolume(typeof val === 'number' ? val : (val[0] ?? 0))
 }
 
 function playQueueItem(index: number) {
@@ -714,7 +798,10 @@ function close() {
 
 function onKeydown(e: KeyboardEvent) {
   if (e.key === 'Escape') close()
-  if (e.key === ' ' && e.target === e.currentTarget) { e.preventDefault(); togglePlayPause() }
+  if (e.key === ' ' && e.target === e.currentTarget) {
+    e.preventDefault()
+    togglePlayPause()
+  }
   if (e.key === 'ArrowLeft') player.playPrevious()
   if (e.key === 'ArrowRight') player.playNext()
 }
@@ -748,8 +835,7 @@ const resolvedBgStyle = computed(() => {
     return { background: 'var(--bg-base)' }
   }
   return {
-    background:
-      `radial-gradient(ellipse 80% 60% at 50% 0%, rgba(${parseHexColor(accentColor.value || 'var(--accent)')}, 0.25) 0%, transparent 70%), var(--bg-base)`,
+    background: `radial-gradient(ellipse 80% 60% at 50% 0%, rgba(${parseHexColor(accentColor.value || 'var(--accent)')}, 0.25) 0%, transparent 70%), var(--bg-base)`,
     transition: 'background 1s ease',
   }
 })
@@ -822,7 +908,10 @@ watch(
 function shareTelegram() {
   if (currentTrack.value) {
     const text = `${currentTrack.value.title} - ${currentTrack.value.artistName}\n${window.location.origin}/track/${currentTrack.value.id}`
-    window.open(`https://t.me/share/url?url=${encodeURIComponent(window.location.origin + '/track/' + currentTrack.value.id)}&text=${encodeURIComponent(text)}`, '_blank')
+    window.open(
+      `https://t.me/share/url?url=${encodeURIComponent(window.location.origin + '/track/' + currentTrack.value.id)}&text=${encodeURIComponent(text)}`,
+      '_blank',
+    )
   }
   showOverflow.value = false
 }
@@ -948,10 +1037,14 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .fullscreen-slide-enter-active {
-  transition: transform 400ms cubic-bezier(0.19, 1, 0.22, 1), opacity 350ms ease;
+  transition:
+    transform 400ms cubic-bezier(0.19, 1, 0.22, 1),
+    opacity 350ms ease;
 }
 .fullscreen-slide-leave-active {
-  transition: transform 300ms ease-in, opacity 200ms ease;
+  transition:
+    transform 300ms ease-in,
+    opacity 200ms ease;
 }
 .fullscreen-slide-enter-from {
   transform: translateY(100%);
@@ -972,19 +1065,40 @@ onBeforeUnmount(() => {
 }
 
 @keyframes art-pop {
-  from { transform: scale(0.97); opacity: 0.7; }
-  to { transform: scale(1); opacity: 1; }
+  from {
+    transform: scale(0.97);
+    opacity: 0.7;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
 
 @keyframes pulse-ring {
-  0% { transform: scale(1); opacity: 0.4; }
-  50% { transform: scale(1.08); opacity: 0.15; }
-  100% { transform: scale(1); opacity: 0.4; }
+  0% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
+  50% {
+    transform: scale(1.08);
+    opacity: 0.15;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.4;
+  }
 }
 
 @keyframes play-ring {
-  0% { transform: scale(1); opacity: 0.5; }
-  100% { transform: scale(1.4); opacity: 0; }
+  0% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(1.4);
+    opacity: 0;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -999,8 +1113,8 @@ onBeforeUnmount(() => {
     transform: none;
     opacity: 1;
   }
-  [class*="pulse-ring"],
-  [class*="play-ring"] {
+  [class*='pulse-ring'],
+  [class*='play-ring'] {
     animation-name: none;
   }
 }

@@ -62,7 +62,7 @@
         <div class="border-b border-white/6 px-5 py-4">
           <div class="flex items-center gap-3">
             <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-purple-500/10">
-              <Layers aria-hidden="true" class="text-xs text-purple-400"  />
+              <Layers aria-hidden="true" class="text-xs text-purple-400" />
             </div>
             <h2 class="text-base font-semibold text-white">Cache Groups</h2>
           </div>
@@ -79,7 +79,7 @@
         </div>
 
         <div v-else-if="cacheGroups.length === 0" class="py-12 text-center">
-          <Layers aria-hidden="true" class="text-2xl text-slate-700"  />
+          <Layers aria-hidden="true" class="text-2xl text-slate-700" />
           <p class="mt-2 text-sm text-slate-500">No cache groups available</p>
         </div>
 
@@ -91,9 +91,7 @@
           >
             <div>
               <p class="text-sm font-medium text-white">{{ group.label }}</p>
-              <p class="mt-0.5 text-xs text-slate-500">
-                {{ group.keys.toLocaleString() }} keys
-              </p>
+              <p class="mt-0.5 text-xs text-slate-500">{{ group.keys.toLocaleString() }} keys</p>
             </div>
             <Button
               type="button"
@@ -114,7 +112,7 @@
         <div class="border-b border-white/6 px-5 py-4">
           <div class="flex items-center gap-3">
             <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500/10">
-              <Server aria-hidden="true" class="text-xs text-emerald-400"  />
+              <Server aria-hidden="true" class="text-xs text-emerald-400" />
             </div>
             <h2 class="text-base font-semibold text-white">Server Status</h2>
           </div>
@@ -143,7 +141,9 @@
           </div>
           <div class="flex items-center justify-between px-5 py-3">
             <span class="text-sm text-slate-400">Connected Clients</span>
-            <span class="text-xs text-slate-500 tabular-nums">{{ cacheStats.connectedClients }}</span>
+            <span class="text-xs text-slate-500 tabular-nums">{{
+              cacheStats.connectedClients
+            }}</span>
           </div>
           <div class="flex items-center justify-between px-5 py-3">
             <span class="text-sm text-slate-400">Cache Version</span>
@@ -152,7 +152,7 @@
         </div>
 
         <div class="border-t border-white/6 px-5 py-4">
-          <p class="mb-3 text-xs font-medium text-slate-500 uppercase tracking-wider">Actions</p>
+          <p class="mb-3 text-xs font-medium tracking-wider text-slate-500 uppercase">Actions</p>
           <div class="flex flex-wrap gap-2">
             <Button
               type="button"
@@ -236,15 +236,15 @@ const cacheGroups = ref<CacheGroup[]>([
 async function fetchCacheStats() {
   loading.value = true
   try {
-    const res = await client.get('/admin/cache/stats').then(r => r.data)
+    const res = await client.get('/admin/cache/stats').then((r) => r.data)
     if (res.data) {
       cacheStats.value = { ...cacheStats.value, ...res.data }
     }
-    const groupsRes = await client.get('/admin/cache/groups').then(r => r.data)
+    const groupsRes = await client.get('/admin/cache/groups').then((r) => r.data)
     if (groupsRes.data && Array.isArray(groupsRes.data)) {
       cacheGroups.value = groupsRes.data
     }
-    const infoRes = await client.get('/admin/cache/info').then(r => r.data)
+    const infoRes = await client.get('/admin/cache/info').then((r) => r.data)
     if (infoRes.data) {
       serverOnline.value = infoRes.data.online ?? true
       serverUptime.value = infoRes.data.uptime ?? '--'
@@ -252,7 +252,12 @@ async function fetchCacheStats() {
     }
   } catch {
     serverOnline.value = false
-    toast.add({ severity: 'warn', summary: 'Cache server unavailable', detail: 'Could not reach Redis. Showing placeholder data.', life: 5000 })
+    toast.add({
+      severity: 'warn',
+      summary: 'Cache server unavailable',
+      detail: 'Could not reach Redis. Showing placeholder data.',
+      life: 5000,
+    })
   } finally {
     loading.value = false
   }

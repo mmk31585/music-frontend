@@ -19,13 +19,18 @@
       class="relative z-10 flex h-full flex-col items-center justify-center gap-4 px-6 text-center"
     >
       <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/5">
-        <AlignLeft aria-hidden="true" class="text-3xl text-white/15"  />
+        <AlignLeft aria-hidden="true" class="text-3xl text-white/15" />
       </div>
       <p class="text-sm text-white/25">No lyrics available</p>
       <p class="text-xs text-white/15">Lyrics will appear here when available</p>
     </div>
 
-    <div v-else ref="containerRef" class="relative z-10 h-full scrollbar-none overflow-y-auto px-6" :dir="isRtl ? 'rtl' : 'ltr'">
+    <div
+      v-else
+      ref="containerRef"
+      class="relative z-10 h-full scrollbar-none overflow-y-auto px-6"
+      :dir="isRtl ? 'rtl' : 'ltr'"
+    >
       <div class="flex min-h-full flex-col items-center justify-center py-12">
         <button
           v-for="(line, idx) in parsedCache"
@@ -72,9 +77,9 @@
     <!-- Karaoke badge -->
     <div v-if="karaoke && content" class="absolute top-4 left-1/2 z-20 -translate-x-1/2">
       <span
-        class="inline-flex items-center gap-1.5 rounded-full border border-spotify/20 bg-spotify/10 px-3 py-1 text-[10px] font-bold tracking-wider text-spotify uppercase backdrop-blur-xs"
+        class="border-spotify/20 bg-spotify/10 text-spotify inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[10px] font-bold tracking-wider uppercase backdrop-blur-xs"
       >
-        <span class="glow-spread flex h-1.5 w-1.5 rounded-full bg-spotify" />
+        <span class="glow-spread bg-spotify flex h-1.5 w-1.5 rounded-full" />
         Karaoke
       </span>
     </div>

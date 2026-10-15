@@ -14,15 +14,16 @@
         <div class="mb-10">
           <div class="mb-3 flex items-center gap-2">
             <span
-              class="inline-flex items-center gap-1.5 rounded-full border border-spotify/20 bg-spotify/10 px-3 py-1 text-[10px] font-bold tracking-[0.2em] text-spotify uppercase"
+              class="border-spotify/20 bg-spotify/10 text-spotify inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-[10px] font-bold tracking-[0.2em] uppercase"
             >
-              <Sparkles class="text-[10px]"<i aria-hidden="true"  /> />
+              <Sparkles class="text-[10px]" aria-hidden="true" />
               AI-Powered
             </span>
           </div>
           <h1 class="text-4xl font-black text-white md:text-5xl">Playlist Generator</h1>
           <p class="mt-3 max-w-xl text-base text-white/50">
-            Describe the vibe — a feeling, an activity, a scene — and let AI curate the perfect playlist.
+            Describe the vibe — a feeling, an activity, a scene — and let AI curate the perfect
+            playlist.
           </p>
         </div>
 
@@ -38,7 +39,9 @@
 
               <!-- Prompt textarea -->
               <div class="mb-5">
-                <label class="mb-2 block text-xs font-medium text-white/40">Describe the vibe</label>
+                <label class="mb-2 block text-xs font-medium text-white/40"
+                  >Describe the vibe</label
+                >
                 <Textarea
                   v-model="prompt"
                   placeholder="e.g. Upbeat electronic music for a sunrise drive along the coast..."
@@ -96,11 +99,7 @@
               <div class="mb-5 grid grid-cols-2 gap-4">
                 <div>
                   <label class="mb-2 block text-xs font-medium text-white/40">Genre</label>
-                  <InputText
-                    v-model="genre"
-                    placeholder="Any genre"
-                    class="w-full"
-                  />
+                  <InputText v-model="genre" placeholder="Any genre" class="w-full" />
                 </div>
                 <div>
                   <label class="mb-2 block text-xs font-medium text-white/40">Track limit</label>
@@ -125,8 +124,10 @@
               v-if="history.length"
               class="rounded-2xl border border-white/6 bg-white/2 p-6 backdrop-blur-xs"
             >
-              <h3 class="mb-3 flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] text-white/40 uppercase">
-                <History aria-hidden="true" class=""  />
+              <h3
+                class="mb-3 flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] text-white/40 uppercase"
+              >
+                <History aria-hidden="true" class="" />
                 Recent Generations
               </h3>
               <div class="space-y-2">
@@ -138,12 +139,12 @@
                   @click="restoreHistory(item)"
                 >
                   <div
-                    class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-linear-to-br from-spotify/20 to-aurora-purple/20"
+                    class="from-spotify/20 to-aurora-purple/20 flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-linear-to-br"
                   >
-                    <Sparkles aria-hidden="true" class="text-[10px] text-spotify"  />
+                    <Sparkles aria-hidden="true" class="text-spotify text-[10px]" />
                   </div>
                   <div class="min-w-0 flex-1">
-                    <div class="truncate text-sm font-medium text-white group-hover:text-spotify">
+                    <div class="group-hover:text-spotify truncate text-sm font-medium text-white">
                       {{ item.name }}
                     </div>
                     <div class="text-[10px] text-white/30">
@@ -160,26 +161,24 @@
             <!-- Generating State -->
             <div
               v-if="generating"
-              class="flex flex-col items-center justify-center rounded-2xl border border-white/6 bg-linear-to-br from-spotify/5 via-aurora-purple/5 to-black/40 px-6 py-24 text-center backdrop-blur-xs"
+              class="from-spotify/5 via-aurora-purple/5 flex flex-col items-center justify-center rounded-2xl border border-white/6 bg-linear-to-br to-black/40 px-6 py-24 text-center backdrop-blur-xs"
             >
               <div class="relative mb-6">
                 <div
-                  class="flex h-20 w-20 items-center justify-center rounded-full bg-linear-to-br from-spotify/20 to-aurora-purple/20"
+                  class="from-spotify/20 to-aurora-purple/20 flex h-20 w-20 items-center justify-center rounded-full bg-linear-to-br"
                 >
-                  <Loader2 aria-hidden="true" class="text-3xl text-spotify animate-spin"  />
+                  <Loader2 aria-hidden="true" class="text-spotify animate-spin text-3xl" />
                 </div>
-                <div
-                  class="absolute -inset-2 animate-ping rounded-full border border-spotify/20"
-                />
+                <div class="border-spotify/20 absolute -inset-2 animate-ping rounded-full border" />
               </div>
               <p class="text-lg font-bold text-white">Generating your perfect playlist...</p>
               <p class="mt-2 text-sm text-white/40">
                 AI is analyzing your preferences and curating tracks
               </p>
               <div class="mt-6 flex items-center gap-2 text-xs text-white/20">
-                <span class="flex h-1.5 w-1.5 rounded-full bg-spotify/50" />
+                <span class="bg-spotify/50 flex h-1.5 w-1.5 rounded-full" />
                 <span>Analyzing taste profile</span>
-                <span class="flex h-1.5 w-1.5 rounded-full bg-spotify/30" />
+                <span class="bg-spotify/30 flex h-1.5 w-1.5 rounded-full" />
                 <span>Matching mood</span>
                 <span class="flex h-1.5 w-1.5 rounded-full bg-white/10" />
                 <span>Curating tracks</span>
@@ -190,14 +189,14 @@
             <div v-else-if="result" class="space-y-5">
               <!-- Playlist Header -->
               <div
-                class="relative overflow-hidden rounded-2xl border border-white/6 bg-linear-to-br from-spotify/10 via-aurora-purple/5 to-black/40 p-8 backdrop-blur-2xl md:p-10"
+                class="from-spotify/10 via-aurora-purple/5 relative overflow-hidden rounded-2xl border border-white/6 bg-linear-to-br to-black/40 p-8 backdrop-blur-2xl md:p-10"
               >
                 <div class="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
                   <div
-                    class="absolute -top-1/3 -left-1/4 h-64 w-64 rounded-full bg-spotify/10 blur-[100px]"
+                    class="bg-spotify/10 absolute -top-1/3 -left-1/4 h-64 w-64 rounded-full blur-[100px]"
                   />
                   <div
-                    class="absolute -bottom-1/3 -right-1/4 h-64 w-64 rounded-full bg-aurora-purple/10 blur-[100px]"
+                    class="bg-aurora-purple/10 absolute -right-1/4 -bottom-1/3 h-64 w-64 rounded-full blur-[100px]"
                   />
                 </div>
 
@@ -213,17 +212,20 @@
                       class="h-full w-full object-cover"
                       @error="onImgError"
                     />
-                    <div v-else class="flex h-full items-center justify-center bg-linear-to-br from-spotify/20 to-aurora-purple/20">
-                      <Sparkles aria-hidden="true" class="text-4xl text-white/40"  />
+                    <div
+                      v-else
+                      class="from-spotify/20 to-aurora-purple/20 flex h-full items-center justify-center bg-linear-to-br"
+                    >
+                      <Sparkles aria-hidden="true" class="text-4xl text-white/40" />
                     </div>
                   </div>
 
                   <div class="flex-1">
                     <div class="mb-2 flex items-center gap-2">
                       <span
-                        class="inline-flex items-center gap-1 rounded-full border border-spotify/20 bg-spotify/10 px-2.5 py-0.5 text-[9px] font-bold tracking-[0.15em] text-spotify uppercase"
+                        class="border-spotify/20 bg-spotify/10 text-spotify inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-[9px] font-bold tracking-[0.15em] uppercase"
                       >
-                        <Sparkles class="text-[8px]"<i aria-hidden="true"  /> />
+                        <Sparkles class="text-[8px]" aria-hidden="true" />
                         AI Generated
                       </span>
                     </div>
@@ -231,15 +233,15 @@
                     <p class="mt-2 text-sm text-white/50">{{ result.description }}</p>
                     <div class="mt-4 flex flex-wrap items-center gap-4">
                       <div class="flex items-center gap-1.5 text-xs text-white/40">
-                        <Music aria-hidden="true" class=""  />
+                        <Music aria-hidden="true" class="" />
                         {{ (result.tracks ?? []).length }} tracks
                       </div>
                       <div class="flex items-center gap-1.5 text-xs text-white/40">
-                        <Calendar aria-hidden="true" class=""  />
+                        <Calendar aria-hidden="true" class="" />
                         {{ new Date(result.generated_at).toLocaleDateString() }}
                       </div>
                       <div class="flex items-center gap-1.5 text-xs text-white/40">
-                        <Clock aria-hidden="true" class=""  />
+                        <Clock aria-hidden="true" class="" />
                         {{ totalDuration }}
                       </div>
                     </div>
@@ -266,7 +268,9 @@
               </div>
 
               <!-- Track List -->
-              <div class="overflow-hidden rounded-2xl border border-white/6 bg-white/2 backdrop-blur-xs">
+              <div
+                class="overflow-hidden rounded-2xl border border-white/6 bg-white/2 backdrop-blur-xs"
+              >
                 <template v-if="result.tracks?.length">
                   <button
                     v-for="(track, index) in result.tracks"
@@ -278,11 +282,18 @@
                     @contextmenu.prevent="openContextMenu($event, track)"
                   >
                     <span class="flex w-6 items-center justify-center">
-                      <span class="text-xs font-bold text-white/20 group-hover:hidden">{{ index + 1 }}</span>
-                      <Play aria-hidden="true" class="hidden text-xs text-white group-hover:block"  />
+                      <span class="text-xs font-bold text-white/20 group-hover:hidden">{{
+                        index + 1
+                      }}</span>
+                      <Play
+                        aria-hidden="true"
+                        class="hidden text-xs text-white group-hover:block"
+                      />
                     </span>
 
-                    <div class="relative h-10 w-10 shrink-0 overflow-hidden rounded-lg bg-white/5 ring-1 ring-white/6">
+                    <div
+                      class="relative h-10 w-10 shrink-0 overflow-hidden rounded-lg bg-white/5 ring-1 ring-white/6"
+                    >
                       <img
                         v-if="track.cover_url"
                         :src="track.cover_url"
@@ -292,14 +303,14 @@
                         @error="onImgError"
                       />
                       <div v-else class="flex h-full items-center justify-center">
-                        <Music aria-hidden="true" class="text-xs text-white/20"  />
+                        <Music aria-hidden="true" class="text-xs text-white/20" />
                       </div>
                       <button
                         type="button"
                         aria-label="Play track"
                         class="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 transition group-hover:opacity-100"
                       >
-                        <Play aria-hidden="true" class="text-xs text-white"  />
+                        <Play aria-hidden="true" class="text-xs text-white" />
                       </button>
                     </div>
 
@@ -316,7 +327,7 @@
                   </button>
                 </template>
                 <div v-else class="flex flex-col items-center gap-3 py-16 text-center">
-                  <Inbox aria-hidden="true" class="text-4xl text-white/20"  />
+                  <Inbox aria-hidden="true" class="text-4xl text-white/20" />
                   <p class="text-sm text-white/40">No tracks in generated playlist</p>
                 </div>
               </div>
@@ -328,14 +339,14 @@
               class="flex flex-col items-center justify-center rounded-2xl border border-dashed border-white/6 bg-linear-to-br from-white/1 to-white/2 px-6 py-24 text-center backdrop-blur-xs"
             >
               <div
-                class="mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-linear-to-br from-spotify/20 to-aurora-purple/20"
+                class="from-spotify/20 to-aurora-purple/20 mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-linear-to-br"
               >
-                <Sparkles aria-hidden="true" class="text-3xl text-spotify"  />
+                <Sparkles aria-hidden="true" class="text-spotify text-3xl" />
               </div>
               <h3 class="text-xl font-bold text-white">Ready when you are</h3>
               <p class="mt-2 max-w-md text-sm leading-relaxed text-white/40">
-                Describe the vibe on the left — a mood, an activity, a genre.
-                AI will craft a custom playlist that matches your moment.
+                Describe the vibe on the left — a mood, an activity, a genre. AI will craft a custom
+                playlist that matches your moment.
               </p>
               <div class="mt-8 flex flex-wrap justify-center gap-3">
                 <div
@@ -482,7 +493,5 @@ function openContextMenu(e: MouseEvent, track: Record<string, unknown>) {
   menuVisible.value = true
 }
 
-const { sections, header, accentColor } = useTrackContextMenu(
-  computed(() => contextTrack.value),
-)
+const { sections, header, accentColor } = useTrackContextMenu(computed(() => contextTrack.value))
 </script>

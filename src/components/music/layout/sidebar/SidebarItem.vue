@@ -3,12 +3,12 @@
     v-if="item.future"
     type="button"
     disabled
-    class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-tertiary opacity-50 cursor-not-allowed"
+    class="text-tertiary flex w-full cursor-not-allowed items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium opacity-50"
     :title="`${item.label} (coming soon)`"
   >
     <component :is="item.icon" :size="18" class="shrink-0" />
     <span class="truncate">{{ item.label }}</span>
-    <span class="ml-auto text-[9px] font-bold text-muted uppercase tracking-wider">Soon</span>
+    <span class="text-muted ml-auto text-[9px] font-bold tracking-wider uppercase">Soon</span>
   </button>
 
   <RouterLink
@@ -20,11 +20,16 @@
   >
     <div
       v-if="isActive"
-      class="absolute start-0 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-full bg-accent"
+      class="bg-accent absolute start-0 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-full"
     />
     <component :is="item.icon" :size="18" class="shrink-0" :class="iconClass" />
     <span class="truncate" :class="labelClass">{{ item.label }}</span>
-    <SidebarBadge v-if="item.badge" :value="item.badge" :variant="item.badgeVariant" class="ml-auto" />
+    <SidebarBadge
+      v-if="item.badge"
+      :value="item.badge"
+      :variant="item.badgeVariant"
+      class="ml-auto"
+    />
   </RouterLink>
 </template>
 

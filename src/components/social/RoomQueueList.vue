@@ -1,14 +1,12 @@
 <template>
-  <div class="rounded-2xl bg-surface-overlay/60 p-6 ring-1 ring-border-subtle">
+  <div class="bg-surface-overlay/60 ring-border-subtle rounded-2xl p-6 ring-1">
     <div class="mb-4 flex items-center justify-between">
-      <h2 class="text-xs font-bold uppercase tracking-wider text-muted">
-        صف پیشنهادی
-      </h2>
+      <h2 class="text-muted text-xs font-bold tracking-wider uppercase">صف پیشنهادی</h2>
       <button
-        class="inline-flex items-center gap-1.5 rounded-xl bg-accent-subtle px-4 py-2 text-sm font-semibold text-accent transition hover:bg-accent/20"
+        class="bg-accent-subtle text-accent hover:bg-accent/20 inline-flex items-center gap-1.5 rounded-xl px-4 py-2 text-sm font-semibold transition"
         @click="$emit('suggest-clicked')"
       >
-        <Plus aria-hidden="true" class="text-xs"  />
+        <Plus aria-hidden="true" class="text-xs" />
         پیشنهاد آهنگ
       </button>
     </div>
@@ -16,33 +14,28 @@
     <!-- Empty state -->
     <div
       v-if="!candidates.length"
-      class="flex flex-col items-center gap-4 py-12 text-sm text-muted"
+      class="text-muted flex flex-col items-center gap-4 py-12 text-sm"
       role="status"
     >
-      <Music aria-hidden="true" class="text-4xl text-primary/20"  />
+      <Music aria-hidden="true" class="text-primary/20 text-4xl" />
       <p>هنوز کسی آهنگی پیشنهاد نداده. اولین نفر باش!</p>
       <button
-        class="inline-flex items-center gap-1.5 rounded-xl bg-accent px-5 py-2.5 text-sm font-bold text-black transition hover:bg-accent/90"
+        class="bg-accent hover:bg-accent/90 inline-flex items-center gap-1.5 rounded-xl px-5 py-2.5 text-sm font-bold text-black transition"
         @click="$emit('suggest-clicked')"
       >
-        <Plus aria-hidden="true" class="text-xs"  />
+        <Plus aria-hidden="true" class="text-xs" />
         پیشنهاد آهنگ
       </button>
     </div>
 
     <!-- Candidate list -->
-    <TransitionGroup
-      v-else
-      name="queue-promote"
-      tag="div"
-      class="space-y-2"
-    >
+    <TransitionGroup v-else name="queue-promote" tag="div" class="space-y-2">
       <div
         v-for="candidate in candidates"
         :key="candidate.id"
-        class="group flex items-center gap-3 rounded-xl px-3 py-2.5 ring-1 ring-transparent transition-all hover:ring-border-default"
+        class="group hover:ring-border-default flex items-center gap-3 rounded-xl px-3 py-2.5 ring-1 ring-transparent transition-all"
       >
-        <div class="relative h-12 w-12 shrink-0 overflow-hidden rounded-lg bg-surface-active">
+        <div class="bg-surface-active relative h-12 w-12 shrink-0 overflow-hidden rounded-lg">
           <img
             v-if="candidate.track?.cover_url"
             :src="candidate.track.cover_url"
@@ -51,39 +44,45 @@
             class="h-full w-full object-cover"
           />
           <div v-else class="flex h-full items-center justify-center">
-            <Headphones aria-hidden="true" class="text-sm text-muted"  />
+            <Headphones aria-hidden="true" class="text-muted text-sm" />
           </div>
         </div>
 
         <div class="min-w-0 flex-1">
-          <p v-if="candidate.track" class="truncate text-sm font-medium text-primary">{{ candidate.track.title }}</p>
-          <p v-else class="truncate text-sm font-medium text-primary/50">Unknown track</p>
-          <p class="truncate text-xs text-primary/40">
-            پیشنهاد {{ candidate.suggested_by?.username || (candidate.suggested_by?.id ? String(candidate.suggested_by.id).slice(0, 8) : 'Unknown') }}
+          <p v-if="candidate.track" class="text-primary truncate text-sm font-medium">
+            {{ candidate.track.title }}
+          </p>
+          <p v-else class="text-primary/50 truncate text-sm font-medium">Unknown track</p>
+          <p class="text-primary/40 truncate text-xs">
+            پیشنهاد
+            {{
+              candidate.suggested_by?.username ||
+              (candidate.suggested_by?.id
+                ? String(candidate.suggested_by.id).slice(0, 8)
+                : 'Unknown')
+            }}
           </p>
         </div>
 
         <button
-          class="flex shrink-0 items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-semibold transition hover:bg-surface-active"
+          class="hover:bg-surface-active flex shrink-0 items-center gap-1.5 rounded-lg px-3 py-2 text-sm font-semibold transition"
           :class="candidate.has_voted ? 'text-accent' : 'text-primary/40'"
           @click="toggleVote(candidate)"
           aria-label="Vote"
         >
-          <component :is="candidate.has_voted ? ChevronUp : ChevronUp" aria-hidden="true"<i
+          <component
+            :is="candidate.has_voted ? ChevronUp : ChevronUp"
+            aria-hidden="true"
             class="text-lg transition-transform duration-150"
-            
             :style="{ transform: candidate.has_voted ? 'scale(1.1)' : 'scale(1)' }"
+          />
           /> />
-          <span
-            class="tabular-nums"
-            :class="{ 'vote-pulse': candidate.vote_count > 0 }"
-          >
+          <span class="tabular-nums" :class="{ 'vote-pulse': candidate.vote_count > 0 }">
             {{ candidate.vote_count }}
           </span>
         </button>
       </div>
     </TransitionGroup>
-
   </div>
 </template>
 

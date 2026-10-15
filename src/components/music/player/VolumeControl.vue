@@ -2,7 +2,7 @@
   <div class="flex items-center gap-1" :dir="dir">
     <button
       type="button"
-      class="flex h-9 w-9 items-center justify-center rounded-full text-white/40 hover:text-white hover:bg-white/10 active:scale-95 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-spotify/60 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-base"
+      class="focus-visible:ring-spotify/60 focus-visible:ring-offset-surface-base flex h-9 w-9 items-center justify-center rounded-full text-white/40 transition-all duration-200 hover:bg-white/10 hover:text-white focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-95"
       :aria-label="muted ? 'Unmute' : 'Mute'"
       @click="$emit('mute')"
     >
@@ -10,7 +10,7 @@
       <Volume2 v-else class="h-4 w-4" aria-hidden="true" />
     </button>
 
-    <div class="w-20 relative">
+    <div class="relative w-20">
       <input
         type="range"
         class="player-range"
@@ -35,6 +35,7 @@ interface Props {
   muted: boolean
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = defineProps<Props>()
 
 const emit = defineEmits<{

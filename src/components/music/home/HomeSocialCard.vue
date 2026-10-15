@@ -1,22 +1,26 @@
 <template>
-  <div class="w-48 shrink-0 rounded-2xl border border-border-subtle bg-surface-overlay/60 p-4 backdrop-blur-xs">
+  <div
+    class="border-border-subtle bg-surface-overlay/60 w-48 shrink-0 rounded-2xl border p-4 backdrop-blur-xs"
+  >
     <div class="flex items-center gap-2">
       <div
-        class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-accent to-aurora-blue text-sm font-bold text-primary"
+        class="from-accent to-aurora-blue text-primary flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-linear-to-br text-sm font-bold"
       >
         {{ initials }}
       </div>
       <div class="min-w-0 flex-1">
-        <p class="truncate text-sm font-semibold text-primary">
+        <p class="text-primary truncate text-sm font-semibold">
           {{ username }}
         </p>
-        <p class="text-[11px] text-secondary">
+        <p class="text-secondary text-[11px]">
           {{ timeAgo }}
         </p>
       </div>
     </div>
     <div class="mt-3 flex justify-center">
-      <div class="h-20 w-20 overflow-hidden rounded-xl bg-surface-active ring-1 ring-border-default">
+      <div
+        class="bg-surface-active ring-border-default h-20 w-20 overflow-hidden rounded-xl ring-1"
+      >
         <img
           v-if="coverUrl"
           :src="coverUrl"
@@ -25,21 +29,21 @@
           loading="lazy"
         />
         <div v-else class="flex h-full items-center justify-center">
-          <Music aria-hidden="true" class="text-xl text-muted"  />
+          <Music aria-hidden="true" class="text-muted text-xl" />
         </div>
       </div>
     </div>
     <div class="mt-2 text-center">
-      <p class="truncate text-sm font-semibold text-primary">
+      <p class="text-primary truncate text-sm font-semibold">
         {{ trackTitle }}
       </p>
-      <p class="truncate text-xs text-secondary">
+      <p class="text-secondary truncate text-xs">
         {{ artistName }}
       </p>
     </div>
     <button
       type="button"
-      class="mt-3 w-full rounded-full border border-border-default bg-surface-overlay/60 px-3 py-1.5 text-xs font-medium text-primary/80 transition hover:bg-surface-active focus-visible:ring-2 focus-visible:ring-accent focus-visible:outline-hidden"
+      class="border-border-default bg-surface-overlay/60 text-primary/80 hover:bg-surface-active focus-visible:ring-accent mt-3 w-full rounded-full border px-3 py-1.5 text-xs font-medium transition focus-visible:ring-2 focus-visible:outline-hidden"
       @click="$emit('listen-together', activity)"
     >
       پخش با هم
@@ -83,6 +87,10 @@ const initials = computed(() => {
 const username = computed(() => props.activity.username || props.activity.user?.username || 'کاربر')
 const timeAgo = computed(() => props.activity.timeAgo || 'الان')
 const coverUrl = computed(() => props.activity.cover_url || props.activity.track?.cover_url || null)
-const trackTitle = computed(() => props.activity.track_title || props.activity.track?.title || 'آهنگ')
-const artistName = computed(() => props.activity.artist_name || props.activity.track?.artist_name || '')
+const trackTitle = computed(
+  () => props.activity.track_title || props.activity.track?.title || 'آهنگ',
+)
+const artistName = computed(
+  () => props.activity.artist_name || props.activity.track?.artist_name || '',
+)
 </script>

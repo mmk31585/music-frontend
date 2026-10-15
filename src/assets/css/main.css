@@ -29,7 +29,6 @@
     18. Responsive Utilities     — breakpoint helpers
    ═══════════════════════════════════════════════════════════════════════════════ */
 
-
 /* ─────────────────────────────────────────────────────────────────────────────
    1. TAILWIND THEME TOKENS
    Build-time tokens that power Tailwind utilities (text-primary-500, bg-surface-0, etc).
@@ -85,7 +84,6 @@
   --duration-slow: 360ms;
   --duration-slower: 500ms;
 }
-
 
 /* ─────────────────────────────────────────────────────────────────────────────
    2. CORE DESIGN TOKENS
@@ -143,7 +141,6 @@
   --z-player: 900;
 }
 
-
 /* ─────────────────────────────────────────────────────────────────────────────
    3. COLOR PALETTES
    Static fallback palettes. Runtime overrides applied by useTheme().
@@ -151,18 +148,32 @@
    ───────────────────────────────────────────────────────────────────────────── */
 :root {
   /* Primary palette — defaults to emerald, overridden at runtime by useTheme() */
-  --p-50: #ecfdf5;  --p-100: #d1fae5; --p-200: #a7f3d0;
-  --p-300: #6ee7b7; --p-400: #34d399; --p-500: #10b981;
-  --p-600: #059669; --p-700: #047857; --p-800: #065f46;
-  --p-900: #064e3b; --p-950: #022c22;
+  --p-50: #ecfdf5;
+  --p-100: #d1fae5;
+  --p-200: #a7f3d0;
+  --p-300: #6ee7b7;
+  --p-400: #34d399;
+  --p-500: #10b981;
+  --p-600: #059669;
+  --p-700: #047857;
+  --p-800: #065f46;
+  --p-900: #064e3b;
+  --p-950: #022c22;
 
   /* Surface palette — defaults to slate, overridden at runtime by useTheme() */
-  --s-0: #ffffff;  --s-50: #f8fafc;  --s-100: #f1f5f9;
-  --s-200: #e2e8f0; --s-300: #cbd5e1; --s-400: #94a3b8;
-  --s-500: #64748b; --s-600: #475569; --s-700: #334155;
-  --s-800: #1e293b; --s-900: #0f172a; --s-950: #020617;
+  --s-0: #ffffff;
+  --s-50: #f8fafc;
+  --s-100: #f1f5f9;
+  --s-200: #e2e8f0;
+  --s-300: #cbd5e1;
+  --s-400: #94a3b8;
+  --s-500: #64748b;
+  --s-600: #475569;
+  --s-700: #334155;
+  --s-800: #1e293b;
+  --s-900: #0f172a;
+  --s-950: #020617;
 }
-
 
 /* ─────────────────────────────────────────────────────────────────────────────
    4. DARK THEME (Default)
@@ -200,8 +211,8 @@
 
   /* Text hierarchy — proper contrast on dark surfaces */
   --text-primary: rgba(255, 255, 255, 0.93);
-  --text-secondary: rgba(255, 255, 255, 0.60);
-  --text-tertiary: rgba(255, 255, 255, 0.40);
+  --text-secondary: rgba(255, 255, 255, 0.6);
+  --text-tertiary: rgba(255, 255, 255, 0.4);
   --text-muted: rgba(255, 255, 255, 0.24);
   --text-inverse: #08090c;
 
@@ -271,16 +282,20 @@
 
   /* Shadow system — layered with subtle accent glow */
   --shadow-ambient: 0 0 0 1px rgba(255, 255, 255, 0.04);
-  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.30), 0 0 0 1px rgba(255, 255, 255, 0.04);
-  --shadow-floating: 0 4px 16px rgba(0, 0, 0, 0.40), 0 0 0 1px rgba(255, 255, 255, 0.06);
-  --shadow-elevated: 0 8px 32px rgba(0, 0, 0, 0.44), 0 0 0 1px rgba(255, 255, 255, 0.06), 0 0 48px color-mix(in oklch, var(--p-500, #10b981) 3%, transparent);
+  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(255, 255, 255, 0.04);
+  --shadow-floating: 0 4px 16px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.06);
+  --shadow-elevated:
+    0 8px 32px rgba(0, 0, 0, 0.44), 0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 0 48px color-mix(in oklch, var(--p-500, #10b981) 3%, transparent);
   --shadow-overlay: 0 16px 48px rgba(0, 0, 0, 0.52), 0 0 0 1px rgba(255, 255, 255, 0.06);
-  --shadow-dialog: 0 20px 60px rgba(0, 0, 0, 0.50), 0 0 0 1px rgba(255, 255, 255, 0.08), 0 0 80px color-mix(in oklch, var(--p-500, #10b981) 4%, transparent);
-  --shadow-player: 0 -4px 24px rgba(0, 0, 0, 0.50), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  --shadow-dialog:
+    0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.08),
+    0 0 80px color-mix(in oklch, var(--p-500, #10b981) 4%, transparent);
+  --shadow-player: 0 -4px 24px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.05);
 
   /* Scrollbar */
   --scrollbar-track: transparent;
-  --scrollbar-thumb: rgba(255, 255, 255, 0.10);
+  --scrollbar-thumb: rgba(255, 255, 255, 0.1);
   --scrollbar-thumb-hover: rgba(255, 255, 255, 0.18);
   --scrollbar-thumb-active: rgba(255, 255, 255, 0.24);
 
@@ -289,20 +304,30 @@
   --skip-link-text: #000;
 
   /* PrimeVue bridge — maps --p-* to PrimeVue's expected --p-* namespace */
-  --p-50: var(--color-primary-50);  --p-100: var(--color-primary-100);
-  --p-200: var(--color-primary-200); --p-300: var(--color-primary-300);
-  --p-400: var(--color-primary-400); --p-500: var(--color-primary-500);
-  --p-600: var(--color-primary-600); --p-700: var(--color-primary-700);
-  --p-800: var(--color-primary-800); --p-900: var(--color-primary-900);
+  --p-50: var(--color-primary-50);
+  --p-100: var(--color-primary-100);
+  --p-200: var(--color-primary-200);
+  --p-300: var(--color-primary-300);
+  --p-400: var(--color-primary-400);
+  --p-500: var(--color-primary-500);
+  --p-600: var(--color-primary-600);
+  --p-700: var(--color-primary-700);
+  --p-800: var(--color-primary-800);
+  --p-900: var(--color-primary-900);
   --p-950: var(--color-primary-950);
-  --s-0: var(--color-surface-0);  --s-50: var(--color-surface-50);
-  --s-100: var(--color-surface-100); --s-200: var(--color-surface-200);
-  --s-300: var(--color-surface-300); --s-400: var(--color-surface-400);
-  --s-500: var(--color-surface-500); --s-600: var(--color-surface-600);
-  --s-700: var(--color-surface-700); --s-800: var(--color-surface-800);
-  --s-900: var(--color-surface-900); --s-950: var(--color-surface-950);
+  --s-0: var(--color-surface-0);
+  --s-50: var(--color-surface-50);
+  --s-100: var(--color-surface-100);
+  --s-200: var(--color-surface-200);
+  --s-300: var(--color-surface-300);
+  --s-400: var(--color-surface-400);
+  --s-500: var(--color-surface-500);
+  --s-600: var(--color-surface-600);
+  --s-700: var(--color-surface-700);
+  --s-800: var(--color-surface-800);
+  --s-900: var(--color-surface-900);
+  --s-950: var(--color-surface-950);
 }
-
 
 /* ─────────────────────────────────────────────────────────────────────────────
    5. LIGHT THEME
@@ -333,11 +358,11 @@ html:not(.app-dark) {
 
   /* Surface borders */
   --surface-border: rgba(0, 0, 0, 0.06);
-  --surface-border-hover: rgba(0, 0, 0, 0.10);
+  --surface-border-hover: rgba(0, 0, 0, 0.1);
   --surface-border-focus: rgba(0, 0, 0, 0.16);
 
   /* Text hierarchy */
-  --text-primary: rgba(0, 0, 0, 0.90);
+  --text-primary: rgba(0, 0, 0, 0.9);
   --text-secondary: rgba(0, 0, 0, 0.56);
   --text-tertiary: rgba(0, 0, 0, 0.38);
   --text-muted: rgba(0, 0, 0, 0.22);
@@ -397,29 +422,33 @@ html:not(.app-dark) {
 
   /* Glass system — TRUE glassmorphism in light mode */
   --glass-bg: rgba(255, 255, 255, 0.65);
-  --glass-bg-strong: rgba(255, 255, 255, 0.80);
+  --glass-bg-strong: rgba(255, 255, 255, 0.8);
   --glass-bg-hover: rgba(255, 255, 255, 0.72);
-  --glass-bg-soft: rgba(255, 255, 255, 0.50);
+  --glass-bg-soft: rgba(255, 255, 255, 0.5);
   --glass-bg-floating: rgba(255, 255, 255, 0.75);
-  --glass-border: rgba(255, 255, 255, 0.50);
-  --glass-border-strong: rgba(255, 255, 255, 0.70);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-border-strong: rgba(255, 255, 255, 0.7);
   --glass-blur: 12px;
   --glass-blur-strong: 20px;
   --glass-blur-floating: 24px;
 
   /* Shadow system — layered with soft colored glow */
   --shadow-ambient: 0 0 0 1px rgba(0, 0, 0, 0.03);
-  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02), 0 0 0 1px rgba(0, 0, 0, 0.02);
-  --shadow-floating: 0 4px 12px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.02);
-  --shadow-elevated: 0 8px 28px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.03);
-  --shadow-overlay: 0 12px 36px rgba(0, 0, 0, 0.10), 0 2px 6px rgba(0, 0, 0, 0.04);
-  --shadow-dialog: 0 16px 48px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.04);
+  --shadow-card:
+    0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02), 0 0 0 1px rgba(0, 0, 0, 0.02);
+  --shadow-floating:
+    0 4px 12px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.02);
+  --shadow-elevated:
+    0 8px 28px rgba(0, 0, 0, 0.08), 0 2px 6px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(0, 0, 0, 0.03);
+  --shadow-overlay: 0 12px 36px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.04);
+  --shadow-dialog:
+    0 16px 48px rgba(0, 0, 0, 0.12), 0 4px 12px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.04);
   --shadow-player: 0 -2px 16px rgba(0, 0, 0, 0.06), 0 0 0 1px rgba(0, 0, 0, 0.03);
 
   /* Scrollbar */
   --scrollbar-track: transparent;
   --scrollbar-thumb: rgba(0, 0, 0, 0.12);
-  --scrollbar-thumb-hover: rgba(0, 0, 0, 0.20);
+  --scrollbar-thumb-hover: rgba(0, 0, 0, 0.2);
   --scrollbar-thumb-active: rgba(0, 0, 0, 0.28);
 
   /* Skip link */
@@ -427,20 +456,30 @@ html:not(.app-dark) {
   --skip-link-text: #ffffff;
 
   /* PrimeVue bridge */
-  --p-50: var(--color-primary-50);  --p-100: var(--color-primary-100);
-  --p-200: var(--color-primary-200); --p-300: var(--color-primary-300);
-  --p-400: var(--color-primary-400); --p-500: var(--color-primary-500);
-  --p-600: var(--color-primary-600); --p-700: var(--color-primary-700);
-  --p-800: var(--color-primary-800); --p-900: var(--color-primary-900);
+  --p-50: var(--color-primary-50);
+  --p-100: var(--color-primary-100);
+  --p-200: var(--color-primary-200);
+  --p-300: var(--color-primary-300);
+  --p-400: var(--color-primary-400);
+  --p-500: var(--color-primary-500);
+  --p-600: var(--color-primary-600);
+  --p-700: var(--color-primary-700);
+  --p-800: var(--color-primary-800);
+  --p-900: var(--color-primary-900);
   --p-950: var(--color-primary-950);
-  --s-0: var(--color-surface-0);  --s-50: var(--color-surface-50);
-  --s-100: var(--color-surface-100); --s-200: var(--color-surface-200);
-  --s-300: var(--color-surface-300); --s-400: var(--color-surface-400);
-  --s-500: var(--color-surface-500); --s-600: var(--color-surface-600);
-  --s-700: var(--color-surface-700); --s-800: var(--color-surface-800);
-  --s-900: var(--color-surface-900); --s-950: var(--color-surface-950);
+  --s-0: var(--color-surface-0);
+  --s-50: var(--color-surface-50);
+  --s-100: var(--color-surface-100);
+  --s-200: var(--color-surface-200);
+  --s-300: var(--color-surface-300);
+  --s-400: var(--color-surface-400);
+  --s-500: var(--color-surface-500);
+  --s-600: var(--color-surface-600);
+  --s-700: var(--color-surface-700);
+  --s-800: var(--color-surface-800);
+  --s-900: var(--color-surface-900);
+  --s-950: var(--color-surface-950);
 }
-
 
 /* ─────────────────────────────────────────────────────────────────────────────
    10. TYPOGRAPHY — Font Roles
@@ -465,7 +504,6 @@ html:not(.app-dark) {
   --font-numbers: var(--font-ui);
   --font-music: var(--font-ui);
 }
-
 
 /* ─────────────────────────────────────────────────────────────────────────────
    11. MOTION SYSTEM
@@ -499,7 +537,6 @@ html:not(.app-dark) {
   --motion-page: 300ms var(--ease-emphasized);
 }
 
-
 /* ─────────────────────────────────────────────────────────────────────────────
    12. KEYFRAMES
    All animation definitions. Each prefixed with `muse-` for namespacing.
@@ -507,96 +544,199 @@ html:not(.app-dark) {
 
 /* Page transitions */
 @keyframes muse-fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 @keyframes muse-fade-in-up {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 @keyframes muse-fade-in-down {
-  from { opacity: 0; transform: translateY(-8px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 @keyframes muse-scale-in {
-  from { opacity: 0; transform: scale(0.96); }
-  to { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 @keyframes muse-slide-in-right {
-  from { opacity: 0; transform: translateX(12px); }
-  to { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 @keyframes muse-slide-in-left {
-  from { opacity: 0; transform: translateX(-12px); }
-  to { opacity: 1; transform: translateX(0); }
+  from {
+    opacity: 0;
+    transform: translateX(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
 @keyframes muse-slide-up {
-  from { transform: translateY(100%); }
-  to { transform: translateY(0); }
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
 }
 
 /* Dialog/overlay animations */
 @keyframes muse-dialog-fade-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 @keyframes muse-dialog-scale-in {
-  from { opacity: 0; transform: scale(0.97) translateY(4px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
+  from {
+    opacity: 0;
+    transform: scale(0.97) translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 
 /* Music-specific */
 @keyframes muse-spin-art {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 @keyframes muse-spin-slow {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 @keyframes muse-spin-reverse-slow {
-  to { transform: rotate(-360deg); }
+  to {
+    transform: rotate(-360deg);
+  }
 }
 @keyframes muse-eq-wave {
-  0% { transform: scaleY(0.3); opacity: 0.5; }
-  100% { transform: scaleY(1); opacity: 1; }
+  0% {
+    transform: scaleY(0.3);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
 }
 @keyframes muse-mini-equalizer {
-  0%, 100% { height: 3px; }
-  50% { height: 14px; }
+  0%,
+  100% {
+    height: 3px;
+  }
+  50% {
+    height: 14px;
+  }
 }
 @keyframes muse-heart-pop {
-  0% { transform: scale(1); }
-  30% { transform: scale(1.2); }
-  60% { transform: scale(0.9); }
-  100% { transform: scale(1); }
+  0% {
+    transform: scale(1);
+  }
+  30% {
+    transform: scale(1.2);
+  }
+  60% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
 
 /* Loading states */
 @keyframes muse-shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 @keyframes muse-pulse-soft {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.6; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
 }
 
 /* Ambient effects */
 @keyframes muse-breathe {
-  0%, 100% { transform: scale(1); opacity: 0.6; }
-  50% { transform: scale(1.03); opacity: 0.85; }
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.03);
+    opacity: 0.85;
+  }
 }
 @keyframes muse-glow-pulse {
-  0%, 100% { box-shadow: 0 0 20px var(--accent-glow); }
-  50% { box-shadow: 0 0 32px var(--accent-glow), 0 0 64px color-mix(in oklch, var(--accent) 8%, transparent); }
+  0%,
+  100% {
+    box-shadow: 0 0 20px var(--accent-glow);
+  }
+  50% {
+    box-shadow:
+      0 0 32px var(--accent-glow),
+      0 0 64px color-mix(in oklch, var(--accent) 8%, transparent);
+  }
 }
 
 /* Scroll reveal */
 @keyframes muse-reveal-up {
-  from { opacity: 0; transform: translateY(16px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
-
 
 /* ─────────────────────────────────────────────────────────────────────────────
    13. BASE STYLES
@@ -618,7 +758,9 @@ body {
   background: var(--bg-base);
   color: var(--text-primary);
   overflow-x: hidden;
-  transition: background-color 400ms ease, color 400ms ease;
+  transition:
+    background-color 400ms ease,
+    color 400ms ease;
   font-feature-settings: 'cv11', 'ss01';
   font-family: var(--font-body);
   line-height: 1.6;
@@ -641,18 +783,23 @@ body::before {
 }
 
 /* Smooth font rendering for headings */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--font-display);
   line-height: var(--leading-tight);
   text-wrap: balance;
 }
 
 /* Persian text optimization */
-[lang="fa"], [dir="rtl"] {
+[lang='fa'],
+[dir='rtl'] {
   line-height: 1.8;
   word-spacing: 0.02em;
 }
-
 
 /* ─────────────────────────────────────────────────────────────────────────────
    14. COMPONENT UTILITIES
@@ -660,9 +807,15 @@ h1, h2, h3, h4, h5, h6 {
    ───────────────────────────────────────────────────────────────────────────── */
 
 /* ── Surface Utilities ── */
-@utility surface-base { background: var(--surface-0); }
-@utility surface-raised { background: var(--surface-1); }
-@utility surface-overlay { background: var(--surface-2); }
+@utility surface-base {
+  background: var(--surface-0);
+}
+@utility surface-raised {
+  background: var(--surface-1);
+}
+@utility surface-overlay {
+  background: var(--surface-2);
+}
 @utility surface-elevated {
   background: var(--surface-elevated);
   box-shadow: var(--shadow-elevated);
@@ -693,22 +846,50 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ── Text Utilities ── */
-@utility text-primary { color: var(--text-primary); }
-@utility text-secondary { color: var(--text-secondary); }
-@utility text-tertiary { color: var(--text-tertiary); }
-@utility text-muted { color: var(--text-muted); }
-@utility text-accent { color: var(--accent); }
-@utility text-inverse { color: var(--text-inverse); }
-@utility text-danger { color: var(--danger); }
-@utility text-warning { color: var(--warning); }
-@utility text-success { color: var(--success); }
-@utility text-info { color: var(--info); }
+@utility text-primary {
+  color: var(--text-primary);
+}
+@utility text-secondary {
+  color: var(--text-secondary);
+}
+@utility text-tertiary {
+  color: var(--text-tertiary);
+}
+@utility text-muted {
+  color: var(--text-muted);
+}
+@utility text-accent {
+  color: var(--accent);
+}
+@utility text-inverse {
+  color: var(--text-inverse);
+}
+@utility text-danger {
+  color: var(--danger);
+}
+@utility text-warning {
+  color: var(--warning);
+}
+@utility text-success {
+  color: var(--success);
+}
+@utility text-info {
+  color: var(--info);
+}
 
 /* ── Border Utilities ── */
-@utility border-default { border-color: var(--border-default); }
-@utility border-subtle { border-color: var(--border-subtle); }
-@utility border-strong { border-color: var(--border-strong); }
-@utility border-accent { border-color: var(--border-accent); }
+@utility border-default {
+  border-color: var(--border-default);
+}
+@utility border-subtle {
+  border-color: var(--border-subtle);
+}
+@utility border-strong {
+  border-color: var(--border-strong);
+}
+@utility border-accent {
+  border-color: var(--border-accent);
+}
 
 /* ── Glass System ── */
 @utility glass {
@@ -728,7 +909,9 @@ h1, h2, h3, h4, h5, h6 {
   backdrop-filter: blur(var(--glass-blur));
   -webkit-backdrop-filter: blur(var(--glass-blur));
   border: 1px solid var(--glass-border);
-  transition: background var(--motion-hover), border-color var(--motion-hover);
+  transition:
+    background var(--motion-hover),
+    border-color var(--motion-hover);
   &:hover {
     background: var(--glass-bg-strong);
     border-color: var(--glass-border-strong);
@@ -766,7 +949,10 @@ h1, h2, h3, h4, h5, h6 {
   background: var(--surface-1);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  transition: transform var(--motion-hover), box-shadow var(--motion-hover), border-color var(--motion-hover);
+  transition:
+    transform var(--motion-hover),
+    box-shadow var(--motion-hover),
+    border-color var(--motion-hover);
 }
 @utility card-hover {
   &:hover {
@@ -783,7 +969,10 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: var(--weight-semibold);
   border-radius: var(--radius-full);
   padding: 0.5rem 1.25rem;
-  transition: background var(--motion-hover), transform var(--motion-press), box-shadow var(--motion-normal);
+  transition:
+    background var(--motion-hover),
+    transform var(--motion-press),
+    box-shadow var(--motion-normal);
   &:hover {
     background: var(--accent-hover);
     box-shadow: 0 0 20px var(--accent-glow);
@@ -799,7 +988,9 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: var(--weight-medium);
   border-radius: var(--radius-md);
   padding: 0.5rem 1rem;
-  transition: background var(--motion-hover), color var(--motion-hover);
+  transition:
+    background var(--motion-hover),
+    color var(--motion-hover);
   &:hover {
     background: var(--surface-hover);
     color: var(--text-primary);
@@ -825,15 +1016,24 @@ h1, h2, h3, h4, h5, h6 {
   scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
   scrollbar-gutter: auto;
 
-  &::-webkit-scrollbar { width: 6px; height: 6px; }
-  &::-webkit-scrollbar-track { background: transparent; }
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
   &::-webkit-scrollbar-thumb {
     background: var(--scrollbar-thumb);
     border-radius: 999px;
     transition: background-color 200ms ease;
   }
-  &::-webkit-scrollbar-thumb:hover { background: var(--scrollbar-thumb-hover); }
-  &::-webkit-scrollbar-corner { background: transparent; }
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+  }
+  &::-webkit-scrollbar-corner {
+    background: transparent;
+  }
 }
 
 /* ── Music Progress Bar ── */
@@ -845,7 +1045,9 @@ h1, h2, h3, h4, h5, h6 {
   cursor: pointer;
   outline: none;
   transition: height 150ms ease;
-  &:hover { height: 6px; }
+  &:hover {
+    height: 6px;
+  }
 }
 @utility music-progress-fill {
   appearance: none;
@@ -853,7 +1055,9 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 2px;
   background: var(--accent);
   transition: width 100ms linear;
-  &:hover { background: var(--accent-hover); }
+  &:hover {
+    background: var(--accent-hover);
+  }
 }
 
 /* ── Skip Link ── */
@@ -870,7 +1074,8 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: var(--weight-bold);
   text-decoration: none;
   transition: top 200ms ease;
-  &:focus, &:focus-visible {
+  &:focus,
+  &:focus-visible {
     top: 0.75rem;
   }
 }
@@ -893,14 +1098,30 @@ h1, h2, h3, h4, h5, h6 {
     opacity: 0;
     animation: muse-reveal-up 0.4s var(--ease-emphasized) forwards;
   }
-  & > *:nth-child(1) { animation-delay: 0ms; }
-  & > *:nth-child(2) { animation-delay: 40ms; }
-  & > *:nth-child(3) { animation-delay: 80ms; }
-  & > *:nth-child(4) { animation-delay: 120ms; }
-  & > *:nth-child(5) { animation-delay: 160ms; }
-  & > *:nth-child(6) { animation-delay: 200ms; }
-  & > *:nth-child(7) { animation-delay: 240ms; }
-  & > *:nth-child(8) { animation-delay: 280ms; }
+  & > *:nth-child(1) {
+    animation-delay: 0ms;
+  }
+  & > *:nth-child(2) {
+    animation-delay: 40ms;
+  }
+  & > *:nth-child(3) {
+    animation-delay: 80ms;
+  }
+  & > *:nth-child(4) {
+    animation-delay: 120ms;
+  }
+  & > *:nth-child(5) {
+    animation-delay: 160ms;
+  }
+  & > *:nth-child(6) {
+    animation-delay: 200ms;
+  }
+  & > *:nth-child(7) {
+    animation-delay: 240ms;
+  }
+  & > *:nth-child(8) {
+    animation-delay: 280ms;
+  }
 }
 
 /* ── Album Art ── */
@@ -924,10 +1145,18 @@ h1, h2, h3, h4, h5, h6 {
   animation: muse-eq-wave 600ms ease-in-out infinite alternate;
   transform-origin: bottom;
 }
-@utility eq-bar-1 { animation-delay: 0s; }
-@utility eq-bar-2 { animation-delay: 0.15s; }
-@utility eq-bar-3 { animation-delay: 0.3s; }
-@utility eq-bar-4 { animation-delay: 0.45s; }
+@utility eq-bar-1 {
+  animation-delay: 0s;
+}
+@utility eq-bar-2 {
+  animation-delay: 0.15s;
+}
+@utility eq-bar-3 {
+  animation-delay: 0.3s;
+}
+@utility eq-bar-4 {
+  animation-delay: 0.45s;
+}
 
 /* ── Heart Pop ── */
 @utility heart-pulse {
@@ -936,7 +1165,9 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ── Glow Effects ── */
 @utility glow-accent {
-  box-shadow: 0 0 20px var(--accent-glow), 0 0 40px color-mix(in oklch, var(--accent) 6%, transparent);
+  box-shadow:
+    0 0 20px var(--accent-glow),
+    0 0 40px color-mix(in oklch, var(--accent) 6%, transparent);
 }
 
 /* ── Page Transitions ── */
@@ -946,7 +1177,11 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ── Gradient Text ── */
 @utility text-accent-gradient {
-  background: linear-gradient(135deg, var(--accent), color-mix(in oklch, var(--accent) 60%, var(--info)));
+  background: linear-gradient(
+    135deg,
+    var(--accent),
+    color-mix(in oklch, var(--accent) 60%, var(--info))
+  );
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -954,7 +1189,9 @@ h1, h2, h3, h4, h5, h6 {
 
 /* ── Album Glow ── */
 @utility album-glow {
-  box-shadow: 0 0 24px var(--accent-glow), var(--shadow-card);
+  box-shadow:
+    0 0 24px var(--accent-glow),
+    var(--shadow-card);
 }
 
 /* ── Noise Texture ── */
@@ -972,7 +1209,6 @@ h1, h2, h3, h4, h5, h6 {
     z-index: 1;
   }
 }
-
 
 /* ─────────────────────────────────────────────────────────────────────────────
    15. PRIMEVUE OVERRIDES
@@ -1054,7 +1290,9 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0.5rem 0.75rem;
   border-radius: var(--radius-md);
   color: var(--text-secondary);
-  transition: background var(--motion-hover), color var(--motion-hover);
+  transition:
+    background var(--motion-hover),
+    color var(--motion-hover);
 }
 .p-menuitem-link:hover,
 .p-contextmenuitem-link:hover,
@@ -1083,7 +1321,9 @@ h1, h2, h3, h4, h5, h6 {
   border-color: var(--border-default);
   border-radius: var(--radius-md);
   color: var(--text-primary);
-  transition: border-color var(--motion-hover), box-shadow var(--motion-hover);
+  transition:
+    border-color var(--motion-hover),
+    box-shadow var(--motion-hover);
 }
 .p-select:hover,
 .p-dropdown:hover {
@@ -1107,7 +1347,9 @@ h1, h2, h3, h4, h5, h6 {
   margin: 2px 4px;
   padding: 0.5rem 0.75rem;
   color: var(--text-secondary);
-  transition: background var(--motion-hover), color var(--motion-hover);
+  transition:
+    background var(--motion-hover),
+    color var(--motion-hover);
 }
 .p-select-item:hover,
 .p-dropdown-item:hover {
@@ -1129,7 +1371,9 @@ h1, h2, h3, h4, h5, h6 {
   border-color: transparent;
   font-weight: var(--weight-medium);
   padding: 0.75rem 1rem;
-  transition: color var(--motion-hover), border-color var(--motion-hover);
+  transition:
+    color var(--motion-hover),
+    border-color var(--motion-hover);
 }
 .p-tab:hover {
   color: var(--text-primary);
@@ -1194,7 +1438,9 @@ h1, h2, h3, h4, h5, h6 {
   background: var(--text-primary);
   border: 2px solid var(--accent);
   border-radius: 999px;
-  transition: transform var(--motion-hover), box-shadow var(--motion-hover);
+  transition:
+    transform var(--motion-hover),
+    box-shadow var(--motion-hover);
 }
 .p-slider-handle:hover {
   transform: scale(1.2);
@@ -1249,7 +1495,9 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: var(--radius-md);
   padding: 0.625rem 0.875rem;
   font-size: var(--text-base);
-  transition: border-color var(--motion-hover), box-shadow var(--motion-hover);
+  transition:
+    border-color var(--motion-hover),
+    box-shadow var(--motion-hover);
 }
 .p-inputtext::placeholder,
 .p-textarea::placeholder {
@@ -1273,7 +1521,10 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: var(--radius-full);
   font-weight: var(--weight-semibold);
   padding: 0.625rem 1.5rem;
-  transition: background var(--motion-hover), transform var(--motion-press), box-shadow var(--motion-normal);
+  transition:
+    background var(--motion-hover),
+    transform var(--motion-press),
+    box-shadow var(--motion-normal);
 }
 .p-button:active {
   transform: scale(0.98);
@@ -1344,7 +1595,9 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: var(--radius-md);
   padding: 0.375rem 0.5rem;
   color: var(--text-secondary);
-  transition: background var(--motion-hover), color var(--motion-hover);
+  transition:
+    background var(--motion-hover),
+    color var(--motion-hover);
 }
 .p-treenode-content:hover {
   background: var(--surface-hover);
@@ -1359,7 +1612,9 @@ h1, h2, h3, h4, h5, h6 {
 .p-paginator-page {
   border-radius: var(--radius-md);
   color: var(--text-secondary);
-  transition: background var(--motion-hover), color var(--motion-hover);
+  transition:
+    background var(--motion-hover),
+    color var(--motion-hover);
 }
 .p-paginator-page:hover {
   background: var(--surface-hover);
@@ -1377,7 +1632,9 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 999px;
   box-shadow: var(--shadow-floating);
   color: var(--text-primary);
-  transition: background var(--motion-hover), transform var(--motion-hover);
+  transition:
+    background var(--motion-hover),
+    transform var(--motion-hover);
 }
 .p-speeddial-action:hover {
   background: var(--accent);
@@ -1429,7 +1686,6 @@ h1, h2, h3, h4, h5, h6 {
   -webkit-backdrop-filter: blur(var(--glass-blur));
 }
 
-
 /* ─────────────────────────────────────────────────────────────────────────────
    PAGE TRANSITIONS
    Vue Router page transition classes.
@@ -1440,7 +1696,6 @@ h1, h2, h3, h4, h5, h6 {
 .page-leave-active {
   animation: muse-fade-in 0.15s ease-in reverse;
 }
-
 
 /* ─────────────────────────────────────────────────────────────────────────────
    16. PLAYER RANGE SLIDERS
@@ -1455,7 +1710,10 @@ h1, h2, h3, h4, h5, h6 {
   appearance: none;
   background: transparent;
 }
-.player-range:disabled { cursor: not-allowed; opacity: 0.4; }
+.player-range:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
 .player-range::-webkit-slider-runnable-track {
   height: 4px;
   border-radius: 999px;
@@ -1468,7 +1726,9 @@ h1, h2, h3, h4, h5, h6 {
   );
   transition: height 150ms ease;
 }
-.player-range:hover::-webkit-slider-runnable-track { height: 6px; }
+.player-range:hover::-webkit-slider-runnable-track {
+  height: 6px;
+}
 .player-range::-webkit-slider-thumb {
   width: 12px;
   height: 12px;
@@ -1477,17 +1737,25 @@ h1, h2, h3, h4, h5, h6 {
   appearance: none;
   background: var(--text-primary);
   opacity: 0;
-  transition: opacity 120ms ease, transform 120ms ease;
+  transition:
+    opacity 120ms ease,
+    transform 120ms ease;
 }
 .player-range:hover::-webkit-slider-thumb,
-.player-range:active::-webkit-slider-thumb { opacity: 1; }
-.player-range:active::-webkit-slider-thumb { transform: scale(1.25); }
+.player-range:active::-webkit-slider-thumb {
+  opacity: 1;
+}
+.player-range:active::-webkit-slider-thumb {
+  transform: scale(1.25);
+}
 .player-range::-moz-range-track {
   height: 4px;
   border-radius: 999px;
   background: var(--surface-3);
 }
-.player-range:hover::-moz-range-track { height: 6px; }
+.player-range:hover::-moz-range-track {
+  height: 6px;
+}
 .player-range::-moz-range-progress {
   height: 4px;
   border-radius: 999px;
@@ -1500,11 +1768,17 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 999px;
   background: var(--text-primary);
   opacity: 0;
-  transition: opacity 120ms ease, transform 120ms ease;
+  transition:
+    opacity 120ms ease,
+    transform 120ms ease;
 }
 .player-range:hover::-moz-range-thumb,
-.player-range:active::-moz-range-thumb { opacity: 1; }
-.volume-range { max-width: 120px; }
+.player-range:active::-moz-range-thumb {
+  opacity: 1;
+}
+.volume-range {
+  max-width: 120px;
+}
 
 /* Fullscreen range */
 .fullscreen-range {
@@ -1516,7 +1790,10 @@ h1, h2, h3, h4, h5, h6 {
   appearance: none;
   background: transparent;
 }
-.fullscreen-range:disabled { cursor: not-allowed; opacity: 0.4; }
+.fullscreen-range:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
 .fullscreen-range::-webkit-slider-runnable-track {
   height: 5px;
   border-radius: 999px;
@@ -1529,7 +1806,9 @@ h1, h2, h3, h4, h5, h6 {
   );
   transition: height 150ms ease;
 }
-.fullscreen-range:hover::-webkit-slider-runnable-track { height: 7px; }
+.fullscreen-range:hover::-webkit-slider-runnable-track {
+  height: 7px;
+}
 .fullscreen-range::-webkit-slider-thumb {
   width: 14px;
   height: 14px;
@@ -1538,17 +1817,25 @@ h1, h2, h3, h4, h5, h6 {
   appearance: none;
   background: var(--text-primary);
   opacity: 0;
-  transition: opacity 120ms ease, transform 120ms ease;
+  transition:
+    opacity 120ms ease,
+    transform 120ms ease;
 }
 .fullscreen-range:hover::-webkit-slider-thumb,
-.fullscreen-range:active::-webkit-slider-thumb { opacity: 1; }
-.fullscreen-range:active::-webkit-slider-thumb { transform: scale(1.3); }
+.fullscreen-range:active::-webkit-slider-thumb {
+  opacity: 1;
+}
+.fullscreen-range:active::-webkit-slider-thumb {
+  transform: scale(1.3);
+}
 .fullscreen-range::-moz-range-track {
   height: 5px;
   border-radius: 999px;
   background: var(--surface-3);
 }
-.fullscreen-range:hover::-moz-range-track { height: 7px; }
+.fullscreen-range:hover::-moz-range-track {
+  height: 7px;
+}
 .fullscreen-range::-moz-range-progress {
   height: 5px;
   border-radius: 999px;
@@ -1561,11 +1848,14 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 999px;
   background: var(--text-primary);
   opacity: 0;
-  transition: opacity 120ms ease, transform 120ms ease;
+  transition:
+    opacity 120ms ease,
+    transform 120ms ease;
 }
 .fullscreen-range:hover::-moz-range-thumb,
-.fullscreen-range:active::-moz-range-thumb { opacity: 1; }
-
+.fullscreen-range:active::-moz-range-thumb {
+  opacity: 1;
+}
 
 /* ─────────────────────────────────────────────────────────────────────────────
    ADMIN TABLES
@@ -1575,8 +1865,14 @@ h1, h2, h3, h4, h5, h6 {
   border-collapse: separate;
   border-spacing: 0;
 
-  thead { position: sticky; top: 0; z-index: 10; }
-  thead tr { background: var(--surface-1); }
+  thead {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  thead tr {
+    background: var(--surface-1);
+  }
   thead th {
     padding: 10px 16px;
     font-size: 11px;
@@ -1592,7 +1888,9 @@ h1, h2, h3, h4, h5, h6 {
     transition: background-color 120ms ease;
     border-bottom: 1px solid var(--border-subtle);
   }
-  tbody tr:hover { background: var(--surface-hover); }
+  tbody tr:hover {
+    background: var(--surface-hover);
+  }
   tbody td {
     padding: 12px 16px;
     font-size: 13px;
@@ -1606,7 +1904,6 @@ h1, h2, h3, h4, h5, h6 {
   opacity: 0;
 }
 
-
 /* ─────────────────────────────────────────────────────────────────────────────
    17. ACCESSIBILITY
    Focus management, reduced motion, high contrast, touch targets.
@@ -1619,7 +1916,7 @@ input:focus-visible,
 select:focus-visible,
 textarea:focus-visible,
 details summary:focus-visible,
-[tabindex]:not([tabindex="-1"]):focus-visible {
+[tabindex]:not([tabindex='-1']):focus-visible {
   outline: var(--ring-width) solid var(--ring-focus);
   outline-offset: 2px;
   border-radius: var(--radius-sm);
@@ -1628,13 +1925,13 @@ details summary:focus-visible,
 /* Ensure minimum touch target size (WCAG 2.5.8) */
 button:not([hidden]):not([disabled]),
 a:not([hidden]),
-input:not([hidden]):not([type="hidden"]),
+input:not([hidden]):not([type='hidden']),
 select:not([hidden]),
 textarea:not([hidden]),
-[role="button"]:not([hidden]),
-[role="slider"]:not([hidden]),
-[role="tab"]:not([hidden]),
-[role="menuitem"]:not([hidden]) {
+[role='button']:not([hidden]),
+[role='slider']:not([hidden]),
+[role='tab']:not([hidden]),
+[role='menuitem']:not([hidden]) {
   min-height: 24px;
   min-width: 24px;
 }
@@ -1666,7 +1963,6 @@ textarea:not([hidden]),
   }
 }
 
-
 /* ─────────────────────────────────────────────────────────────────────────────
    18. RESPONSIVE UTILITIES
    Breakpoint helpers and input method detection.
@@ -1675,7 +1971,10 @@ textarea:not([hidden]),
 /* Pointer input detection */
 @media (pointer: coarse) {
   /* Increase touch targets on touch devices */
-  button, a, input[type="checkbox"], input[type="radio"] {
+  button,
+  a,
+  input[type='checkbox'],
+  input[type='radio'] {
     min-height: 44px;
     min-width: 44px;
   }
@@ -1683,7 +1982,9 @@ textarea:not([hidden]),
 
 @media (pointer: fine) {
   /* Precise cursor — show hover effects */
-  .hide-on-hover-desktop { display: none; }
+  .hide-on-hover-desktop {
+    display: none;
+  }
 }
 
 /* Hover capability detection — only show hover effects on devices that support hover */
@@ -1700,7 +2001,11 @@ textarea:not([hidden]),
     background: white !important;
     color: black !important;
   }
-  .glass, .glass-strong, .glass-hover, .glass-soft, .glass-floating {
+  .glass,
+  .glass-strong,
+  .glass-hover,
+  .glass-soft,
+  .glass-floating {
     backdrop-filter: none !important;
     background: white !important;
     border: 1px solid #ccc !important;

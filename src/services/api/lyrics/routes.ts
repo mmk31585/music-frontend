@@ -101,10 +101,7 @@ export const useLyricsApi = () => {
    * - `ai` — AI generation enqueued (poll track lyrics after ~30s)
    * - `none` — neither source had results
    */
-  const fetchOrGenerateLyrics = async (
-    trackId: string | number,
-    config?: UseRequestConfig,
-  ) => {
+  const fetchOrGenerateLyrics = async (trackId: string | number, config?: UseRequestConfig) => {
     return useRequest<{
       success: boolean
       source: 'lrclib' | 'openrouter' | 'ai' | 'none'
@@ -129,7 +126,16 @@ export const useLyricsApi = () => {
   const aiStatus = async (trackId: string | number, config?: UseRequestConfig) => {
     return useRequest<{
       success: boolean
-      status: 'queued' | 'downloading' | 'transcribing' | 'formatting' | 'callback_pending' | 'completed' | 'failed' | 'not_found' | 'unavailable'
+      status:
+        | 'queued'
+        | 'downloading'
+        | 'transcribing'
+        | 'formatting'
+        | 'callback_pending'
+        | 'completed'
+        | 'failed'
+        | 'not_found'
+        | 'unavailable'
       source?: string
       lyrics?: Lyrics
       job_id?: string

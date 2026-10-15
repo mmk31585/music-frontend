@@ -63,7 +63,8 @@ function connectInner() {
   if (!token) return
 
   try {
-    const base = WS_URL || `${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}/api/v1/ws`
+    const base =
+      WS_URL || `${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}/api/v1/ws`
     socket = new WebSocket(`${base}?token=${encodeURIComponent(token)}`)
   } catch {
     scheduleReconnect()

@@ -203,7 +203,7 @@
         class="glass-strong flex flex-col items-center gap-3 rounded-2xl py-12 text-center"
       >
         <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/5">
-          <CheckCircle class="text-2xl text-white/15"<i aria-hidden="true"  /> />
+          <CheckCircle class="text-2xl text-white/15" aria-hidden="true" />
         </div>
         <p class="text-sm text-white/25">All caught up! No pending contributions to review</p>
       </div>
@@ -240,9 +240,7 @@
             @click="showData = showData === c.id ? null : c.id"
             aria-label="Toggle contribution data"
           >
-            <ChevronRight aria-hidden="true" class="mr-1 text-[10px]"<i
-              
-              :class="{ 'rotate-90': showData === c.id }"
+            <ChevronRight aria-hidden="true" class="mr-1 text-[10px]" :class="{ 'rotate-90': showData === c.id }" />
             /> />
             {{ showData === c.id ? 'Hide' : 'View' }} data
           </button>
@@ -254,7 +252,7 @@
               class="spring rounded-lg bg-spotify/10 px-4 py-2 text-xs font-medium text-spotify transition-all hover:bg-spotify/20 disabled:opacity-40"
               @click="reviewContribution(c.id, 'approve')"
             >
-              <Loader2 class="mr-1"<i aria-hidden="true" v-if="reviewingId === c.id"  /> />
+              <Loader2 class="mr-1" aria-hidden="true" v-if="reviewingId === c.id" />
               Approve
             </button>
             <button
@@ -263,7 +261,7 @@
               class="spring rounded-lg bg-red-500/10 px-4 py-2 text-xs font-medium text-red-400 transition-all hover:bg-red-500/20 disabled:opacity-40"
               @click="reviewContribution(c.id, 'reject')"
             >
-              <Loader2 class="mr-1"<i aria-hidden="true" v-if="reviewingId === c.id"  /> />
+              <Loader2 class="mr-1" aria-hidden="true" v-if="reviewingId === c.id" />
               Reject
             </button>
             <span class="text-[10px] text-white/20">{{ formatDate(c.created_at) }}</span>

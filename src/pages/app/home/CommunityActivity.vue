@@ -2,9 +2,11 @@
   <section v-if="items.length" class="mt-12">
     <div class="mb-5">
       <p class="text-[10px] font-bold tracking-[0.3em] text-white/30 uppercase">Community</p>
-      <h2 class="mt-1 text-xl font-bold text-white md:text-2xl" style="letter-spacing: -0.02em">What friends are listening</h2>
+      <h2 class="mt-1 text-xl font-bold text-white md:text-2xl" style="letter-spacing: -0.02em">
+        What friends are listening
+      </h2>
     </div>
-    <div class="flex gap-4 overflow-x-auto pb-2 scrollbar-none">
+    <div class="flex scrollbar-none gap-4 overflow-x-auto pb-2">
       <div
         v-for="(item, i) in items.slice(0, 6)"
         :key="i"
@@ -12,11 +14,15 @@
         @contextmenu.prevent="openContextMenu($event, item, i)"
       >
         <div class="flex items-center gap-2">
-          <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-spotify to-aurora-blue text-[11px] font-bold text-white">
+          <div
+            class="from-spotify to-aurora-blue flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-linear-to-br text-[11px] font-bold text-white"
+          >
             {{ getInitials(item) }}
           </div>
           <div class="min-w-0 flex-1">
-            <p class="truncate text-sm font-semibold text-white">{{ item.username || item.user?.username || 'User' }}</p>
+            <p class="truncate text-sm font-semibold text-white">
+              {{ item.username || item.user?.username || 'User' }}
+            </p>
             <p class="text-[11px] text-white/50">{{ item.timeAgo || 'Now' }}</p>
           </div>
         </div>
@@ -30,12 +36,29 @@
               loading="lazy"
             />
             <div v-else class="flex h-full items-center justify-center">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-5 w-5 text-white/30"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="h-5 w-5 text-white/30"
+              >
+                <path d="M9 18V5l12-2v13" />
+                <circle cx="6" cy="18" r="3" />
+                <circle cx="18" cy="16" r="3" />
+              </svg>
             </div>
           </div>
         </div>
-        <p class="mt-2 truncate text-center text-sm font-semibold text-white">{{ item.track_title || item.track?.title || 'Track' }}</p>
-        <p class="truncate text-center text-xs text-white/50">{{ item.artist_name || item.track?.artist_name || '' }}</p>
+        <p class="mt-2 truncate text-center text-sm font-semibold text-white">
+          {{ item.track_title || item.track?.title || 'Track' }}
+        </p>
+        <p class="truncate text-center text-xs text-white/50">
+          {{ item.artist_name || item.track?.artist_name || '' }}
+        </p>
       </div>
     </div>
     <ContextMenu
@@ -72,7 +95,7 @@ interface ActivityItem {
   }
 }
 
-const props = defineProps<{
+defineProps<{
   items: ActivityItem[]
 }>()
 
@@ -100,9 +123,7 @@ function openContextMenu(e: MouseEvent, item: ActivityItem, index: number) {
   menuVisible.value = true
 }
 
-const { sections, header, accentColor } = useTrackContextMenu(
-  computed(() => contextTrack.value),
-)
+const { sections, header, accentColor } = useTrackContextMenu(computed(() => contextTrack.value))
 </script>
 
 <style scoped>

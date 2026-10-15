@@ -1,7 +1,7 @@
 <template>
   <div class="mx-auto w-full max-w-7xl px-4 pt-6 pb-32 md:px-6 lg:px-8">
     <section
-      class="rounded-2xl bg-linear-to-br from-spotify via-primary-700 to-surface-base p-8 text-white"
+      class="from-spotify via-primary-700 to-surface-base rounded-2xl bg-linear-to-br p-8 text-white"
     >
       <p class="text-sm font-bold tracking-[0.35em] text-white/70 uppercase">Made for you</p>
 
@@ -39,11 +39,11 @@
     <section class="mt-10 rounded-3xl border border-white/10 bg-black/20 p-6">
       <div class="flex items-center justify-between">
         <div>
-          <p class="text-sm font-semibold text-spotify">Quick picks</p>
+          <p class="text-spotify text-sm font-semibold">Quick picks</p>
           <h2 class="mt-1 text-2xl font-black text-white">Start exploring</h2>
         </div>
 
-        <Headphones aria-hidden="true" class="text-3xl text-white/20"  />
+        <Headphones aria-hidden="true" class="text-3xl text-white/20" />
       </div>
 
       <p class="mt-4 max-w-2xl text-sm leading-6 text-slate-400">

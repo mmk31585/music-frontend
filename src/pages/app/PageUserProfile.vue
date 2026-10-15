@@ -11,12 +11,12 @@
     <!-- Error -->
     <div v-else-if="error" class="flex flex-col items-center gap-4 py-24 text-center">
       <div class="flex h-20 w-20 items-center justify-center rounded-full bg-white/4">
-        <AlertCircle aria-hidden="true" class="text-4xl text-slate-500"  />
+        <AlertCircle aria-hidden="true" class="text-4xl text-slate-500" />
       </div>
       <h2 class="text-xl font-bold text-white">Failed to load profile</h2>
       <p class="text-sm text-white/40">Something went wrong. Try again?</p>
       <button
-        class="rounded-full bg-spotify px-6 py-2.5 text-sm font-bold text-black transition hover:bg-spotify-hover"
+        class="bg-spotify hover:bg-spotify-hover rounded-full px-6 py-2.5 text-sm font-bold text-black transition"
         @click="fetchProfile"
       >
         Try again
@@ -66,11 +66,7 @@
           :sub="xpTitle || String(badgeCount) + ' badge' + (badgeCount !== 1 ? 's' : '')"
           :label="xpLevel === '—' ? 'Badges earned' : 'Level'"
         />
-        <StatCard
-          icon="heart"
-          :value="String(likedTracks.length)"
-          label="Liked tracks"
-        />
+        <StatCard icon="heart" :value="String(likedTracks.length)" label="Liked tracks" />
       </div>
 
       <!-- ── Tabs ── -->
@@ -93,29 +89,39 @@
               <button
                 aria-label="Mosaic view"
                 class="rounded-md p-1.5 transition"
-                :class="trackViewMode === 'mosaic' ? 'bg-white/10 text-white' : 'text-white/30 hover:text-white/50'"
+                :class="
+                  trackViewMode === 'mosaic'
+                    ? 'bg-white/10 text-white'
+                    : 'text-white/30 hover:text-white/50'
+                "
                 @click="trackViewMode = 'mosaic'"
               >
-                <LayoutGrid aria-hidden="true" class="text-xs"  />
+                <LayoutGrid aria-hidden="true" class="text-xs" />
               </button>
               <button
                 aria-label="List view"
                 class="rounded-md p-1.5 transition"
-                :class="trackViewMode === 'list' ? 'bg-white/10 text-white' : 'text-white/30 hover:text-white/50'"
+                :class="
+                  trackViewMode === 'list'
+                    ? 'bg-white/10 text-white'
+                    : 'text-white/30 hover:text-white/50'
+                "
                 @click="trackViewMode = 'list'"
               >
-                <List aria-hidden="true" class="text-xs"  />
+                <List aria-hidden="true" class="text-xs" />
               </button>
             </div>
           </div>
 
           <!-- MOSAIC VIEW -->
-          <div v-if="likedTracks.length > 0 && trackViewMode === 'mosaic'" class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+          <div
+            v-if="likedTracks.length > 0 && trackViewMode === 'mosaic'"
+            class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
+          >
             <div
-              v-for="track in likedTracks" :key="track.id || track.track_id"
-              class="group relative overflow-hidden rounded-2xl bg-white/4 ring-1 ring-white/6
-                     transition-all duration-300 hover:ring-spotify/30 hover:bg-white/6
-                     focus-within:ring-spotify"
+              v-for="track in likedTracks"
+              :key="track.id || track.track_id"
+              class="group hover:ring-spotify/30 focus-within:ring-spotify relative overflow-hidden rounded-2xl bg-white/4 ring-1 ring-white/6 transition-all duration-300 hover:bg-white/6"
               @contextmenu.prevent="openContextMenu($event, track)"
             >
               <!-- Cover art -->
@@ -127,19 +133,24 @@
                   loading="lazy"
                   class="h-full w-full object-cover transition duration-500 group-hover:scale-105"
                 />
-                <div v-else class="flex h-full items-center justify-center bg-linear-to-br from-white/4 to-white/2">
-                  <Music aria-hidden="true" class="text-2xl text-white/20"  />
+                <div
+                  v-else
+                  class="flex h-full items-center justify-center bg-linear-to-br from-white/4 to-white/2"
+                >
+                  <Music aria-hidden="true" class="text-2xl text-white/20" />
                 </div>
               </div>
 
               <!-- Play overlay -->
-              <div class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-200">
+              <div
+                class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-opacity duration-200 group-focus-within:opacity-100 group-hover:opacity-100"
+              >
                 <button
                   aria-label="Play"
-                  class="flex h-10 w-10 items-center justify-center rounded-full bg-spotify text-black shadow-lg transition hover:scale-110 active:scale-95 focus-visible:outline-2 focus-visible:outline-white"
+                  class="bg-spotify flex h-10 w-10 items-center justify-center rounded-full text-black shadow-lg transition hover:scale-110 focus-visible:outline-2 focus-visible:outline-white active:scale-95"
                   @click="playLikedTrack(track)"
                 >
-                  <Play aria-hidden="true" class="text-sm ms-0.5"  />
+                  <Play aria-hidden="true" class="ms-0.5 text-sm" />
                 </button>
               </div>
 
@@ -150,13 +161,21 @@
               </div>
 
               <!-- Visibility badge (own profile) -->
-              <div v-if="isOwnProfile" class="absolute top-2 start-2">
+              <div v-if="isOwnProfile" class="absolute start-2 top-2">
                 <span
-                  class="flex h-6 w-6 items-center justify-center rounded-full backdrop-blur-xs text-[10px]"
-                  :class="isTrackPublic(track) ? 'bg-black/30 text-white/60' : 'bg-amber-500/30 text-amber-300'"
+                  class="flex h-6 w-6 items-center justify-center rounded-full text-[10px] backdrop-blur-xs"
+                  :class="
+                    isTrackPublic(track)
+                      ? 'bg-black/30 text-white/60'
+                      : 'bg-amber-500/30 text-amber-300'
+                  "
                   :title="isTrackPublic(track) ? 'Public' : 'Private'"
                 >
-                  <component :is="isTrackPublic(track) ? Globe : Lock"<i aria-hidden="true"  class="text-[9px]" /> />
+                  <component
+                    :is="isTrackPublic(track) ? Globe : Lock"
+                    class="text-[9px]"
+                    aria-hidden="true"
+                  />
                 </span>
               </div>
             </div>
@@ -165,8 +184,9 @@
           <!-- LIST VIEW -->
           <div v-else-if="likedTracks.length > 0 && trackViewMode === 'list'" class="space-y-1">
             <div
-              v-for="(track, i) in likedTracks" :key="track.id || track.track_id || i"
-              class="group flex items-center gap-3 rounded-xl px-3 py-2.5 transition hover:bg-white/4 focus-within:bg-white/4"
+              v-for="(track, i) in likedTracks"
+              :key="track.id || track.track_id || i"
+              class="group flex items-center gap-3 rounded-xl px-3 py-2.5 transition focus-within:bg-white/4 hover:bg-white/4"
               @contextmenu.prevent="openContextMenu($event, track)"
             >
               <div class="h-10 w-10 shrink-0 overflow-hidden rounded-lg bg-white/10">
@@ -178,7 +198,7 @@
                   loading="lazy"
                 />
                 <div v-else class="flex h-full items-center justify-center">
-                  <Music aria-hidden="true" class="text-xs text-white/30"  />
+                  <Music aria-hidden="true" class="text-xs text-white/30" />
                 </div>
               </div>
               <div class="min-w-0 flex-1">
@@ -187,19 +207,23 @@
               </div>
               <button
                 v-if="isOwnProfile"
-                class="flex h-8 w-8 items-center justify-center rounded-lg text-sm opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition hover:bg-white/10 focus-visible:opacity-100 focus-visible:outline-2 focus-visible:outline-accent"
+                class="focus-visible:outline-accent flex h-8 w-8 items-center justify-center rounded-lg text-sm opacity-0 transition group-focus-within:opacity-100 group-hover:opacity-100 hover:bg-white/10 focus-visible:opacity-100 focus-visible:outline-2"
                 :class="isTrackPublic(track) ? 'text-white/40' : 'text-amber-400/70'"
                 :aria-label="isTrackPublic(track) ? 'Set private' : 'Set public'"
                 @click="toggleTrackVisibility(track, i)"
               >
-                <component :is="isTrackPublic(track) ? Globe : Lock"<i aria-hidden="true"  class="text-xs" /> />
+                <component
+                  :is="isTrackPublic(track) ? Globe : Lock"
+                  aria-hidden="true"
+                  class="text-xs"
+                />
               </button>
               <button
                 aria-label="Play track"
-                class="flex h-8 w-8 items-center justify-center rounded-full text-white/40 transition hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-accent"
+                class="focus-visible:outline-accent flex h-8 w-8 items-center justify-center rounded-full text-white/40 transition hover:bg-white/10 hover:text-white focus-visible:outline-2"
                 @click="playLikedTrack(track)"
               >
-                <Play aria-hidden="true" class="text-xs ms-0.5"  />
+                <Play aria-hidden="true" class="ms-0.5 text-xs" />
               </button>
             </div>
           </div>
@@ -207,20 +231,26 @@
           <!-- Empty state -->
           <div v-else class="flex flex-col items-center gap-4 py-20 text-center">
             <div class="flex h-20 w-20 items-center justify-center rounded-full bg-white/4">
-              <Heart aria-hidden="true" class="text-3xl text-white/10"  />
+              <Heart aria-hidden="true" class="text-3xl text-white/10" />
             </div>
             <div>
               <p class="text-base font-semibold text-white/40">
                 {{ isOwnProfile ? 'No liked tracks yet' : 'Tracks are private' }}
               </p>
               <p class="mt-1 text-sm text-white/30">
-                {{ isOwnProfile ? 'Heart tracks to save them here' : 'This user keeps their likes private' }}
+                {{
+                  isOwnProfile
+                    ? 'Heart tracks to save them here'
+                    : 'This user keeps their likes private'
+                }}
               </p>
             </div>
-            <RouterLink v-if="isOwnProfile" to="/"
-              class="rounded-full bg-spotify px-6 py-2.5 text-sm font-bold text-black transition hover:bg-spotify-hover"
+            <RouterLink
+              v-if="isOwnProfile"
+              to="/"
+              class="bg-spotify hover:bg-spotify-hover rounded-full px-6 py-2.5 text-sm font-bold text-black transition"
             >
-              <Compass aria-hidden="true" class="text-xs me-1.5"  />
+              <Compass aria-hidden="true" class="me-1.5 text-xs" />
               Discover music
             </RouterLink>
           </div>
@@ -228,12 +258,19 @@
 
         <!-- ALBUMS TAB -->
         <div v-show="activeTab === 'albums'" role="tabpanel" id="tabpanel-albums">
-          <div v-if="likedAlbums.length > 0" class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-            <AlbumCard v-for="album in likedAlbums" :key="album.id || album.album_id" :album="album" />
+          <div
+            v-if="likedAlbums.length > 0"
+            class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
+          >
+            <AlbumCard
+              v-for="album in likedAlbums"
+              :key="album.id || album.album_id"
+              :album="album"
+            />
           </div>
           <div v-else class="flex flex-col items-center gap-4 py-20 text-center">
             <div class="flex h-20 w-20 items-center justify-center rounded-full bg-white/4">
-              <Disc3 aria-hidden="true" class="text-3xl text-white/10"  />
+              <Disc3 aria-hidden="true" class="text-3xl text-white/10" />
             </div>
             <p class="text-base font-semibold text-white/40">No liked albums yet</p>
           </div>
@@ -251,17 +288,19 @@
           </div>
           <div v-else class="flex flex-col items-center gap-4 py-20 text-center">
             <div class="flex h-20 w-20 items-center justify-center rounded-full bg-white/4">
-              <Video aria-hidden="true" class="text-3xl text-white/10"  />
+              <Video aria-hidden="true" class="text-3xl text-white/10" />
             </div>
             <div>
               <p class="text-base font-semibold text-white/40">
                 {{ isOwnProfile ? 'No edits yet' : 'No edits from this user' }}
               </p>
             </div>
-            <RouterLink v-if="isOwnProfile" to="/create-edit"
-              class="rounded-full bg-spotify px-5 py-2 text-xs font-bold text-black transition hover:bg-spotify-hover"
+            <RouterLink
+              v-if="isOwnProfile"
+              to="/create-edit"
+              class="bg-spotify hover:bg-spotify-hover rounded-full px-5 py-2 text-xs font-bold text-black transition"
             >
-              <Plus aria-hidden="true" class="text-xs me-1"  />
+              <Plus aria-hidden="true" class="me-1 text-xs" />
               Create edit
             </RouterLink>
           </div>
@@ -276,12 +315,15 @@
 
         <!-- FOLLOWERS TAB — Avatar Wall -->
         <div v-show="activeTab === 'followers'" role="tabpanel" id="tabpanel-followers">
-          <div v-if="followers.length > 0" class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+          <div
+            v-if="followers.length > 0"
+            class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
+          >
             <RouterLink
               v-for="f in followers"
               :key="f.follower_id"
               :to="`/profile/${f.follower_id}`"
-              class="flex flex-col items-center gap-3 rounded-2xl bg-white/4 p-5 ring-1 ring-white/6 transition-all duration-200 hover:bg-white/8 hover:ring-white/12 focus-visible:outline-2 focus-visible:outline-accent"
+              class="focus-visible:outline-accent flex flex-col items-center gap-3 rounded-2xl bg-white/4 p-5 ring-1 ring-white/6 transition-all duration-200 hover:bg-white/8 hover:ring-white/12 focus-visible:outline-2"
             >
               <div class="h-16 w-16 overflow-hidden rounded-full ring-2 ring-white/10">
                 <img
@@ -291,19 +333,23 @@
                   class="h-full w-full object-cover"
                   loading="lazy"
                 />
-                <div class="flex h-full w-full items-center justify-center bg-linear-to-br from-white/8 to-white/2 text-lg font-bold text-white/50">
+                <div
+                  class="flex h-full w-full items-center justify-center bg-linear-to-br from-white/8 to-white/2 text-lg font-bold text-white/50"
+                >
                   {{ (f.follower_name || f.follower_id).charAt(0).toUpperCase() }}
                 </div>
               </div>
               <div class="text-center">
-                <p class="truncate text-sm font-semibold text-white max-w-25">{{ f.follower_name || f.follower_id }}</p>
+                <p class="max-w-25 truncate text-sm font-semibold text-white">
+                  {{ f.follower_name || f.follower_id }}
+                </p>
                 <p class="text-[10px] text-white/30">Follows you</p>
               </div>
             </RouterLink>
           </div>
           <div v-else class="flex flex-col items-center gap-4 py-20 text-center">
             <div class="flex h-20 w-20 items-center justify-center rounded-full bg-white/4">
-              <Users aria-hidden="true" class="text-3xl text-white/10"  />
+              <Users aria-hidden="true" class="text-3xl text-white/10" />
             </div>
             <p class="text-base font-semibold text-white/40">No followers yet</p>
             <p class="text-sm text-white/30">Share your profile to grow your community</p>
@@ -312,12 +358,15 @@
 
         <!-- FOLLOWING TAB — Avatar Wall -->
         <div v-show="activeTab === 'following'" role="tabpanel" id="tabpanel-following">
-          <div v-if="following.length > 0" class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+          <div
+            v-if="following.length > 0"
+            class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
+          >
             <RouterLink
               v-for="f in following"
               :key="f.followed_id"
               :to="`/profile/${f.followed_id}`"
-              class="flex flex-col items-center gap-3 rounded-2xl bg-white/4 p-5 ring-1 ring-white/6 transition-all duration-200 hover:bg-white/8 hover:ring-white/12 focus-visible:outline-2 focus-visible:outline-accent"
+              class="focus-visible:outline-accent flex flex-col items-center gap-3 rounded-2xl bg-white/4 p-5 ring-1 ring-white/6 transition-all duration-200 hover:bg-white/8 hover:ring-white/12 focus-visible:outline-2"
             >
               <div class="h-16 w-16 overflow-hidden rounded-full ring-2 ring-white/10">
                 <img
@@ -327,19 +376,23 @@
                   class="h-full w-full object-cover"
                   loading="lazy"
                 />
-                <div class="flex h-full w-full items-center justify-center bg-linear-to-br from-white/8 to-white/2 text-lg font-bold text-white/50">
+                <div
+                  class="flex h-full w-full items-center justify-center bg-linear-to-br from-white/8 to-white/2 text-lg font-bold text-white/50"
+                >
                   {{ (f.followed_name || f.followed_id).charAt(0).toUpperCase() }}
                 </div>
               </div>
               <div class="text-center">
-                <p class="truncate text-sm font-semibold text-white max-w-25">{{ f.followed_name || f.followed_id }}</p>
+                <p class="max-w-25 truncate text-sm font-semibold text-white">
+                  {{ f.followed_name || f.followed_id }}
+                </p>
                 <p class="text-[10px] text-white/30">Following</p>
               </div>
             </RouterLink>
           </div>
           <div v-else class="flex flex-col items-center gap-4 py-20 text-center">
             <div class="flex h-20 w-20 items-center justify-center rounded-full bg-white/4">
-              <UserPlus aria-hidden="true" class="text-3xl text-white/10"  />
+              <UserPlus aria-hidden="true" class="text-3xl text-white/10" />
             </div>
             <p class="text-base font-semibold text-white/40">Not following anyone yet</p>
           </div>
@@ -365,7 +418,22 @@
 </template>
 
 <script setup lang="ts">
-import { AlertCircle, Compass, Disc3, Globe, Heart, LayoutGrid, List, Lock, Music, Play, Plus, UserPlus, Users, Video } from 'lucide-vue-next'
+import {
+  AlertCircle,
+  Compass,
+  Disc3,
+  Globe,
+  Heart,
+  LayoutGrid,
+  List,
+  Lock,
+  Music,
+  Play,
+  Plus,
+  UserPlus,
+  Users,
+  Video,
+} from 'lucide-vue-next'
 import { computed, onMounted, ref, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import type { TrackContextItem } from '@/composables/useTrackContextMenu'
@@ -450,14 +518,22 @@ const playerStartIndex = ref(0)
 // ── Computed ──
 
 const displayName = computed(() => {
-  if (isOwnProfile) return auth.user?.displayName || auth.user?.username || auth.user?.name || 'User'
-  return (profileData.value as any)?.full_name || (profileData.value as any)?.username || targetUserId || 'User'
+  if (isOwnProfile)
+    return auth.user?.displayName || auth.user?.username || auth.user?.name || 'User'
+  return (
+    (profileData.value as any)?.full_name ||
+    (profileData.value as any)?.username ||
+    targetUserId ||
+    'User'
+  )
 })
 
 const profileData = ref<any>(null)
 
 const profileHandle = computed(() => {
-  return isOwnProfile ? (auth.user as any)?.handle || null : (profileData.value as any)?.handle || null
+  return isOwnProfile
+    ? (auth.user as any)?.handle || null
+    : (profileData.value as any)?.handle || null
 })
 
 const profileBio = computed(() => {
@@ -523,11 +599,19 @@ async function fetchProfile() {
     ] = await Promise.all([
       socialApi.getFollowers(targetUserId).catch(() => null),
       socialApi.getFollowing(targetUserId).catch(() => null),
-      reactionsApi.getLikedTracks({ user_id: isOwnProfile ? undefined : targetUserId, limit: 50 }).catch(() => null),
-      reactionsApi.getLikedAlbums({ user_id: isOwnProfile ? undefined : targetUserId, limit: 10 }).catch(() => null),
+      reactionsApi
+        .getLikedTracks({ user_id: isOwnProfile ? undefined : targetUserId, limit: 50 })
+        .catch(() => null),
+      reactionsApi
+        .getLikedAlbums({ user_id: isOwnProfile ? undefined : targetUserId, limit: 10 })
+        .catch(() => null),
       videoApi.getUserVideos(targetUserId, { limit: VIDEOS_LIMIT, offset: 0 }).catch(() => null),
-      isOwnProfile ? Promise.resolve(null) : videoApi.getMusicStatus(targetUserId).catch(() => null),
-      useUserApi().getPublicUserProfile(targetUserId).catch(() => null),
+      isOwnProfile
+        ? Promise.resolve(null)
+        : videoApi.getMusicStatus(targetUserId).catch(() => null),
+      useUserApi()
+        .getPublicUserProfile(targetUserId)
+        .catch(() => null),
       isOwnProfile ? gamificationApi.getProfile().catch(() => null) : Promise.resolve(null),
       isOwnProfile ? gamificationApi.getBadges().catch(() => null) : Promise.resolve(null),
     ])
@@ -588,7 +672,17 @@ async function fetchProfile() {
       gamificationProfile.value = gamificationProfileData
     }
     if (gamificationBadgesData) {
-      if (!gamificationProfile.value) gamificationProfile.value = { level: 0, current_xp: 0, next_level_xp: 0, total_xp: 0, title: '', title_persian: '', rank: 0, badges: [] }
+      if (!gamificationProfile.value)
+        gamificationProfile.value = {
+          level: 0,
+          current_xp: 0,
+          next_level_xp: 0,
+          total_xp: 0,
+          title: '',
+          title_persian: '',
+          rank: 0,
+          badges: [],
+        }
       gamificationProfile.value.badges = gamificationBadgesData.mine || []
     }
 
@@ -617,7 +711,9 @@ async function toggleFollow() {
       isFollowing.value = true
       followerCount.value += 1
     }
-  } catch { /* silent */ }
+  } catch {
+    /* silent */
+  }
 }
 
 function isTrackPublic(track: any): boolean {
@@ -720,7 +816,5 @@ function openContextMenu(e: MouseEvent, track: Record<string, unknown>) {
   menuVisible.value = true
 }
 
-const { sections, header, accentColor } = useTrackContextMenu(
-  computed(() => contextTrack.value),
-)
+const { sections, header, accentColor } = useTrackContextMenu(computed(() => contextTrack.value))
 </script>

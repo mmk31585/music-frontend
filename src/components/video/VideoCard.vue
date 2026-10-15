@@ -1,7 +1,7 @@
 <template>
   <button
     type="button"
-    class="group relative w-full text-left overflow-hidden rounded-2xl bg-white/5 transition-all duration-150"
+    class="group relative w-full overflow-hidden rounded-2xl bg-white/5 text-left transition-all duration-150"
     :class="hoverClass"
     @click="$emit('open')"
   >
@@ -16,7 +16,9 @@
       />
 
       <!-- Overlay gradient -->
-      <div class="pointer-events-none absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent" />
+      <div
+        class="pointer-events-none absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent"
+      />
 
       <!-- Status badge (for processing/failed) -->
       <div
@@ -24,7 +26,11 @@
         class="absolute top-2 left-2 z-10 flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold backdrop-blur-xs"
         :class="statusBadgeClass"
       >
-        <Loader2 aria-hidden="true" v-if="video.status === 'processing'" class="text-[10px] animate-spin" />
+        <Loader2
+          aria-hidden="true"
+          v-if="video.status === 'processing'"
+          class="animate-spin text-[10px]"
+        />
         <AlertCircle aria-hidden="true" v-else-if="video.status === 'failed'" class="text-[10px]" />
         <span>{{ statusLabel }}</span>
       </div>
@@ -42,11 +48,11 @@
       <div class="absolute right-2 bottom-2 left-2 flex items-center justify-between">
         <div class="flex items-center gap-3">
           <span class="flex items-center gap-1 text-[11px] font-medium text-white/80">
-            <Eye aria-hidden="true" class="text-[10px]"  />
+            <Eye aria-hidden="true" class="text-[10px]" />
             {{ formatCount(video.view_count) }}
           </span>
           <span class="flex items-center gap-1 text-[11px] font-medium text-white/80">
-            <Heart aria-hidden="true" class="text-[10px]"  />
+            <Heart aria-hidden="true" class="text-[10px]" />
             {{ formatCount(video.like_count) }}
           </span>
         </div>
@@ -54,7 +60,7 @@
         <div
           class="flex h-7 w-7 items-center justify-center rounded-full bg-black/50 text-white opacity-0 backdrop-blur-xs transition-opacity duration-150 group-hover:opacity-100"
         >
-          <Play aria-hidden="true" class="text-xs"  />
+          <Play aria-hidden="true" class="text-xs" />
         </div>
       </div>
     </div>
@@ -68,10 +74,7 @@
     </div>
 
     <!-- Loading skeleton (shown while image loads) -->
-    <div
-      v-if="!loaded"
-      class="absolute inset-0 rounded-2xl bg-white/5"
-    />
+    <div v-if="!loaded" class="absolute inset-0 rounded-2xl bg-white/5" />
   </button>
 </template>
 

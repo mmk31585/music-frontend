@@ -36,26 +36,28 @@
     <template v-else-if="track">
       <div class="flex flex-col gap-6 lg:flex-row lg:items-start">
         <div class="shrink-0">
-          <div class="relative aspect-square w-36 overflow-hidden rounded-2xl bg-white/6 shadow-lg lg:w-44">
+          <div
+            class="relative aspect-square w-36 overflow-hidden rounded-2xl bg-white/6 shadow-lg lg:w-44"
+          >
             <img
               v-if="track.cover_url"
               :src="track.cover_url"
               :alt="track.title"
               class="h-full w-full object-cover"
-              @error="($event.target as HTMLImageElement).style.display='none'"
+              @error="($event.target as HTMLImageElement).style.display = 'none'"
             />
             <div v-else class="flex h-full w-full items-center justify-center">
-              <Headphones aria-hidden="true" class="text-4xl text-slate-600"  />
+              <Headphones aria-hidden="true" class="text-4xl text-slate-600" />
             </div>
           </div>
 
           <div class="mt-3 space-y-1 text-center text-xs text-slate-500 lg:text-left">
             <div v-if="track.play_count" class="flex items-center gap-1">
-              <Play aria-hidden="true" class=""  />
+              <Play aria-hidden="true" class="" />
               {{ formatPlayCount(track.play_count) }} plays
             </div>
             <div v-if="track.duration_seconds" class="flex items-center gap-1">
-              <Clock aria-hidden="true" class=""  />
+              <Clock aria-hidden="true" class="" />
               {{ formatDuration(track.duration_seconds) }}
             </div>
           </div>
@@ -66,7 +68,7 @@
 
           <div class="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm text-slate-400">
             <span v-if="artist" class="flex items-center gap-1">
-              <User aria-hidden="true" class=""  />
+              <User aria-hidden="true" class="" />
               <button
                 class="cursor-pointer text-teal-400 transition-colors hover:text-teal-300"
                 @click="router.push({ name: 'admin.artist.detail', params: { id: artist.id } })"
@@ -79,12 +81,12 @@
               class="flex items-center gap-1 text-teal-400 transition-colors hover:text-teal-300"
               @click="router.push({ name: 'admin.album.detail', params: { id: parentAlbum.id } })"
             >
-              <Book aria-hidden="true" class=""  />
+              <Book aria-hidden="true" class="" />
               {{ parentAlbum.title }}
             </button>
             <span v-if="track.genres.length > 0">
-              <Tag class="mr-1"<i aria-hidden="true"  /> />
-              {{ track.genres.map(g => g.name).join(', ') }}
+              <Tag class="mr-1" aria-hidden="true" />
+              {{ track.genres.map((g) => g.name).join(', ') }}
             </span>
           </div>
 
@@ -135,16 +137,18 @@
             class="group cursor-pointer"
             @click="router.push({ name: 'admin.album.detail', params: { id: alb.id } })"
           >
-            <div class="relative aspect-square overflow-hidden rounded-xl border border-white/6 bg-white/4">
+            <div
+              class="relative aspect-square overflow-hidden rounded-xl border border-white/6 bg-white/4"
+            >
               <img
                 v-if="alb.cover_url"
                 :src="alb.cover_url"
                 :alt="alb.title"
                 class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                @error="($event.target as HTMLImageElement).style.display='none'"
+                @error="($event.target as HTMLImageElement).style.display = 'none'"
               />
               <div v-else class="flex h-full w-full items-center justify-center">
-                <Image aria-hidden="true" class="text-3xl text-slate-700"  />
+                <Image aria-hidden="true" class="text-3xl text-slate-700" />
               </div>
             </div>
             <p class="mt-2 truncate text-sm font-medium text-white">{{ alb.title }}</p>
@@ -246,24 +250,24 @@ const enriching = ref(false)
 
 const parentAlbum = computed(() =>
   track.value?.album_id
-    ? allAlbums.value.find(a => String(a.id) === String(track.value!.album_id)) ?? null
-    : null
+    ? (allAlbums.value.find((a) => String(a.id) === String(track.value!.album_id)) ?? null)
+    : null,
 )
 
 const trackInOtherAlbums = computed(() =>
-  allAlbums.value.filter(a => String(a.id) !== String(track.value?.album_id))
+  allAlbums.value.filter((a) => String(a.id) !== String(track.value?.album_id)),
 )
 
-const artistOptions = computed(() =>
-  normalizeCatalogOptions(artists.value, 'artist').filter(Boolean) as CatalogOption[]
+const artistOptions = computed(
+  () => normalizeCatalogOptions(artists.value, 'artist').filter(Boolean) as CatalogOption[],
 )
 
-const albumOptions = computed(() =>
-  normalizeCatalogOptions(albums.value, 'album').filter(Boolean) as CatalogOption[]
+const albumOptions = computed(
+  () => normalizeCatalogOptions(albums.value, 'album').filter(Boolean) as CatalogOption[],
 )
 
-const genreOptions = computed(() =>
-  normalizeCatalogOptions(genres.value, 'genre').filter(Boolean) as CatalogOption[]
+const genreOptions = computed(
+  () => normalizeCatalogOptions(genres.value, 'genre').filter(Boolean) as CatalogOption[],
 )
 
 onMounted(() => {
@@ -278,7 +282,9 @@ async function loadTrack() {
   try {
     track.value = await tracksApi.getTrack(id)
     const [artistData, albumsData] = await Promise.all([
-      track.value.artist_id ? artistsApi.getArtist(String(track.value.artist_id)) : Promise.resolve(null),
+      track.value.artist_id
+        ? artistsApi.getArtist(String(track.value.artist_id))
+        : Promise.resolve(null),
       albumsApi.getAlbums(),
     ])
     artist.value = artistData
@@ -354,7 +360,8 @@ async function handleEditSubmit(payload: TrackFormPayload) {
     // Backend clear_fields uses camelCase keys to distinguish "set to null" from "not provided"
     const clearFields: string[] = []
     if (payload.album_id === null && track.value.album_id) clearFields.push('albumId')
-    if (payload.track_number === null && track.value.track_number != null) clearFields.push('trackNumber')
+    if (payload.track_number === null && track.value.track_number != null)
+      clearFields.push('trackNumber')
     if (payload.cover_url === null && track.value.cover_url) clearFields.push('coverUrl')
 
     const updatePayload: Record<string, unknown> = {
@@ -366,9 +373,12 @@ async function handleEditSubmit(payload: TrackFormPayload) {
       is_public: true,
     }
     // Only include nullable fields if they have a value or are explicitly being cleared
-    if (payload.album_id !== null || clearFields.includes('albumId')) updatePayload.album_id = payload.album_id ?? null
-    if (payload.track_number !== null || clearFields.includes('trackNumber')) updatePayload.track_number = payload.track_number ?? null
-    if (payload.cover_url !== null || clearFields.includes('coverUrl')) updatePayload.cover_url = payload.cover_url ?? null
+    if (payload.album_id !== null || clearFields.includes('albumId'))
+      updatePayload.album_id = payload.album_id ?? null
+    if (payload.track_number !== null || clearFields.includes('trackNumber'))
+      updatePayload.track_number = payload.track_number ?? null
+    if (payload.cover_url !== null || clearFields.includes('coverUrl'))
+      updatePayload.cover_url = payload.cover_url ?? null
     // Duration is NOT NULL in DB — always send if provided, keep current otherwise
     if (payload.duration_seconds != null) updatePayload.duration_seconds = payload.duration_seconds
     if (clearFields.length > 0) updatePayload.clear_fields = clearFields
@@ -411,13 +421,20 @@ async function handleEditSubmit(payload: TrackFormPayload) {
         for (const l of allLyrics) {
           if (l?.id) await lyricsApi.adminDeleteLyrics(l.id)
         }
-      } catch { /* nothing to delete */ }
+      } catch {
+        /* nothing to delete */
+      }
     }
 
     showForm.value = false
     toast.add({ severity: 'success', summary: 'Track updated', life: 2500 })
   } catch (err) {
-    toast.add({ severity: 'error', summary: 'Update failed', detail: err instanceof Error ? err.message : 'Unknown error', life: 3000 })
+    toast.add({
+      severity: 'error',
+      summary: 'Update failed',
+      detail: err instanceof Error ? err.message : 'Unknown error',
+      life: 3000,
+    })
   } finally {
     saving.value = false
   }
@@ -461,12 +478,22 @@ async function handleFetchLRC() {
         if (attempts < maxAttempts) {
           setTimeout(poll, 3000)
         } else {
-          toast.add({ severity: 'warn', summary: 'AI lyrics generation still in progress', detail: 'Check back later', life: 5000 })
+          toast.add({
+            severity: 'warn',
+            summary: 'AI lyrics generation still in progress',
+            detail: 'Check back later',
+            life: 5000,
+          })
         }
       }
       await poll()
     } else {
-      toast.add({ severity: 'warn', summary: 'No lyrics found', detail: result.message || 'Neither LRCLIB nor AI had results', life: 3000 })
+      toast.add({
+        severity: 'warn',
+        summary: 'No lyrics found',
+        detail: result.message || 'Neither LRCLIB nor AI had results',
+        life: 3000,
+      })
     }
     await loadTrack()
   } catch (err) {
@@ -508,19 +535,34 @@ async function handleDelete() {
     toast.add({ severity: 'success', summary: 'Track deleted', life: 2500 })
     router.push({ name: 'admin.tracks' })
   } catch (err) {
-    toast.add({ severity: 'error', summary: 'Delete failed', detail: err instanceof Error ? err.message : 'Unknown error', life: 3000 })
+    toast.add({
+      severity: 'error',
+      summary: 'Delete failed',
+      detail: err instanceof Error ? err.message : 'Unknown error',
+      life: 3000,
+    })
   } finally {
     deleting.value = false
   }
 }
 
-function normalizeCatalogOptions(items: Array<Record<string, unknown>> | undefined | null, _type?: string) {
+function normalizeCatalogOptions(
+  items: Array<Record<string, unknown>> | undefined | null,
+  _type?: string,
+) {
   if (!Array.isArray(items)) return []
-  return (items ?? []).map(item => {
+  return (items ?? []).map((item) => {
     const id = item.id ?? item.artist_id ?? item.album_id ?? item.genre_id
     const name = item.name ?? item.title ?? item.artist_name ?? item.album_title ?? item.genre_name
     if (id === undefined || id === null || !name) return null
-    return { id, name, slug: item.slug, image_url: item.image_url ?? item.avatar_url ?? item.cover_url ?? null, avatar_url: item.avatar_url ?? item.image_url ?? null, cover_url: item.cover_url ?? item.image_url ?? null } as CatalogOption
+    return {
+      id,
+      name,
+      slug: item.slug,
+      image_url: item.image_url ?? item.avatar_url ?? item.cover_url ?? null,
+      avatar_url: item.avatar_url ?? item.image_url ?? null,
+      cover_url: item.cover_url ?? item.image_url ?? null,
+    } as CatalogOption
   })
 }
 
@@ -529,5 +571,4 @@ function formatPlayCount(count: number): string {
   if (count >= 1_000) return `${(count / 1_000).toFixed(1)}K`
   return String(count)
 }
-
 </script>

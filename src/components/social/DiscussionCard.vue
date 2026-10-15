@@ -1,13 +1,13 @@
 <template>
   <div
-    class="flex items-start gap-3 rounded-xl bg-white/3 p-4 ring-1 ring-white/6 transition hover:bg-white/5 focus-within:ring-spotify focus-within:ring-2"
+    class="focus-within:ring-spotify flex items-start gap-3 rounded-xl bg-white/3 p-4 ring-1 ring-white/6 transition focus-within:ring-2 hover:bg-white/5"
     role="article"
     :aria-label="`Discussion by ${discussion.userName || discussion.user_id}`"
   >
     <!-- Avatar -->
     <RouterLink
       :to="`/profile/${discussion.user_id}`"
-      class="shrink-0 h-8 w-8 overflow-hidden rounded-full ring-1 ring-white/10 focus-visible:outline-2 focus-visible:outline-accent"
+      class="focus-visible:outline-accent h-8 w-8 shrink-0 overflow-hidden rounded-full ring-1 ring-white/10 focus-visible:outline-2"
     >
       <img
         v-if="discussion.avatarUrl"
@@ -20,26 +20,32 @@
         v-else
         class="flex h-full w-full items-center justify-center bg-white/10 text-[10px] font-bold text-white"
       >
-        {{ String(discussion.userName || discussion.user_id || '?').charAt(0).toUpperCase() }}
+        {{
+          String(discussion.userName || discussion.user_id || '?')
+            .charAt(0)
+            .toUpperCase()
+        }}
       </div>
     </RouterLink>
 
     <!-- Content -->
     <div class="min-w-0 flex-1">
       <div class="flex items-center gap-2 text-xs">
-        <span class="font-semibold text-white/70">{{ discussion.userName || discussion.user_id?.slice(0, 8) || 'Unknown' }}</span>
+        <span class="font-semibold text-white/70">{{
+          discussion.userName || discussion.user_id?.slice(0, 8) || 'Unknown'
+        }}</span>
         <span class="text-white/20">{{ formattedTime }}</span>
       </div>
-      <p class="mt-1 text-sm text-white/80 leading-relaxed">{{ discussion.content }}</p>
+      <p class="mt-1 text-sm leading-relaxed text-white/80">{{ discussion.content }}</p>
 
       <!-- Footer: reply count + reply button -->
       <div class="mt-2 flex items-center gap-3">
         <button
           aria-label="Reply to discussion"
-          class="inline-flex items-center gap-1 text-[11px] text-blue-400/50 transition hover:text-blue-400 focus-visible:outline-2 focus-visible:outline-accent"
+          class="focus-visible:outline-accent inline-flex items-center gap-1 text-[11px] text-blue-400/50 transition hover:text-blue-400 focus-visible:outline-2"
           @click="$emit('reply', discussion.id)"
         >
-          <Reply aria-hidden="true" class="text-[10px]"  />
+          <Reply aria-hidden="true" class="text-[10px]" />
           Reply
         </button>
         <span

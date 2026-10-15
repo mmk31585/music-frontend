@@ -1,11 +1,14 @@
 <template>
-  <div :key="String(route.params.id)" class="mx-auto w-full max-w-6xl px-4 pt-8 pb-36 md:px-8 lg:px-10">
+  <div
+    :key="String(route.params.id)"
+    class="mx-auto w-full max-w-6xl px-4 pt-8 pb-36 md:px-8 lg:px-10"
+  >
     <button
       type="button"
       class="mb-6 inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm text-white/50 transition hover:bg-white/6 hover:text-white"
       @click="goBack"
     >
-      <ArrowLeft aria-hidden="true" class="text-xs"  />
+      <ArrowLeft aria-hidden="true" class="text-xs" />
       Back
     </button>
 
@@ -30,9 +33,9 @@
       <template #action>
         <RouterLink
           to="/"
-          class="inline-flex items-center gap-2 rounded-full bg-spotify px-5 py-2.5 text-sm font-bold text-black transition hover:bg-spotify-hover"
+          class="bg-spotify hover:bg-spotify-hover inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold text-black transition"
         >
-          <Home aria-hidden="true" class=""  />
+          <Home aria-hidden="true" class="" />
           Go home
         </RouterLink>
       </template>
@@ -49,7 +52,16 @@
       <!-- Subtle groove texture overlay -->
       <div
         class="pointer-events-none fixed inset-0 opacity-[0.015]"
-        style="background-image: repeating-radial-gradient(circle at 50% 50%, transparent 0, transparent 2px, rgba(255,255,255,0.04) 2px, rgba(255,255,255,0.04) 3px); background-size: 6px 6px;"
+        style="
+          background-image: repeating-radial-gradient(
+            circle at 50% 50%,
+            transparent 0,
+            transparent 2px,
+            rgba(255, 255, 255, 0.04) 2px,
+            rgba(255, 255, 255, 0.04) 3px
+          );
+          background-size: 6px 6px;
+        "
         aria-hidden="true"
       />
 
@@ -59,7 +71,7 @@
           <!-- Cover art with physical-object treatment -->
           <div class="group relative shrink-0">
             <div
-              class="relative h-75 w-75 overflow-hidden rounded-2xl bg-white/6 shadow-2xl ring-1 ring-white/10 transition-all duration-500 group-hover:shadow-xl group-hover:-rotate-1 group-hover:scale-[1.02]"
+              class="relative h-75 w-75 overflow-hidden rounded-2xl bg-white/6 shadow-2xl ring-1 ring-white/10 transition-all duration-500 group-hover:scale-[1.02] group-hover:-rotate-1 group-hover:shadow-xl"
               :style="coverGlowStyle"
             >
               <img
@@ -71,22 +83,20 @@
                 @error="onImgError"
               />
               <div v-else class="flex h-full items-center justify-center">
-                <Disc3 aria-hidden="true" class="text-5xl text-slate-500"  />
+                <Disc3 aria-hidden="true" class="text-5xl text-slate-500" />
               </div>
             </div>
             <!-- Sleeve frame accent -->
             <div
-              class="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/4"
+              class="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-white/4 ring-inset"
               aria-hidden="true"
             />
           </div>
 
           <!-- Album info -->
           <div class="flex-1">
-            <p class="text-[10px] font-bold tracking-[0.35em] text-white/30 uppercase">
-              Album
-            </p>
-            <h1 class="mt-3 text-4xl font-black leading-[1.1] text-white md:text-5xl lg:text-6xl">
+            <p class="text-[10px] font-bold tracking-[0.35em] text-white/30 uppercase">Album</p>
+            <h1 class="mt-3 text-4xl leading-[1.1] font-black text-white md:text-5xl lg:text-6xl">
               {{ album.title }}
             </h1>
 
@@ -94,7 +104,7 @@
               <template v-if="artist">
                 <RouterLink
                   :to="`/artist/${artist.id}`"
-                  class="font-bold text-white underline underline-offset-4 decoration-white/20 transition hover:text-spotify hover:decoration-accent"
+                  class="hover:text-spotify hover:decoration-accent font-bold text-white underline decoration-white/20 underline-offset-4 transition"
                 >
                   {{ artist.name }}
                 </RouterLink>
@@ -103,7 +113,9 @@
                 <span class="font-bold text-white">{{ album.artist_name }}</span>
               </template>
               <span v-if="album.release_date" class="text-white/30">·</span>
-              <span v-if="album.release_date" class="text-white/50">{{ album.release_date.slice(0, 4) }}</span>
+              <span v-if="album.release_date" class="text-white/50">{{
+                album.release_date.slice(0, 4)
+              }}</span>
               <span v-if="album.genre" class="text-white/30">·</span>
               <span v-if="album.genre" class="text-white/50">{{ album.genre }}</span>
             </div>
@@ -111,11 +123,15 @@
             <!-- Stats -->
             <div class="mt-6 flex items-center gap-8">
               <div class="flex items-baseline gap-2">
-                <span class="text-2xl font-black tabular-nums text-white">{{ tracks.length }}</span>
-                <span class="text-xs text-white/40">{{ tracks.length === 1 ? 'track' : 'tracks' }}</span>
+                <span class="text-2xl font-black text-white tabular-nums">{{ tracks.length }}</span>
+                <span class="text-xs text-white/40">{{
+                  tracks.length === 1 ? 'track' : 'tracks'
+                }}</span>
               </div>
               <div v-if="totalDuration" class="flex items-baseline gap-2.5">
-                <span class="text-2xl font-black tabular-nums text-white">{{ formattedDuration }}</span>
+                <span class="text-2xl font-black text-white tabular-nums">{{
+                  formattedDuration
+                }}</span>
                 <span class="text-xs text-white/40">total</span>
               </div>
             </div>
@@ -124,10 +140,10 @@
             <div class="mt-8 flex flex-wrap items-center gap-3">
               <button
                 type="button"
-                class="glow-green inline-flex items-center gap-2.5 rounded-full bg-spotify px-8 py-3 text-sm font-bold text-black transition hover:scale-105 hover:bg-spotify-hover"
+                class="glow-green bg-spotify hover:bg-spotify-hover inline-flex items-center gap-2.5 rounded-full px-8 py-3 text-sm font-bold text-black transition hover:scale-105"
                 @click="playAll"
               >
-                <Play aria-hidden="true" class=""  />
+                <Play aria-hidden="true" class="" />
                 Play all
               </button>
 
@@ -136,7 +152,7 @@
                 class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/4 px-6 py-3 text-sm font-bold text-white/80 transition hover:border-white/30 hover:bg-white/8 hover:text-white"
                 @click="shuffleAll"
               >
-                <ArrowUpDown aria-hidden="true" class=""  />
+                <ArrowUpDown aria-hidden="true" class="" />
                 Shuffle
               </button>
 
@@ -146,7 +162,7 @@
                 :class="{ 'border-spotify/30 text-spotify': isLiked }"
                 @click="toggleLike"
               >
-                <component :is="isLiked ? Heart : Heart"<i aria-hidden="true"  /> />
+                <component :is="isLiked ? Heart : Heart" aria-hidden="true" />
                 {{ isLiked ? 'Saved' : 'Save' }}
               </button>
 
@@ -155,7 +171,7 @@
                 class="inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/3 px-5 py-3 text-sm font-bold text-white/60 transition hover:bg-white/8 hover:text-white"
                 @click="shareAlbum"
               >
-                <Share2 aria-hidden="true" class=""  />
+                <Share2 aria-hidden="true" class="" />
                 Share
               </button>
             </div>
@@ -168,7 +184,9 @@
             <div class="w-full border-t border-white/6" />
           </div>
           <div class="relative flex justify-center">
-            <span class="bg-surface-base px-4 text-[10px] font-bold tracking-[0.3em] text-white/20 uppercase">
+            <span
+              class="bg-surface-base px-4 text-[10px] font-bold tracking-[0.3em] text-white/20 uppercase"
+            >
               Tracklist
             </span>
           </div>
@@ -183,7 +201,7 @@
               role="button"
               tabindex="0"
               class="group flex cursor-pointer items-center gap-4 rounded-2xl px-4 py-3 transition-all duration-200 hover:bg-white/4"
-              :class="isCurrentTrack(track) ? 'bg-white/6 ring-1 ring-inset ring-spotify/15' : ''"
+              :class="isCurrentTrack(track) ? 'ring-spotify/15 bg-white/6 ring-1 ring-inset' : ''"
               @click="playTrack(track, Number(index))"
               @contextmenu.prevent="openContextMenu($event, track)"
               @keydown.enter="playTrack(track, Number(index))"
@@ -191,7 +209,7 @@
             >
               <!-- Track number / Play icon -->
               <span
-                class="flex w-8 items-center justify-center text-center text-sm tabular-nums text-white/20"
+                class="flex w-8 items-center justify-center text-center text-sm text-white/20 tabular-nums"
                 :class="isCurrentTrack(track) ? 'hidden' : 'group-hover:hidden'"
               >
                 {{ String(Number(index) + 1).padStart(2, '0') }}
@@ -207,11 +225,13 @@
                     <span class="eq-bar animation-delay-300 h-3" />
                   </span>
                 </template>
-                <Play aria-hidden="true" v-else class="text-xs text-white"  />
+                <Play aria-hidden="true" v-else class="text-xs text-white" />
               </span>
 
               <!-- Thumbnail -->
-              <div class="relative h-12 w-12 shrink-0 overflow-hidden rounded-xl bg-white/10 ring-1 ring-white/4">
+              <div
+                class="relative h-12 w-12 shrink-0 overflow-hidden rounded-xl bg-white/10 ring-1 ring-white/4"
+              >
                 <img
                   v-if="track.cover_url || album.cover_url"
                   :src="track.cover_url ?? album.cover_url ?? undefined"
@@ -221,7 +241,7 @@
                   @error="onImgError"
                 />
                 <div v-else class="flex h-full items-center justify-center">
-                  <Music aria-hidden="true" class="text-xs text-white/30"  />
+                  <Music aria-hidden="true" class="text-xs text-white/30" />
                 </div>
               </div>
 
@@ -239,7 +259,7 @@
               </div>
 
               <!-- Duration -->
-              <span class="text-xs tabular-nums text-white/25 transition group-hover:text-white/50">
+              <span class="text-xs text-white/25 tabular-nums transition group-hover:text-white/50">
                 {{ formatDuration(track.duration_seconds) }}
               </span>
             </div>
@@ -261,7 +281,9 @@
               <div class="w-full border-t border-white/6" />
             </div>
             <div class="relative flex justify-center">
-              <span class="bg-surface-base px-4 text-[10px] font-bold tracking-[0.3em] text-white/20 uppercase">
+              <span
+                class="bg-surface-base px-4 text-[10px] font-bold tracking-[0.3em] text-white/20 uppercase"
+              >
                 Credits
               </span>
             </div>
@@ -281,15 +303,22 @@
                 <RouterLink
                   v-if="aa.role !== 'main' && aa.role !== 'primary'"
                   :to="`/artist/${aa.id}`"
-                  class="block truncate text-sm font-semibold text-white transition group-hover:text-spotify"
+                  class="group-hover:text-spotify block truncate text-sm font-semibold text-white transition"
                 >
                   {{ aa.name }}
                 </RouterLink>
-                <span v-else class="block truncate text-sm font-semibold text-white">{{ aa.name }}</span>
-                <p v-if="aa.role && !['main', 'primary'].includes(aa.role)" class="mt-0.5 text-xs text-white/40 capitalize">
+                <span v-else class="block truncate text-sm font-semibold text-white">{{
+                  aa.name
+                }}</span>
+                <p
+                  v-if="aa.role && !['main', 'primary'].includes(aa.role)"
+                  class="mt-0.5 text-xs text-white/40 capitalize"
+                >
                   {{ aa.role }}
                 </p>
-                <p v-else-if="aa.role === 'main'" class="mt-0.5 text-xs text-white/30">Main artist</p>
+                <p v-else-if="aa.role === 'main'" class="mt-0.5 text-xs text-white/30">
+                  Main artist
+                </p>
               </div>
             </div>
           </div>
@@ -299,8 +328,12 @@
         <section v-if="relatedAlbums.length > 0" class="mt-14">
           <div class="mb-8 flex items-center justify-between">
             <div>
-              <p class="text-[10px] font-bold tracking-[0.3em] text-white/30 uppercase">More from</p>
-              <h2 class="mt-1 text-xl font-bold text-white">{{ artist?.name ?? mainArtist?.name ?? 'Artist' }}</h2>
+              <p class="text-[10px] font-bold tracking-[0.3em] text-white/30 uppercase">
+                More from
+              </p>
+              <h2 class="mt-1 text-xl font-bold text-white">
+                {{ artist?.name ?? mainArtist?.name ?? 'Artist' }}
+              </h2>
             </div>
             <RouterLink
               v-if="artist"
@@ -308,7 +341,7 @@
               class="text-xs font-medium text-white/30 transition hover:text-white"
             >
               View artist
-              <ChevronLeft aria-hidden="true" class="ml-0.5 text-[10px]"  />
+              <ChevronLeft aria-hidden="true" class="ml-0.5 text-[10px]" />
             </RouterLink>
           </div>
           <div class="grid grid-cols-2 gap-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
@@ -319,7 +352,7 @@
               class="group block"
             >
               <div
-                class="relative mb-3 aspect-square overflow-hidden rounded-2xl bg-white/6 shadow-lg ring-1 ring-white/10 transition-all duration-300 group-hover:shadow-lg group-hover:-translate-y-1 group-hover:ring-spotify/30"
+                class="group-hover:ring-spotify/30 relative mb-3 aspect-square overflow-hidden rounded-2xl bg-white/6 shadow-lg ring-1 ring-white/10 transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-lg"
               >
                 <img
                   v-if="ra.cover_url"
@@ -330,15 +363,15 @@
                   @error="onImgError"
                 />
                 <div v-else class="flex h-full items-center justify-center">
-                  <Disc3 aria-hidden="true" class="text-2xl text-slate-500"  />
+                  <Disc3 aria-hidden="true" class="text-2xl text-slate-500" />
                 </div>
                 <div
                   class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition group-hover:opacity-100"
                 >
                   <div
-                    class="flex h-12 w-12 items-center justify-center rounded-full bg-spotify/90 text-black shadow-xl backdrop-blur-xs transition-transform group-hover:scale-110"
+                    class="bg-spotify/90 flex h-12 w-12 items-center justify-center rounded-full text-black shadow-xl backdrop-blur-xs transition-transform group-hover:scale-110"
                   >
-                    <Play aria-hidden="true" class="text-lg"  />
+                    <Play aria-hidden="true" class="text-lg" />
                   </div>
                 </div>
               </div>
@@ -360,7 +393,17 @@
 </template>
 
 <script setup lang="ts">
-import { ArrowLeft, ArrowUpDown, ChevronLeft, Disc3, Heart, Home, Music, Play, Share2 } from 'lucide-vue-next'
+import {
+  ArrowLeft,
+  ArrowUpDown,
+  ChevronLeft,
+  Disc3,
+  Heart,
+  Home,
+  Music,
+  Play,
+  Share2,
+} from 'lucide-vue-next'
 import { computed, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import type { TrackContextItem } from '@/composables/useTrackContextMenu'
@@ -457,15 +500,17 @@ function shuffleAll() {
 
 function buildQueue() {
   if (!tracks.value.length) return []
-  return mapToPlaybackTracks(tracks.value.map((t: Record<string, unknown>) => ({
-    id: String(t.id),
-    title: (t.title as string) || undefined,
-    artist_name: (t.artist_name as string) || artist?.value?.name || 'Unknown',
-    album_title: (t.album_title as string) || album.value?.title || null,
-    cover_url: (t.cover_url as string) || album.value?.cover_url || null,
-    duration_seconds: (t.duration_seconds as number) ?? null,
-    streamUrl: playerApi.getTrackStreamUrl(String(t.id)),
-  })))
+  return mapToPlaybackTracks(
+    tracks.value.map((t: Record<string, unknown>) => ({
+      id: String(t.id),
+      title: (t.title as string) || undefined,
+      artist_name: (t.artist_name as string) || artist?.value?.name || 'Unknown',
+      album_title: (t.album_title as string) || album.value?.title || null,
+      cover_url: (t.cover_url as string) || album.value?.cover_url || null,
+      duration_seconds: (t.duration_seconds as number) ?? null,
+      streamUrl: playerApi.getTrackStreamUrl(String(t.id)),
+    })),
+  )
 }
 
 const { copyLink } = useSocialShare()
@@ -493,9 +538,10 @@ function openContextMenu(e: MouseEvent, track: Record<string, unknown>) {
   menuVisible.value = true
 }
 
-const { sections, header, accentColor: contextAccentColor } = useTrackContextMenu(
-  computed(() => contextTrack.value),
-)
+const {
+  sections,
+  header,
+} = useTrackContextMenu(computed(() => contextTrack.value))
 </script>
 
 <style scoped>
@@ -505,10 +551,20 @@ const { sections, header, accentColor: contextAccentColor } = useTrackContextMen
   background: currentColor;
   animation: equalizer 850ms ease-in-out infinite alternate;
 }
-.animation-delay-150 { animation-delay: 150ms; }
-.animation-delay-300 { animation-delay: 300ms; }
+.animation-delay-150 {
+  animation-delay: 150ms;
+}
+.animation-delay-300 {
+  animation-delay: 300ms;
+}
 @keyframes equalizer {
-  from { transform: scaleY(0.45); opacity: 0.6; }
-  to { transform: scaleY(1); opacity: 1; }
+  from {
+    transform: scaleY(0.45);
+    opacity: 0.6;
+  }
+  to {
+    transform: scaleY(1);
+    opacity: 1;
+  }
 }
 </style>

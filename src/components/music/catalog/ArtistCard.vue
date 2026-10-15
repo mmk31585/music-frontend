@@ -1,7 +1,7 @@
 <template>
   <RouterLink :to="`/artist/${artist.id}`" class="group block w-40 shrink-0 space-y-3">
     <div
-      class="mx-auto h-36 w-36 overflow-hidden rounded-full bg-surface-overlay ring-1 ring-border-default transition group-hover:ring-accent/50"
+      class="bg-surface-overlay ring-border-default group-hover:ring-accent/50 mx-auto h-36 w-36 overflow-hidden rounded-full ring-1 transition"
     >
       <img
         v-if="artist.image_url"
@@ -12,14 +12,14 @@
         @error="onImgError"
       />
       <div v-else class="flex h-full items-center justify-center">
-        <User aria-hidden="true" class="text-3xl text-tertiary"  />
+        <User aria-hidden="true" class="text-tertiary text-3xl" />
       </div>
     </div>
     <div class="space-y-0.5 text-center">
-      <p class="truncate text-sm font-bold text-primary">
+      <p class="text-primary truncate text-sm font-bold">
         {{ artist.name }}
       </p>
-      <p class="text-xs text-tertiary">Artist</p>
+      <p class="text-tertiary text-xs">Artist</p>
     </div>
   </RouterLink>
 </template>

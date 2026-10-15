@@ -2,7 +2,7 @@
   <div class="mx-auto w-full max-w-7xl px-4 pt-6 pb-32 md:px-6 lg:px-8">
     <!-- Discover Weekly Header -->
     <section
-      class="rounded-2xl bg-linear-to-br from-pink-600 via-purple-700 to-surface-base p-8 text-white md:p-12"
+      class="to-surface-base rounded-2xl bg-linear-to-br from-pink-600 via-purple-700 p-8 text-white md:p-12"
     >
       <p class="text-sm font-bold tracking-[0.35em] text-white/70 uppercase">Discover Weekly</p>
       <h1 class="mt-3 text-4xl font-black md:text-6xl">کشف هفتگی شما</h1>
@@ -15,10 +15,10 @@
 
       <button
         v-if="tracks.length > 0"
-        class="mt-6 inline-flex items-center gap-2 rounded-full bg-spotify px-8 py-3 text-sm font-bold text-black transition hover:scale-105 hover:bg-spotify-hover"
+        class="bg-spotify hover:bg-spotify-hover mt-6 inline-flex items-center gap-2 rounded-full px-8 py-3 text-sm font-bold text-black transition hover:scale-105"
         @click="playAll"
       >
-        <Play aria-hidden="true" class=""  />
+        <Play aria-hidden="true" class="" />
         پخش همه
       </button>
     </section>
@@ -41,7 +41,7 @@
       class="mt-10 flex flex-col items-center gap-4 rounded-3xl border border-white/10 px-6 py-20 text-center"
     >
       <div class="flex h-16 w-16 items-center justify-center rounded-full bg-white/10">
-        <RefreshCw aria-hidden="true" class="text-2xl text-slate-400"  />
+        <RefreshCw aria-hidden="true" class="text-2xl text-slate-400" />
       </div>
       <h3 class="text-xl font-bold text-white">Not enough data yet</h3>
       <p class="max-w-sm text-sm text-slate-400">
@@ -49,7 +49,7 @@
       </p>
       <RouterLink
         to="/recommendations/popular"
-        class="rounded-full bg-spotify px-5 py-2 text-sm font-bold text-black transition hover:bg-spotify-hover"
+        class="bg-spotify hover:bg-spotify-hover rounded-full px-5 py-2 text-sm font-bold text-black transition"
       >
         Explore popular tracks
       </RouterLink>
@@ -61,7 +61,7 @@
       class="mt-10 flex flex-col items-center gap-4 rounded-3xl border border-white/10 px-6 py-20 text-center"
     >
       <div class="flex h-16 w-16 items-center justify-center rounded-full bg-white/10">
-        <AlertTriangle aria-hidden="true" class="text-2xl text-red-400"  />
+        <AlertTriangle aria-hidden="true" class="text-2xl text-red-400" />
       </div>
       <h3 class="text-xl font-bold text-white">Could not load Discover Weekly</h3>
       <p class="text-sm text-slate-400">{{ error }}</p>
@@ -76,7 +76,7 @@
     <!-- Track Grid -->
     <div v-else class="mt-10" aria-live="polite">
       <div class="mb-6 flex items-center gap-3 text-white/40">
-        <Info aria-hidden="true" class="text-sm"  />
+        <Info aria-hidden="true" class="text-sm" />
         <span class="text-xs">Hover a track to see why it was recommended</span>
       </div>
 
@@ -101,7 +101,7 @@
               @error="onImgError"
             />
             <div v-else class="flex h-full items-center justify-center">
-              <Music aria-hidden="true" class="text-2xl text-slate-500"  />
+              <Music aria-hidden="true" class="text-2xl text-slate-500" />
             </div>
             <div
               class="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 transition group-hover:opacity-100"
@@ -109,14 +109,14 @@
               <div
                 class="flex h-12 w-12 items-center justify-center rounded-full bg-pink-500/90 text-white shadow-xl"
               >
-                <Play aria-hidden="true" class="text-lg"  />
+                <Play aria-hidden="true" class="text-lg" />
               </div>
             </div>
             <div
               class="absolute top-2 right-2 rounded-full bg-black/60 px-2 py-0.5 text-[10px] font-bold text-pink-400 opacity-0 backdrop-blur-xs transition group-hover:opacity-100"
               :title="track.genre ? `چون شبیه آهنگ‌های ${track.genre} است` : undefined"
             >
-              <HelpCircle aria-hidden="true" class="mr-1"  />
+              <HelpCircle aria-hidden="true" class="mr-1" />
               چرا این آهنگ؟
             </div>
           </div>
@@ -164,8 +164,7 @@ const weekLabel = computed(() => {
   const d = new Date(playlistMeta.value?.week_of ?? '')
   const end = new Date(d)
   end.setDate(end.getDate() + 6)
-  const fmt = (date: Date) =>
-    date.toLocaleDateString('fa-IR', { month: 'long', day: 'numeric' })
+  const fmt = (date: Date) => date.toLocaleDateString('fa-IR', { month: 'long', day: 'numeric' })
   return `${fmt(d)} — ${fmt(end)}`
 })
 
@@ -211,7 +210,5 @@ function openContextMenu(e: MouseEvent, track: RecommendationTrack) {
   menuVisible.value = true
 }
 
-const { sections, header, accentColor } = useTrackContextMenu(
-  computed(() => contextTrack.value),
-)
+const { sections, header, accentColor } = useTrackContextMenu(computed(() => contextTrack.value))
 </script>

@@ -6,7 +6,10 @@ import { AlbumSchema, type Album, type AlbumCreatePayload, type AlbumUpdatePaylo
 export const useAlbumsApi = () => {
   // ==================== PUBLIC ====================
 
-  const getAlbums = async (params?: Record<string, string | number>, config?: UseRequestConfig<Album[]>) => {
+  const getAlbums = async (
+    params?: Record<string, string | number>,
+    config?: UseRequestConfig<Album[]>,
+  ) => {
     return useRequest<Album, true>(
       AlbumApiRoutes.LIST,
       { method: 'GET', params },
@@ -55,11 +58,12 @@ export const useAlbumsApi = () => {
         data: {
           title: payload.title,
           artist_id: payload.artist_id ?? null,
-          artists: payload.artists?.map((a) => ({
-            artist_id: a.artist_id,
-            role: a.role ?? 'primary',
-            position: a.position ?? 0,
-          })) ?? [],
+          artists:
+            payload.artists?.map((a) => ({
+              artist_id: a.artist_id,
+              role: a.role ?? 'primary',
+              position: a.position ?? 0,
+            })) ?? [],
           cover_url: payload.cover_url ?? null,
           cover_media_id: payload.cover_media_id ?? null,
           release_date: payload.release_date ?? null,
@@ -86,11 +90,12 @@ export const useAlbumsApi = () => {
         data: {
           title: payload.title ?? null,
           artist_id: payload.artist_id ?? null,
-          artists: payload.artists?.map((a) => ({
-            artist_id: a.artist_id,
-            role: a.role ?? 'primary',
-            position: a.position ?? 0,
-          })) ?? [],
+          artists:
+            payload.artists?.map((a) => ({
+              artist_id: a.artist_id,
+              role: a.role ?? 'primary',
+              position: a.position ?? 0,
+            })) ?? [],
           cover_url: payload.cover_url ?? null,
           cover_media_id: payload.cover_media_id ?? null,
           release_date: payload.release_date ?? null,
@@ -105,10 +110,7 @@ export const useAlbumsApi = () => {
     )
   }
 
-  const adminDeleteAlbum = async (
-    id: string | number,
-    config?: UseRequestConfig<void>,
-  ) => {
+  const adminDeleteAlbum = async (id: string | number, config?: UseRequestConfig<void>) => {
     return useRequest<void>(
       AlbumApiRoutes.ADMIN_DELETE.replace(':albumId', String(id)),
       { method: 'DELETE' },

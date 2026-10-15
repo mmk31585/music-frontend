@@ -55,15 +55,33 @@
 
       <!-- Controls -->
       <div :style="controlsStyle">
-        <button :style="ctrlBtnStyle" aria-label="Previous track" @click="playPrevious" :disabled="hasPrevious!">⏮</button>
         <button
-          :style="{ ...playBtnBase, background: accentColor, boxShadow: `0 0 0 3px ${accentColor}22, 0 4px 20px ${accentColor}44` }"
+          :style="ctrlBtnStyle"
+          aria-label="Previous track"
+          @click="playPrevious"
+          :disabled="hasPrevious!"
+        >
+          ⏮
+        </button>
+        <button
+          :style="{
+            ...playBtnBase,
+            background: accentColor,
+            boxShadow: `0 0 0 3px ${accentColor}22, 0 4px 20px ${accentColor}44`,
+          }"
           :aria-label="isPlaying ? 'Pause' : 'Play'"
           @click="togglePlayPause"
         >
           <span :style="playIconStyle">{{ isPlaying ? '⏸' : '▶' }}</span>
         </button>
-        <button :style="ctrlBtnStyle" aria-label="Next track" @click="playNext" :disabled="hasNext!">⏭</button>
+        <button
+          :style="ctrlBtnStyle"
+          aria-label="Next track"
+          @click="playNext"
+          :disabled="hasNext!"
+        >
+          ⏭
+        </button>
         <div :style="{ flex: 1 }" />
         <button :style="closeBtnStyle" aria-label="Close PiP player" @click="close">✕</button>
       </div>
@@ -213,7 +231,7 @@ const progressTrackStyle = {
   borderRadius: '3px',
   background: 'rgba(255,255,255,0.1)',
   cursor: 'pointer' as const,
-  overflow: 'visible' as const,  // so thumb can overflow
+  overflow: 'visible' as const, // so thumb can overflow
 }
 
 /** Glow layer behind the fill (matches FullscreenPlayer's .blur-[3px] layer) */
@@ -308,7 +326,7 @@ const playBtnBase = {
 
 const playIconStyle = {
   position: 'relative' as const,
-  left: '1px',       // optical centering for ▶
+  left: '1px', // optical centering for ▶
 }
 
 const closeBtnStyle = {
@@ -362,5 +380,7 @@ function seekFromEvent(e: MouseEvent | KeyboardEvent) {
   pc.seek(ratio * (pc.duration.value || pc.currentTrack.value?.durationSeconds || 0))
 }
 
-function close() { emit('close') }
+function close() {
+  emit('close')
+}
 </script>

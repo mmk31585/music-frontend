@@ -2,7 +2,7 @@
   <div class="glass-strong rounded-2xl p-6 md:p-8">
     <div class="mb-6 flex items-center justify-between">
       <h3 class="text-lg font-bold text-white">Challenges</h3>
-      <span class="rounded-full bg-spotify/10 px-2.5 py-0.5 text-xs font-medium text-spotify">
+      <span class="bg-spotify/10 text-spotify rounded-full px-2.5 py-0.5 text-xs font-medium">
         +{{ earnedXP }} XP earned
       </span>
     </div>
@@ -20,9 +20,11 @@
       >
         <div class="p-4">
           <div class="flex items-start justify-between gap-4">
-            <div class="flex items-start gap-3 min-w-0 flex-1">
+            <div class="flex min-w-0 flex-1 items-start gap-3">
               <!-- Challenge type icon -->
-              <div class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/5 text-lg">
+              <div
+                class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/5 text-lg"
+              >
                 {{ challengeIcon(item.challenge.challenge_type) }}
               </div>
               <div class="min-w-0 flex-1">
@@ -47,12 +49,18 @@
           <div class="mt-3">
             <div class="flex items-center justify-between text-[11px] text-white/30">
               <span>{{ item.progress?.progress || 0 }} / {{ item.challenge.target_count }}</span>
-              <span v-if="item.progress?.is_completed" class="text-spotify font-medium">Completed!</span>
+              <span v-if="item.progress?.is_completed" class="text-spotify font-medium"
+                >Completed!</span
+              >
             </div>
             <div class="mt-1.5 h-2 overflow-hidden rounded-full bg-white/5">
               <div
                 class="h-full rounded-full transition-all duration-700"
-                :class="item.progress?.is_completed ? 'bg-spotify' : 'bg-linear-to-r from-amber-400 to-orange-500'"
+                :class="
+                  item.progress?.is_completed
+                    ? 'bg-spotify'
+                    : 'bg-linear-to-r from-amber-400 to-orange-500'
+                "
                 :style="{ width: `${completionPercent(item)}%` }"
               />
             </div>

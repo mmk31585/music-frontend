@@ -50,10 +50,19 @@ describe('useFeatureFlags', () => {
 
   it('init does not fetch twice if already fetched', async () => {
     mockList.mockResolvedValue({
-      analytics: true, recommendation: true, search: true,
-      social: true, reactions: true, creator: true,
-      moderation: true, ai: true, contribution: true,
-      gamification: true, tips: true, subscription: true, notification: true,
+      analytics: true,
+      recommendation: true,
+      search: true,
+      social: true,
+      reactions: true,
+      creator: true,
+      moderation: true,
+      ai: true,
+      contribution: true,
+      gamification: true,
+      tips: true,
+      subscription: true,
+      notification: true,
     })
 
     const { useFeatureFlags } = await import('@/composables/useFeatureFlags')

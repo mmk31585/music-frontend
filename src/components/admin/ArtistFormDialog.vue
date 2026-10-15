@@ -16,7 +16,7 @@
     <template #header>
       <div class="flex items-center gap-3">
         <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/10">
-          <User aria-hidden="true" class="text-emerald-400"  />
+          <User aria-hidden="true" class="text-emerald-400" />
         </div>
         <div>
           <h3 class="text-base font-semibold text-white">
@@ -235,10 +235,20 @@ async function handleFileUpload(e: Event) {
     const res = await mediaApi.uploadAdminMedia('artistImage', file)
     if (res?.url) {
       form.image_url = res.url
-      toast.add({ severity: 'success', summary: 'Uploaded', detail: 'Image uploaded successfully', life: 3000 })
+      toast.add({
+        severity: 'success',
+        summary: 'Uploaded',
+        detail: 'Image uploaded successfully',
+        life: 3000,
+      })
     }
   } catch {
-    toast.add({ severity: 'error', summary: 'Upload failed', detail: 'Could not upload image', life: 4000 })
+    toast.add({
+      severity: 'error',
+      summary: 'Upload failed',
+      detail: 'Could not upload image',
+      life: 4000,
+    })
   } finally {
     uploading.value = false
     input.value = ''
@@ -262,9 +272,19 @@ async function handleEnrich() {
         form.image_url = refreshed.image_url
       }
     }
-    toast.add({ severity: 'success', summary: 'Enriched', detail: 'Artist data fetched from external sources', life: 3000 })
+    toast.add({
+      severity: 'success',
+      summary: 'Enriched',
+      detail: 'Artist data fetched from external sources',
+      life: 3000,
+    })
   } catch {
-    toast.add({ severity: 'error', summary: 'Enrich failed', detail: 'Could not enrich artist. Check external service connectivity.', life: 4000 })
+    toast.add({
+      severity: 'error',
+      summary: 'Enrich failed',
+      detail: 'Could not enrich artist. Check external service connectivity.',
+      life: 4000,
+    })
   } finally {
     enriching.value = false
   }

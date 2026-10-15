@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 import type { PlaybackTrack } from '@/services/api/player/types'
-import { buildPlaybackTrack, mapToPlaybackTracks } from '@/factories/playbackTrack'
+import { mapToPlaybackTracks } from '@/factories/playbackTrack'
 import { usePlayerApi } from '@/services/api/player/routes'
 import { useTracksApi } from '@/services/api/catalog/tracks'
 import { useRecommendationsApi } from '@/services/api/recommendation'
@@ -9,11 +9,7 @@ import { useLibraryApi } from '@/services/api/library'
 import { useVideoApi } from '@/services/api/video'
 import { useHistoryApi } from '@/services/api/history'
 import { useUserAuthStore } from '@/stores/user-auth'
-import {
-  PlayerEngine,
-  type ShuffleMode,
-  type RepeatMode,
-} from '@/services/player'
+import { PlayerEngine, type ShuffleMode, type RepeatMode } from '@/services/player'
 import { audioEngine } from '@/services/player/audio-engine'
 import { queueManager } from '@/services/player/queue-manager'
 
@@ -54,21 +50,21 @@ export const usePlayerStore = defineStore('player', () => {
   const libraryApi = useLibraryApi()
   const historyApi = useHistoryApi()
 
-const currentTrack = ref<PlaybackTrack | null>(null)
-const queue = ref<PlaybackTrack[]>([])
+  const currentTrack = ref<PlaybackTrack | null>(null)
+  const queue = ref<PlaybackTrack[]>([])
 
-const isPlaying = ref(false)
-const isBuffering = ref(false)
-const isLoadingTrack = ref(false)
+  const isPlaying = ref(false)
+  const isBuffering = ref(false)
+  const isLoadingTrack = ref(false)
 
-const currentTime = ref(0)
-const duration = ref(0)
+  const currentTime = ref(0)
+  const duration = ref(0)
 
-const volume = ref(0.85)
-const muted = ref(false)
+  const volume = ref(0.85)
+  const muted = ref(false)
 
-const shuffleMode = ref<ShuffleMode>('off')
-const repeatMode = ref<RepeatMode>('off')
+  const shuffleMode = ref<ShuffleMode>('off')
+  const repeatMode = ref<RepeatMode>('off')
   const playbackRate = ref(1)
   const sleepTimerMinutes = ref(0)
   const crossfadeDuration = ref(0)
@@ -87,7 +83,7 @@ const repeatMode = ref<RepeatMode>('off')
   let playbackStopped = false
 
   // Play tracking: reports plays to backend for gamification (XP, challenges, badges)
-  let playSessionId = crypto.randomUUID()
+  const playSessionId = crypto.randomUUID()
   let lastReportedTrackId: string | null = null
   let playStartTime = 0
 
@@ -98,13 +94,15 @@ const repeatMode = ref<RepeatMode>('off')
     if (track.id === lastReportedTrackId && completed) return
     lastReportedTrackId = track.id
 
-    historyApi.recordPlay({
-      track_id: track.id,
-      duration: Math.floor(durationSec),
-      completed,
-      session_id: playSessionId,
-      track_duration_ms: track.durationSeconds ? track.durationSeconds * 1000 : undefined,
-    }).catch(() => {})
+    historyApi
+      .recordPlay({
+        track_id: track.id,
+        duration: Math.floor(durationSec),
+        completed,
+        session_id: playSessionId,
+        track_duration_ms: track.durationSeconds ? track.durationSeconds * 1000 : undefined,
+      })
+      .catch(() => {})
   }
 
   const progressPercent = computed(() => {
@@ -155,6 +153,11 @@ const repeatMode = ref<RepeatMode>('off')
    *
    * Always returns a new array reference so downstream watchers fire correctly.
    */
+  let engine: PlayerEngine | null = null
+  let initialized = false
+  const unsubs: (() => void)[] = []
+
+  // Computed remainder referenced by both queue assembly and the engine's shuffle picker.
   const remainingShuffledQueue = computed<PlaybackTrack[]>(() => {
     void shuffleMode.value
     void queue.value.length
@@ -162,10 +165,6 @@ const repeatMode = ref<RepeatMode>('off')
     if (!engine) return [...queue.value]
     return engine.getRemainingShuffledQueue()
   })
-
-  let engine: PlayerEngine | null = null
-  let initialized = false
-  const unsubs: (() => void)[] = []
 
   // ── Music Status (Now Playing) ─────────────────────────────────────
   const videoApiRef = useVideoApi()
@@ -246,19 +245,6 @@ const repeatMode = ref<RepeatMode>('off')
     }, 3000)
   }
 
-  /** @deprecated Use buildPlaybackTrack from @/factories/playbackTrack instead */
-  function mapItemToPlaybackTrack(item: {
-    id: string | number
-    title?: string
-    artist_name?: string | null
-    album_title?: string | null
-    cover_url?: string | null
-    duration_seconds?: number | null
-    audio_url?: string | null
-  }): PlaybackTrack {
-    return buildPlaybackTrack(item)
-  }
-
   function initialize() {
     if (initialized) return
     initialized = true
@@ -266,15 +252,13 @@ const repeatMode = ref<RepeatMode>('off')
     engine = new PlayerEngine(undefined, undefined, undefined, {
       fetchTrack: (id: string) => playerApi.getPlaybackTrack(id),
       fetchRandomTracks: (limit: number) =>
-        tracksApi.getRandomTracks({ limit }).then((tracks) =>
-          mapToPlaybackTracks(tracks),
-        ),
+        tracksApi.getRandomTracks({ limit }).then((tracks) => mapToPlaybackTracks(tracks)),
       fetchSimilarTracks: (trackId: string, limit: number) =>
-        recsApi.getSimilar(trackId, { limit }).then((res) =>
-          mapToPlaybackTracks(res.items || []),
-        ),
+        recsApi.getSimilar(trackId, { limit }).then((res) => mapToPlaybackTracks(res.items || [])),
       onPlayHistory: (trackId: string, dur: number) => {
-        libraryApi.addPlayHistory({ track_id: trackId, duration: dur }).catch(() => { /* silent fail */ })
+        libraryApi.addPlayHistory({ track_id: trackId, duration: dur }).catch(() => {
+          /* silent fail */
+        })
       },
     })
 
@@ -303,7 +287,7 @@ const repeatMode = ref<RepeatMode>('off')
             const data = JSON.parse(raw) as SessionPersistData
             if (data.currentTrackId && queue.value.length > 0) {
               // Check if current track is already in queue
-              const inQueue = queue.value.some(t => t.id === data.currentTrackId)
+              const inQueue = queue.value.some((t) => t.id === data.currentTrackId)
               if (!inQueue) {
                 // Try to fetch and prepend
                 const track = await playerApi.getPlaybackTrack(data.currentTrackId)
@@ -449,7 +433,8 @@ const repeatMode = ref<RepeatMode>('off')
   function getErrorMessage(err: unknown, fallback: string): string {
     if (err instanceof Error) return err.message || fallback
     if (typeof err === 'string') return err
-    if (err && typeof err === 'object' && 'message' in err) return String((err as { message: unknown }).message) || fallback
+    if (err && typeof err === 'object' && 'message' in err)
+      return String((err as { message: unknown }).message) || fallback
     return fallback
   }
 
@@ -495,7 +480,11 @@ const repeatMode = ref<RepeatMode>('off')
       const cacheRaw = localStorage.getItem(QUEUE_META_KEY)
       let cache: CachedTrackMeta[] = []
       if (cacheRaw) {
-        try { cache = JSON.parse(cacheRaw) as CachedTrackMeta[] } catch { /* ignore */ }
+        try {
+          cache = JSON.parse(cacheRaw) as CachedTrackMeta[]
+        } catch {
+          /* ignore */
+        }
       }
 
       for (let i = 0; i < results.length; i++) {
@@ -591,7 +580,8 @@ const repeatMode = ref<RepeatMode>('off')
           if (engine) {
             // Move queue position to the correct index
             const q = queueManager.all()
-            const idx = data.currentIndex >= 0 && data.currentIndex < q.length ? data.currentIndex : 0
+            const idx =
+              data.currentIndex >= 0 && data.currentIndex < q.length ? data.currentIndex : 0
             if (idx > 0) {
               queueManager.setQueue(q, idx)
               engine?.updateQueue(q)
@@ -871,10 +861,13 @@ const repeatMode = ref<RepeatMode>('off')
   function setSleepTimer(minutes: number) {
     clearSleepTimer()
     sleepTimerMinutes.value = minutes
-    sleepTimerId = setTimeout(() => {
-      pause()
-      sleepTimerMinutes.value = 0
-    }, minutes * 60 * 1000)
+    sleepTimerId = setTimeout(
+      () => {
+        pause()
+        sleepTimerMinutes.value = 0
+      },
+      minutes * 60 * 1000,
+    )
   }
 
   function clearSleepTimer() {

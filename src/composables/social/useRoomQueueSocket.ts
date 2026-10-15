@@ -1,6 +1,12 @@
 import { ref, readonly, onMounted, onUnmounted } from 'vue'
 import { wsClient } from '@/services/socket'
-import { getQueueState, suggestTrack, castVote, removeVote, reportTrackEnded } from '@/services/api/social/room-queue'
+import {
+  getQueueState,
+  suggestTrack,
+  castVote,
+  removeVote,
+  reportTrackEnded,
+} from '@/services/api/social/room-queue'
 import type { QueueState } from '@/services/api/social/room-queue'
 
 export function useRoomQueueSocket(roomId: string) {

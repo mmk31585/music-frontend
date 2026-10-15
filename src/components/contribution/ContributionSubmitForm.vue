@@ -13,7 +13,12 @@
           :class="{ 'border-spotify! bg-spotify/10!': selectedType === option.value }"
           @click="selectedType = option.value; step = 2"
         >
-          <i aria-hidden="true" :class="option.icon" class="text-xl" :style="{ color: option.color }" />
+          <i
+            aria-hidden="true"
+            :class="option.icon"
+            class="text-xl"
+            :style="{ color: option.color }"
+          />
           <span class="text-xs font-medium text-white/70">{{ option.label }}</span>
         </button>
       </div>
@@ -28,7 +33,7 @@
             class="text-xs text-white/40 transition-colors hover:text-white/60"
             @click="step = 1; selectedType = null"
           >
-            <ArrowLeft aria-hidden="true" class="mr-1"  /> Back
+            <ArrowLeft aria-hidden="true" class="mr-1" /> Back
           </button>
           <span class="text-white/20">|</span>
           <span class="text-sm font-medium text-white/70">{{ typeLabel }}</span>
@@ -57,7 +62,7 @@
         type="text"
         placeholder="Target ID (UUID)"
         aria-label="Target ID"
-        class="w-full rounded-xl bg-white/5 px-4 py-3 text-sm text-white placeholder-white/20 ring-1 ring-white/6 transition-all outline-hidden focus:ring-spotify/50"
+        class="focus:ring-spotify/50 w-full rounded-xl bg-white/5 px-4 py-3 text-sm text-white placeholder-white/20 ring-1 ring-white/6 outline-hidden transition-all"
       />
 
       <div v-if="selectedType === 'lyrics' || selectedType === 'translation'">
@@ -66,7 +71,7 @@
           type="text"
           placeholder="Language code (e.g., fa, en, ar)"
           aria-label="Language code"
-          class="w-full rounded-xl bg-white/5 px-4 py-3 text-sm text-white placeholder-white/20 ring-1 ring-white/6 transition-all outline-hidden focus:ring-spotify/50"
+          class="focus:ring-spotify/50 w-full rounded-xl bg-white/5 px-4 py-3 text-sm text-white placeholder-white/20 ring-1 ring-white/6 outline-hidden transition-all"
         />
       </div>
 
@@ -77,7 +82,7 @@
         placeholder="Paste your contribution content here...
 For lyrics: paste the full lyrics text
 For LRC format: [00:00.00]Line 1&#10;[00:05.00]Line 2"
-        class="w-full resize-y rounded-xl bg-white/5 px-4 py-3 font-mono text-sm text-white placeholder-white/20 ring-1 ring-white/6 transition-all outline-hidden focus:ring-spotify/50"
+        class="focus:ring-spotify/50 w-full resize-y rounded-xl bg-white/5 px-4 py-3 font-mono text-sm text-white placeholder-white/20 ring-1 ring-white/6 outline-hidden transition-all"
       />
 
       <input
@@ -85,7 +90,7 @@ For LRC format: [00:00.00]Line 1&#10;[00:05.00]Line 2"
         type="text"
         placeholder="Brief summary of your change (optional)"
         aria-label="Summary"
-        class="w-full rounded-xl bg-white/5 px-4 py-3 text-sm text-white placeholder-white/20 ring-1 ring-white/6 transition-all outline-hidden focus:ring-spotify/50"
+        class="focus:ring-spotify/50 w-full rounded-xl bg-white/5 px-4 py-3 text-sm text-white placeholder-white/20 ring-1 ring-white/6 outline-hidden transition-all"
       />
 
       <div class="flex items-center gap-2">
@@ -93,7 +98,7 @@ For LRC format: [00:00.00]Line 1&#10;[00:05.00]Line 2"
           id="is-minor"
           v-model="form.is_minor"
           type="checkbox"
-          class="rounded-sm border-white/20 bg-white/5 text-spotify focus:ring-spotify"
+          class="text-spotify focus:ring-spotify rounded-sm border-white/20 bg-white/5"
         />
         <label for="is-minor" class="text-xs text-white/40">This is a minor edit</label>
       </div>
@@ -109,16 +114,16 @@ For LRC format: [00:00.00]Line 1&#10;[00:05.00]Line 2"
         <button
           type="button"
           :disabled="!canSubmit || submitting"
-          class="spring flex-1 rounded-xl bg-spotify py-3 text-sm font-bold text-black transition-all hover:bg-spotify-hover disabled:opacity-40"
+          class="spring bg-spotify hover:bg-spotify-hover flex-1 rounded-xl py-3 text-sm font-bold text-black transition-all disabled:opacity-40"
           @click="submit"
         >
-          <Loader2 aria-hidden="true" v-if="submitting" class="mr-2 animate-spin"  />
+          <Loader2 aria-hidden="true" v-if="submitting" class="mr-2 animate-spin" />
           Submit {{ typeLabel }}
         </button>
       </div>
 
       <p v-if="error" class="text-xs text-red-400">{{ error }}</p>
-      <p v-if="success" class="text-xs text-spotify">Submitted! Status: {{ successStatus }}</p>
+      <p v-if="success" class="text-spotify text-xs">Submitted! Status: {{ successStatus }}</p>
     </div>
   </div>
 </template>

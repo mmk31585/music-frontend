@@ -24,11 +24,7 @@ async function handleReview(action: 'accept' | 'reject') {
   if (!selectedDraft.value) return
   processing.value = true
   try {
-    await uploadsApi.reviewDraft(
-      selectedDraft.value.id,
-      action,
-      reviewNotes.value || undefined,
-    )
+    await uploadsApi.reviewDraft(selectedDraft.value.id, action, reviewNotes.value || undefined)
     pending.value = pending.value.filter((d) => d.id !== selectedDraft.value!.id)
     selectedDraft.value = null
     reviewNotes.value = ''
@@ -41,7 +37,7 @@ onMounted(loadPending)
 </script>
 
 <template>
-  <div class="mx-auto w-full max-w-6xl px-4 pb-32 pt-8 md:px-6">
+  <div class="mx-auto w-full max-w-6xl px-4 pt-8 pb-32 md:px-6">
     <h1 class="mb-8 text-3xl font-black text-white">Upload Review Queue</h1>
 
     <div v-if="loading" class="space-y-4">
@@ -67,7 +63,7 @@ onMounted(loadPending)
             "
             @click="selectedDraft = d"
           >
-            <p class="text-sm font-medium text-white truncate">{{ d.originalFilename }}</p>
+            <p class="truncate text-sm font-medium text-white">{{ d.originalFilename }}</p>
             <p class="text-xs text-white/40">
               {{ d.uploadSource }} &middot; {{ new Date(d.createdAt).toLocaleDateString() }}
             </p>
@@ -92,22 +88,28 @@ onMounted(loadPending)
               </div>
               <div>
                 <dt class="text-white/40">Size</dt>
-                <dd class="font-medium text-white">{{ (selectedDraft.fileSize / 1e6).toFixed(1) }} MB</dd>
+                <dd class="font-medium text-white">
+                  {{ (selectedDraft.fileSize / 1e6).toFixed(1) }} MB
+                </dd>
               </div>
               <div>
                 <dt class="text-white/40">Submitted</dt>
-                <dd class="font-medium text-white">{{ new Date(selectedDraft.createdAt).toLocaleDateString() }}</dd>
+                <dd class="font-medium text-white">
+                  {{ new Date(selectedDraft.createdAt).toLocaleDateString() }}
+                </dd>
               </div>
             </dl>
           </div>
 
           <!-- Review form -->
           <div class="rounded-2xl bg-white/5 p-6">
-            <h3 class="mb-3 text-sm font-bold text-white/60 uppercase tracking-wider">Review Decision</h3>
+            <h3 class="mb-3 text-sm font-bold tracking-wider text-white/60 uppercase">
+              Review Decision
+            </h3>
             <textarea
               v-model="reviewNotes"
               placeholder="Add review notes (optional)..."
-              class="mb-4 w-full rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white placeholder-white/30 outline-none transition focus:border-spotify/50"
+              class="focus:border-spotify/50 mb-4 w-full rounded-xl border border-white/10 bg-white/5 p-3 text-sm text-white placeholder-white/30 transition outline-none"
               rows="3"
             />
             <div class="flex gap-3">

@@ -7,10 +7,10 @@
     <div
       v-if="!isOnline"
       role="alert"
-      class="fixed top-0 left-0 right-0 z-9999 flex items-center justify-center gap-2 bg-red-600/90 px-4 py-2 text-sm font-medium text-white backdrop-blur-xs"
+      class="fixed top-0 right-0 left-0 z-9999 flex items-center justify-center gap-2 bg-red-600/90 px-4 py-2 text-sm font-medium text-white backdrop-blur-xs"
       style="padding-top: max(0.5rem, env(safe-area-inset-top, 0.5rem))"
     >
-      <Wifi class="text-xs" aria-hidden="true"  />
+      <Wifi class="text-xs" aria-hidden="true" />
       <span>You are offline. Some features may be unavailable.</span>
     </div>
 
@@ -69,7 +69,11 @@
       @toggle-lyrics="onToggleLyrics"
       @toggle-mobile-sheet="mobileSheetOpen = !mobileSheetOpen"
     />
-    <FullscreenPlayer v-if="!ffEnabled" v-model:visible="fullscreenOpen" :initial-tab="playerInitialTab" />
+    <FullscreenPlayer
+      v-if="!ffEnabled"
+      v-model:visible="fullscreenOpen"
+      :initial-tab="playerInitialTab"
+    />
     <ExpandedPlayer v-else v-model:visible="fullscreenOpen" />
     <QueuePanel v-model:visible="showQueue" />
     <MobileBottomSheet v-model:visible="mobileSheetOpen" @open-fullscreen="fullscreenOpen = true" />
@@ -158,12 +162,12 @@ function onToggleLyrics() {
   transition: transform 0.25s ease;
 }
 /* LTR: slide in from left. RTL: slide in from right */
-html:not([dir="rtl"]) .slide-enter-from,
-html:not([dir="rtl"]) .slide-leave-to {
+html:not([dir='rtl']) .slide-enter-from,
+html:not([dir='rtl']) .slide-leave-to {
   transform: translateX(-100%);
 }
-html[dir="rtl"] .slide-enter-from,
-html[dir="rtl"] .slide-leave-to {
+html[dir='rtl'] .slide-enter-from,
+html[dir='rtl'] .slide-leave-to {
   transform: translateX(100%);
 }
 </style>

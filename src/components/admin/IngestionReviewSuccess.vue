@@ -1,7 +1,9 @@
 <template>
   <div class="py-12 text-center">
-    <div class="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-green-500/20">
-      <CheckCircle aria-hidden="true" class="text-3xl text-green-400"  />
+    <div
+      class="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-green-500/20"
+    >
+      <CheckCircle aria-hidden="true" class="text-3xl text-green-400" />
     </div>
     <h2 class="mb-2 text-2xl font-bold text-white">Published to Catalog</h2>
     <p class="mb-8 text-slate-400">{{ filename }} has been published successfully.</p>
@@ -17,9 +19,9 @@
           :src="finalMetadata.artists[0].imageUrl"
           alt=""
           class="h-10 w-10 shrink-0 rounded-full object-cover"
-          @error="($event.target as HTMLImageElement).style.display='none'"
+          @error="($event.target as HTMLImageElement).style.display = 'none'"
         />
-        <User aria-hidden="true" v-else class="text-xl text-emerald-400"  />
+        <User aria-hidden="true" v-else class="text-xl text-emerald-400" />
         <div>
           <p class="text-sm font-medium text-white">View Artist in Catalog</p>
           <p class="text-xs text-slate-500">{{ finalMetadata.artists[0]?.name || 'Artist' }}</p>
@@ -36,9 +38,9 @@
           :src="finalMetadata.album.coverUrl"
           alt=""
           class="h-10 w-10 shrink-0 rounded object-cover"
-          @error="($event.target as HTMLImageElement).style.display='none'"
+          @error="($event.target as HTMLImageElement).style.display = 'none'"
         />
-        <Book aria-hidden="true" v-else class="text-xl text-emerald-400"  />
+        <Book aria-hidden="true" v-else class="text-xl text-emerald-400" />
         <div>
           <p class="text-sm font-medium text-white">View Album in Catalog</p>
           <p class="text-xs text-slate-500">{{ finalMetadata.album.title }}</p>
@@ -55,9 +57,9 @@
           :src="finalMetadata.track.coverUrl"
           alt=""
           class="h-10 w-10 shrink-0 rounded object-cover"
-          @error="($event.target as HTMLImageElement).style.display='none'"
+          @error="($event.target as HTMLImageElement).style.display = 'none'"
         />
-        <Music aria-hidden="true" v-else class="text-xl text-emerald-400"  />
+        <Music aria-hidden="true" v-else class="text-xl text-emerald-400" />
         <div>
           <p class="text-sm font-medium text-white">View Track in Catalog</p>
           <p class="text-xs text-slate-500">{{ finalMetadata.track.title }}</p>
@@ -69,7 +71,7 @@
         target="_blank"
         class="flex items-center gap-3 rounded-lg border border-white/6 bg-white/3 p-4 text-left transition-colors hover:bg-white/6"
       >
-        <ExternalLink aria-hidden="true" class="text-xl text-emerald-400"  />
+        <ExternalLink aria-hidden="true" class="text-xl text-emerald-400" />
         <div>
           <p class="text-sm font-medium text-white">Audio File URL</p>
           <p class="truncate text-xs text-slate-500">{{ publishResult.audioUrl }}</p>
@@ -89,6 +91,7 @@ import { Book, CheckCircle, ExternalLink, Music, User } from 'lucide-vue-next'
 import { useRouter } from 'vue-router'
 import type { FinalizeResult, SaveFinalMetadataRequest } from '@/services/api/ingestion/types'
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const props = defineProps<{
   filename: string
   publishResult: FinalizeResult

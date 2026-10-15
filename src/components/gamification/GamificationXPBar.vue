@@ -3,7 +3,7 @@
     <div class="flex items-center gap-5">
       <!-- Avatar -->
       <div class="relative h-16 w-16 shrink-0 md:h-20 md:w-20">
-        <div class="h-full w-full overflow-hidden rounded-2xl bg-white/10 ring-2 ring-spotify/30">
+        <div class="ring-spotify/30 h-full w-full overflow-hidden rounded-2xl bg-white/10 ring-2">
           <img
             v-if="profile.avatar_url"
             :src="profile.avatar_url"
@@ -20,7 +20,7 @@
         </div>
         <!-- Level badge -->
         <div
-          class="absolute -right-1 -bottom-1 flex h-7 w-7 items-center justify-center rounded-full bg-spotify text-[10px] font-bold text-black shadow-lg md:h-8 md:w-8 md:text-xs"
+          class="bg-spotify absolute -right-1 -bottom-1 flex h-7 w-7 items-center justify-center rounded-full text-[10px] font-bold text-black shadow-lg md:h-8 md:w-8 md:text-xs"
         >
           {{ profile.level }}
         </div>
@@ -47,7 +47,7 @@
       </div>
       <div class="mt-2 h-2 overflow-hidden rounded-full bg-white/5">
         <div
-          class="h-full rounded-full bg-linear-to-r from-spotify to-aurora-blue transition-all duration-1000 ease-out"
+          class="from-spotify to-aurora-blue h-full rounded-full bg-linear-to-r transition-all duration-1000 ease-out"
           :style="{ width: `${progressPercent}%` }"
         />
       </div>

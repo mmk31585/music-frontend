@@ -3,18 +3,17 @@
     <Transition name="modal">
       <div
         v-if="visible"
-        class="fixed inset-0 z-50 flex items-center justify-center bg-bg-overlay/60 backdrop-blur-xs"
+        class="bg-bg-overlay/60 fixed inset-0 z-50 flex items-center justify-center backdrop-blur-xs"
         @click.self="emit('close')"
         role="dialog"
         aria-modal="true"
         :aria-label="`Create ${entityType}`"
       >
         <div
-          class="mx-4 w-full max-w-md rounded-2xl bg-surface-raised p-6 shadow-2xl ring-1 ring-border-default
-                 motion-safe:animate-modal-in"
+          class="bg-surface-raised ring-border-default motion-safe:animate-modal-in mx-4 w-full max-w-md rounded-2xl p-6 shadow-2xl ring-1"
         >
           <!-- Step indicator -->
-          <div class="flex items-center gap-2 mb-6">
+          <div class="mb-6 flex items-center gap-2">
             <div
               v-for="step in 3"
               :key="step"
@@ -25,41 +24,49 @@
 
           <!-- Step 1: Name -->
           <template v-if="createStep === 1">
-            <h2 class="text-lg font-bold text-primary">
-              {{ entityType === 'party' ? 'Start a Party' : entityType === 'room' ? 'Go Live' : 'Create Club' }}
+            <h2 class="text-primary text-lg font-bold">
+              {{
+                entityType === 'party'
+                  ? 'Start a Party'
+                  : entityType === 'room'
+                    ? 'Go Live'
+                    : 'Create Club'
+              }}
             </h2>
-            <p class="mt-1 text-sm text-tertiary">Choose a name for your {{ entityType }}</p>
+            <p class="text-tertiary mt-1 text-sm">Choose a name for your {{ entityType }}</p>
             <input
               v-model="form.name"
               type="text"
               :placeholder="entityType === 'club' ? 'Club name' : 'Party name'"
               aria-label="Name"
-              class="mt-4 w-full rounded-xl border border-border-default bg-surface-overlay px-4 py-3 text-sm text-primary placeholder:text-muted outline-hidden transition focus:border-border-strong focus:bg-surface-active/80"
+              class="border-border-default bg-surface-overlay text-primary placeholder:text-muted focus:border-border-strong focus:bg-surface-active/80 mt-4 w-full rounded-xl border px-4 py-3 text-sm outline-hidden transition"
               dir="auto"
             />
           </template>
 
           <!-- Step 2: Details -->
           <template v-if="createStep === 2">
-            <h2 class="text-lg font-bold text-primary">Details</h2>
-            <p class="mt-1 text-sm text-tertiary">Add a description and set privacy</p>
+            <h2 class="text-primary text-lg font-bold">Details</h2>
+            <p class="text-tertiary mt-1 text-sm">Add a description and set privacy</p>
             <textarea
               v-model="form.description"
               placeholder="What's this about?"
               rows="3"
               aria-label="Description"
-              class="mt-4 w-full rounded-xl border border-border-default bg-surface-overlay px-4 py-3 text-sm text-primary placeholder:text-muted outline-hidden transition focus:border-border-strong focus:bg-surface-active/80"
+              class="border-border-default bg-surface-overlay text-primary placeholder:text-muted focus:border-border-strong focus:bg-surface-active/80 mt-4 w-full rounded-xl border px-4 py-3 text-sm outline-hidden transition"
               dir="auto"
             />
-            <label class="mt-4 flex items-center gap-3 cursor-pointer rounded-xl bg-surface-overlay/60 p-3 transition hover:bg-surface-overlay">
+            <label
+              class="bg-surface-overlay/60 hover:bg-surface-overlay mt-4 flex cursor-pointer items-center gap-3 rounded-xl p-3 transition"
+            >
               <input
                 v-model="form.isPublic"
                 type="checkbox"
-                class="h-5 w-5 rounded border-border-default bg-surface-overlay accent-accent"
+                class="border-border-default bg-surface-overlay accent-accent h-5 w-5 rounded"
               />
               <div>
-                <span class="text-sm text-primary">Public</span>
-                <p class="text-xs text-muted">Anyone can find and join</p>
+                <span class="text-primary text-sm">Public</span>
+                <p class="text-muted text-xs">Anyone can find and join</p>
               </div>
             </label>
           </template>
@@ -67,19 +74,23 @@
           <!-- Step 3: Review -->
           <template v-if="createStep === 3">
             <div class="flex flex-col items-center gap-4 py-4 text-center">
-              <div class="flex h-16 w-16 items-center justify-center rounded-full bg-accent/10">
-                <i aria-hidden="true" :class="entityIcon" class="text-2xl text-accent" />
+              <div class="bg-accent/10 flex h-16 w-16 items-center justify-center rounded-full">
+                <i aria-hidden="true" :class="entityIcon" class="text-accent text-2xl" />
               </div>
-              <h2 class="text-lg font-bold text-primary">Almost there!</h2>
-              <p class="text-sm text-tertiary">Review and launch your {{ entityType }}</p>
-              <div class="w-full rounded-xl bg-surface-overlay/60 p-4 text-start">
-                <p class="text-xs text-muted">Name</p>
-                <p class="text-sm font-medium text-primary">{{ form.name }}</p>
-                <p v-if="form.description" class="mt-3 text-xs text-muted">Description</p>
-                <p v-if="form.description" class="text-sm text-secondary">{{ form.description }}</p>
-                <p class="mt-3 text-xs text-muted">Visibility</p>
-                <p class="text-sm text-secondary">
-                  <component :is="form.isPublic ? Globe : Lock"<i aria-hidden="true"  class="text-xs me-1" /> />
+              <h2 class="text-primary text-lg font-bold">Almost there!</h2>
+              <p class="text-tertiary text-sm">Review and launch your {{ entityType }}</p>
+              <div class="bg-surface-overlay/60 w-full rounded-xl p-4 text-start">
+                <p class="text-muted text-xs">Name</p>
+                <p class="text-primary text-sm font-medium">{{ form.name }}</p>
+                <p v-if="form.description" class="text-muted mt-3 text-xs">Description</p>
+                <p v-if="form.description" class="text-secondary text-sm">{{ form.description }}</p>
+                <p class="text-muted mt-3 text-xs">Visibility</p>
+                <p class="text-secondary text-sm">
+                  <component
+                    :is="form.isPublic ? Globe : Lock"
+                    aria-hidden="true"
+                    class="me-1 text-xs"
+                  />
                   {{ form.isPublic ? 'Public' : 'Private' }}
                 </p>
               </div>
@@ -91,7 +102,7 @@
             <!-- Back / Cancel -->
             <template v-if="createStep === 1">
               <button
-                class="flex-1 rounded-xl bg-surface-overlay py-3 text-sm font-medium text-secondary transition hover:bg-surface-active"
+                class="bg-surface-overlay text-secondary hover:bg-surface-active flex-1 rounded-xl py-3 text-sm font-medium transition"
                 @click="emit('close')"
               >
                 Cancel
@@ -99,7 +110,7 @@
             </template>
             <template v-else>
               <button
-                class="flex-1 rounded-xl bg-surface-overlay py-3 text-sm font-medium text-secondary transition hover:bg-surface-active"
+                class="bg-surface-overlay text-secondary hover:bg-surface-active flex-1 rounded-xl py-3 text-sm font-medium transition"
                 @click="createStep--"
               >
                 Back
@@ -110,7 +121,7 @@
             <template v-if="createStep < 3">
               <button
                 :disabled="createStep === 1 && !form.name.trim()"
-                class="flex-1 rounded-xl bg-accent py-3 text-sm font-bold text-black transition hover:bg-accent-hover disabled:opacity-40 focus-visible:outline-2 focus-visible:outline-white"
+                class="bg-accent hover:bg-accent-hover flex-1 rounded-xl py-3 text-sm font-bold text-black transition focus-visible:outline-2 focus-visible:outline-white disabled:opacity-40"
                 @click="createStep++"
               >
                 Next
@@ -119,15 +130,17 @@
             <template v-else>
               <button
                 :disabled="creating"
-                class="flex-1 rounded-xl bg-accent py-3 text-sm font-bold text-black transition hover:bg-accent-hover disabled:opacity-40 focus-visible:outline-2 focus-visible:outline-white"
+                class="bg-accent hover:bg-accent-hover flex-1 rounded-xl py-3 text-sm font-bold text-black transition focus-visible:outline-2 focus-visible:outline-white disabled:opacity-40"
                 @click="handleCreate"
               >
                 <span v-if="creating" class="inline-flex items-center gap-2">
-                  <span class="inline-block h-4 w-4 animate-spin rounded-full border-2 border-black border-t-transparent" />
+                  <span
+                    class="inline-block h-4 w-4 animate-spin rounded-full border-2 border-black border-t-transparent"
+                  />
                   Creating...
                 </span>
                 <span v-else>
-                  <Send aria-hidden="true" class="text-xs me-1.5"  />
+                  <Send aria-hidden="true" class="me-1.5 text-xs" />
                   Launch
                 </span>
               </button>
@@ -168,19 +181,16 @@ const form = reactive({
 
 const entityIcon = computed(() => {
   switch (props.entityType) {
-    case 'party': return 'pi pi-users'
-    case 'room': return 'pi pi-megaphone'
-    case 'club': return 'pi pi-building'
+    case 'party':
+      return 'pi pi-users'
+    case 'room':
+      return 'pi pi-megaphone'
+    case 'club':
+      return 'pi pi-building'
+    default:
+      return 'pi pi-plus'
   }
 })
-
-function reset() {
-  createStep.value = 1
-  form.name = ''
-  form.description = ''
-  form.isPublic = true
-  creating.value = false
-}
 
 async function handleCreate() {
   if (!form.name.trim() || creating.value) return
@@ -201,7 +211,8 @@ async function handleCreate() {
         is_public: form.isPublic,
       })
     } else {
-      const slug = form.name.trim()
+      const slug = form.name
+        .trim()
         .toLowerCase()
         .replace(/[^a-z0-9\u0600-\u06FF\s-]/g, '')
         .replace(/\s+/g, '-')
@@ -237,8 +248,14 @@ async function handleCreate() {
   opacity: 0;
 }
 @keyframes modal-in {
-  from { opacity: 0; transform: scale(0.96) translateY(8px); }
-  to { opacity: 1; transform: scale(1) translateY(0); }
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
 .animate-modal-in {
   animation: modal-in 0.25s cubic-bezier(0.16, 1, 0.3, 1);

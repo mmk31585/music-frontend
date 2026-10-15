@@ -13,7 +13,12 @@
             :disabled="refreshing"
             @click="refreshAll"
           >
-            <component :is="refreshing ? Loader2 : RefreshCw"<i aria-hidden="true"  class="text-xs" /> :class="refreshing ? 'animate-spin' : ''" />
+            <component
+              :is="refreshing ? Loader2 : RefreshCw"
+              aria-hidden="true"
+              class="text-xs"
+              :class="refreshing ? 'animate-spin' : ''"
+            />
             {{ refreshing ? 'Loading...' : 'RefreshCw' }}
           </button>
         </div>
@@ -52,11 +57,7 @@
             v-for="f in typeFilters"
             :key="f"
             class="rounded-lg px-3 py-1.5 text-xs font-medium transition"
-            :class="
-              typeFilter === f
-                ? 'bg-white/10 text-white'
-                : 'bg-white/4 text-white/40 hover:text-white/60'
-            "
+            :class="typeFilter === f ? 'bg-white/10 text-white' : 'bg-white/4 text-white/40 hover:text-white/60'"
             @click="typeFilter = f; fetchQueue()"
           >
             {{ f === 'all' ? 'All Types' : f }}
@@ -108,7 +109,7 @@
               <input
                 type="checkbox"
                 :checked="selectedIds.includes(report.id)"
-                class="h-4 w-4 rounded border-white/20 bg-white/5 accent-accent"
+                class="accent-accent h-4 w-4 rounded border-white/20 bg-white/5"
                 @change="toggleSelect(report.id)"
               />
             </label>
@@ -177,14 +178,14 @@
                 class="rounded-lg bg-white/5 p-2 text-xs text-white/30 transition hover:bg-green-500/10 hover:text-green-400"
                 @click="resolvingId = report.id; resolveNote = ''"
               >
-                <Check aria-hidden="true" class=""  />
+                <Check aria-hidden="true" class="" />
               </button>
               <button
                 title="Flag content"
                 class="rounded-lg bg-white/5 p-2 text-xs text-white/30 transition hover:bg-red-500/10 hover:text-red-400"
                 @click="openFlagDialog(report)"
               >
-                <Flag aria-hidden="true" class=""  />
+                <Flag aria-hidden="true" class="" />
               </button>
             </div>
           </div>
@@ -199,7 +200,7 @@
           <input
             v-model="includeExpiredFlags"
             type="checkbox"
-            class="h-4 w-4 rounded border-white/20 bg-white/5 accent-accent"
+            class="accent-accent h-4 w-4 rounded border-white/20 bg-white/5"
             @change="fetchFlags"
           />
           Include expired
@@ -225,7 +226,7 @@
           :class="{ 'opacity-40': isExpired(flag) }"
         >
           <div class="flex min-w-0 items-center gap-3">
-            <Flag aria-hidden="true" class="text-sm text-red-400/60"  />
+            <Flag aria-hidden="true" class="text-sm text-red-400/60" />
             <div class="min-w-0">
               <div class="flex items-center gap-2">
                 <span
@@ -256,11 +257,7 @@
           v-for="s in historyStatusFilters"
           :key="s"
           class="rounded-lg px-3 py-1.5 text-xs font-medium transition"
-          :class="
-            historyFilter === s
-              ? 'bg-white/10 text-white'
-              : 'bg-white/4 text-white/40 hover:text-white/60'
-          "
+          :class="historyFilter === s ? 'bg-white/10 text-white' : 'bg-white/4 text-white/40 hover:text-white/60'"
           @click="historyFilter = s; fetchHistory()"
         >
           {{ s === 'all' ? 'All' : s.charAt(0).toUpperCase() + s.slice(1) }}
@@ -328,9 +325,7 @@
       <template v-else>
         <!-- Metric cards -->
         <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
-          <div
-            class="rounded-2xl bg-white/4 p-5 backdrop-blur-xs transition hover:bg-white/6"
-          >
+          <div class="rounded-2xl bg-white/4 p-5 backdrop-blur-xs transition hover:bg-white/6">
             <p class="text-[10px] font-medium tracking-wider text-white/30 uppercase">
               Total Reports
             </p>
@@ -338,17 +333,13 @@
               {{ n(stats.total_reports) }}
             </p>
           </div>
-          <div
-            class="rounded-2xl bg-white/4 p-5 backdrop-blur-xs transition hover:bg-white/6"
-          >
+          <div class="rounded-2xl bg-white/4 p-5 backdrop-blur-xs transition hover:bg-white/6">
             <p class="text-[10px] font-medium tracking-wider text-white/30 uppercase">Pending</p>
             <p class="mt-2 text-3xl font-black text-red-400 tabular-nums">
               {{ n(stats.pending_reports) }}
             </p>
           </div>
-          <div
-            class="rounded-2xl bg-white/4 p-5 backdrop-blur-xs transition hover:bg-white/6"
-          >
+          <div class="rounded-2xl bg-white/4 p-5 backdrop-blur-xs transition hover:bg-white/6">
             <p class="text-[10px] font-medium tracking-wider text-white/30 uppercase">
               Resolved Today
             </p>
@@ -356,9 +347,7 @@
               {{ n(stats.resolved_today) }}
             </p>
           </div>
-          <div
-            class="rounded-2xl bg-white/4 p-5 backdrop-blur-xs transition hover:bg-white/6"
-          >
+          <div class="rounded-2xl bg-white/4 p-5 backdrop-blur-xs transition hover:bg-white/6">
             <p class="text-[10px] font-medium tracking-wider text-white/30 uppercase">
               Flagged Content
             </p>
@@ -369,9 +358,7 @@
         </div>
 
         <div class="grid grid-cols-2 gap-4 md:grid-cols-3">
-          <div
-            class="rounded-2xl bg-white/4 p-5 backdrop-blur-xs transition hover:bg-white/6"
-          >
+          <div class="rounded-2xl bg-white/4 p-5 backdrop-blur-xs transition hover:bg-white/6">
             <p class="text-[10px] font-medium tracking-wider text-white/30 uppercase">
               Unique Reporters
             </p>
@@ -379,9 +366,7 @@
               {{ n(stats.unique_reporters) }}
             </p>
           </div>
-          <div
-            class="rounded-2xl bg-white/4 p-5 backdrop-blur-xs transition hover:bg-white/6"
-          >
+          <div class="rounded-2xl bg-white/4 p-5 backdrop-blur-xs transition hover:bg-white/6">
             <p class="text-[10px] font-medium tracking-wider text-white/30 uppercase">
               Avg Resolution
             </p>
@@ -456,12 +441,14 @@
       <template #header>
         <div class="flex items-center gap-3">
           <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-red-500/10">
-            <Flag aria-hidden="true" class="text-red-400"  />
+            <Flag aria-hidden="true" class="text-red-400" />
           </div>
           <div>
             <h3 class="text-base font-semibold text-white">Flag Content</h3>
             <p class="text-xs text-slate-500">
-              Add a flag to {{ flagTarget?.target_type || '' }} #{{ shortId(flagTarget?.target_id || '') }}
+              Add a flag to {{ flagTarget?.target_type || '' }} #{{
+                shortId(flagTarget?.target_id || '')
+              }}
             </p>
           </div>
         </div>

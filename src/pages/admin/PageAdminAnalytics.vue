@@ -70,7 +70,7 @@
         <div class="flex items-center justify-between border-b border-white/6 px-5 py-4">
           <div class="flex items-center gap-3">
             <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500/10">
-              <TrendingUp aria-hidden="true" class="text-xs text-emerald-400"  />
+              <TrendingUp aria-hidden="true" class="text-xs text-emerald-400" />
             </div>
             <h2 class="text-base font-semibold text-white">Plays Over Time</h2>
           </div>
@@ -84,22 +84,21 @@
               :style="{ height: `${20 + Math.random() * 80}%` }"
             />
           </div>
-          <div v-else-if="chartData.dailyPlays.length === 0" class="flex flex-col items-center py-8 text-center">
-            <BarChart3 aria-hidden="true" class="text-2xl text-slate-700"  />
+          <div
+            v-else-if="chartData.dailyPlays.length === 0"
+            class="flex flex-col items-center py-8 text-center"
+          >
+            <BarChart3 aria-hidden="true" class="text-2xl text-slate-700" />
             <p class="mt-2 text-sm text-slate-500">No play data for this period</p>
           </div>
           <div v-else class="flex items-end gap-2" style="height: 160px">
-            <div
-              v-for="(day, i) in chartData.dailyPlays"
-              :key="i"
-              class="group relative flex-1"
-            >
+            <div v-for="(day, i) in chartData.dailyPlays" :key="i" class="group relative flex-1">
               <div
                 class="w-full rounded-t bg-emerald-500/60 transition-all hover:bg-emerald-400/80"
                 :style="{ height: `${Math.max(4, (day.count / maxPlayCount) * 100)}%` }"
               >
                 <div
-                  class="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded-md bg-slate-800 px-2 py-1 text-[10px] text-white opacity-0 shadow-lg transition-opacity group-hover:opacity-100"
+                  class="absolute -top-8 left-1/2 -translate-x-1/2 rounded-md bg-slate-800 px-2 py-1 text-[10px] whitespace-nowrap text-white opacity-0 shadow-lg transition-opacity group-hover:opacity-100"
                 >
                   {{ day.count.toLocaleString() }} plays
                 </div>
@@ -117,7 +116,7 @@
         <div class="flex items-center justify-between border-b border-white/6 px-5 py-4">
           <div class="flex items-center gap-3">
             <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500/10">
-              <Users aria-hidden="true" class="text-xs text-blue-400"  />
+              <Users aria-hidden="true" class="text-xs text-blue-400" />
             </div>
             <h2 class="text-base font-semibold text-white">User Growth</h2>
           </div>
@@ -131,22 +130,21 @@
               :style="{ height: `${20 + Math.random() * 60}%` }"
             />
           </div>
-          <div v-else-if="chartData.userGrowth.length === 0" class="flex flex-col items-center justify-center py-8 text-center">
-            <BarChart3 aria-hidden="true" class="text-2xl text-slate-700"  />
+          <div
+            v-else-if="chartData.userGrowth.length === 0"
+            class="flex flex-col items-center justify-center py-8 text-center"
+          >
+            <BarChart3 aria-hidden="true" class="text-2xl text-slate-700" />
             <p class="mt-2 text-sm text-slate-500">No user data for this period</p>
           </div>
           <div v-else class="flex items-end gap-2" style="height: 160px">
-            <div
-              v-for="(month, i) in chartData.userGrowth"
-              :key="i"
-              class="group relative flex-1"
-            >
+            <div v-for="(month, i) in chartData.userGrowth" :key="i" class="group relative flex-1">
               <div
                 class="w-full rounded-t bg-blue-500/60 transition-all hover:bg-blue-400/80"
                 :style="{ height: `${Math.max(4, (month.count / maxUserGrowth) * 100)}%` }"
               >
                 <div
-                  class="absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-slate-800 px-2 py-1 text-[10px] text-white opacity-0 shadow-lg transition-opacity group-hover:opacity-100"
+                  class="absolute -top-8 left-1/2 -translate-x-1/2 rounded bg-slate-800 px-2 py-1 text-[10px] whitespace-nowrap text-white opacity-0 shadow-lg transition-opacity group-hover:opacity-100"
                 >
                   +{{ month.count.toLocaleString() }}
                 </div>
@@ -165,7 +163,7 @@
       <div class="flex items-center justify-between border-b border-white/6 px-5 py-4">
         <div class="flex items-center gap-3">
           <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-purple-500/10">
-            <Star aria-hidden="true" class="text-xs text-purple-400"  />
+            <Star aria-hidden="true" class="text-xs text-purple-400" />
           </div>
           <h2 class="text-base font-semibold text-white">Top Played Tracks</h2>
         </div>
@@ -184,7 +182,7 @@
       </div>
 
       <div v-else-if="topTracks.length === 0" class="py-12 text-center">
-        <Star aria-hidden="true" class="text-2xl text-slate-700"  />
+        <Star aria-hidden="true" class="text-2xl text-slate-700" />
         <p class="mt-2 text-sm text-slate-500">No track data available yet</p>
       </div>
 
@@ -194,7 +192,10 @@
           :key="track.id ?? i"
           class="flex items-center gap-3 px-5 py-3 transition-colors hover:bg-white/2"
         >
-          <span class="w-5 text-center text-xs font-medium tabular-nums" :class="i < 3 ? 'text-emerald-400' : 'text-slate-500'">
+          <span
+            class="w-5 text-center text-xs font-medium tabular-nums"
+            :class="i < 3 ? 'text-emerald-400' : 'text-slate-500'"
+          >
             {{ i + 1 }}
           </span>
           <div class="h-10 w-10 shrink-0 overflow-hidden rounded-lg bg-white/4">
@@ -206,14 +207,14 @@
               @error="hideBrokenImage"
             />
             <div v-else class="flex h-full w-full items-center justify-center">
-              <Music aria-hidden="true" class="text-xs text-slate-700"  />
+              <Music aria-hidden="true" class="text-xs text-slate-700" />
             </div>
           </div>
           <div class="min-w-0 flex-1">
             <p class="truncate text-sm font-medium text-white">{{ track.title || 'Untitled' }}</p>
             <p class="truncate text-xs text-slate-500">{{ track.artist_name || 'Unknown' }}</p>
           </div>
-          <span class="text-xs tabular-nums text-slate-500">
+          <span class="text-xs text-slate-500 tabular-nums">
             {{ (track.play_count ?? 0).toLocaleString() }} plays
           </span>
         </div>
@@ -285,8 +286,8 @@ const chartData = ref<ChartData>({
 
 const topTracks = ref<TopTrack[]>([])
 
-const maxPlayCount = computed(() => Math.max(...chartData.value.dailyPlays.map(d => d.count), 1))
-const maxUserGrowth = computed(() => Math.max(...chartData.value.userGrowth.map(m => m.count), 1))
+const maxPlayCount = computed(() => Math.max(...chartData.value.dailyPlays.map((d) => d.count), 1))
+const maxUserGrowth = computed(() => Math.max(...chartData.value.userGrowth.map((m) => m.count), 1))
 
 function hideBrokenImage(event: Event) {
   const image = event.target as HTMLImageElement | null
@@ -297,9 +298,15 @@ async function fetchAnalytics() {
   loading.value = true
   try {
     const [statsRes, chartRes, topRes] = await Promise.allSettled([
-      client.get('/admin/analytics/stats', { params: { period: period.value } }).then(r => r.data.data),
-      client.get('/admin/analytics/charts', { params: { period: period.value } }).then(r => r.data.data),
-      client.get('/admin/analytics/top-tracks', { params: { period: period.value } }).then(r => r.data.data),
+      client
+        .get('/admin/analytics/stats', { params: { period: period.value } })
+        .then((r) => r.data.data),
+      client
+        .get('/admin/analytics/charts', { params: { period: period.value } })
+        .then((r) => r.data.data),
+      client
+        .get('/admin/analytics/top-tracks', { params: { period: period.value } })
+        .then((r) => r.data.data),
     ])
 
     if (statsRes.status === 'fulfilled' && statsRes.value) {

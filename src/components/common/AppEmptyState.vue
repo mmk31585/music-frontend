@@ -27,7 +27,11 @@
     >
       {{ title }}
     </h3>
-    <p v-if="description" class="max-w-sm text-sm" :class="bordered ? 'mt-2 text-slate-400' : 'text-slate-500'">
+    <p
+      v-if="description"
+      class="max-w-sm text-sm"
+      :class="bordered ? 'mt-2 text-slate-400' : 'text-slate-500'"
+    >
       {{ description }}
     </p>
     <div v-if="$slots.action" class="mt-2">
@@ -38,17 +42,20 @@
 </template>
 
 <script setup lang="ts">
-withDefaults(defineProps<{
-  icon?: string
-  title?: string
-  description?: string
-  iconClass?: string
-  bordered?: boolean
-  variant?: 'empty' | 'error' | 'offline'
-}>(), {
-  icon: 'pi pi-inbox',
-  iconClass: 'text-2xl text-slate-500',
-  bordered: false,
-  variant: 'empty',
-})
+withDefaults(
+  defineProps<{
+    icon?: string
+    title?: string
+    description?: string
+    iconClass?: string
+    bordered?: boolean
+    variant?: 'empty' | 'error' | 'offline'
+  }>(),
+  {
+    icon: 'pi pi-inbox',
+    iconClass: 'text-2xl text-slate-500',
+    bordered: false,
+    variant: 'empty',
+  },
+)
 </script>

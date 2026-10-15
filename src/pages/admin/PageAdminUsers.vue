@@ -25,7 +25,10 @@
     <div class="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
       <div class="flex flex-wrap items-center gap-3">
         <div class="relative">
-          <Search aria-hidden="true" class="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-slate-500"  />
+          <Search
+            aria-hidden="true"
+            class="absolute top-1/2 left-3 -translate-y-1/2 text-xs text-slate-500"
+          />
           <InputText
             v-model="searchQuery"
             placeholder="Search email, username, display name..."
@@ -34,9 +37,7 @@
           />
         </div>
 
-        <div
-          class="flex items-center gap-1 rounded-lg border border-white/6 bg-white/2 p-0.5"
-        >
+        <div class="flex items-center gap-1 rounded-lg border border-white/6 bg-white/2 p-0.5">
           <button
             v-for="opt in roleOptions"
             :key="opt.value"
@@ -52,9 +53,7 @@
           </button>
         </div>
 
-        <div
-          class="flex items-center gap-1 rounded-lg border border-white/6 bg-white/2 p-0.5"
-        >
+        <div class="flex items-center gap-1 rounded-lg border border-white/6 bg-white/2 p-0.5">
           <button
             v-for="opt in statusOptions"
             :key="opt.value"
@@ -110,7 +109,12 @@
                 >
                   <span class="inline-flex items-center gap-1">
                     User
-                    <i aria-hidden="true" v-if="sortBy === 'display_name'" :class="sortIcon" class="text-[10px]" />
+                    <i
+                      aria-hidden="true"
+                      v-if="sortBy === 'display_name'"
+                      :class="sortIcon"
+                      class="text-[10px]"
+                    />
                   </span>
                 </th>
                 <th
@@ -119,7 +123,12 @@
                 >
                   <span class="inline-flex items-center gap-1">
                     Email
-                    <i aria-hidden="true" v-if="sortBy === 'email'" :class="sortIcon" class="text-[10px]" />
+                    <i
+                      aria-hidden="true"
+                      v-if="sortBy === 'email'"
+                      :class="sortIcon"
+                      class="text-[10px]"
+                    />
                   </span>
                 </th>
                 <th
@@ -128,16 +137,23 @@
                 >
                   <span class="inline-flex items-center gap-1">
                     Username
-                    <i aria-hidden="true" v-if="sortBy === 'username'" :class="sortIcon" class="text-[10px]" />
+                    <i
+                      aria-hidden="true"
+                      v-if="sortBy === 'username'"
+                      :class="sortIcon"
+                      class="text-[10px]"
+                    />
                   </span>
                 </th>
-                <th
-                  class="cursor-pointer select-none hover:text-white"
-                  @click="toggleSort('role')"
-                >
+                <th class="cursor-pointer select-none hover:text-white" @click="toggleSort('role')">
                   <span class="inline-flex items-center gap-1">
                     Role
-                    <i aria-hidden="true" v-if="sortBy === 'role'" :class="sortIcon" class="text-[10px]" />
+                    <i
+                      aria-hidden="true"
+                      v-if="sortBy === 'role'"
+                      :class="sortIcon"
+                      class="text-[10px]"
+                    />
                   </span>
                 </th>
                 <th
@@ -146,7 +162,12 @@
                 >
                   <span class="inline-flex items-center gap-1">
                     Status
-                    <i aria-hidden="true" v-if="sortBy === 'is_active'" :class="sortIcon" class="text-[10px]" />
+                    <i
+                      aria-hidden="true"
+                      v-if="sortBy === 'is_active'"
+                      :class="sortIcon"
+                      class="text-[10px]"
+                    />
                   </span>
                 </th>
                 <th
@@ -155,18 +176,19 @@
                 >
                   <span class="inline-flex items-center gap-1">
                     Created
-                    <i aria-hidden="true" v-if="sortBy === 'created_at'" :class="sortIcon" class="text-[10px]" />
+                    <i
+                      aria-hidden="true"
+                      v-if="sortBy === 'created_at'"
+                      :class="sortIcon"
+                      class="text-[10px]"
+                    />
                   </span>
                 </th>
                 <th class="text-right">Actions</th>
               </tr>
             </thead>
             <tbody class="divide-y divide-white/4">
-              <tr
-                v-for="u in users"
-                :key="u.id"
-                class="group transition-colors"
-              >
+              <tr v-for="u in users" :key="u.id" class="group transition-colors">
                 <td>
                   <div class="flex items-center gap-3">
                     <div
@@ -184,7 +206,7 @@
                           class="flex h-4 w-4 items-center justify-center rounded-full bg-blue-500/20 text-[8px] text-blue-400"
                           title="Verified"
                         >
-                          <Check aria-hidden="true"  />
+                          <Check aria-hidden="true" />
                         </span>
                         <span v-else class="text-[10px] text-slate-600" title="Not verified"
                           >unverified</span
@@ -307,7 +329,7 @@
       <template #header>
         <div class="flex items-center gap-3">
           <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500/10">
-            <User aria-hidden="true" class="text-blue-400"  />
+            <User aria-hidden="true" class="text-blue-400" />
           </div>
           <div>
             <h3 class="text-base font-semibold text-white">
@@ -403,15 +425,17 @@
       <template #header>
         <div class="flex items-center gap-3">
           <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-sky-500/10">
-            <Eye aria-hidden="true" class="text-sky-400"  />
+            <Eye aria-hidden="true" class="text-sky-400" />
           </div>
           <div>
-            <h3 class="text-base font-semibold text-white">{{ userDetail?.display_name || userDetail?.username || 'User Detail' }}</h3>
+            <h3 class="text-base font-semibold text-white">
+              {{ userDetail?.display_name || userDetail?.username || 'User Detail' }}
+            </h3>
           </div>
         </div>
       </template>
       <div v-if="detailLoading" class="flex items-center justify-center p-12">
-        <Loader2 aria-hidden="true" class="text-2xl text-slate-500 animate-spin"  />
+        <Loader2 aria-hidden="true" class="animate-spin text-2xl text-slate-500" />
       </div>
       <div v-else-if="userDetail" class="divide-y divide-white/6">
         <div class="flex items-center gap-4 p-6">
@@ -421,7 +445,14 @@
             {{ initials(userDetail) }}
           </div>
           <div>
-            <p class="text-lg font-bold text-white">{{ userDetail.display_name || userDetail.displayName || userDetail.username || 'Unknown' }}</p>
+            <p class="text-lg font-bold text-white">
+              {{
+                userDetail.display_name ||
+                userDetail.displayName ||
+                userDetail.username ||
+                'Unknown'
+              }}
+            </p>
             <p class="text-sm text-slate-400">{{ userDetail.email }}</p>
           </div>
         </div>
@@ -458,17 +489,21 @@
               v-if="userDetail.email_verified"
               class="flex items-center gap-1.5 rounded-full bg-blue-500/10 px-2.5 py-0.5 text-xs font-medium text-blue-400"
             >
-              <CheckCircle aria-hidden="true"  /> Verified
+              <CheckCircle aria-hidden="true" /> Verified
             </span>
             <span v-else class="text-xs text-slate-600">Not verified</span>
           </div>
           <div class="flex items-center justify-between">
             <span class="text-sm text-slate-400">Created</span>
-            <span class="text-sm text-white/60 tabular-nums">{{ formatDate(userDetail.created_at) }}</span>
+            <span class="text-sm text-white/60 tabular-nums">{{
+              formatDate(userDetail.created_at)
+            }}</span>
           </div>
           <div v-if="userDetail.updated_at" class="flex items-center justify-between">
             <span class="text-sm text-slate-400">Updated</span>
-            <span class="text-sm text-white/60 tabular-nums">{{ formatDate(userDetail.updated_at) }}</span>
+            <span class="text-sm text-white/60 tabular-nums">{{
+              formatDate(userDetail.updated_at)
+            }}</span>
           </div>
         </div>
 
@@ -486,21 +521,31 @@
           </div>
           <div class="flex items-center justify-between">
             <span class="text-sm text-slate-400">Trust Score</span>
-            <span class="text-sm text-white/80 tabular-nums">{{ userReputation.trustScore ?? userReputation.score ?? 0 }}</span>
+            <span class="text-sm text-white/80 tabular-nums">{{
+              userReputation.trustScore ?? userReputation.score ?? 0
+            }}</span>
           </div>
           <div class="flex items-center justify-between">
             <span class="text-sm text-slate-400">Accepted Contributions</span>
-            <span class="text-sm text-white/80 tabular-nums">{{ userReputation.acceptedContributions ?? 0 }}</span>
+            <span class="text-sm text-white/80 tabular-nums">{{
+              userReputation.acceptedContributions ?? 0
+            }}</span>
           </div>
           <div class="flex items-center justify-between">
             <span class="text-sm text-slate-400">Upload Slots</span>
-            <span class="text-sm text-white/80 tabular-nums">{{ userReputation.uploadSlots ?? 0 }}</span>
+            <span class="text-sm text-white/80 tabular-nums">{{
+              userReputation.uploadSlots ?? 0
+            }}</span>
           </div>
           <div class="flex items-center justify-between">
             <span class="text-sm text-slate-400">Auto-publish</span>
             <span
               class="rounded-full px-2.5 py-0.5 text-xs font-medium"
-              :class="userReputation.autoPublish ? 'bg-emerald-500/10 text-emerald-400' : 'bg-white/5 text-slate-500'"
+              :class="
+                userReputation.autoPublish
+                  ? 'bg-emerald-500/10 text-emerald-400'
+                  : 'bg-white/5 text-slate-500'
+              "
             >
               {{ userReputation.autoPublish ? 'Yes' : 'No' }}
             </span>
@@ -509,7 +554,11 @@
             <span class="text-sm text-slate-400">Can Review</span>
             <span
               class="rounded-full px-2.5 py-0.5 text-xs font-medium"
-              :class="userReputation.canReview ? 'bg-emerald-500/10 text-emerald-400' : 'bg-white/5 text-slate-500'"
+              :class="
+                userReputation.canReview
+                  ? 'bg-emerald-500/10 text-emerald-400'
+                  : 'bg-white/5 text-slate-500'
+              "
             >
               {{ userReputation.canReview ? 'Yes' : 'No' }}
             </span>

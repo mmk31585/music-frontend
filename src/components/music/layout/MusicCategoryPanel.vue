@@ -1,11 +1,11 @@
 <template>
   <aside
-    class="hidden h-screen w-56 shrink-0 border-x border-border-subtle bg-bg-overlay/20 backdrop-blur-2xl lg:block"
-    style="backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);"
+    class="border-border-subtle bg-bg-overlay/20 hidden h-screen w-56 shrink-0 border-x backdrop-blur-2xl lg:block"
+    style="backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px)"
   >
     <div class="flex h-full flex-col">
       <!-- ── Panel Header ── -->
-      <div class="flex shrink-0 items-center gap-3 border-b border-border-subtle px-4 py-4">
+      <div class="border-border-subtle flex shrink-0 items-center gap-3 border-b px-4 py-4">
         <div
           class="flex h-8 w-8 items-center justify-center rounded-xl"
           :class="categoryMeta.iconBg"
@@ -13,20 +13,24 @@
           <i aria-hidden="true" :class="categoryMeta.icon" class="text-sm" />
         </div>
         <div>
-          <p class="text-[10px] font-bold tracking-[0.2em] text-tertiary uppercase">Category</p>
-          <p class="text-sm font-bold text-primary">{{ categoryMeta.label }}</p>
+          <p class="text-tertiary text-[10px] font-bold tracking-[0.2em] uppercase">Category</p>
+          <p class="text-primary text-sm font-bold">{{ categoryMeta.label }}</p>
         </div>
       </div>
 
       <!-- ── Quick Filters ── -->
-      <div v-if="quickFilters.length > 0" class="shrink-0 border-b border-border-subtle px-3 py-3">
+      <div v-if="quickFilters.length > 0" class="border-border-subtle shrink-0 border-b px-3 py-3">
         <div class="flex flex-wrap gap-1.5">
           <button
             v-for="filter in quickFilters"
             :key="filter.label"
             type="button"
             class="rounded-lg px-3 py-1.5 text-[11px] font-bold transition"
-            :class="filter.active ? 'bg-surface-active text-primary' : 'bg-surface-overlay/60 text-secondary hover:bg-surface-active hover:text-primary'"
+            :class="
+              filter.active
+                ? 'bg-surface-active text-primary'
+                : 'bg-surface-overlay/60 text-secondary hover:bg-surface-active hover:text-primary'
+            "
             @click="filter.action?.()"
           >
             {{ filter.label }}
@@ -35,9 +39,12 @@
       </div>
 
       <!-- ── Navigation Items ── -->
-      <nav class="flex-1 space-y-0.5 overflow-y-auto px-3 pb-24 pt-3" style="scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.06) transparent;">
+      <nav
+        class="flex-1 space-y-0.5 overflow-y-auto px-3 pt-3 pb-24"
+        style="scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, 0.06) transparent"
+      >
         <template v-for="section in navSections" :key="section.label">
-          <p class="px-2 pb-1 pt-3 text-[9px] font-bold tracking-[0.2em] text-muted uppercase">
+          <p class="text-muted px-2 pt-3 pb-1 text-[9px] font-bold tracking-[0.2em] uppercase">
             {{ section.label }}
           </p>
           <RouterLink
@@ -45,14 +52,18 @@
             :key="item.to"
             :to="item.to"
             class="flex items-center gap-2.5 rounded-xl px-3 py-2.5 text-sm font-medium transition"
-            :class="isActive(item.to) ? 'bg-surface-active/80 text-primary' : 'text-secondary hover:bg-surface-hover hover:text-primary'"
+            :class="
+              isActive(item.to)
+                ? 'bg-surface-active/80 text-primary'
+                : 'text-secondary hover:bg-surface-hover hover:text-primary'
+            "
             :aria-current="isActive(item.to) ? 'page' : undefined"
           >
             <i v-if="item.icon" aria-hidden="true" :class="item.icon" class="text-xs" />
             <span>{{ item.label }}</span>
             <span
               v-if="item.badge"
-              class="ml-auto flex h-4 min-w-4 items-center justify-center rounded-full bg-surface-active px-1.5 text-[9px] font-bold text-secondary"
+              class="bg-surface-active text-secondary ml-auto flex h-4 min-w-4 items-center justify-center rounded-full px-1.5 text-[9px] font-bold"
             >
               {{ item.badge }}
             </span>
@@ -61,12 +72,14 @@
       </nav>
 
       <!-- ── Bottom Context ── -->
-      <div class="shrink-0 border-t border-border-subtle px-4 py-3">
-        <div class="flex items-center gap-2 rounded-xl bg-surface-overlay/50 px-3 py-2">
-          <div class="flex h-7 w-7 items-center justify-center rounded-lg bg-linear-to-br from-accent/30 to-aurora-purple/30">
-            <Sparkles aria-hidden="true" class="text-[10px] text-secondary"  />
+      <div class="border-border-subtle shrink-0 border-t px-4 py-3">
+        <div class="bg-surface-overlay/50 flex items-center gap-2 rounded-xl px-3 py-2">
+          <div
+            class="from-accent/30 to-aurora-purple/30 flex h-7 w-7 items-center justify-center rounded-lg bg-linear-to-br"
+          >
+            <Sparkles aria-hidden="true" class="text-secondary text-[10px]" />
           </div>
-          <p class="text-[10px] font-medium text-tertiary leading-tight">
+          <p class="text-tertiary text-[10px] leading-tight font-medium">
             {{ contextHint }}
           </p>
         </div>
@@ -113,10 +126,21 @@ type Category = 'home' | 'search' | 'recommendations' | 'library' | 'social' | '
 
 const activeCategory = computed<Category>(() => {
   const path = route.path
-  if (path === '/' || path.startsWith('/track/') || path.startsWith('/album/') || path.startsWith('/artist/')) return 'home'
+  if (
+    path === '/' ||
+    path.startsWith('/track/') ||
+    path.startsWith('/album/') ||
+    path.startsWith('/artist/')
+  )
+    return 'home'
   if (path.startsWith('/search')) return 'search'
   if (path.startsWith('/recommendations')) return 'recommendations'
-  if (path.startsWith('/library') || path.startsWith('/playlist') || path.startsWith('/recently-played')) return 'library'
+  if (
+    path.startsWith('/library') ||
+    path.startsWith('/playlist') ||
+    path.startsWith('/recently-played')
+  )
+    return 'library'
   if (path.startsWith('/social') || path.startsWith('/notifications')) return 'social'
   if (path.startsWith('/ai/')) return 'ai'
   return 'more'
@@ -126,10 +150,22 @@ const categoryMeta = computed(() => {
   const map: Record<Category, { label: string; icon: string; iconBg: string }> = {
     home: { label: 'Browse', icon: 'pi pi-home', iconBg: 'bg-spotify/20 text-spotify' },
     search: { label: 'Search', icon: 'pi pi-search', iconBg: 'bg-spotify/20 text-spotify' },
-    recommendations: { label: 'For You', icon: 'pi pi-star', iconBg: 'bg-aurora-pink/20 text-aurora-pink' },
-    library: { label: 'Library', icon: 'pi pi-bookmark', iconBg: 'bg-aurora-blue/20 text-aurora-blue' },
+    recommendations: {
+      label: 'For You',
+      icon: 'pi pi-star',
+      iconBg: 'bg-aurora-pink/20 text-aurora-pink',
+    },
+    library: {
+      label: 'Library',
+      icon: 'pi pi-bookmark',
+      iconBg: 'bg-aurora-blue/20 text-aurora-blue',
+    },
     social: { label: 'Community', icon: 'pi pi-users', iconBg: 'bg-amber-500/20 text-amber-500' },
-    ai: { label: 'AI', icon: 'pi pi-magic', iconBg: 'bg-linear-to-br from-spotify/20 to-aurora-purple/20 text-white' },
+    ai: {
+      label: 'AI',
+      icon: 'pi pi-magic',
+      iconBg: 'bg-linear-to-br from-spotify/20 to-aurora-purple/20 text-white',
+    },
     more: { label: 'More', icon: 'pi pi-ellipsis-h', iconBg: 'bg-white/10 text-white' },
   }
   return map[activeCategory.value]
@@ -154,10 +190,26 @@ const quickFilters = computed<QuickFilter[]>(() => {
       ]
     case 'recommendations':
       return [
-        { label: 'All', active: path === '/recommendations' || path.startsWith('/recommendations/for-you'), action: () => router.push('/recommendations') },
-        { label: 'Popular', active: path.startsWith('/recommendations/popular'), action: () => router.push('/recommendations/popular') },
-        { label: 'Best', active: path.startsWith('/recommendations/best'), action: () => router.push('/recommendations/best') },
-        { label: 'Recent', active: path.startsWith('/recommendations/recent'), action: () => router.push('/recommendations/recent') },
+        {
+          label: 'All',
+          active: path === '/recommendations' || path.startsWith('/recommendations/for-you'),
+          action: () => router.push('/recommendations'),
+        },
+        {
+          label: 'Popular',
+          active: path.startsWith('/recommendations/popular'),
+          action: () => router.push('/recommendations/popular'),
+        },
+        {
+          label: 'Best',
+          active: path.startsWith('/recommendations/best'),
+          action: () => router.push('/recommendations/best'),
+        },
+        {
+          label: 'Recent',
+          active: path.startsWith('/recommendations/recent'),
+          action: () => router.push('/recommendations/recent'),
+        },
       ]
     case 'library':
       return [
@@ -171,7 +223,10 @@ const quickFilters = computed<QuickFilter[]>(() => {
         { label: 'Feed', active: path === '/social' },
         { label: 'Parties', active: path.startsWith('/social/party') },
         { label: 'Rooms', active: path.startsWith('/social/room') },
-        { label: 'Clubs', active: path.startsWith('/social/club') || path.startsWith('/social/clubs') },
+        {
+          label: 'Clubs',
+          active: path.startsWith('/social/club') || path.startsWith('/social/clubs'),
+        },
       ]
     default:
       return []
@@ -247,9 +302,7 @@ const navSections = computed<NavSection[]>(() => {
       if (store.isAuthenticated) {
         sections.push({
           label: 'History',
-          items: [
-            { label: 'Recently Played', to: '/recently-played', icon: 'pi pi-history' },
-          ],
+          items: [{ label: 'Recently Played', to: '/recently-played', icon: 'pi pi-history' }],
         })
       }
       break

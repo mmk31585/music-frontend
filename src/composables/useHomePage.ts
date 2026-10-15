@@ -5,8 +5,6 @@ import { useUserAuthStore } from '@/stores'
 import { useGuestSession } from '@/composables/useGuestSession'
 import { buildPlaybackTrack } from '@/factories/playbackTrack'
 import type { RecommendationTrack } from '@/services/api/recommendation/types'
-import type { Album } from '@/services/api/catalog/albums/types'
-import type { Artist } from '@/services/api/catalog/artists/types'
 import type { HeroItem } from '@/components/music/home/HomeHero.vue'
 
 export interface TrendingEntry {
@@ -29,7 +27,9 @@ export function useHomePage() {
   let tick: ReturnType<typeof setInterval> | null = null
 
   onMounted(() => {
-    tick = setInterval(() => { now.value = new Date() }, 60_000)
+    tick = setInterval(() => {
+      now.value = new Date()
+    }, 60_000)
   })
   onUnmounted(() => {
     if (tick) clearInterval(tick)

@@ -12,31 +12,47 @@
         <!-- HERO — Your Library                      -->
         <!-- ════════════════════════════════════════ -->
         <section
-          class="relative overflow-hidden rounded-3xl border border-white/6 bg-linear-to-br from-spotify/10 via-surface-overlay to-black/60 p-8 backdrop-blur-2xl md:p-12"
+          class="from-spotify/10 via-surface-overlay relative overflow-hidden rounded-3xl border border-white/6 bg-linear-to-br to-black/60 p-8 backdrop-blur-2xl md:p-12"
         >
           <div class="pointer-events-none absolute inset-0 overflow-hidden rounded-3xl">
-            <div class="absolute -top-1/2 -right-1/4 h-80 w-80 rounded-full bg-spotify/8 blur-[120px]" />
-            <div class="absolute -bottom-1/2 -left-1/4 h-64 w-64 rounded-full bg-aurora-purple/8 blur-[100px]" />
+            <div
+              class="bg-spotify/8 absolute -top-1/2 -right-1/4 h-80 w-80 rounded-full blur-[120px]"
+            />
+            <div
+              class="bg-aurora-purple/8 absolute -bottom-1/2 -left-1/4 h-64 w-64 rounded-full blur-[100px]"
+            />
           </div>
           <div class="relative">
-            <p class="text-[10px] font-bold tracking-[0.35em] text-white/30 uppercase">Your collection</p>
+            <p class="text-[10px] font-bold tracking-[0.35em] text-white/30 uppercase">
+              Your collection
+            </p>
             <h1 class="mt-2 text-4xl font-black text-white md:text-6xl">Library</h1>
             <p class="mt-3 max-w-2xl text-sm text-white/50">
-              Liked songs, saved albums, followed artists, playlists, and listening history — all in one place.
+              Liked songs, saved albums, followed artists, playlists, and listening history — all in
+              one place.
             </p>
             <!-- Quick stats -->
             <div v-if="!loading" class="mt-5 flex flex-wrap items-center gap-3">
-              <div class="flex items-center gap-1.5 rounded-full border border-white/6 bg-white/4 px-3 py-1.5 text-xs text-white/50">
-                <Heart aria-hidden="true" class="text-[10px]"  /> {{ likedTracks.length }} tracks
+              <div
+                class="flex items-center gap-1.5 rounded-full border border-white/6 bg-white/4 px-3 py-1.5 text-xs text-white/50"
+              >
+                <Heart aria-hidden="true" class="text-[10px]" /> {{ likedTracks.length }} tracks
               </div>
-              <div class="flex items-center gap-1.5 rounded-full border border-white/6 bg-white/4 px-3 py-1.5 text-xs text-white/50">
-                <Images aria-hidden="true" class="text-[10px]"  /> {{ likedAlbums.length }} albums
+              <div
+                class="flex items-center gap-1.5 rounded-full border border-white/6 bg-white/4 px-3 py-1.5 text-xs text-white/50"
+              >
+                <Images aria-hidden="true" class="text-[10px]" /> {{ likedAlbums.length }} albums
               </div>
-              <div class="flex items-center gap-1.5 rounded-full border border-white/6 bg-white/4 px-3 py-1.5 text-xs text-white/50">
-                <Users aria-hidden="true" class="text-[10px]"  /> {{ followedArtists.length }} artists
+              <div
+                class="flex items-center gap-1.5 rounded-full border border-white/6 bg-white/4 px-3 py-1.5 text-xs text-white/50"
+              >
+                <Users aria-hidden="true" class="text-[10px]" />
+                {{ followedArtists.length }} artists
               </div>
-              <div class="flex items-center gap-1.5 rounded-full border border-white/6 bg-white/4 px-3 py-1.5 text-xs text-white/50">
-                <List aria-hidden="true" class="text-[10px]"  /> {{ playlists.length }} playlists
+              <div
+                class="flex items-center gap-1.5 rounded-full border border-white/6 bg-white/4 px-3 py-1.5 text-xs text-white/50"
+              >
+                <List aria-hidden="true" class="text-[10px]" /> {{ playlists.length }} playlists
               </div>
             </div>
           </div>
@@ -46,7 +62,11 @@
         <!-- TAB NAVIGATION — Pill Tabs               -->
         <!-- ════════════════════════════════════════ -->
         <div class="mt-8">
-          <div class="no-scrollbar flex gap-2 overflow-x-auto" role="tablist" aria-label="Library sections">
+          <div
+            class="no-scrollbar flex gap-2 overflow-x-auto"
+            role="tablist"
+            aria-label="Library sections"
+          >
             <button
               v-for="tab in tabs"
               :key="tab.id"
@@ -56,7 +76,7 @@
               class="group relative flex shrink-0 items-center gap-2 rounded-full border px-5 py-2.5 text-xs font-bold transition-all duration-300"
               :class="
                 activeTab === tab.id
-                  ? 'border-spotify/40 bg-spotify/15 text-white shadow-lg shadow-spotify/5'
+                  ? 'border-spotify/40 bg-spotify/15 shadow-spotify/5 text-white shadow-lg'
                   : 'border-white/6 bg-white/3 text-white/50 hover:border-white/12 hover:bg-white/6 hover:text-white'
               "
               @click="activeTab = tab.id"
@@ -65,7 +85,9 @@
               {{ tab.label }}
               <span
                 class="flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-[9px] font-bold"
-                :class="activeTab === tab.id ? 'bg-spotify/20 text-spotify' : 'bg-white/6 text-white/30'"
+                :class="
+                  activeTab === tab.id ? 'bg-spotify/20 text-spotify' : 'bg-white/6 text-white/30'
+                "
               >
                 {{ tab.count }}
               </span>
@@ -79,7 +101,7 @@
         <div class="mt-8">
           <div v-if="loading" class="space-y-6">
             <div v-for="i in 3" :key="i">
-              <div class="mb-4 shimmer h-5 w-32 rounded-lg" />
+              <div class="shimmer mb-4 h-5 w-32 rounded-lg" />
               <div class="flex gap-4">
                 <div v-for="j in 4" :key="j" class="shimmer h-44 w-40 shrink-0 rounded-2xl" />
               </div>
@@ -92,12 +114,15 @@
             <div class="mb-4 flex items-center justify-between">
               <h2 class="text-lg font-bold text-white">Liked Tracks</h2>
               <div class="relative">
-                <Search aria-hidden="true" class="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-white/20"  />
+                <Search
+                  aria-hidden="true"
+                  class="absolute top-1/2 left-3 -translate-y-1/2 text-xs text-white/20"
+                />
                 <input
                   v-model="trackFilter"
                   type="text"
                   placeholder="Filter tracks..."
-                  class="w-48 rounded-full border border-white/6 bg-white/3 py-2 pl-9 pr-4 text-xs text-white outline-hidden transition placeholder:text-white/20 focus:border-spotify/30 focus:bg-white/6"
+                  class="focus:border-spotify/30 w-48 rounded-full border border-white/6 bg-white/3 py-2 pr-4 pl-9 text-xs text-white outline-hidden transition placeholder:text-white/20 focus:bg-white/6"
                 />
               </div>
             </div>
@@ -118,14 +143,10 @@
                 :key="item.track_id"
                 class="group/track relative"
               >
-                <TrackRow
-                  :track="item"
-                  :index="index"
-                  :queue="filteredTracks"
-                />
+                <TrackRow :track="item" :index="index" :queue="filteredTracks" />
                 <button
                   type="button"
-                  class="absolute right-2 top-1/2 -translate-y-1/2 flex h-6 w-6 items-center justify-center rounded-full bg-red-500/20 text-red-400 opacity-0 transition hover:bg-red-500/30 group-hover/track:opacity-100"
+                  class="absolute top-1/2 right-2 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-full bg-red-500/20 text-red-400 opacity-0 transition group-hover/track:opacity-100 hover:bg-red-500/30"
                   :aria-label="`Remove ${item.title}`"
                   @click.stop="removeTrack(item.track_id)"
                 >
@@ -138,11 +159,15 @@
               class="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-white/6 bg-white/2 px-6 py-16 text-center"
             >
               <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/4">
-                <Heart aria-hidden="true" class="text-xl text-white/20"  />
+                <Heart aria-hidden="true" class="text-xl text-white/20" />
               </div>
               <h3 class="text-base font-bold text-white">No liked tracks yet</h3>
               <p class="text-sm text-white/40">
-                {{ trackFilter ? 'No tracks match your filter.' : 'Tap the heart icon on any track to save it here.' }}
+                {{
+                  trackFilter
+                    ? 'No tracks match your filter.'
+                    : 'Tap the heart icon on any track to save it here.'
+                }}
               </p>
             </div>
           </div>
@@ -151,7 +176,9 @@
           <div v-if="activeTab === 'albums'" role="tabpanel" aria-live="polite">
             <div class="mb-4 flex items-center justify-between">
               <h2 class="text-lg font-bold text-white">Saved Albums</h2>
-              <span class="text-xs text-white/30 tabular-nums">{{ likedAlbums.length }} albums</span>
+              <span class="text-xs text-white/30 tabular-nums"
+                >{{ likedAlbums.length }} albums</span
+              >
             </div>
 
             <div
@@ -171,7 +198,9 @@
                 :to="`/album/${album.album_id}`"
                 class="group"
               >
-                <div class="relative mb-3 aspect-square overflow-hidden rounded-2xl bg-white/5 shadow-lg ring-1 ring-white/6 transition-all duration-300 group-hover:scale-[1.02] group-hover:ring-spotify/30">
+                <div
+                  class="group-hover:ring-spotify/30 relative mb-3 aspect-square overflow-hidden rounded-2xl bg-white/5 shadow-lg ring-1 ring-white/6 transition-all duration-300 group-hover:scale-[1.02]"
+                >
                   <img
                     v-if="album.cover_url"
                     :src="album.cover_url"
@@ -181,24 +210,30 @@
                     @error="onImgError"
                   />
                   <div v-else class="flex h-full items-center justify-center">
-                    <Images aria-hidden="true" class="text-3xl text-white/20"  />
+                    <Images aria-hidden="true" class="text-3xl text-white/20" />
                   </div>
                   <button
                     type="button"
-                    class="absolute top-2 right-2 z-10 flex h-7 w-7 items-center justify-center rounded-full bg-red-500/20 text-red-400 opacity-0 transition hover:bg-red-500/30 group-hover:opacity-100"
+                    class="absolute top-2 right-2 z-10 flex h-7 w-7 items-center justify-center rounded-full bg-red-500/20 text-red-400 opacity-0 transition group-hover:opacity-100 hover:bg-red-500/30"
                     :aria-label="`Remove ${album.title}`"
                     @click.prevent.stop="removeAlbum(album.album_id)"
                   >
                     <X aria-hidden="true" class="text-xs" />
                   </button>
-                  <div class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 backdrop-blur-xs transition group-hover:opacity-100">
-                    <div class="flex h-12 w-12 items-center justify-center rounded-full bg-spotify/90 text-black shadow-xl">
-                      <Play aria-hidden="true" class="text-lg"  />
+                  <div
+                    class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 backdrop-blur-xs transition group-hover:opacity-100"
+                  >
+                    <div
+                      class="bg-spotify/90 flex h-12 w-12 items-center justify-center rounded-full text-black shadow-xl"
+                    >
+                      <Play aria-hidden="true" class="text-lg" />
                     </div>
                   </div>
                 </div>
                 <p class="truncate text-sm font-semibold text-white">{{ album.title }}</p>
-                <p class="truncate text-xs text-white/40">{{ album.artist_name || 'Unknown artist' }}</p>
+                <p class="truncate text-xs text-white/40">
+                  {{ album.artist_name || 'Unknown artist' }}
+                </p>
               </RouterLink>
             </div>
             <div
@@ -206,7 +241,7 @@
               class="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-white/6 bg-white/2 px-6 py-16 text-center"
             >
               <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/4">
-                <Images aria-hidden="true" class="text-xl text-white/20"  />
+                <Images aria-hidden="true" class="text-xl text-white/20" />
               </div>
               <h3 class="text-base font-bold text-white">No saved albums</h3>
               <p class="text-sm text-white/40">Save albums to your library to find them quickly.</p>
@@ -217,7 +252,9 @@
           <div v-if="activeTab === 'artists'" role="tabpanel" aria-live="polite">
             <div class="mb-4 flex items-center justify-between">
               <h2 class="text-lg font-bold text-white">Followed Artists</h2>
-              <span class="text-xs text-white/30 tabular-nums">{{ followedArtists.length }} artists</span>
+              <span class="text-xs text-white/30 tabular-nums"
+                >{{ followedArtists.length }} artists</span
+              >
             </div>
 
             <div
@@ -237,7 +274,9 @@
                 :to="`/artist/${artist.artist_id}`"
                 class="group relative block text-center"
               >
-                <div class="relative mx-auto mb-3 h-36 w-36 overflow-hidden rounded-full bg-white/4 ring-1 ring-white/6 transition-all duration-300 group-hover:ring-spotify/30">
+                <div
+                  class="group-hover:ring-spotify/30 relative mx-auto mb-3 h-36 w-36 overflow-hidden rounded-full bg-white/4 ring-1 ring-white/6 transition-all duration-300"
+                >
                   <img
                     v-if="artist.cover_url"
                     :src="artist.cover_url"
@@ -247,11 +286,11 @@
                     @error="onImgError"
                   />
                   <div v-else class="flex h-full items-center justify-center">
-                    <User aria-hidden="true" class="text-3xl text-white/20"  />
+                    <User aria-hidden="true" class="text-3xl text-white/20" />
                   </div>
                   <button
                     type="button"
-                    class="absolute top-0 right-0 z-10 flex h-7 w-7 items-center justify-center rounded-full bg-red-500/20 text-red-400 opacity-0 transition hover:bg-red-500/30 group-hover:opacity-100"
+                    class="absolute top-0 right-0 z-10 flex h-7 w-7 items-center justify-center rounded-full bg-red-500/20 text-red-400 opacity-0 transition group-hover:opacity-100 hover:bg-red-500/30"
                     :aria-label="`Unfollow ${artist.name}`"
                     @click.prevent.stop="unfollowArtist(artist.artist_id)"
                   >
@@ -267,10 +306,12 @@
               class="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-white/6 bg-white/2 px-6 py-16 text-center"
             >
               <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/4">
-                <Users aria-hidden="true" class="text-xl text-white/20"  />
+                <Users aria-hidden="true" class="text-xl text-white/20" />
               </div>
               <h3 class="text-base font-bold text-white">No followed artists</h3>
-              <p class="text-sm text-white/40">Follow artists to keep up with their latest releases.</p>
+              <p class="text-sm text-white/40">
+                Follow artists to keep up with their latest releases.
+              </p>
             </div>
           </div>
 
@@ -280,10 +321,10 @@
               <h2 class="text-lg font-bold text-white">My Playlists</h2>
               <button
                 type="button"
-                class="inline-flex items-center gap-2 rounded-full bg-spotify px-5 py-2.5 text-xs font-bold text-black transition hover:bg-spotify-hover hover:scale-105"
+                class="bg-spotify hover:bg-spotify-hover inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-xs font-bold text-black transition hover:scale-105"
                 @click="showCreate = true"
               >
-                <Plus aria-hidden="true" class="text-[10px]"  />
+                <Plus aria-hidden="true" class="text-[10px]" />
                 Create
               </button>
             </div>
@@ -303,9 +344,11 @@
                 v-for="playlist in playlists"
                 :key="playlist.id"
                 :to="`/playlist/${playlist.id}`"
-                class="group rounded-2xl border border-white/6 bg-white/2 p-4 transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/6 hover:border-white/12"
+                class="group rounded-2xl border border-white/6 bg-white/2 p-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-white/12 hover:bg-white/6"
               >
-                <div class="relative mb-3 aspect-square overflow-hidden rounded-xl bg-white/5 ring-1 ring-white/6">
+                <div
+                  class="relative mb-3 aspect-square overflow-hidden rounded-xl bg-white/5 ring-1 ring-white/6"
+                >
                   <img
                     v-if="playlist.cover_url"
                     :src="playlist.cover_url"
@@ -322,15 +365,19 @@
                   />
                   <button
                     type="button"
-                    class="absolute top-2 right-2 z-10 flex h-7 w-7 items-center justify-center rounded-full bg-red-500/20 text-red-400 opacity-0 transition hover:bg-red-500/30 group-hover:opacity-100"
+                    class="absolute top-2 right-2 z-10 flex h-7 w-7 items-center justify-center rounded-full bg-red-500/20 text-red-400 opacity-0 transition group-hover:opacity-100 hover:bg-red-500/30"
                     :aria-label="`Delete ${playlist.name}`"
                     @click.prevent.stop="deletePlaylist(playlist.id)"
                   >
                     <X aria-hidden="true" class="text-xs" />
                   </button>
-                  <div class="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 backdrop-blur-xs transition group-hover:opacity-100">
-                    <div class="flex h-12 w-12 items-center justify-center rounded-full bg-spotify/90 text-black shadow-xl">
-                      <Play aria-hidden="true" class="text-lg"  />
+                  <div
+                    class="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 backdrop-blur-xs transition group-hover:opacity-100"
+                  >
+                    <div
+                      class="bg-spotify/90 flex h-12 w-12 items-center justify-center rounded-full text-black shadow-xl"
+                    >
+                      <Play aria-hidden="true" class="text-lg" />
                     </div>
                   </div>
                 </div>
@@ -343,16 +390,18 @@
               class="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-white/6 bg-white/2 px-6 py-16 text-center"
             >
               <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/4">
-                <List aria-hidden="true" class="text-xl text-white/20"  />
+                <List aria-hidden="true" class="text-xl text-white/20" />
               </div>
               <h3 class="text-base font-bold text-white">No playlists yet</h3>
-              <p class="text-sm text-white/40">Create your first playlist to start organizing your music.</p>
+              <p class="text-sm text-white/40">
+                Create your first playlist to start organizing your music.
+              </p>
               <button
                 type="button"
-                class="mt-2 rounded-full bg-spotify px-6 py-2.5 text-sm font-bold text-black transition hover:bg-spotify-hover"
+                class="bg-spotify hover:bg-spotify-hover mt-2 rounded-full px-6 py-2.5 text-sm font-bold text-black transition"
                 @click="showCreate = true"
               >
-                <Plus aria-hidden="true" class="mr-1 text-xs"  />
+                <Plus aria-hidden="true" class="mr-1 text-xs" />
                 Create Playlist
               </button>
             </div>
@@ -362,7 +411,9 @@
           <div v-if="activeTab === 'history'" role="tabpanel" aria-live="polite">
             <div class="mb-4 flex items-center justify-between">
               <h2 class="text-lg font-bold text-white">Recently Played</h2>
-              <span class="text-xs text-white/30 tabular-nums">{{ recentTracks.length }} tracks</span>
+              <span class="text-xs text-white/30 tabular-nums"
+                >{{ recentTracks.length }} tracks</span
+              >
             </div>
 
             <div
@@ -389,13 +440,15 @@
               class="flex flex-col items-center gap-3 rounded-2xl border border-dashed border-white/6 bg-white/2 px-6 py-16 text-center"
             >
               <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/4">
-                <History aria-hidden="true" class="text-xl text-white/20"  />
+                <History aria-hidden="true" class="text-xl text-white/20" />
               </div>
               <h3 class="text-base font-bold text-white">No history yet</h3>
-              <p class="text-sm text-white/40">Start playing tracks and your history will appear here.</p>
+              <p class="text-sm text-white/40">
+                Start playing tracks and your history will appear here.
+              </p>
               <RouterLink
                 to="/discover"
-                class="mt-2 inline-flex rounded-full bg-spotify px-6 py-2.5 text-sm font-bold text-black transition hover:bg-spotify-hover"
+                class="bg-spotify hover:bg-spotify-hover mt-2 inline-flex rounded-full px-6 py-2.5 text-sm font-bold text-black transition"
               >
                 Discover music
               </RouterLink>
@@ -423,7 +476,7 @@
     >
       <template #header>
         <div class="flex items-center gap-2 px-1">
-          <Plus aria-hidden="true" class="text-sm text-spotify"  />
+          <Plus aria-hidden="true" class="text-spotify text-sm" />
           <span>Create Playlist</span>
         </div>
       </template>
@@ -431,11 +484,7 @@
       <div class="space-y-5 p-6">
         <div>
           <label class="mb-2 block text-xs font-medium text-white/40">Name</label>
-          <InputText
-            v-model="newName"
-            placeholder="My awesome playlist"
-            class="w-full"
-          />
+          <InputText v-model="newName" placeholder="My awesome playlist" class="w-full" />
         </div>
         <div>
           <label class="mb-2 block text-xs font-medium text-white/40">Description</label>
@@ -498,9 +547,7 @@ const likedAlbums = ref<LibraryAlbum[]>([])
 const followedArtists = ref<LibraryArtist[]>([])
 const playlists = ref<PlaylistListItem[]>([])
 const recentTracks = ref<LibraryTrack[]>([])
-const recentTrackItems = computed(() =>
-  recentTracks.value.map(t => ({ ...t, id: t.track_id })),
-)
+const recentTrackItems = computed(() => recentTracks.value.map((t) => ({ ...t, id: t.track_id })))
 const trackFilter = ref('')
 
 const sectionErrors = ref<Record<string, boolean>>({})
@@ -583,7 +630,7 @@ async function fetchAll() {
 async function removeTrack(trackId: string | number) {
   try {
     await libraryApi.unlikeTrack(trackId)
-    likedTracks.value = likedTracks.value.filter(t => t.track_id !== trackId)
+    likedTracks.value = likedTracks.value.filter((t) => t.track_id !== trackId)
     toast.success('Removed')
   } catch {
     toast.error('Failed to remove track')
@@ -593,7 +640,7 @@ async function removeTrack(trackId: string | number) {
 async function removeAlbum(albumId: string | number) {
   try {
     await libraryApi.unlikeAlbum(albumId)
-    likedAlbums.value = likedAlbums.value.filter(a => a.album_id !== albumId)
+    likedAlbums.value = likedAlbums.value.filter((a) => a.album_id !== albumId)
     toast.success('Removed')
   } catch {
     toast.error('Failed to remove album')
@@ -603,7 +650,7 @@ async function removeAlbum(albumId: string | number) {
 async function unfollowArtist(artistId: string | number) {
   try {
     await libraryApi.unfollowArtist(artistId)
-    followedArtists.value = followedArtists.value.filter(a => a.artist_id !== artistId)
+    followedArtists.value = followedArtists.value.filter((a) => a.artist_id !== artistId)
     toast.success('Removed')
   } catch {
     toast.error('Failed to unfollow artist')
@@ -613,7 +660,7 @@ async function unfollowArtist(artistId: string | number) {
 async function deletePlaylist(playlistId: string) {
   try {
     await playlistsApi.deletePlaylist(playlistId)
-    playlists.value = playlists.value.filter(p => p.id !== playlistId)
+    playlists.value = playlists.value.filter((p) => p.id !== playlistId)
     toast.success('Removed')
   } catch {
     toast.error('Failed to delete playlist')

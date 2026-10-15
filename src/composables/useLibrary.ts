@@ -31,9 +31,17 @@ export const useLibrary = () => {
       followedArtists.value = artistsRes ?? []
     } catch (err: any) {
       const e = err as Record<string, any>
-      const msg = (e.response as Record<string, any> | undefined)?.data?.message || e?.message || 'Failed to load library.'
+      const msg =
+        (e.response as Record<string, any> | undefined)?.data?.message ||
+        e?.message ||
+        'Failed to load library.'
       error.value = msg
-      toast.add({ severity: 'error', summary: 'خطا', detail: translateMessage(msg) ?? msg, life: 5000 })
+      toast.add({
+        severity: 'error',
+        summary: 'خطا',
+        detail: translateMessage(msg) ?? msg,
+        life: 5000,
+      })
     } finally {
       isLoading.value = false
     }

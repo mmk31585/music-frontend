@@ -13,7 +13,11 @@ export function useAlbum(id: string | number) {
   const album = ref<Album | null>(null)
   const tracks = ref<Track[]>([])
   const artist = ref<Artist | null>(null)
-  interface AlbumArtist { id: string | number; role?: string; name: string }
+  interface AlbumArtist {
+    id: string | number
+    role?: string
+    name: string
+  }
   const albumArtists = ref<AlbumArtist[]>([])
   const relatedAlbums = ref<Album[]>([])
   const isLiked = ref(false)
@@ -29,7 +33,9 @@ export function useAlbum(id: string | number) {
   })
 
   const featuredArtists = computed(() => {
-    return albumArtists.value.filter((a: AlbumArtist) => a.role && !['main', 'primary'].includes(a.role))
+    return albumArtists.value.filter(
+      (a: AlbumArtist) => a.role && !['main', 'primary'].includes(a.role),
+    )
   })
 
   const totalDuration = computed(() => {

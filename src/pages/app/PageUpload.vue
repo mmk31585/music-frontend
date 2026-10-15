@@ -1,15 +1,21 @@
 <script setup lang="ts">
 import { onMounted, ref, computed } from 'vue'
-import { useRouter } from 'vue-router'
 import { useUploader } from '@/composables/useUploader'
 import { useReputation } from '@/composables/useReputation'
-import { usePermissions } from '@/composables/usePermissions'
 import { useUserAuthStore } from '@/stores'
-import { Upload, FileAudio, Shield, CheckCircle, Clock, AlertTriangle, X, Loader2, Info } from 'lucide-vue-next'
+import {
+  Upload,
+  FileAudio,
+  Shield,
+  CheckCircle,
+  Clock,
+  AlertTriangle,
+  X,
+  Loader2,
+  Info,
+} from 'lucide-vue-next'
 
-const router = useRouter()
 const auth = useUserAuthStore()
-const { canUpload, canReview } = usePermissions()
 const { drafts, slots, loading, fetchMyDrafts, fetchSlots, submitUpload } = useUploader()
 const rep = useReputation(auth.user?.id)
 
@@ -22,11 +28,15 @@ const fileInput = ref<HTMLInputElement | null>(null)
 const hasSlots = computed(() => slots.value?.available ?? false)
 const maxSlots = computed(() => slots.value?.max ?? 0)
 const usedSlots = computed(() => slots.value?.used ?? 0)
-const slotPercent = computed(() => maxSlots.value > 0 ? Math.round((usedSlots.value / maxSlots.value) * 100) : 0)
+const slotPercent = computed(() =>
+  maxSlots.value > 0 ? Math.round((usedSlots.value / maxSlots.value) * 100) : 0,
+)
 
-const acceptedDrafts = computed(() => drafts.value.filter(d => d.status === 'accepted').length)
-const pendingDrafts = computed(() => drafts.value.filter(d => d.status === 'pending' || d.status === 'needs_review').length)
-const rejectedDrafts = computed(() => drafts.value.filter(d => d.status === 'rejected').length)
+const acceptedDrafts = computed(() => drafts.value.filter((d) => d.status === 'accepted').length)
+const pendingDrafts = computed(
+  () => drafts.value.filter((d) => d.status === 'pending' || d.status === 'needs_review').length,
+)
+const rejectedDrafts = computed(() => drafts.value.filter((d) => d.status === 'rejected').length)
 
 async function handleUpload() {
   if (!uploadFile.value) return
@@ -58,7 +68,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="mx-auto w-full max-w-4xl px-4 pb-32 pt-8 md:px-6">
+  <div class="mx-auto w-full max-w-4xl px-4 pt-8 pb-32 md:px-6">
     <!-- Header -->
     <div class="mb-8">
       <h1 class="text-3xl font-black text-white">Upload Music</h1>
@@ -73,13 +83,19 @@ onMounted(async () => {
 
     <template v-else>
       <!-- Reputation bar -->
-      <div class="mb-6 flex flex-wrap items-center gap-4 rounded-2xl border border-white/6 bg-white/3 px-5 py-3">
+      <div
+        class="mb-6 flex flex-wrap items-center gap-4 rounded-2xl border border-white/6 bg-white/3 px-5 py-3"
+      >
         <div class="flex items-center gap-3">
           <div
             class="flex h-9 w-9 items-center justify-center rounded-full"
             :class="rep.canAutoPublish ? 'bg-emerald-500/10' : 'bg-blue-500/10'"
           >
-            <Shield aria-hidden="true" class="text-sm" :class="rep.canAutoPublish ? 'text-emerald-400' : 'text-blue-400'" />
+            <Shield
+              aria-hidden="true"
+              class="text-sm"
+              :class="rep.canAutoPublish ? 'text-emerald-400' : 'text-blue-400'"
+            />
           </div>
           <div>
             <p class="text-xs font-medium text-white/70">{{ rep.tierLabel }}</p>
@@ -103,7 +119,10 @@ onMounted(async () => {
           >
             Auto-publish
           </span>
-          <span v-else class="rounded-full bg-amber-500/10 px-3 py-1 text-[10px] font-medium text-amber-400">
+          <span
+            v-else
+            class="rounded-full bg-amber-500/10 px-3 py-1 text-[10px] font-medium text-amber-400"
+          >
             Needs review
           </span>
         </div>
@@ -116,14 +135,16 @@ onMounted(async () => {
             <Upload aria-hidden="true" class="text-sm text-white/40" />
             <span class="text-sm font-medium text-white/70">Upload Slots</span>
           </div>
-          <span class="text-sm tabular-nums text-white/70">
+          <span class="text-sm text-white/70 tabular-nums">
             <strong class="text-white">{{ usedSlots }}</strong> / {{ maxSlots }} used
           </span>
         </div>
         <div class="h-2 overflow-hidden rounded-full bg-white/8">
           <div
             class="h-full rounded-full transition-all duration-500"
-            :class="slotPercent >= 80 ? 'bg-amber-500' : slotPercent >= 50 ? 'bg-spotify' : 'bg-blue-500'"
+            :class="
+              slotPercent >= 80 ? 'bg-amber-500' : slotPercent >= 50 ? 'bg-spotify' : 'bg-blue-500'
+            "
             :style="{ width: slotPercent + '%' }"
           />
         </div>
@@ -140,7 +161,11 @@ onMounted(async () => {
       <div class="mb-6 flex gap-1 rounded-xl bg-white/4 p-1">
         <button
           class="flex flex-1 items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-medium transition"
-          :class="activeTab === 'upload' ? 'bg-white/10 text-white shadow-xs' : 'text-white/40 hover:text-white/60'"
+          :class="
+            activeTab === 'upload'
+              ? 'bg-white/10 text-white shadow-xs'
+              : 'text-white/40 hover:text-white/60'
+          "
           @click="activeTab = 'upload'"
         >
           <Upload aria-hidden="true" class="text-xs" />
@@ -148,12 +173,18 @@ onMounted(async () => {
         </button>
         <button
           class="flex flex-1 items-center justify-center gap-2 rounded-lg py-2.5 text-sm font-medium transition"
-          :class="activeTab === 'drafts' ? 'bg-white/10 text-white shadow-xs' : 'text-white/40 hover:text-white/60'"
+          :class="
+            activeTab === 'drafts'
+              ? 'bg-white/10 text-white shadow-xs'
+              : 'text-white/40 hover:text-white/60'
+          "
           @click="activeTab = 'drafts'"
         >
           <FileAudio aria-hidden="true" class="text-xs" />
           My Drafts
-          <span v-if="drafts.length" class="rounded-full bg-white/10 px-1.5 py-0.5 text-[10px]">{{ drafts.length }}</span>
+          <span v-if="drafts.length" class="rounded-full bg-white/10 px-1.5 py-0.5 text-[10px]">{{
+            drafts.length
+          }}</span>
         </button>
       </div>
 
@@ -180,7 +211,7 @@ onMounted(async () => {
             <p class="text-base font-semibold text-white/70">Drop your audio file here</p>
             <p class="mt-1 text-sm text-white/30">or click to browse — MP3, FLAC, WAV, OGG, AAC</p>
             <button
-              class="mt-5 rounded-full bg-spotify px-8 py-2.5 text-sm font-bold text-black transition hover:scale-105 hover:bg-spotify-hover disabled:opacity-50"
+              class="bg-spotify hover:bg-spotify-hover mt-5 rounded-full px-8 py-2.5 text-sm font-bold text-black transition hover:scale-105 disabled:opacity-50"
               :disabled="!hasSlots || uploading"
               @click="selectFile"
             >
@@ -190,12 +221,16 @@ onMounted(async () => {
 
           <div v-else class="w-full max-w-sm">
             <div class="flex items-center gap-3 rounded-xl bg-white/5 p-4">
-              <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-spotify/10">
+              <div
+                class="bg-spotify/10 flex h-10 w-10 shrink-0 items-center justify-center rounded-lg"
+              >
                 <FileAudio aria-hidden="true" class="text-spotify" />
               </div>
               <div class="min-w-0 flex-1 text-left">
                 <p class="truncate text-sm font-medium text-white">{{ uploadFile.name }}</p>
-                <p class="text-xs text-white/40">{{ (uploadFile.size / 1024 / 1024).toFixed(1) }} MB</p>
+                <p class="text-xs text-white/40">
+                  {{ (uploadFile.size / 1024 / 1024).toFixed(1) }} MB
+                </p>
               </div>
               <button
                 class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-white/30 transition hover:bg-white/10 hover:text-white/60"
@@ -207,21 +242,31 @@ onMounted(async () => {
             </div>
 
             <button
-              class="mt-4 w-full rounded-full bg-spotify px-8 py-2.5 text-sm font-bold text-black transition hover:bg-spotify-hover disabled:opacity-50"
+              class="bg-spotify hover:bg-spotify-hover mt-4 w-full rounded-full px-8 py-2.5 text-sm font-bold text-black transition disabled:opacity-50"
               :disabled="uploading"
               @click="handleUpload"
             >
-              <Loader2 v-if="uploading" aria-hidden="true" class="mr-2 inline animate-spin text-xs" />
+              <Loader2
+                v-if="uploading"
+                aria-hidden="true"
+                class="mr-2 inline animate-spin text-xs"
+              />
               {{ uploading ? 'Uploading...' : 'Start Upload' }}
             </button>
 
-            <p v-if="uploadError" class="mt-2 flex items-center justify-center gap-1.5 text-xs text-red-400">
+            <p
+              v-if="uploadError"
+              class="mt-2 flex items-center justify-center gap-1.5 text-xs text-red-400"
+            >
               <AlertTriangle aria-hidden="true" class="text-[10px]" />
               {{ uploadError }}
             </p>
           </div>
 
-          <p v-if="!hasSlots && !uploadFile" class="flex items-center gap-1.5 text-xs text-amber-400">
+          <p
+            v-if="!hasSlots && !uploadFile"
+            class="flex items-center gap-1.5 text-xs text-amber-400"
+          >
             <AlertTriangle aria-hidden="true" class="text-[10px]" />
             All upload slots are full. Wait for pending reviews to complete.
           </p>
@@ -230,11 +275,13 @@ onMounted(async () => {
         <!-- Trust info -->
         <div class="flex items-start gap-3 rounded-xl bg-white/3 p-4">
           <Info aria-hidden="true" class="mt-0.5 shrink-0 text-xs text-white/30" />
-          <div class="text-xs text-white/30 leading-relaxed">
+          <div class="text-xs leading-relaxed text-white/30">
             <strong class="text-white/50">How uploads work:</strong>
-            Based on your trust tier, uploads are auto-published or queued for review.
-            Higher reputation earns more slots and faster publishing.
-            <router-link to="/gamification" class="text-spotify hover:underline">Learn more</router-link>
+            Based on your trust tier, uploads are auto-published or queued for review. Higher
+            reputation earns more slots and faster publishing.
+            <router-link to="/gamification" class="text-spotify hover:underline"
+              >Learn more</router-link
+            >
           </div>
         </div>
       </div>
@@ -278,18 +325,16 @@ onMounted(async () => {
                 aria-hidden="true"
                 class="text-emerald-400"
               />
-              <X
-                v-else-if="d.status === 'rejected'"
-                aria-hidden="true"
-                class="text-red-400"
-              />
+              <X v-else-if="d.status === 'rejected'" aria-hidden="true" class="text-red-400" />
               <Clock v-else aria-hidden="true" class="text-amber-400" />
             </div>
             <div class="min-w-0 flex-1">
               <p class="truncate text-sm font-medium text-white">{{ d.originalFilename }}</p>
               <p class="text-xs text-white/40">
                 {{ new Date(d.createdAt).toLocaleDateString() }}
-                <span v-if="d.fileSize" class="ml-2">· {{ (d.fileSize / 1024 / 1024).toFixed(1) }} MB</span>
+                <span v-if="d.fileSize" class="ml-2"
+                  >· {{ (d.fileSize / 1024 / 1024).toFixed(1) }} MB</span
+                >
               </p>
             </div>
             <span
@@ -307,13 +352,16 @@ onMounted(async () => {
           </div>
         </div>
 
-        <div v-else class="flex flex-col items-center gap-3 rounded-2xl border border-white/6 bg-white/3 py-14 text-center">
+        <div
+          v-else
+          class="flex flex-col items-center gap-3 rounded-2xl border border-white/6 bg-white/3 py-14 text-center"
+        >
           <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/5">
             <FileAudio aria-hidden="true" class="text-2xl text-white/15" />
           </div>
           <p class="text-sm text-white/30">No drafts yet</p>
           <button
-            class="text-xs text-spotify transition-colors hover:text-spotify-hover"
+            class="text-spotify hover:text-spotify-hover text-xs transition-colors"
             @click="activeTab = 'upload'"
           >
             Upload your first track

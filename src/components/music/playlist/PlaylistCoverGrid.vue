@@ -1,13 +1,9 @@
 <template>
   <div
-      class="relative h-full w-full overflow-hidden rounded-2xl bg-linear-to-br from-accent/20 to-aurora-purple/20"
+    class="from-accent/20 to-aurora-purple/20 relative h-full w-full overflow-hidden rounded-2xl bg-linear-to-br"
   >
     <!-- 2×2 Grid -->
-    <div
-      v-if="covers.length > 0"
-      class="grid h-full w-full"
-      :class="gridClass"
-    >
+    <div v-if="covers.length > 0" class="grid h-full w-full" :class="gridClass">
       <div
         v-for="(cover, index) in gridCovers"
         :key="index"
@@ -22,21 +18,18 @@
           loading="lazy"
           @error="onCoverError"
         />
-        <div
-          v-else
-          class="flex h-full items-center justify-center bg-surface-overlay/50"
-        >
-          <Music aria-hidden="true" class="text-lg text-muted"  />
+        <div v-else class="bg-surface-overlay/50 flex h-full items-center justify-center">
+          <Music aria-hidden="true" class="text-muted text-lg" />
         </div>
 
         <!-- Overlays for partial grids -->
         <div
           v-if="index === 0 && covers.length === 1"
-          class="pointer-events-none absolute inset-0 bg-linear-to-t from-bg-overlay/60 via-bg-overlay/20 to-transparent"
+          class="from-bg-overlay/60 via-bg-overlay/20 pointer-events-none absolute inset-0 bg-linear-to-t to-transparent"
         />
         <div
           v-if="index === 1 && covers.length === 2"
-          class="pointer-events-none absolute inset-0 bg-linear-to-l from-bg-overlay/40 to-transparent"
+          class="from-bg-overlay/40 pointer-events-none absolute inset-0 bg-linear-to-l to-transparent"
         />
       </div>
     </div>
@@ -44,7 +37,7 @@
     <!-- Track count badge -->
     <div
       v-if="trackCount !== undefined"
-      class="absolute right-2 bottom-2 z-10 rounded-full bg-bg-overlay/70 px-2 py-0.5 text-[10px] font-bold text-primary/80 backdrop-blur-xs"
+      class="bg-bg-overlay/70 text-primary/80 absolute right-2 bottom-2 z-10 rounded-full px-2 py-0.5 text-[10px] font-bold backdrop-blur-xs"
     >
       {{ trackCount }} {{ trackCount === 1 ? 'track' : 'tracks' }}
     </div>
@@ -54,15 +47,15 @@
       v-if="covers.length === 0"
       class="flex h-full w-full flex-col items-center justify-center gap-2"
     >
-      <List aria-hidden="true" class="text-3xl text-muted"  />
-      <span class="text-xs font-medium text-tertiary">No tracks</span>
+      <List aria-hidden="true" class="text-muted text-3xl" />
+      <span class="text-tertiary text-xs font-medium">No tracks</span>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { List, Music } from 'lucide-vue-next'
-import { computed, ref } from 'vue'
+import { computed } from 'vue'
 
 const props = withDefaults(
   defineProps<{

@@ -4,16 +4,11 @@
     :class="{ 'min-h-40': nowPlaying! }"
   >
     <!-- Aurora background -->
-    <div
-      class="pointer-events-none absolute inset-0 opacity-30"
-      :style="auroraStyle"
-    />
+    <div class="pointer-events-none absolute inset-0 opacity-30" :style="auroraStyle" />
     <div class="pointer-events-none absolute inset-0 bg-linear-to-b from-black/60 to-black/20" />
 
     <div class="relative z-10">
-      <h2 class="mb-4 text-xs font-bold uppercase tracking-wider text-white/30">
-        Now Playing
-      </h2>
+      <h2 class="mb-4 text-xs font-bold tracking-wider text-white/30 uppercase">Now Playing</h2>
 
       <div v-if="isLoading" class="flex items-center gap-4">
         <div class="h-24 w-24 shrink-0 animate-pulse rounded-2xl bg-white/10" />
@@ -35,7 +30,7 @@
                 @error="onImgError"
               />
               <div v-else class="flex h-full w-full items-center justify-center">
-                <Headphones aria-hidden="true" class="text-2xl text-white/40"  />
+                <Headphones aria-hidden="true" class="text-2xl text-white/40" />
               </div>
             </div>
             <div class="disc-hole" />
@@ -50,23 +45,30 @@
           </p>
 
           <div class="mt-3 flex items-center justify-center gap-3 sm:justify-start">
-            <span class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs"
+            <span
+              class="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs"
               :class="sourceBadgeClass"
             >
-              <RefreshCw class="text-xs" aria-hidden="true" v-if="nowPlaying.source === 'autofill'" />
+              <RefreshCw
+                class="text-xs"
+                aria-hidden="true"
+                v-if="nowPlaying.source === 'autofill'"
+              />
               <ThumbsUp class="text-xs" aria-hidden="true" v-else />
               {{ sourceLabel }}
             </span>
             <button
               class="flex h-10 w-10 items-center justify-center rounded-full transition hover:scale-105 active:scale-95"
-              :class="isPlaying
-                ? 'bg-white/10 text-white hover:bg-white/20'
-                : 'bg-spotify/20 text-spotify hover:bg-spotify/30 play-pulse'"
+              :class="
+                isPlaying
+                  ? 'bg-white/10 text-white hover:bg-white/20'
+                  : 'bg-spotify/20 text-spotify hover:bg-spotify/30 play-pulse'
+              "
               @click="$emit('toggle-play')"
               aria-label="Toggle play"
             >
-              <Pause aria-hidden="true" v-if="isPlaying" class="text-lg"  />
-              <Play aria-hidden="true" v-else class="ml-0.5 text-lg"  />
+              <Pause aria-hidden="true" v-if="isPlaying" class="text-lg" />
+              <Play aria-hidden="true" v-else class="ml-0.5 text-lg" />
             </button>
             <span class="text-xs text-white/30">
               <span v-if="isPlaying" class="text-green-400">● Playing</span>
@@ -77,7 +79,7 @@
       </div>
 
       <div v-else class="flex flex-col items-center gap-3 py-8 text-sm text-white/30">
-        <Headphones aria-hidden="true" class="text-3xl"  />
+        <Headphones aria-hidden="true" class="text-3xl" />
         <span>Waiting for a track to play...</span>
       </div>
     </div>
@@ -109,9 +111,7 @@ const auroraStyle = computed(() => {
 
 const sourceLabel = computed(() => {
   if (!props.nowPlaying) return ''
-  return props.nowPlaying.source === 'autofill'
-    ? 'پخش خودکار از پرشنیده‌ها'
-    : 'پیشنهاد شده'
+  return props.nowPlaying.source === 'autofill' ? 'پخش خودکار از پرشنیده‌ها' : 'پیشنهاد شده'
 })
 
 const sourceBadgeClass = computed(() => {
@@ -173,13 +173,18 @@ const sourceBadgeClass = computed(() => {
 }
 
 @keyframes spinDisc {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* Pulse animation for the play button when track is loaded but not playing */
 @keyframes playPulse {
-  0%, 100% {
+  0%,
+  100% {
     box-shadow: 0 0 0 0 rgba(29, 185, 84, 0.4);
   }
   50% {

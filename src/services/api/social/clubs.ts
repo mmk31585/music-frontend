@@ -25,10 +25,7 @@ export interface LaunchPartyPayload {
   is_public?: boolean
 }
 
-export const createClub = async (
-  data: CreateClubPayload,
-  config?: UseRequestConfig<MusicClub>,
-) => {
+export const createClub = async (data: CreateClubPayload, config?: UseRequestConfig<MusicClub>) => {
   return useRequest<MusicClub>(SocialApiRoutes.CLUBS, { method: 'POST', data }, config)
 }
 
@@ -56,11 +53,7 @@ export const joinClub = async (id: string, config?: UseRequestConfig<void>) => {
 }
 
 export const leaveClub = async (id: string, config?: UseRequestConfig<void>) => {
-  return useRequest<void>(
-    SocialApiRoutes.CLUB_LEAVE.replace(':id', id),
-    { method: 'POST' },
-    config,
-  )
+  return useRequest<void>(SocialApiRoutes.CLUB_LEAVE.replace(':id', id), { method: 'POST' }, config)
 }
 
 export const launchParty = async (

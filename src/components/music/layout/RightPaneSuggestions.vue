@@ -1,6 +1,8 @@
 <template>
   <div v-if="items.length > 0">
-    <h3 class="flex items-center gap-2 px-1 py-3 text-[11px] font-bold tracking-[0.15em] text-slate-500 uppercase">
+    <h3
+      class="flex items-center gap-2 px-1 py-3 text-[11px] font-bold tracking-[0.15em] text-slate-500 uppercase"
+    >
       <Star :size="12" />
       Suggestions
     </h3>
@@ -25,18 +27,14 @@
             <Music :size="14" class="text-slate-500" />
           </div>
         </div>
-        <button
-          type="button"
-          class="min-w-0 flex-1 text-left"
-          @click="$emit('play', track.id)"
-        >
+        <button type="button" class="min-w-0 flex-1 text-left" @click="$emit('play', track.id)">
           <p class="truncate text-sm font-medium text-white">{{ track.title }}</p>
           <p class="truncate text-xs text-slate-500">{{ track.artistName }}</p>
         </button>
         <button
           type="button"
           aria-label="Play suggestion"
-          class="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-slate-500 opacity-0 transition-all duration-150 hover:bg-white/10 hover:text-primary group-hover/track:opacity-100 active:scale-90"
+          class="hover:text-primary flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-slate-500 opacity-0 transition-all duration-150 group-hover/track:opacity-100 hover:bg-white/10 active:scale-90"
           @click="$emit('play', track.id)"
         >
           <Play :size="12" />
@@ -96,7 +94,5 @@ function openContextMenu(e: MouseEvent, track: SuggestionItem) {
   menuVisible.value = true
 }
 
-const { sections, header, accentColor } = useTrackContextMenu(
-  computed(() => contextTrack.value),
-)
+const { sections, header, accentColor } = useTrackContextMenu(computed(() => contextTrack.value))
 </script>

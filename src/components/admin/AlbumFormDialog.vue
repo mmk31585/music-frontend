@@ -16,7 +16,7 @@
     <template #header>
       <div class="flex items-center gap-3">
         <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-500/10">
-          <Book aria-hidden="true" class="text-blue-400"  />
+          <Book aria-hidden="true" class="text-blue-400" />
         </div>
         <div>
           <h3 class="text-base font-semibold text-white">
@@ -42,15 +42,20 @@
           :invalid="!errors.title!"
           autofocus
         />
-        <small v-if="errors.title" class="mt-1 block text-xs text-red-400">{{ errors.title }}</small>
+        <small v-if="errors.title" class="mt-1 block text-xs text-red-400">{{
+          errors.title
+        }}</small>
       </div>
 
       <!-- Artists (primary + featured) -->
       <div>
         <label class="mb-1.5 flex items-center gap-2 text-xs font-medium text-slate-400">
           Artists
-          <Loader2 aria-hidden="true" v-if="artistSearchLoading"
-            class="text-[10px] text-emerald-400 animate-spin" />
+          <Loader2
+            aria-hidden="true"
+            v-if="artistSearchLoading"
+            class="animate-spin text-[10px] text-emerald-400"
+          />
         </label>
         <AutoComplete
           v-model="artistModels"
@@ -67,7 +72,7 @@
         >
           <template #option="{ option }">
             <div class="flex items-center gap-2 text-sm text-white">
-              <User aria-hidden="true" class="text-xs text-slate-500"  />
+              <User aria-hidden="true" class="text-xs text-slate-500" />
               <span>{{ option.name }}</span>
             </div>
           </template>
@@ -79,9 +84,7 @@
 
       <!-- Album type -->
       <div>
-        <label class="mb-1.5 block text-xs font-medium text-slate-400">
-          Album type
-        </label>
+        <label class="mb-1.5 block text-xs font-medium text-slate-400"> Album type </label>
         <Select
           v-model="form.album_type"
           :options="albumTypeOptions"
@@ -96,9 +99,7 @@
 
       <!-- Release date -->
       <div>
-        <label class="mb-1.5 block text-xs font-medium text-slate-400">
-          Release date
-        </label>
+        <label class="mb-1.5 block text-xs font-medium text-slate-400"> Release date </label>
         <InputText
           v-model="form.release_date"
           type="date"
@@ -135,10 +136,7 @@
       </div>
 
       <!-- Cover Preview -->
-      <div
-        v-if="form.cover_url"
-        class="h-40 overflow-hidden rounded-xl border border-white/6"
-      >
+      <div v-if="form.cover_url" class="h-40 overflow-hidden rounded-xl border border-white/6">
         <img
           :src="form.cover_url"
           :alt="form.title"
@@ -312,16 +310,20 @@ async function searchArtistByName(name: string) {
       return an === trimmed.toLowerCase()
     })
     if (match) {
-      artistModels.value = [{
-        id: match.id ?? (match as any).artist_id,
-        name: match.name ?? (match as any).artist_name,
-      }]
+      artistModels.value = [
+        {
+          id: match.id ?? (match as any).artist_id,
+          name: match.name ?? (match as any).artist_name,
+        },
+      ]
     } else if (list.length > 0) {
       // Fall back to first result
-      artistModels.value = [{
-        id: list[0]?.id ?? (list[0] as any)?.artist_id,
-        name: list[0]?.name ?? (list[0] as any)?.artist_name,
-      }]
+      artistModels.value = [
+        {
+          id: list[0]?.id ?? (list[0] as any)?.artist_id,
+          name: list[0]?.name ?? (list[0] as any)?.artist_name,
+        },
+      ]
     }
   } catch {
     // Silently skip
@@ -368,10 +370,20 @@ async function handleFileUpload(e: Event) {
     const res = await mediaApi.uploadAdminMedia('albumCover', file)
     if (res?.url) {
       form.cover_url = res.url
-      toast.add({ severity: 'success', summary: 'Uploaded', detail: 'Cover uploaded successfully', life: 3000 })
+      toast.add({
+        severity: 'success',
+        summary: 'Uploaded',
+        detail: 'Cover uploaded successfully',
+        life: 3000,
+      })
     }
   } catch {
-    toast.add({ severity: 'error', summary: 'Upload failed', detail: 'Could not upload cover', life: 4000 })
+    toast.add({
+      severity: 'error',
+      summary: 'Upload failed',
+      detail: 'Could not upload cover',
+      life: 4000,
+    })
   } finally {
     uploading.value = false
     input.value = ''
@@ -431,9 +443,19 @@ async function handleEnrich() {
         searchArtistByName(refreshed.artist_name)
       }
     }
-    toast.add({ severity: 'success', summary: 'Enriched', detail: 'Album data fetched from external sources', life: 3000 })
+    toast.add({
+      severity: 'success',
+      summary: 'Enriched',
+      detail: 'Album data fetched from external sources',
+      life: 3000,
+    })
   } catch {
-    toast.add({ severity: 'error', summary: 'Enrich failed', detail: 'Could not fetch album data. Check external service connectivity.', life: 4000 })
+    toast.add({
+      severity: 'error',
+      summary: 'Enrich failed',
+      detail: 'Could not fetch album data. Check external service connectivity.',
+      life: 4000,
+    })
   } finally {
     enriching.value = false
   }

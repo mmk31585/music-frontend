@@ -14,22 +14,43 @@ import {
 
 export const usePermissionsApi = () => {
   const getMyAccess = async () => {
-    return useRequest<UserAccess>('/permissions/me', { method: 'GET' }, { schema: UserAccessSchema })
+    return useRequest<UserAccess>(
+      '/permissions/me',
+      { method: 'GET' },
+      { schema: UserAccessSchema },
+    )
   }
 
   const listPermissions = async () => {
-    return useRequest<Permission>('/permissions', { method: 'GET' }, { schema: PermissionSchema, silent: true })
+    return useRequest<Permission>(
+      '/permissions',
+      { method: 'GET' },
+      { schema: PermissionSchema, silent: true },
+    )
   }
 
   const listRoles = async () => {
-    return useRequest<RoleWithPermissions>('/roles', { method: 'GET' }, { schema: RoleWithPermissionsSchema, silent: true })
+    return useRequest<RoleWithPermissions>(
+      '/roles',
+      { method: 'GET' },
+      { schema: RoleWithPermissionsSchema, silent: true },
+    )
   }
 
   const getRole = async (slug: string) => {
-    return useRequest<RoleWithPermissions>(`/roles/${slug}`, { method: 'GET' }, { schema: RoleWithPermissionsSchema })
+    return useRequest<RoleWithPermissions>(
+      `/roles/${slug}`,
+      { method: 'GET' },
+      { schema: RoleWithPermissionsSchema },
+    )
   }
 
-  const createRole = async (data: { slug: string; label: string; description?: string; hierarchyLevel: number }) => {
+  const createRole = async (data: {
+    slug: string
+    label: string
+    description?: string
+    hierarchyLevel: number
+  }) => {
     return useRequest<any>('/roles', { method: 'POST', data }, { silent: false })
   }
 
@@ -42,35 +63,67 @@ export const usePermissionsApi = () => {
   }
 
   const setRolePermissions = async (slug: string, permissions: string[]) => {
-    return useRequest<any>(`/roles/${slug}/permissions`, { method: 'PUT', data: { permissions } }, { silent: false })
+    return useRequest<any>(
+      `/roles/${slug}/permissions`,
+      { method: 'PUT', data: { permissions } },
+      { silent: false },
+    )
   }
 
   const getUserAccess = async (userId: string) => {
-    return useRequest<UserAccess>(`/users/${userId}/access`, { method: 'GET' }, { schema: UserAccessSchema })
+    return useRequest<UserAccess>(
+      `/users/${userId}/access`,
+      { method: 'GET' },
+      { schema: UserAccessSchema },
+    )
   }
 
   const checkPermission = async (userId: string, permSlug: string) => {
-    return useRequest<CheckPermissionResponse>(`/users/${userId}/access/check`, { method: 'POST', data: { permSlug } }, { schema: CheckPermissionResponseSchema })
+    return useRequest<CheckPermissionResponse>(
+      `/users/${userId}/access/check`,
+      { method: 'POST', data: { permSlug } },
+      { schema: CheckPermissionResponseSchema },
+    )
   }
 
   const assignUserRole = async (userId: string, roleSlug: string) => {
-    return useRequest<any>(`/users/${userId}/roles`, { method: 'POST', data: { roleSlug } }, { silent: false })
+    return useRequest<any>(
+      `/users/${userId}/roles`,
+      { method: 'POST', data: { roleSlug } },
+      { silent: false },
+    )
   }
 
   const removeUserRole = async (userId: string, roleSlug: string) => {
-    return useRequest<any>(`/users/${userId}/roles/${roleSlug}`, { method: 'DELETE' }, { silent: false })
+    return useRequest<any>(
+      `/users/${userId}/roles/${roleSlug}`,
+      { method: 'DELETE' },
+      { silent: false },
+    )
   }
 
   const getUserOverrides = async (userId: string) => {
-    return useRequest<UserPermissionOverride>(`/users/${userId}/overrides`, { method: 'GET' }, { schema: UserPermissionOverrideSchema, silent: true })
+    return useRequest<UserPermissionOverride>(
+      `/users/${userId}/overrides`,
+      { method: 'GET' },
+      { schema: UserPermissionOverrideSchema, silent: true },
+    )
   }
 
   const grantPermission = async (userId: string, permSlug: string, reason: string) => {
-    return useRequest<any>(`/users/${userId}/overrides/grant`, { method: 'POST', data: { permSlug, reason } }, { silent: false })
+    return useRequest<any>(
+      `/users/${userId}/overrides/grant`,
+      { method: 'POST', data: { permSlug, reason } },
+      { silent: false },
+    )
   }
 
   const revokePermission = async (userId: string, permSlug: string) => {
-    return useRequest<any>(`/users/${userId}/overrides/revoke`, { method: 'POST', data: { permSlug } }, { silent: false })
+    return useRequest<any>(
+      `/users/${userId}/overrides/revoke`,
+      { method: 'POST', data: { permSlug } },
+      { silent: false },
+    )
   }
 
   return {

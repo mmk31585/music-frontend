@@ -3,9 +3,7 @@ import { useMaintenanceStore } from '@/stores/maintenance'
 import { computed, ref } from 'vue'
 
 export function useMaintenance() {
-  const secret = ref<string | null>(
-    safeLocalStorage.getItem<string>('maintenance_secret'),
-  )
+  const secret = ref<string | null>(safeLocalStorage.getItem<string>('maintenance_secret'))
   const getSecret = computed(() => secret.value)
 
   const check = async () => {

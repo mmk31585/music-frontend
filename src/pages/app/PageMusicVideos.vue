@@ -6,9 +6,7 @@
         <div>
           <p class="text-[10px] font-bold tracking-[0.35em] text-white/30 uppercase">Video</p>
           <h1 class="mt-2 text-3xl font-black text-white md:text-4xl">Music Videos</h1>
-          <p class="mt-2 text-sm text-slate-400">
-            Browse official music videos and fan edits
-          </p>
+          <p class="mt-2 text-sm text-slate-400">Browse official music videos and fan edits</p>
         </div>
       </div>
     </div>
@@ -20,9 +18,11 @@
         :key="f.value"
         type="button"
         class="rounded-full px-4 py-2 text-sm font-bold transition-all"
-        :class="activeFilter === f.value
-          ? 'bg-white text-black'
-          : 'bg-white/6 text-white/60 hover:bg-white/10 hover:text-white'"
+        :class="
+          activeFilter === f.value
+            ? 'bg-white text-black'
+            : 'bg-white/6 text-white/60 hover:bg-white/10 hover:text-white'
+        "
         @click="activeFilter = f.value; resetVideos()"
       >
         {{ f.label }}
@@ -30,7 +30,10 @@
     </div>
 
     <!-- ── Loading state ── -->
-    <div v-if="loading && !videos.length && !filteredVideos.length" class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+    <div
+      v-if="loading && !videos.length && !filteredVideos.length"
+      class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
+    >
       <div v-for="i in 10" :key="i" class="animate-pulse">
         <div class="aspect-9/16 w-full rounded-2xl bg-white/4" />
         <div class="mt-2 space-y-1.5 px-1">
@@ -41,9 +44,12 @@
     </div>
 
     <!-- ── Error state ── -->
-    <div v-else-if="error && !videos.length && !filteredVideos.length" class="flex flex-col items-center gap-4 py-24 text-center">
+    <div
+      v-else-if="error && !videos.length && !filteredVideos.length"
+      class="flex flex-col items-center gap-4 py-24 text-center"
+    >
       <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/4">
-        <AlertCircle aria-hidden="true" class="text-3xl text-slate-500"  />
+        <AlertCircle aria-hidden="true" class="text-3xl text-slate-500" />
       </div>
       <h2 class="text-xl font-bold text-white">Failed to load videos</h2>
       <p class="text-sm text-slate-400">Something went wrong. Please try again.</p>
@@ -81,7 +87,10 @@
       </div>
 
       <!-- End of results -->
-      <p v-if="!hasMore && filteredVideos.length > 0" class="mt-10 text-center text-sm text-slate-500">
+      <p
+        v-if="!hasMore && filteredVideos.length > 0"
+        class="mt-10 text-center text-sm text-slate-500"
+      >
         You've reached the end
       </p>
     </div>
@@ -89,10 +98,18 @@
     <!-- ── Empty state (no data OR filter yields nothing) ── -->
     <div v-else class="flex flex-col items-center gap-4 py-24 text-center">
       <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/4">
-        <Video aria-hidden="true" class="text-3xl text-slate-500"  />
+        <Video aria-hidden="true" class="text-3xl text-slate-500" />
       </div>
-      <h2 class="text-xl font-bold text-white">{{ videos.length ? 'No videos match this filter' : 'No videos yet' }}</h2>
-      <p class="text-sm text-slate-400">{{ videos.length ? 'Try selecting a different filter or browse all.' : 'No music videos have been added yet.' }}</p>
+      <h2 class="text-xl font-bold text-white">
+        {{ videos.length ? 'No videos match this filter' : 'No videos yet' }}
+      </h2>
+      <p class="text-sm text-slate-400">
+        {{
+          videos.length
+            ? 'Try selecting a different filter or browse all.'
+            : 'No music videos have been added yet.'
+        }}
+      </p>
     </div>
   </div>
 </template>

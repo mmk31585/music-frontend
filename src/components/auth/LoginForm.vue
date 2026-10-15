@@ -1,23 +1,31 @@
 <template>
   <div
-    class="auth-card w-full animate-reveal rounded-2xl border border-white/6 bg-black/40 p-8 shadow-2xl backdrop-blur-xl"
+    class="auth-card animate-reveal w-full rounded-2xl border border-white/6 bg-black/40 p-8 shadow-2xl backdrop-blur-xl"
   >
     <div class="mb-8 text-center">
-      <div class="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-spotify/10">
-        <Headphones aria-hidden="true" class="text-2xl text-spotify" />
+      <div class="bg-spotify/10 mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-xl">
+        <Headphones aria-hidden="true" class="text-spotify text-2xl" />
       </div>
-      <h1 class="font-display text-2xl font-bold text-white tracking-tight">{{ $t('auth.login_title') }}</h1>
+      <h1 class="font-display text-2xl font-bold tracking-tight text-white">
+        {{ $t('auth.login_title') }}
+      </h1>
       <p class="mt-1.5 text-sm text-white/40">Log in to continue your music journey</p>
     </div>
 
     <form class="space-y-5" @submit.prevent="onSubmit">
       <!-- Email -->
       <div class="group">
-        <label for="login-email" class="mb-1.5 block text-sm font-medium text-white/60 group-focus-within:text-spotify transition-colors duration-200">
+        <label
+          for="login-email"
+          class="group-focus-within:text-spotify mb-1.5 block text-sm font-medium text-white/60 transition-colors duration-200"
+        >
           {{ $t('auth.email') }}
         </label>
         <span class="relative block">
-          <Mail aria-hidden="true" class="absolute top-1/2 left-3 -translate-y-1/2 text-sm text-white/30" />
+          <Mail
+            aria-hidden="true"
+            class="absolute top-1/2 left-3 -translate-y-1/2 text-sm text-white/30"
+          />
           <InputText
             id="login-email"
             v-model="form.email"
@@ -45,11 +53,17 @@
 
       <!-- Password -->
       <div class="group">
-        <label for="login-password" class="mb-1.5 block text-sm font-medium text-white/60 group-focus-within:text-spotify transition-colors duration-200">
+        <label
+          for="login-password"
+          class="group-focus-within:text-spotify mb-1.5 block text-sm font-medium text-white/60 transition-colors duration-200"
+        >
           {{ $t('auth.password') }}
         </label>
         <span class="relative block">
-          <Lock aria-hidden="true" class="absolute top-1/2 left-3 -translate-y-1/2 text-sm text-white/30 z-10" />
+          <Lock
+            aria-hidden="true"
+            class="absolute top-1/2 left-3 z-10 -translate-y-1/2 text-sm text-white/30"
+          />
           <Password
             id="login-password"
             v-model="form.password"
@@ -78,10 +92,10 @@
       </div>
 
       <!-- Forgot password -->
-      <div class="flex justify-end -mt-3">
+      <div class="-mt-3 flex justify-end">
         <RouterLink
           to="/auth/forgot-password"
-          class="text-xs text-white/40 transition hover:text-spotify"
+          class="hover:text-spotify text-xs text-white/40 transition"
         >
           {{ $t('auth.forgot_password') }}
         </RouterLink>
@@ -95,7 +109,10 @@
           :binary="true"
           input-id="login-remember-input"
         />
-        <label for="login-remember-input" class="cursor-pointer text-sm text-white/50 select-none hover:text-white/70 transition-colors">
+        <label
+          for="login-remember-input"
+          class="cursor-pointer text-sm text-white/50 transition-colors select-none hover:text-white/70"
+        >
           Remember me for 30 days
         </label>
       </div>
@@ -119,7 +136,7 @@
         icon="pi pi-arrow-right"
         icon-pos="right"
         :loading="loading"
-        class="auth-btn w-full border-0 bg-spotify text-black font-semibold hover:bg-spotify-hover transition-all duration-200"
+        class="auth-btn bg-spotify hover:bg-spotify-hover w-full border-0 font-semibold text-black transition-all duration-200"
       />
 
       <!-- Divider -->
@@ -135,7 +152,7 @@
       <!-- Guest link -->
       <RouterLink
         to="/"
-        class="flex items-center justify-center gap-2 rounded-xl border border-white/8 px-4 py-2.5 text-sm text-white/50 transition-all duration-200 hover:border-white/20 hover:text-white/80 hover:bg-white/3"
+        class="flex items-center justify-center gap-2 rounded-xl border border-white/8 px-4 py-2.5 text-sm text-white/50 transition-all duration-200 hover:border-white/20 hover:bg-white/3 hover:text-white/80"
       >
         <User aria-hidden="true" class="text-xs" />
         Continue as guest
@@ -144,7 +161,10 @@
       <!-- Switch to register -->
       <p class="text-center text-sm text-white/40">
         {{ $t('auth.no_account') }}
-        <RouterLink to="/auth/register" class="font-medium text-spotify transition-colors duration-200 hover:text-spotify-hover">
+        <RouterLink
+          to="/auth/register"
+          class="text-spotify hover:text-spotify-hover font-medium transition-colors duration-200"
+        >
           {{ $t('nav.register') }}
         </RouterLink>
       </p>

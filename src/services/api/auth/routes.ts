@@ -6,7 +6,6 @@ import {
   AuthResponseSchema,
   CurrentUserResponseSchema,
   AdminUserSchema,
-  AdminUserListResponseSchema,
   type AuthResponse,
   type CurrentUserResponse,
   type RegisterPayload,
@@ -107,10 +106,7 @@ export const useAuthApi = () => {
     )
   }
 
-  const adminGetUser = async (
-    id: string,
-    config?: UseRequestConfig<AdminUser>,
-  ) => {
+  const adminGetUser = async (id: string, config?: UseRequestConfig<AdminUser>) => {
     return useRequest<AdminUser>(
       AuthApiRoutes.ADMIN_USER.replace(':id', String(id)),
       { method: 'GET' },
@@ -140,10 +136,7 @@ export const useAuthApi = () => {
     )
   }
 
-  const adminDeleteUser = async (
-    id: string,
-    config?: UseRequestConfig<void>,
-  ) => {
+  const adminDeleteUser = async (id: string, config?: UseRequestConfig<void>) => {
     return useRequest<void>(
       AuthApiRoutes.ADMIN_USER.replace(':id', String(id)),
       { method: 'DELETE' },

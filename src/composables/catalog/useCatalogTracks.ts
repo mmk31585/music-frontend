@@ -1,5 +1,5 @@
 import { onMounted, ref } from 'vue'
-import {  useTracksApi } from '@/services/api/catalog'
+import { useTracksApi } from '@/services/api/catalog'
 import type { Track } from '@/services/api/catalog'
 
 export function useCatalogTracks() {

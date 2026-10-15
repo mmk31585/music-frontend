@@ -13,7 +13,11 @@ export const usePermissionsStore = defineStore('permissions', () => {
   const permissions = computed(() => access.value?.permissions ?? [])
 
   const hasPermission = computed(() => (slug: string) => permissions.value.includes(slug))
-  const hasAnyPermission = computed(() => (...slugs: string[]) => slugs.some((s) => permissions.value.includes(s)))
+  const hasAnyPermission = computed(
+    () =>
+      (...slugs: string[]) =>
+        slugs.some((s) => permissions.value.includes(s)),
+  )
 
   const isAtLeast = computed(() => (minLevel: number) => roleLevel.value >= minLevel)
 

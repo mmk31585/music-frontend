@@ -8,7 +8,16 @@
     />
     <div
       class="pointer-events-none fixed inset-0 opacity-[0.015]"
-      style="background-image: repeating-radial-gradient(circle at 50% 50%, transparent 0, transparent 2px, rgba(255,255,255,0.04) 2px, rgba(255,255,255,0.04) 3px); background-size: 6px 6px;"
+      style="
+        background-image: repeating-radial-gradient(
+          circle at 50% 50%,
+          transparent 0,
+          transparent 2px,
+          rgba(255, 255, 255, 0.04) 2px,
+          rgba(255, 255, 255, 0.04) 3px
+        );
+        background-size: 6px 6px;
+      "
       aria-hidden="true"
     />
 
@@ -19,7 +28,7 @@
         class="mb-6 inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm text-white/50 transition hover:bg-white/6 hover:text-white"
         @click="goBack"
       >
-        <ArrowLeft aria-hidden="true" class="text-xs"  />
+        <ArrowLeft aria-hidden="true" class="text-xs" />
         Back
       </button>
 
@@ -45,11 +54,16 @@
       <!-- Error -->
       <div v-else-if="error" class="flex flex-col items-center gap-4 py-24 text-center">
         <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/4">
-          <AlertCircle aria-hidden="true" class="text-3xl text-slate-500"  />
+          <AlertCircle aria-hidden="true" class="text-3xl text-slate-500" />
         </div>
         <h2 class="text-xl font-bold text-white">Track not found</h2>
-        <p class="text-sm text-slate-400">This track may have been removed or the link is invalid.</p>
-        <RouterLink to="/" class="mt-2 text-sm font-medium text-spotify underline underline-offset-2">
+        <p class="text-sm text-slate-400">
+          This track may have been removed or the link is invalid.
+        </p>
+        <RouterLink
+          to="/"
+          class="text-spotify mt-2 text-sm font-medium underline underline-offset-2"
+        >
           Go home
         </RouterLink>
       </div>
@@ -71,11 +85,11 @@
                 :src="track.cover_url"
                 :alt="track.title"
                 loading="eager"
-                class="h-full w-full select-none object-cover"
+                class="h-full w-full object-cover select-none"
                 @error="onImgError"
               />
               <div v-else class="flex h-full items-center justify-center">
-                <Disc3 aria-hidden="true" class="text-5xl text-slate-500"  />
+                <Disc3 aria-hidden="true" class="text-5xl text-slate-500" />
               </div>
 
               <!-- Playing indicator overlay -->
@@ -85,10 +99,22 @@
               >
                 <div class="flex items-end gap-0.75">
                   <span class="now-playing-bar h-5 w-0.75 rounded-full bg-white" />
-                  <span class="now-playing-bar h-8 w-0.75 rounded-full bg-white" style="animation-delay: 0.15s" />
-                  <span class="now-playing-bar h-6 w-0.75 rounded-full bg-white" style="animation-delay: 0.3s" />
-                  <span class="now-playing-bar h-4 w-0.75 rounded-full bg-white" style="animation-delay: 0.45s" />
-                  <span class="now-playing-bar h-7 w-0.75 rounded-full bg-white" style="animation-delay: 0.2s" />
+                  <span
+                    class="now-playing-bar h-8 w-0.75 rounded-full bg-white"
+                    style="animation-delay: 0.15s"
+                  />
+                  <span
+                    class="now-playing-bar h-6 w-0.75 rounded-full bg-white"
+                    style="animation-delay: 0.3s"
+                  />
+                  <span
+                    class="now-playing-bar h-4 w-0.75 rounded-full bg-white"
+                    style="animation-delay: 0.45s"
+                  />
+                  <span
+                    class="now-playing-bar h-7 w-0.75 rounded-full bg-white"
+                    style="animation-delay: 0.2s"
+                  />
                 </div>
               </div>
 
@@ -96,16 +122,16 @@
               <RouterLink
                 v-if="isAdmin"
                 :to="`/admin/catalog/tracks/${trackId}`"
-                class="absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-black/50 text-white opacity-0 backdrop-blur-xs transition-opacity hover:bg-black/70 group-hover:opacity-100"
+                class="absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-black/50 text-white opacity-0 backdrop-blur-xs transition-opacity group-hover:opacity-100 hover:bg-black/70"
                 title="Edit track in admin"
                 @click.stop
               >
-                <Pencil aria-hidden="true" class="text-xs"  />
+                <Pencil aria-hidden="true" class="text-xs" />
               </RouterLink>
             </div>
             <!-- Sleeve frame accent -->
             <div
-              class="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-white/4"
+              class="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-white/4 ring-inset"
               aria-hidden="true"
             />
           </div>
@@ -118,19 +144,21 @@
               <span
                 v-if="isAdmin"
                 class="rounded-full bg-amber-500/15 px-2 py-0.5 text-[9px] font-bold text-amber-400"
-              >Admin</span>
+                >Admin</span
+              >
             </div>
 
             <!-- Title -->
             <div class="mt-3 flex items-start gap-3">
-              <h1 class="text-3xl font-black leading-[1.1] text-white md:text-4xl lg:text-5xl">
+              <h1 class="text-3xl leading-[1.1] font-black text-white md:text-4xl lg:text-5xl">
                 {{ track.title }}
               </h1>
               <span
                 v-if="track.explicit"
                 class="mt-1.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded bg-white/15 text-[11px] font-bold tracking-wide text-white"
                 title="Explicit"
-              >E</span>
+                >E</span
+              >
             </div>
 
             <!-- Artists (all) -->
@@ -138,14 +166,15 @@
               <template v-for="(a, i) in trackArtists" :key="String(a.artistId || i)">
                 <RouterLink
                   :to="`/artist/${a.artistId}`"
-                  class="inline-flex items-center gap-1.5 font-bold text-white underline underline-offset-4 decoration-white/20 transition hover:text-spotify hover:decoration-accent"
+                  class="hover:text-spotify hover:decoration-accent inline-flex items-center gap-1.5 font-bold text-white underline decoration-white/20 underline-offset-4 transition"
                 >
                   {{ a.name }}
                 </RouterLink>
                 <span
                   v-if="a.role && !['main', 'primary'].includes(a.role as string)"
                   class="rounded-full bg-purple-500/15 px-1.5 py-0.5 text-[9px] font-medium text-purple-400"
-                >feat.</span>
+                  >feat.</span
+                >
                 <span v-if="i < trackArtists.length - 1" class="text-white/30">,</span>
               </template>
               <span v-if="track.album_title" class="text-white/30">&middot;</span>
@@ -159,14 +188,11 @@
             </div>
 
             <!-- Genres -->
-            <div
-              v-if="genreList.length > 0"
-              class="mt-4 flex flex-wrap items-center gap-1.5"
-            >
+            <div v-if="genreList.length > 0" class="mt-4 flex flex-wrap items-center gap-1.5">
               <span
                 v-for="g in genreList"
                 :key="g.id"
-                class="rounded-full border border-white/10 bg-white/6 px-3 py-0.5 text-xs font-medium text-slate-300 transition hover:border-spotify/30 hover:text-white"
+                class="hover:border-spotify/30 rounded-full border border-white/10 bg-white/6 px-3 py-0.5 text-xs font-medium text-slate-300 transition hover:text-white"
               >
                 {{ g.name }}
               </span>
@@ -185,18 +211,20 @@
                 class="flex h-10 w-10 items-center justify-center rounded-full text-slate-400 transition hover:bg-white/10 hover:text-white"
                 @click="player.playPrevious"
               >
-                <SkipBack aria-hidden="true" class="text-lg"  />
+                <SkipBack aria-hidden="true" class="text-lg" />
               </button>
 
               <button
                 type="button"
                 aria-label="Toggle play"
-                class="relative flex h-14 w-14 items-center justify-center rounded-full bg-white text-black shadow-2xl transition-all hover:scale-105 hover:bg-spotify hover:text-white active:scale-95 md:h-16 md:w-16"
+                class="hover:bg-spotify relative flex h-14 w-14 items-center justify-center rounded-full bg-white text-black shadow-2xl transition-all hover:scale-105 hover:text-white active:scale-95 md:h-16 md:w-16"
                 @click="togglePlay"
               >
-                <component :is="isPlaying ? Pause : Play" aria-hidden="true"<i
-                  
+                <component
+                  :is="isPlaying ? Pause : Play"
+                  aria-hidden="true"
                   class="ml-0.5 text-xl md:text-2xl"
+                />
                 /> />
               </button>
 
@@ -206,7 +234,7 @@
                 class="flex h-10 w-10 items-center justify-center rounded-full text-slate-400 transition hover:bg-white/10 hover:text-white"
                 @click="player.playNext"
               >
-                <SkipForward aria-hidden="true" class="text-lg"  />
+                <SkipForward aria-hidden="true" class="text-lg" />
               </button>
             </div>
 
@@ -235,20 +263,24 @@
             <div class="mt-6 flex flex-wrap items-center gap-3">
               <button
                 type="button"
-                class="glow-green inline-flex items-center gap-2.5 rounded-full bg-spotify px-7 py-2.5 text-sm font-bold text-black transition hover:scale-105 hover:bg-spotify-hover"
+                class="glow-green bg-spotify hover:bg-spotify-hover inline-flex items-center gap-2.5 rounded-full px-7 py-2.5 text-sm font-bold text-black transition hover:scale-105"
                 @click="togglePlay"
               >
-                <component :is="isPlaying ? Pause : Play"<i aria-hidden="true"  /> />
+                <component :is="isPlaying ? Pause : Play" aria-hidden="true" />
                 {{ isPlaying ? 'Pause' : 'Play' }}
               </button>
 
               <button
                 type="button"
                 class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/4 px-5 py-2.5 text-sm font-bold transition"
-                :class="isLiked ? 'border-spotify/30 text-spotify' : 'text-white/80 hover:border-white/30 hover:bg-white/8 hover:text-white'"
+                :class="
+                  isLiked
+                    ? 'border-spotify/30 text-spotify'
+                    : 'text-white/80 hover:border-white/30 hover:bg-white/8 hover:text-white'
+                "
                 @click="toggleLike"
               >
-                <component :is="isLiked ? Heart : Heart"<i aria-hidden="true"  /> />
+                <component :is="isLiked ? Heart : Heart" aria-hidden="true" />
                 {{ isLiked ? 'Liked' : 'Like' }}
               </button>
 
@@ -257,7 +289,7 @@
                 class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/3 px-5 py-2.5 text-sm font-bold text-white/60 transition hover:bg-white/8 hover:text-white"
                 @click="showAddToPlaylist = true"
               >
-                <Plus aria-hidden="true" class=""  />
+                <Plus aria-hidden="true" class="" />
                 Playlist
               </button>
 
@@ -266,13 +298,13 @@
                 class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/3 px-5 py-2.5 text-sm font-bold text-white/60 transition hover:bg-white/8 hover:text-white"
                 @click="shareTrack"
               >
-                <Share2 aria-hidden="true" class=""  />
+                <Share2 aria-hidden="true" class="" />
                 Share
               </button>
 
               <button
                 type="button"
-                class="inline-flex items-center gap-2 rounded-full border border-border-default px-5 py-2.5 text-sm font-medium text-secondary transition-all hover:border-accent hover:text-accent"
+                class="border-border-default text-secondary hover:border-accent hover:text-accent inline-flex items-center gap-2 rounded-full border px-5 py-2.5 text-sm font-medium transition-all"
                 @click="handleStartRadio"
               >
                 <Radio aria-hidden="true" class="text-base" />
@@ -285,7 +317,7 @@
                 :to="`/admin/catalog/tracks/${trackId}`"
                 class="inline-flex items-center gap-2 rounded-full border border-amber-500/20 bg-amber-500/10 px-5 py-2.5 text-sm font-bold text-amber-400 transition hover:bg-amber-500/20"
               >
-                <Pencil aria-hidden="true" class="text-sm"  />
+                <Pencil aria-hidden="true" class="text-sm" />
                 Edit
               </RouterLink>
 
@@ -295,7 +327,7 @@
                 class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/3 px-5 py-2.5 text-sm font-bold text-white/60 transition hover:bg-white/8 hover:text-white"
                 @click="goToCreateEdit"
               >
-                <Video aria-hidden="true" class="text-sm"  />
+                <Video aria-hidden="true" class="text-sm" />
                 Edit Video
               </button>
             </div>
@@ -315,14 +347,19 @@
               <button
                 type="button"
                 class="relative flex items-center gap-2 text-sm font-medium transition"
-                :class="player.repeatMode.value !== 'off' ? 'text-spotify' : 'text-slate-400 hover:text-white'"
+                :class="
+                  player.repeatMode.value !== 'off'
+                    ? 'text-spotify'
+                    : 'text-slate-400 hover:text-white'
+                "
                 @click="player.toggleRepeat"
               >
-                <RefreshCw aria-hidden="true" class="text-lg"  />
+                <RefreshCw aria-hidden="true" class="text-lg" />
                 <span
                   v-if="player.repeatMode.value === 'one'"
-                  class="absolute -top-1 -right-3 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-spotify text-[8px] font-bold text-black"
-                >1</span>
+                  class="bg-spotify absolute -top-1 -right-3 flex h-3.5 w-3.5 items-center justify-center rounded-full text-[8px] font-bold text-black"
+                  >1</span
+                >
                 Repeat
               </button>
 
@@ -331,7 +368,7 @@
                 class="flex items-center gap-2 text-sm font-medium text-slate-400 transition hover:text-white"
                 @click="showQueue = true"
               >
-                <List aria-hidden="true" class="text-lg"  />
+                <List aria-hidden="true" class="text-lg" />
                 Queue
               </button>
             </div>
@@ -342,7 +379,9 @@
         <!-- MUSIC VISUALIZER                       -->
         <!-- ════════════════════════════════════════ -->
         <section class="mx-auto mt-16 w-full max-w-2xl">
-          <div class="relative h-28 overflow-hidden rounded-2xl border border-white/4 bg-white/2 backdrop-blur-xs">
+          <div
+            class="relative h-28 overflow-hidden rounded-2xl border border-white/4 bg-white/2 backdrop-blur-xs"
+          >
             <div class="flex h-full items-end justify-center gap-0.5 px-4 pb-3">
               <div
                 v-for="i in 96"
@@ -362,9 +401,9 @@
               @click="togglePlay"
             >
               <div
-                class="flex h-12 w-12 items-center justify-center rounded-full bg-spotify/90 text-black shadow-xl backdrop-blur-xs transition-transform hover:scale-110"
+                class="bg-spotify/90 flex h-12 w-12 items-center justify-center rounded-full text-black shadow-xl backdrop-blur-xs transition-transform hover:scale-110"
               >
-                <component :is="isPlaying ? Pause : Play"<i aria-hidden="true"  class="text-lg" /> />
+                <component :is="isPlaying ? Pause : Play" aria-hidden="true" class="text-lg" />
               </div>
             </div>
           </div>
@@ -378,26 +417,30 @@
             <div class="absolute inset-0 flex items-center">
               <div class="w-full border-t border-white/6" />
             </div>
-            <div class="relative flex justify-between items-center">
-              <span class="bg-surface-base px-4 text-[10px] font-bold tracking-[0.3em] text-white/20 uppercase">
+            <div class="relative flex items-center justify-between">
+              <span
+                class="bg-surface-base px-4 text-[10px] font-bold tracking-[0.3em] text-white/20 uppercase"
+              >
                 Music Videos
               </span>
               <RouterLink
                 to="/videos"
-                class="bg-surface-base px-4 text-xs font-medium text-spotify transition hover:text-spotify-hover"
+                class="bg-surface-base text-spotify hover:text-spotify-hover px-4 text-xs font-medium transition"
               >
                 Browse all &rarr;
               </RouterLink>
             </div>
           </div>
           <!-- Mobile: horizontal snap scroll | Desktop: grid -->
-          <div class="flex gap-3 overflow-x-auto px-1 pb-2 snap-x snap-mandatory scrollbar-hidden sm:grid sm:grid-cols-3 sm:overflow-visible sm:px-0 sm:pb-0 sm:snap-none md:grid-cols-4 lg:grid-cols-5">
+          <div
+            class="scrollbar-hidden flex snap-x snap-mandatory gap-3 overflow-x-auto px-1 pb-2 sm:grid sm:snap-none sm:grid-cols-3 sm:overflow-visible sm:px-0 sm:pb-0 md:grid-cols-4 lg:grid-cols-5"
+          >
             <div
               v-for="v in trackVideos"
               :key="String(v.id)"
               role="button"
               tabindex="0"
-              class="group w-[45vw] shrink-0 snap-start cursor-pointer overflow-hidden rounded-xl bg-white/5 transition-all duration-150 hover:bg-white/8 hover:shadow-lg hover:shadow-black/20 sm:w-auto sm:shrink"
+              class="group w-[45vw] shrink-0 cursor-pointer snap-start overflow-hidden rounded-xl bg-white/5 transition-all duration-150 hover:bg-white/8 hover:shadow-lg hover:shadow-black/20 sm:w-auto sm:shrink"
               @click="openVideo(v)"
               @keydown.enter="openVideo(v)"
               @keydown.space.prevent="openVideo(v)"
@@ -409,19 +452,25 @@
                   :alt="v.title"
                   class="h-full w-full object-cover transition-transform duration-150 group-hover:scale-[1.03]"
                   loading="lazy"
-                  @error="($event.target as HTMLImageElement).style.display='none'"
+                  @error="($event.target as HTMLImageElement).style.display = 'none'"
                 />
                 <div v-else class="flex h-full items-center justify-center bg-white/3">
-                  <Video aria-hidden="true" class="text-2xl text-slate-500"  />
+                  <Video aria-hidden="true" class="text-2xl text-slate-500" />
                 </div>
 
                 <!-- Overlay gradient -->
-                <div class="pointer-events-none absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent" />
+                <div
+                  class="pointer-events-none absolute inset-0 bg-linear-to-t from-black/70 via-transparent to-transparent"
+                />
 
                 <!-- Type badge -->
                 <div
                   class="absolute top-2 right-2 rounded-full px-2 py-0.5 text-[10px] font-bold backdrop-blur-xs"
-                  :class="v.type === 'official_mv' ? 'bg-spotify/20 text-spotify' : 'bg-blue-500/20 text-blue-400'"
+                  :class="
+                    v.type === 'official_mv'
+                      ? 'bg-spotify/20 text-spotify'
+                      : 'bg-blue-500/20 text-blue-400'
+                  "
                 >
                   {{ v.type === 'official_mv' ? 'MV' : 'Edit' }}
                 </div>
@@ -430,16 +479,18 @@
                 <div class="absolute right-2 bottom-2 left-2 flex items-center justify-between">
                   <div class="flex items-center gap-2 text-[11px] font-medium text-white/80">
                     <span class="flex items-center gap-1">
-                      <Eye aria-hidden="true" class="text-[10px]"  />
+                      <Eye aria-hidden="true" class="text-[10px]" />
                       {{ formatCount(v.view_count) }}
                     </span>
                     <span class="flex items-center gap-1">
-                      <Heart aria-hidden="true" class="text-[10px]"  />
+                      <Heart aria-hidden="true" class="text-[10px]" />
                       {{ formatCount(v.like_count) }}
                     </span>
                   </div>
-                  <div class="flex h-7 w-7 items-center justify-center rounded-full bg-black/50 text-white opacity-0 backdrop-blur-xs transition-opacity group-hover:opacity-100">
-                    <Play aria-hidden="true" class="text-xs"  />
+                  <div
+                    class="flex h-7 w-7 items-center justify-center rounded-full bg-black/50 text-white opacity-0 backdrop-blur-xs transition-opacity group-hover:opacity-100"
+                  >
+                    <Play aria-hidden="true" class="text-xs" />
                   </div>
                 </div>
               </div>
@@ -462,13 +513,15 @@
               <div class="w-full border-t border-white/6" />
             </div>
             <div class="relative flex justify-center">
-              <span class="bg-surface-base px-4 text-[10px] font-bold tracking-[0.3em] text-white/20 uppercase">
+              <span
+                class="bg-surface-base px-4 text-[10px] font-bold tracking-[0.3em] text-white/20 uppercase"
+              >
                 Lyrics
               </span>
             </div>
           </div>
 
-          <div class="flex items-center justify-between mb-4">
+          <div class="mb-4 flex items-center justify-between">
             <h2 class="text-lg font-bold text-white">Lyrics</h2>
             <button
               v-if="lyrics && lyrics.content"
@@ -477,7 +530,7 @@
               :class="karaokeActive ? 'bg-spotify/15 text-spotify' : 'text-white/60'"
               @click="karaokeActive = !karaokeActive"
             >
-              <Mic aria-hidden="true" class="text-[10px]"  />
+              <Mic aria-hidden="true" class="text-[10px]" />
               Karaoke
             </button>
           </div>
@@ -497,10 +550,7 @@
               @seek="player.seek"
             />
           </div>
-          <div
-            v-else
-            class="rounded-2xl border border-white/6 bg-white/3 p-6 backdrop-blur-xl"
-          >
+          <div v-else class="rounded-2xl border border-white/6 bg-white/3 p-6 backdrop-blur-xl">
             <LyricsDisplay :lyrics="lyrics" :loading="loading" :error="lyrics! && loading!" />
           </div>
         </section>
@@ -514,7 +564,9 @@
               <div class="w-full border-t border-white/6" />
             </div>
             <div class="relative flex justify-center">
-              <span class="bg-surface-base px-4 text-[10px] font-bold tracking-[0.3em] text-white/20 uppercase">
+              <span
+                class="bg-surface-base px-4 text-[10px] font-bold tracking-[0.3em] text-white/20 uppercase"
+              >
                 Credits
               </span>
             </div>
@@ -535,17 +587,22 @@
                 <div class="flex items-center gap-2">
                   <RouterLink
                     :to="`/artist/${a.artistId}`"
-                    class="block truncate text-sm font-semibold text-white transition group-hover:text-spotify"
+                    class="group-hover:text-spotify block truncate text-sm font-semibold text-white transition"
                   >
                     {{ a.name }}
                   </RouterLink>
                   <span
                     v-if="a.role && !['main', 'primary'].includes(a.role as string)"
                     class="rounded-full bg-purple-500/15 px-1.5 py-0.5 text-[9px] font-medium text-purple-400"
-                  >feat.</span>
+                    >feat.</span
+                  >
                 </div>
                 <p class="mt-0.5 text-xs text-white/30">
-                  {{ a.role && !['main', 'primary'].includes(a.role as string) ? a.role : 'Main artist' }}
+                  {{
+                    a.role && !['main', 'primary'].includes(a.role as string)
+                      ? a.role
+                      : 'Main artist'
+                  }}
                 </p>
               </div>
             </div>
@@ -578,7 +635,9 @@
               <div class="w-full border-t border-white/6" />
             </div>
             <div class="relative flex justify-center">
-              <span class="bg-surface-base px-4 text-[10px] font-bold tracking-[0.3em] text-white/20 uppercase">
+              <span
+                class="bg-surface-base px-4 text-[10px] font-bold tracking-[0.3em] text-white/20 uppercase"
+              >
                 You might like
               </span>
             </div>
@@ -593,7 +652,7 @@
               <button
                 type="button"
                 aria-label="Play track"
-                class="relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl bg-white/10 text-white transition-all duration-200 hover:scale-105 hover:bg-spotify hover:text-black"
+                class="hover:bg-spotify relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl bg-white/10 text-white transition-all duration-200 hover:scale-105 hover:text-black"
                 :class="{ 'bg-spotify text-black': isCurrentSimilarTrack(st) }"
                 @click="playSimilar(st, index)"
               >
@@ -613,7 +672,7 @@
                       <span class="similar-eq-bar animation-delay-300 h-3" />
                     </span>
                   </template>
-                  <Play v-else aria-hidden="true" class="text-sm"  />
+                  <Play v-else aria-hidden="true" class="text-sm" />
                 </span>
               </button>
 
@@ -651,13 +710,31 @@
 </template>
 
 <script setup lang="ts">
-import { AlertCircle, ArrowLeft, ArrowUpDown, Disc3, Eye, Heart, List, Mic, Pause, Pencil, Play, Plus, Radio, RefreshCw, Share2, SkipBack, SkipForward, Video } from 'lucide-vue-next'
+import {
+  AlertCircle,
+  ArrowLeft,
+  ArrowUpDown,
+  Disc3,
+  Eye,
+  Heart,
+  List,
+  Mic,
+  Pause,
+  Pencil,
+  Play,
+  Plus,
+  Radio,
+  RefreshCw,
+  Share2,
+  SkipBack,
+  SkipForward,
+  Video,
+} from 'lucide-vue-next'
 import { computed, inject, onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { SkeletonLoader } from '@/components/common'
 import { useTrack } from '@/composables/catalog/useTrack'
 import { usePlayer } from '@/composables/player'
-import { usePlayerApi } from '@/services/api/player'
 import { buildPlaybackTrack, mapToPlaybackTracks } from '@/factories/playbackTrack'
 import { useAlbumColors } from '@/composables/useAlbumColors'
 import { useSocialShare } from '@/composables/social'
@@ -689,7 +766,6 @@ const {
 const trackArtists = computed(() => _trackArtists.value as unknown as Record<string, unknown>[])
 const trackCredits = computed(() => _trackCredits.value as unknown as Record<string, unknown>[])
 const player = usePlayer()
-const playerApi = usePlayerApi()
 const videoApi = useVideoApi()
 const authStore = useUserAuthStore()
 const showQueue = ref(false)
@@ -777,10 +853,12 @@ function playSimilar(
   },
   index: number,
 ) {
-  const queue = mapToPlaybackTracks(similarTracks.value.map((t) => ({
-    ...t,
-    audio_url: t.audio_url || undefined,
-  })))
+  const queue = mapToPlaybackTracks(
+    similarTracks.value.map((t) => ({
+      ...t,
+      audio_url: t.audio_url || undefined,
+    })),
+  )
 
   player.setQueueAndPlay(queue, index)
 }
@@ -859,8 +937,14 @@ onMounted(() => {
   animation: now-playing 1s ease-in-out infinite alternate;
 }
 @keyframes now-playing {
-  0% { transform: scaleY(0.3); opacity: 0.5; }
-  100% { transform: scaleY(1); opacity: 1; }
+  0% {
+    transform: scaleY(0.3);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
 }
 
 /* ── Visualizer bars ── */
@@ -873,10 +957,10 @@ onMounted(() => {
 .visualizer-bar:nth-child(3n) {
   animation-delay: 0.25s;
 }
-.visualizer-bar:nth-child(5n+2) {
+.visualizer-bar:nth-child(5n + 2) {
   animation-delay: 0.05s;
 }
-.visualizer-bar:nth-child(7n+4) {
+.visualizer-bar:nth-child(7n + 4) {
   animation-delay: 0.35s;
 }
 /* ── Similar tracks equalizer bars ── */
@@ -894,13 +978,25 @@ onMounted(() => {
   animation-delay: 300ms;
 }
 @keyframes similar-equalizer {
-  from { transform: scaleY(0.45); opacity: 0.6; }
-  to { transform: scaleY(1); opacity: 1; }
+  from {
+    transform: scaleY(0.45);
+    opacity: 0.6;
+  }
+  to {
+    transform: scaleY(1);
+    opacity: 1;
+  }
 }
 
 @keyframes viz-pulse {
-  0% { transform: scaleY(0.4); opacity: 0.3; }
-  100% { transform: scaleY(1); opacity: 0.7; }
+  0% {
+    transform: scaleY(0.4);
+    opacity: 0.3;
+  }
+  100% {
+    transform: scaleY(1);
+    opacity: 0.7;
+  }
 }
 
 /* ── Player range slider ── */

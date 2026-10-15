@@ -14,10 +14,10 @@
     <RouterLink
       v-if="seeAllRoute"
       :to="seeAllRoute"
-      class="shrink-0 whitespace-nowrap text-xs font-medium text-white/30 transition hover:text-white"
+      class="shrink-0 text-xs font-medium whitespace-nowrap text-white/30 transition hover:text-white"
     >
       {{ seeAllLabel || 'See all' }}
-      <ChevronLeft aria-hidden="true" class="ml-0.5 text-[10px]"  />
+      <ChevronLeft aria-hidden="true" class="ml-0.5 text-[10px]" />
     </RouterLink>
   </div>
 </template>

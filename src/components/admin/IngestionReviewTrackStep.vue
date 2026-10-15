@@ -10,8 +10,12 @@
       <div class="flex flex-wrap items-center gap-2">
         <span class="text-xs font-medium text-slate-500">Artists:</span>
         <template v-for="(a, i) in ctx.finalMetadata.artists" :key="i">
-          <span class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs"
-            :class="i === 0 ? 'bg-emerald-500/15 text-emerald-300' : 'bg-purple-500/15 text-purple-300'">
+          <span
+            class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs"
+            :class="
+              i === 0 ? 'bg-emerald-500/15 text-emerald-300' : 'bg-purple-500/15 text-purple-300'
+            "
+          >
             <User aria-hidden="true" class="text-[9px]" />
             {{ a.name || 'Unnamed' }}
           </span>
@@ -28,53 +32,78 @@
           :src="ctx.embeddedCover.value"
           alt="Embedded"
           class="h-24 w-24 cursor-pointer rounded-lg object-cover shadow-md ring-2 transition-all"
-          :class="ctx.finalMetadata.track.coverUrl === ctx.embeddedCover.value ? 'ring-green-500' : 'ring-transparent hover:ring-white/20'"
+          :class="
+            ctx.finalMetadata.track.coverUrl === ctx.embeddedCover.value
+              ? 'ring-green-500'
+              : 'ring-transparent hover:ring-white/20'
+          "
           @click="ctx.finalMetadata.track.coverUrl = ctx.embeddedCover.value!"
         />
       </div>
       <div v-if="ctx.suggestedAlbumCover.value">
-        <p class="mb-2 text-xs font-medium text-slate-500 flex items-center gap-1">
+        <p class="mb-2 flex items-center gap-1 text-xs font-medium text-slate-500">
           <Music2 aria-hidden="true" class="text-green-400"></Music2>Spotify
         </p>
         <img
           :src="ctx.suggestedAlbumCover.value"
           alt="Spotify"
           class="h-24 w-24 cursor-pointer rounded-lg object-cover shadow-md ring-2 transition-all"
-          :class="ctx.finalMetadata.track.coverUrl === ctx.suggestedAlbumCover.value ? 'ring-green-500' : 'ring-transparent hover:ring-white/20'"
+          :class="
+            ctx.finalMetadata.track.coverUrl === ctx.suggestedAlbumCover.value
+              ? 'ring-green-500'
+              : 'ring-transparent hover:ring-white/20'
+          "
           @click="ctx.finalMetadata.track.coverUrl = ctx.suggestedAlbumCover.value!"
         />
       </div>
       <div v-if="ctx.suggestedLastfmAlbumCover.value">
-        <p class="mb-2 text-xs font-medium text-slate-500 flex items-center gap-1">
+        <p class="mb-2 flex items-center gap-1 text-xs font-medium text-slate-500">
           <Star aria-hidden="true" class="text-yellow-400"></Star>Last.fm
         </p>
         <img
           :src="ctx.suggestedLastfmAlbumCover.value"
           alt="Last.fm"
           class="h-24 w-24 cursor-pointer rounded-lg object-cover shadow-md ring-2 transition-all"
-          :class="ctx.finalMetadata.track.coverUrl === ctx.suggestedLastfmAlbumCover.value ? 'ring-green-500' : 'ring-transparent hover:ring-white/20'"
+          :class="
+            ctx.finalMetadata.track.coverUrl === ctx.suggestedLastfmAlbumCover.value
+              ? 'ring-green-500'
+              : 'ring-transparent hover:ring-white/20'
+          "
           @click="ctx.finalMetadata.track.coverUrl = ctx.suggestedLastfmAlbumCover.value!"
         />
       </div>
       <div v-if="ctx.enrichment.value?.ml?.albumCoverUrl">
-        <p class="mb-2 text-xs font-medium text-slate-500 flex items-center gap-1">
+        <p class="mb-2 flex items-center gap-1 text-xs font-medium text-slate-500">
           <Bot aria-hidden="true" class="text-purple-400"></Bot>ML Server
         </p>
         <img
           :src="ctx.enrichment.value.ml.albumCoverUrl"
           alt="ML"
           class="h-24 w-24 cursor-pointer rounded-lg object-cover shadow-md ring-2 transition-all"
-          :class="ctx.finalMetadata.track.coverUrl === ctx.enrichment.value.ml.albumCoverUrl ? 'ring-green-500' : 'ring-transparent hover:ring-white/20'"
+          :class="
+            ctx.finalMetadata.track.coverUrl === ctx.enrichment.value.ml.albumCoverUrl
+              ? 'ring-green-500'
+              : 'ring-transparent hover:ring-white/20'
+          "
           @click="ctx.finalMetadata.track.coverUrl = ctx.enrichment.value!.ml!.albumCoverUrl"
         />
       </div>
-      <div v-if="ctx.finalMetadata.track.coverUrl && ctx.finalMetadata.track.coverUrl !== ctx.embeddedCover.value && ctx.finalMetadata.track.coverUrl !== ctx.suggestedAlbumCover.value && ctx.finalMetadata.track.coverUrl !== ctx.suggestedLastfmAlbumCover.value && ctx.finalMetadata.track.coverUrl !== ctx.enrichment.value?.ml?.albumCoverUrl" class="shrink-0">
+      <div
+        v-if="
+          ctx.finalMetadata.track.coverUrl &&
+          ctx.finalMetadata.track.coverUrl !== ctx.embeddedCover.value &&
+          ctx.finalMetadata.track.coverUrl !== ctx.suggestedAlbumCover.value &&
+          ctx.finalMetadata.track.coverUrl !== ctx.suggestedLastfmAlbumCover.value &&
+          ctx.finalMetadata.track.coverUrl !== ctx.enrichment.value?.ml?.albumCoverUrl
+        "
+        class="shrink-0"
+      >
         <p class="mb-2 text-xs font-medium text-slate-500">Selected</p>
         <img
           :src="ctx.finalMetadata.track.coverUrl"
           alt="Selected"
           class="h-24 w-24 rounded-lg object-cover shadow-md ring-2 ring-green-500"
-          @error="($event.target as HTMLImageElement).style.display='none'"
+          @error="($event.target as HTMLImageElement).style.display = 'none'"
         />
       </div>
     </div>
@@ -105,35 +134,65 @@
           <label class="mb-1 block text-xs font-medium text-slate-400">
             Title
             <template v-if="ctx.findSuggestion('title')">
-              <Badge :value="ctx.sourceLabel(ctx.findSuggestion('title')!.source)" :severity="ctx.sourceSeverity(ctx.findSuggestion('title')!.source)" size="small" />
-              <Badge :value="ctx.findSuggestion('title')!.confidence" :severity="ctx.confidenceSeverity(ctx.findSuggestion('title')!.confidence)" size="small" />
+              <Badge
+                :value="ctx.sourceLabel(ctx.findSuggestion('title')!.source)"
+                :severity="ctx.sourceSeverity(ctx.findSuggestion('title')!.source)"
+                size="small"
+              />
+              <Badge
+                :value="ctx.findSuggestion('title')!.confidence"
+                :severity="ctx.confidenceSeverity(ctx.findSuggestion('title')!.confidence)"
+                size="small"
+              />
             </template>
           </label>
-          <InputText v-model="ctx.finalMetadata.track.title" dir="auto" class="w-full" placeholder="Track title" />
+          <InputText
+            v-model="ctx.finalMetadata.track.title"
+            dir="auto"
+            class="w-full"
+            placeholder="Track title"
+          />
         </div>
         <div>
           <label class="mb-1 block text-xs font-medium text-slate-400">Track Number</label>
-          <InputNumber v-model="ctx.finalMetadata.track.trackNumber" :use-grouping="false" :min="1" class="w-full" placeholder="1" />
+          <InputNumber
+            v-model="ctx.finalMetadata.track.trackNumber"
+            :use-grouping="false"
+            :min="1"
+            class="w-full"
+            placeholder="1"
+          />
         </div>
       </div>
 
       <div class="grid gap-4 md:grid-cols-3">
         <div>
           <label class="mb-1 block text-xs font-medium text-slate-400">Duration (seconds)</label>
-          <InputNumber :model-value="ctx.finalMetadata.track.durationSeconds" class="w-full text-slate-400" disabled />
+          <InputNumber
+            :model-value="ctx.finalMetadata.track.durationSeconds"
+            class="w-full text-slate-400"
+            disabled
+          />
         </div>
         <div>
           <label class="mb-1 block text-xs font-medium text-slate-400">Genre</label>
-          <InputText v-model="ctx.finalMetadata.track.genre" dir="auto" class="w-full" placeholder="Genre" />
+          <InputText
+            v-model="ctx.finalMetadata.track.genre"
+            dir="auto"
+            class="w-full"
+            placeholder="Genre"
+          />
         </div>
         <div>
           <label class="mb-1 block text-xs font-medium text-slate-400">
             Explicit
-            <Info aria-hidden="true" class="ml-1 text-slate-500 text-[10px]"></Info>
+            <Info aria-hidden="true" class="ml-1 text-[10px] text-slate-500"></Info>
           </label>
           <div class="flex items-center gap-2 pt-1">
             <ToggleSwitch v-model="ctx.finalMetadata.track.explicit" />
-            <span class="text-xs text-slate-400">{{ ctx.finalMetadata.track.explicit ? 'Yes' : 'No' }}</span>
+            <span class="text-xs text-slate-400">{{
+              ctx.finalMetadata.track.explicit ? 'Yes' : 'No'
+            }}</span>
           </div>
         </div>
       </div>
@@ -155,7 +214,11 @@
               size="small"
             />
             <Button
-              v-if="ctx.trackAudioUrl.value && ctx.lyricsType.value === 'lrc' && ctx.finalMetadata.track.lyrics"
+              v-if="
+                ctx.trackAudioUrl.value &&
+                ctx.lyricsType.value === 'lrc' &&
+                ctx.finalMetadata.track.lyrics
+              "
               :icon="ctx.showSyncedLyrics.value ? 'pi pi-eye-slash' : 'pi pi-eye'"
               :label="ctx.showSyncedLyrics.value ? 'Hide' : 'Karaoke'"
               severity="help"
@@ -177,12 +240,16 @@
         <div
           v-if="ctx.showSyncedLyrics.value && ctx.trackAudioUrl.value && parsedLyrics.length > 0"
           ref="syncedLyricsContainer"
-          class="mb-3 max-h-64 overflow-y-auto rounded-lg bg-black/60 p-4 scrollbar-none"
+          class="mb-3 max-h-64 scrollbar-none overflow-y-auto rounded-lg bg-black/60 p-4"
         >
           <div
             v-for="(line, idx) in parsedLyrics"
             :key="idx"
-            :ref="(el: any) => { if (el) syncedLyricLineRefs[idx] = el as HTMLElement }"
+            :ref="
+              (el: any) => {
+                if (el) syncedLyricLineRefs[idx] = el as HTMLElement
+              }
+            "
             class="cursor-pointer px-2 py-1.5 text-center text-sm leading-relaxed transition-all duration-300"
             :class="{
               'scale-105 font-bold text-white': idx === activeLyricLine,
@@ -208,7 +275,11 @@
       <div class="grid gap-4 md:grid-cols-2">
         <div>
           <label class="mb-1 block text-xs font-medium text-slate-400">Cover URL</label>
-          <InputText v-model="ctx.finalMetadata.track.coverUrl" class="w-full font-mono text-xs" placeholder="https://..." />
+          <InputText
+            v-model="ctx.finalMetadata.track.coverUrl"
+            class="w-full font-mono text-xs"
+            placeholder="https://..."
+          />
         </div>
         <div>
           <label class="mb-1 block text-xs font-medium text-slate-400">Spotify Preview URL</label>
@@ -250,7 +321,9 @@ function rebuildParsedLyrics() {
 
 watch(
   () => ctx.finalMetadata.track.lyrics,
-  () => { rebuildParsedLyrics() },
+  () => {
+    rebuildParsedLyrics()
+  },
   { immediate: true },
 )
 

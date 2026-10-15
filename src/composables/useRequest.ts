@@ -97,12 +97,14 @@ const UIHooks: RequestHooks = {
     if (!token) {
       return Promise.reject(new Error('No refresh token available'))
     }
-    return useAuthApi().refresh(token).then((res) => {
-      if (res?.refresh_token) {
-        store.setRefreshToken(res.refresh_token)
-      }
-      return res
-    })
+    return useAuthApi()
+      .refresh(token)
+      .then((res) => {
+        if (res?.refresh_token) {
+          store.setRefreshToken(res.refresh_token)
+        }
+        return res
+      })
   },
   refreshTokenUrlRejecter(config: AxiosRequestConfig): boolean {
     const store = useUserAuthStore()

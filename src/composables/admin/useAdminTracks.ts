@@ -103,16 +103,20 @@ function toCreatePayload(payload: TrackFormPayload): TrackCreatePayload {
   }
 }
 
-
-function toUpdatePayload(payload: TrackFormPayload, currentTrack?: Track | TrackUpdatePayload): TrackUpdatePayload {
+function toUpdatePayload(
+  payload: TrackFormPayload,
+  currentTrack?: Track | TrackUpdatePayload,
+): TrackUpdatePayload {
   const primaryArtistId = payload.artist_ids?.[0] ?? payload.artist_id
 
   // Compute clear_fields: fields that are null in payload but had a value in currentTrack
   const clearFields: string[] = []
   if (currentTrack) {
     if (payload.album_id === null && currentTrack.album_id != null) clearFields.push('album_id')
-    if (payload.duration_seconds === null && currentTrack.duration_seconds != null) clearFields.push('duration_seconds')
-    if (payload.track_number === null && currentTrack.track_number != null) clearFields.push('track_number')
+    if (payload.duration_seconds === null && currentTrack.duration_seconds != null)
+      clearFields.push('duration_seconds')
+    if (payload.track_number === null && currentTrack.track_number != null)
+      clearFields.push('track_number')
     if (payload.cover_url === null && currentTrack.cover_url != null) clearFields.push('cover_url')
     if (payload.audio_url === null && currentTrack.audio_url != null) clearFields.push('audio_url')
   }
@@ -127,11 +131,16 @@ function toUpdatePayload(payload: TrackFormPayload, currentTrack?: Track | Track
   }
 
   // Only include nullable fields if they have a value or are explicitly being cleared
-  if (payload.album_id !== null || clearFields.includes('album_id')) result.album_id = payload.album_id ?? null
-  if (payload.duration_seconds !== null || clearFields.includes('duration_seconds')) result.duration_seconds = payload.duration_seconds ?? null
-  if (payload.track_number !== null || clearFields.includes('track_number')) result.track_number = payload.track_number ?? null
-  if (payload.cover_url !== null || clearFields.includes('cover_url')) result.cover_url = payload.cover_url ?? null
-  if (payload.audio_url !== null || clearFields.includes('audio_url')) result.audio_url = payload.audio_url ?? null
+  if (payload.album_id !== null || clearFields.includes('album_id'))
+    result.album_id = payload.album_id ?? null
+  if (payload.duration_seconds !== null || clearFields.includes('duration_seconds'))
+    result.duration_seconds = payload.duration_seconds ?? null
+  if (payload.track_number !== null || clearFields.includes('track_number'))
+    result.track_number = payload.track_number ?? null
+  if (payload.cover_url !== null || clearFields.includes('cover_url'))
+    result.cover_url = payload.cover_url ?? null
+  if (payload.audio_url !== null || clearFields.includes('audio_url'))
+    result.audio_url = payload.audio_url ?? null
   if (clearFields.length > 0) result.clear_fields = clearFields
 
   return result
@@ -155,7 +164,13 @@ export function useAdminTracks() {
     adminDeleteTrack,
   } = useTracksApi()
 
-  const { getTrackLyrics, getLyricsByTrackID, adminCreateLyrics, adminUpdateLyrics, adminDeleteLyrics } = useLyricsApi()
+  const {
+    getTrackLyrics,
+    getLyricsByTrackID,
+    adminCreateLyrics,
+    adminUpdateLyrics,
+    adminDeleteLyrics,
+  } = useLyricsApi()
 
   const tracks = ref<Track[]>([])
   const loading = ref(false)
@@ -247,10 +262,20 @@ export function useAdminTracks() {
       let createPayload = toCreatePayload(payload)
 
       if (payload.audioFile) {
-        console.log('[createTrack] audioFile present, type:', typeof payload.audioFile, 'name:', (payload.audioFile as File).name)
+        console.log(
+          '[createTrack] audioFile present, type:',
+          typeof payload.audioFile,
+          'name:',
+          (payload.audioFile as File).name,
+        )
         const uploadedAudio = await adminUploadTrackAudio(payload.audioFile)
         const audioUrl = getUploadedAudioUrl(uploadedAudio)
-        console.log('[createTrack] uploadedAudio response:', uploadedAudio, 'extracted URL:', audioUrl)
+        console.log(
+          '[createTrack] uploadedAudio response:',
+          uploadedAudio,
+          'extracted URL:',
+          audioUrl,
+        )
         createPayload = {
           ...createPayload,
           audio_url: audioUrl,
@@ -280,7 +305,11 @@ export function useAdminTracks() {
     }
   }
 
-  async function updateTrack(id: string | number, payload: TrackFormPayload, currentTrack?: Track | TrackUpdatePayload) {
+  async function updateTrack(
+    id: string | number,
+    payload: TrackFormPayload,
+    currentTrack?: Track | TrackUpdatePayload,
+  ) {
     saving.value = true
     error.value = null
 

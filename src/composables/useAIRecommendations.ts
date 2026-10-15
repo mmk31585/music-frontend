@@ -3,7 +3,11 @@ import { useRecommendationsApi } from '@/services/api/recommendation'
 import { useAIApi } from '@/services/api/ai'
 import { usePlayerApi } from '@/services/api/player'
 import { usePlayer } from '@/composables/player'
-import type { RecommendationTrack, ListeningStats, DiscoverWeeklyResponse } from '@/services/api/recommendation/types'
+import type {
+  RecommendationTrack,
+  ListeningStats,
+  DiscoverWeeklyResponse,
+} from '@/services/api/recommendation/types'
 import type { AIPlaylistResponse, TrackMeta } from '@/services/api/ai/types'
 import { formatDuration } from '@/utils/format'
 import { mapToPlaybackTracks } from '@/factories/playbackTrack'
@@ -214,7 +218,6 @@ export function useAIRecommendations() {
 
 export function usePlayFromRecommendation() {
   const player = usePlayer()
-  const playerApi = usePlayerApi()
 
   function playFromRecommendation(tracks: PlayQueueItem[], startIndex = 0): void {
     const playbackTracks = mapToPlaybackTracks(tracks)

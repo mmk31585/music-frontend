@@ -5,17 +5,14 @@
     <div
       v-if="!isOnline"
       role="alert"
-      class="fixed top-0 start-0 end-0 z-9999 flex items-center justify-center gap-2 bg-red-600/90 px-4 py-2 text-sm font-medium text-white backdrop-blur-xs"
+      class="fixed start-0 end-0 top-0 z-9999 flex items-center justify-center gap-2 bg-red-600/90 px-4 py-2 text-sm font-medium text-white backdrop-blur-xs"
       style="padding-top: max(0.5rem, env(safe-area-inset-top, 0.5rem))"
     >
-      <Wifi class="text-xs" aria-hidden="true"  />
+      <Wifi class="text-xs" aria-hidden="true" />
       <span>You are offline. Some features may be unavailable.</span>
     </div>
 
-    <div
-      class="flex h-screen overflow-hidden bg-transparent"
-      :dir="rtlDir"
-    >
+    <div class="flex h-screen overflow-hidden bg-transparent" :dir="rtlDir">
       <MusicSidebar />
 
       <div class="flex min-w-0 flex-1 flex-col overflow-hidden">
@@ -28,7 +25,7 @@
 
         <main
           id="main-content"
-          class="flex-1 overflow-y-auto scroll-smooth scroll-bar"
+          class="scroll-bar flex-1 overflow-y-auto scroll-smooth"
           :class="mainPadding"
         >
           <ErrorBoundary>
@@ -51,7 +48,11 @@
       <MobileNavPanel v-model="mobileOpen" />
 
       <SearchOverlay v-model:visible="searchOpen" />
-      <RadioMode v-model:visible="radioVisible" :seed-id="radioSeedId" :seed-label="radioSeedLabel" />
+      <RadioMode
+        v-model:visible="radioVisible"
+        :seed-id="radioSeedId"
+        :seed-label="radioSeedLabel"
+      />
       <PlayerRegion />
       <MobileBottomNav />
     </div>
@@ -62,12 +63,7 @@
 import { Wifi } from 'lucide-vue-next'
 import { ref, computed, onMounted, provide } from 'vue'
 import { useRoute } from 'vue-router'
-import {
-  MusicSidebar,
-  SearchOverlay,
-  RadioMode,
-  PlayerRegion,
-} from '@/components/music'
+import { MusicSidebar, SearchOverlay, RadioMode, PlayerRegion } from '@/components/music'
 import MusicRightPane from '@/components/music/layout/MusicRightPane.vue'
 import { MobileBottomNav, MusicAppHeader, MobileNavPanel } from '@/components/layouts'
 import { usePlayerStore } from '@/stores'

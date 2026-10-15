@@ -12,61 +12,96 @@
           :src="ctx.embeddedCover.value"
           alt="Embedded"
           class="h-32 w-32 cursor-pointer rounded-lg object-cover shadow-md ring-2 transition-all"
-          :class="ctx.finalMetadata.album.coverUrl === ctx.embeddedCover.value ? 'ring-green-500' : 'ring-transparent hover:ring-white/20'"
+          :class="
+            ctx.finalMetadata.album.coverUrl === ctx.embeddedCover.value
+              ? 'ring-green-500'
+              : 'ring-transparent hover:ring-white/20'
+          "
           @click="ctx.finalMetadata.album.coverUrl = ctx.embeddedCover.value!"
         />
       </div>
       <div v-if="ctx.suggestedAlbumCover.value">
-<p class="mb-2 text-xs font-medium text-slate-500 flex items-center gap-1">
+        <p class="mb-2 flex items-center gap-1 text-xs font-medium text-slate-500">
           <Music2 aria-hidden="true" class="text-green-400"></Music2>Spotify
         </p>
         <img
           :src="ctx.suggestedAlbumCover.value"
           alt="Spotify"
           class="h-32 w-32 cursor-pointer rounded-lg object-cover shadow-md ring-2 transition-all"
-          :class="ctx.finalMetadata.album.coverUrl === ctx.suggestedAlbumCover.value ? 'ring-green-500' : 'ring-transparent hover:ring-white/20'"
+          :class="
+            ctx.finalMetadata.album.coverUrl === ctx.suggestedAlbumCover.value
+              ? 'ring-green-500'
+              : 'ring-transparent hover:ring-white/20'
+          "
           @click="ctx.finalMetadata.album.coverUrl = ctx.suggestedAlbumCover.value!"
         />
       </div>
       <div v-if="ctx.suggestedLastfmAlbumCover.value" class="shrink-0">
-<p class="mb-2 text-xs font-medium text-slate-500 flex items-center gap-1">
-            <Star aria-hidden="true" class="text-yellow-400"></Star>Last.fm
-          </p>
+        <p class="mb-2 flex items-center gap-1 text-xs font-medium text-slate-500">
+          <Star aria-hidden="true" class="text-yellow-400"></Star>Last.fm
+        </p>
         <img
           :src="ctx.suggestedLastfmAlbumCover.value"
           alt="Last.fm"
           class="h-32 w-32 cursor-pointer rounded-lg object-cover shadow-md ring-2 transition-all"
-          :class="ctx.finalMetadata.album.coverUrl === ctx.suggestedLastfmAlbumCover.value ? 'ring-green-500' : 'ring-transparent hover:ring-white/20'"
+          :class="
+            ctx.finalMetadata.album.coverUrl === ctx.suggestedLastfmAlbumCover.value
+              ? 'ring-green-500'
+              : 'ring-transparent hover:ring-white/20'
+          "
           @click="ctx.finalMetadata.album.coverUrl = ctx.suggestedLastfmAlbumCover.value!"
         />
       </div>
       <div v-if="ctx.enrichment.value?.ml?.albumCoverUrl" class="shrink-0">
-        <p class="mb-2 text-xs font-medium text-slate-500 flex items-center gap-1">
+        <p class="mb-2 flex items-center gap-1 text-xs font-medium text-slate-500">
           <Bot aria-hidden="true" class="text-purple-400"></Bot>ML Server
         </p>
         <img
           :src="ctx.enrichment.value.ml.albumCoverUrl"
           alt="ML"
           class="h-32 w-32 cursor-pointer rounded-lg object-cover shadow-md ring-2 transition-all"
-          :class="ctx.finalMetadata.album.coverUrl === ctx.enrichment.value.ml.albumCoverUrl ? 'ring-green-500' : 'ring-transparent hover:ring-white/20'"
+          :class="
+            ctx.finalMetadata.album.coverUrl === ctx.enrichment.value.ml.albumCoverUrl
+              ? 'ring-green-500'
+              : 'ring-transparent hover:ring-white/20'
+          "
           @click="ctx.finalMetadata.album.coverUrl = ctx.enrichment.value!.ml!.albumCoverUrl"
         />
       </div>
-      <div v-if="ctx.finalMetadata.album.coverUrl && ctx.finalMetadata.album.coverUrl !== ctx.embeddedCover.value && ctx.finalMetadata.album.coverUrl !== ctx.suggestedAlbumCover.value && ctx.finalMetadata.album.coverUrl !== ctx.suggestedLastfmAlbumCover.value && ctx.finalMetadata.album.coverUrl !== ctx.enrichment.value?.ml?.albumCoverUrl" class="shrink-0">
+      <div
+        v-if="
+          ctx.finalMetadata.album.coverUrl &&
+          ctx.finalMetadata.album.coverUrl !== ctx.embeddedCover.value &&
+          ctx.finalMetadata.album.coverUrl !== ctx.suggestedAlbumCover.value &&
+          ctx.finalMetadata.album.coverUrl !== ctx.suggestedLastfmAlbumCover.value &&
+          ctx.finalMetadata.album.coverUrl !== ctx.enrichment.value?.ml?.albumCoverUrl
+        "
+        class="shrink-0"
+      >
         <p class="mb-2 text-xs font-medium text-slate-500">Selected</p>
         <img
           :src="ctx.finalMetadata.album.coverUrl"
           alt="Selected"
           class="h-32 w-32 rounded-lg object-cover shadow-md ring-2 ring-green-500"
-          @error="($event.target as HTMLImageElement).style.display='none'"
+          @error="($event.target as HTMLImageElement).style.display = 'none'"
         />
       </div>
-      <div v-if="!ctx.finalMetadata.album.coverUrl" class="flex shrink-0 flex-col items-center justify-center gap-2">
+      <div
+        v-if="!ctx.finalMetadata.album.coverUrl"
+        class="flex shrink-0 flex-col items-center justify-center gap-2"
+      >
         <p class="mb-1 text-xs font-medium text-slate-500">Upload Cover</p>
-        <label class="flex h-24 w-24 cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-white/6 bg-white/3 text-slate-400 transition-colors hover:border-emerald-500/50 hover:text-emerald-400">
+        <label
+          class="flex h-24 w-24 cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-white/6 bg-white/3 text-slate-400 transition-colors hover:border-emerald-500/50 hover:text-emerald-400"
+        >
           <Upload aria-hidden="true" class="text-xl"></Upload>
           <span class="mt-1 text-[10px]">Upload</span>
-          <input type="file" accept="image/jpeg,image/png,image/webp" class="hidden" @change="ctx.uploadAlbumCover" />
+          <input
+            type="file"
+            accept="image/jpeg,image/png,image/webp"
+            class="hidden"
+            @change="ctx.uploadAlbumCover"
+          />
         </label>
       </div>
     </div>
@@ -117,13 +152,23 @@
           <InputIcon><Search aria-hidden="true" class=""></Search></InputIcon>
           <InputText
             :model-value="ctx.albumSearchQuery.value"
-            @update:model-value="(v: string | undefined) => { if (v !== undefined) { ctx.albumSearchQuery.value = v; ctx.debouncedAlbumSearch() } }"
+            @update:model-value="
+              (v: string | undefined) => {
+                if (v !== undefined) {
+                  ctx.albumSearchQuery.value = v
+                  ctx.debouncedAlbumSearch()
+                }
+              }
+            "
             placeholder="Type album title..."
             class="w-full"
           />
         </IconField>
       </div>
-      <div v-if="ctx.albumSearchResults.value.length > 0" class="mt-2 max-h-48 overflow-y-auto rounded border border-white/6 bg-white/3">
+      <div
+        v-if="ctx.albumSearchResults.value.length > 0"
+        class="mt-2 max-h-48 overflow-y-auto rounded border border-white/6 bg-white/3"
+      >
         <div
           v-for="a in ctx.albumSearchResults.value"
           :key="a.id"
@@ -141,7 +186,10 @@
           </div>
         </div>
       </div>
-      <p v-else-if="ctx.albumSearchQuery.value && !ctx.albumSearching.value" class="mt-2 text-xs text-slate-500">
+      <p
+        v-else-if="ctx.albumSearchQuery.value && !ctx.albumSearching.value"
+        class="mt-2 text-xs text-slate-500"
+      >
         No existing albums found.
       </p>
     </div>
@@ -152,44 +200,85 @@
           <label class="mb-1 block text-xs font-medium text-slate-400">
             Title
             <template v-if="ctx.findSuggestion('album')">
-              <Badge :value="ctx.sourceLabel(ctx.findSuggestion('album')!.source)" :severity="ctx.sourceSeverity(ctx.findSuggestion('album')!.source)" size="small" />
-              <Badge :value="ctx.findSuggestion('album')!.confidence" :severity="ctx.confidenceSeverity(ctx.findSuggestion('album')!.confidence)" size="small" />
+              <Badge
+                :value="ctx.sourceLabel(ctx.findSuggestion('album')!.source)"
+                :severity="ctx.sourceSeverity(ctx.findSuggestion('album')!.source)"
+                size="small"
+              />
+              <Badge
+                :value="ctx.findSuggestion('album')!.confidence"
+                :severity="ctx.confidenceSeverity(ctx.findSuggestion('album')!.confidence)"
+                size="small"
+              />
             </template>
           </label>
-          <InputText v-model="ctx.finalMetadata.album.title" dir="auto" class="w-full" placeholder="Album title" />
+          <InputText
+            v-model="ctx.finalMetadata.album.title"
+            dir="auto"
+            class="w-full"
+            placeholder="Album title"
+          />
         </div>
         <div>
           <label class="mb-1 block text-xs font-medium text-slate-400">
             Release Year
             <template v-if="ctx.findSuggestion('year')">
-              <Badge :value="ctx.sourceLabel(ctx.findSuggestion('year')!.source)" :severity="ctx.sourceSeverity(ctx.findSuggestion('year')!.source)" size="small" />
-              <Badge :value="ctx.findSuggestion('year')!.confidence" :severity="ctx.confidenceSeverity(ctx.findSuggestion('year')!.confidence)" size="small" />
+              <Badge
+                :value="ctx.sourceLabel(ctx.findSuggestion('year')!.source)"
+                :severity="ctx.sourceSeverity(ctx.findSuggestion('year')!.source)"
+                size="small"
+              />
+              <Badge
+                :value="ctx.findSuggestion('year')!.confidence"
+                :severity="ctx.confidenceSeverity(ctx.findSuggestion('year')!.confidence)"
+                size="small"
+              />
             </template>
           </label>
-          <InputNumber v-model="ctx.finalMetadata.album.releaseYear" :use-grouping="false" class="w-full" placeholder="2024" />
+          <InputNumber
+            v-model="ctx.finalMetadata.album.releaseYear"
+            :use-grouping="false"
+            class="w-full"
+            placeholder="2024"
+          />
         </div>
       </div>
       <div class="grid gap-4 md:grid-cols-2">
         <div>
           <label class="mb-1 block text-xs font-medium text-slate-400">Genre</label>
-          <InputText v-model="ctx.finalMetadata.album.genre" dir="auto" class="w-full" placeholder="Genre" />
+          <InputText
+            v-model="ctx.finalMetadata.album.genre"
+            dir="auto"
+            class="w-full"
+            placeholder="Genre"
+          />
         </div>
         <div>
           <label class="mb-1 block text-xs font-medium text-slate-400">Cover URL</label>
-          <InputText v-model="ctx.finalMetadata.album.coverUrl" class="w-full font-mono text-xs" placeholder="https://..." />
+          <InputText
+            v-model="ctx.finalMetadata.album.coverUrl"
+            class="w-full font-mono text-xs"
+            placeholder="https://..."
+          />
         </div>
       </div>
       <div v-if="ctx.enrichment.value?.musicbrainz?.albumMbid">
         <label class="mb-1 block text-xs font-medium text-slate-400">MusicBrainz Release ID</label>
         <div class="flex items-center gap-2">
-          <InputText :model-value="ctx.enrichment.value.musicbrainz.albumMbid" class="flex-1 font-mono text-xs text-slate-400" disabled />
+          <InputText
+            :model-value="ctx.enrichment.value.musicbrainz.albumMbid"
+            class="flex-1 font-mono text-xs text-slate-400"
+            disabled
+          />
           <Button
-            v-if="ctx.finalMetadata.album.musicbrainzReleaseId !== ctx.enrichment.value.musicbrainz.albumMbid"
+            v-if="
+              ctx.finalMetadata.album.musicbrainzReleaseId !==
+              ctx.enrichment.value.musicbrainz.albumMbid
+            "
             label="Apply"
             icon="pi pi-check"
             size="small"
             severity="success"
-            outlined
             @click="ctx.finalMetadata.album.musicbrainzReleaseId = ctx.enrichment.value!.musicbrainz!.albumMbid; ctx.hasUnsavedChanges.value = true"
           />
           <CheckCircle aria-hidden="true" v-else class="text-green-400" />

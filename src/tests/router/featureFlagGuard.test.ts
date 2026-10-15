@@ -50,7 +50,9 @@ function installGuard(router: Router) {
       if (!ff.store.fetched) {
         await ff.init()
       }
-      if (!ff.store.isEnabled(featureFlag as import('@/services/api/feature-flags').FeatureFlagKey)) {
+      if (
+        !ff.store.isEnabled(featureFlag as import('@/services/api/feature-flags').FeatureFlagKey)
+      ) {
         return { name: 'app.home' }
       }
     }

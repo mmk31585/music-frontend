@@ -18,7 +18,7 @@ export function useShortcuts(shortcuts: ShortcutDef[]) {
 
     for (const s of shortcuts) {
       const ctrlOrMeta = s.ctrl || s.meta
-      const matchCtrl = ctrlOrMeta ? (e.ctrlKey || e.metaKey) : true
+      const matchCtrl = ctrlOrMeta ? e.ctrlKey || e.metaKey : true
       const matchShift = s.shift ? e.shiftKey : !e.shiftKey
       const matchAlt = s.alt ? e.altKey : !e.altKey
       const matchKey = e.key.toLowerCase() === s.key.toLowerCase()

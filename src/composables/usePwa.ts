@@ -20,9 +20,12 @@ export function usePwa() {
   const { needRefresh, updateServiceWorker } = useRegisterSW({
     onRegisteredSW(_swUrl, registration) {
       if (registration) {
-        setInterval(() => {
-          registration.update().catch(() => {})
-        }, 60 * 60 * 1000)
+        setInterval(
+          () => {
+            registration.update().catch(() => {})
+          },
+          60 * 60 * 1000,
+        )
       }
     },
     onRegisterError(error) {
@@ -34,7 +37,9 @@ export function usePwa() {
     if (typeof window === 'undefined') return
 
     isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream
-    isInstalled = window.matchMedia('(display-mode: standalone)').matches || (navigator as any).standalone === true
+    isInstalled =
+      window.matchMedia('(display-mode: standalone)').matches ||
+      (navigator as any).standalone === true
 
     if (isIOS && !isInstalled) {
       showIOSInstructions.value = true

@@ -57,12 +57,12 @@
         <div class="flex items-center justify-between border-b border-white/6 px-5 py-4">
           <div class="flex items-center gap-3">
             <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500/10">
-              <PlayCircle aria-hidden="true" class="text-xs text-emerald-400"  />
+              <PlayCircle aria-hidden="true" class="text-xs text-emerald-400" />
             </div>
             <h2 class="text-base font-semibold text-white">Tracks</h2>
           </div>
           <div class="flex items-center gap-2">
-            <span class="text-xs tabular-nums text-slate-500">{{ tracks.length }}</span>
+            <span class="text-xs text-slate-500 tabular-nums">{{ tracks.length }}</span>
             <RouterLink
               to="/admin/tracks"
               class="text-xs font-medium text-emerald-400 transition-colors hover:text-emerald-300"
@@ -83,7 +83,7 @@
         </div>
 
         <div v-else-if="tracks.length === 0" class="py-12 text-center">
-          <PlayCircle aria-hidden="true" class="text-2xl text-slate-700"  />
+          <PlayCircle aria-hidden="true" class="text-2xl text-slate-700" />
           <p class="mt-2 text-sm text-slate-500">No tracks found</p>
         </div>
 
@@ -95,7 +95,7 @@
           >
             <button
               type="button"
-              class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-slate-500 transition-all hover:bg-spotify/20 hover:text-spotify disabled:opacity-30"
+              class="hover:bg-spotify/20 hover:text-spotify flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-slate-500 transition-all disabled:opacity-30"
               :disabled="loadingTrackId === String(track.id)"
               :aria-label="'Play ' + track.title"
               :title="isTrackPlaying(track) ? 'Now playing' : 'Play track'"
@@ -104,17 +104,12 @@
               <Loader2
                 v-if="loadingTrackId === String(track.id)"
                 aria-hidden="true"
-                class="text-sm animate-spin"
-               />
-              <i
-                v-else
-                aria-hidden="true"
-                :class="getTrackPlayButtonIcon(track)"
-                class="text-sm"
+                class="animate-spin text-sm"
               />
+              <i v-else aria-hidden="true" :class="getTrackPlayButtonIcon(track)" class="text-sm" />
             </button>
 
-            <span class="w-5 text-center text-xs tabular-nums text-slate-600">{{ i + 1 }}</span>
+            <span class="w-5 text-center text-xs text-slate-600 tabular-nums">{{ i + 1 }}</span>
 
             <div class="h-9 w-9 shrink-0 overflow-hidden rounded-md bg-white/4">
               <img
@@ -125,7 +120,7 @@
                 @error="($event.target as HTMLImageElement).style.display = 'none'"
               />
               <div v-else class="flex h-full w-full items-center justify-center">
-                <Music aria-hidden="true" class="text-xs text-slate-700"  />
+                <Music aria-hidden="true" class="text-xs text-slate-700" />
               </div>
             </div>
 
@@ -139,7 +134,7 @@
               </p>
             </div>
 
-            <span class="text-xs tabular-nums text-slate-600">
+            <span class="text-xs text-slate-600 tabular-nums">
               {{ formatDuration(track.duration_seconds) }}
             </span>
           </div>
@@ -153,7 +148,7 @@
           <div class="flex items-center justify-between border-b border-white/6 px-5 py-4">
             <div class="flex items-center gap-3">
               <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500/10">
-                <Users aria-hidden="true" class="text-xs text-blue-400"  />
+                <Users aria-hidden="true" class="text-xs text-blue-400" />
               </div>
               <h2 class="text-base font-semibold text-white">Artists</h2>
             </div>
@@ -197,8 +192,11 @@
                 </span>
               </div>
               <p class="truncate text-sm text-white">{{ artist.name }}</p>
-              <BadgeCheck aria-hidden="true" v-if="artist.is_verified"
-                class="text-xs text-emerald-400" />
+              <BadgeCheck
+                aria-hidden="true"
+                v-if="artist.is_verified"
+                class="text-xs text-emerald-400"
+              />
             </div>
           </div>
         </div>
@@ -208,7 +206,7 @@
           <div class="flex items-center justify-between border-b border-white/6 px-5 py-4">
             <div class="flex items-center gap-3">
               <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-purple-500/10">
-                <Book aria-hidden="true" class="text-xs text-purple-400"  />
+                <Book aria-hidden="true" class="text-xs text-purple-400" />
               </div>
               <h2 class="text-base font-semibold text-white">Albums</h2>
             </div>
@@ -244,7 +242,7 @@
                   @error="($event.target as HTMLImageElement).style.display = 'none'"
                 />
                 <div v-else class="flex h-full w-full items-center justify-center">
-                  <Image aria-hidden="true" class="text-lg text-slate-700"  />
+                  <Image aria-hidden="true" class="text-lg text-slate-700" />
                 </div>
               </div>
               <p class="mt-1.5 truncate text-xs font-medium text-white">{{ album.title }}</p>
@@ -258,7 +256,7 @@
           <div class="flex items-center justify-between border-b border-white/6 px-5 py-4">
             <div class="flex items-center gap-3">
               <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-amber-500/10">
-                <Tags aria-hidden="true" class="text-xs text-amber-400"  />
+                <Tags aria-hidden="true" class="text-xs text-amber-400" />
               </div>
               <h2 class="text-base font-semibold text-white">Genres</h2>
             </div>

@@ -1,7 +1,10 @@
 <template>
-  <div v-if="hasError" class="flex flex-col items-center gap-4 rounded-2xl border border-white/10 bg-white/3 px-6 py-12 text-center backdrop-blur-xs">
+  <div
+    v-if="hasError"
+    class="flex flex-col items-center gap-4 rounded-2xl border border-white/10 bg-white/3 px-6 py-12 text-center backdrop-blur-xs"
+  >
     <div class="flex h-14 w-14 items-center justify-center rounded-full bg-red-500/10">
-      <AlertCircle aria-hidden="true" class="text-2xl text-red-400"  />
+      <AlertCircle aria-hidden="true" class="text-2xl text-red-400" />
     </div>
     <div>
       <h3 class="text-lg font-bold text-white">{{ $t('common.error') }}</h3>

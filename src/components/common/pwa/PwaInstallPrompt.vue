@@ -3,28 +3,28 @@
   <div
     v-if="showInstall"
     role="alert"
-    class="fixed bottom-0 inset-x-0 z-50 flex items-center gap-3 bg-surface-raised/90 backdrop-blur-xl border-t border-white/10 px-4 py-3 motion-safe:animate-slide-up"
+    class="bg-surface-raised/90 motion-safe:animate-slide-up fixed inset-x-0 bottom-0 z-50 flex items-center gap-3 border-t border-white/10 px-4 py-3 backdrop-blur-xl"
     style="padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0.75rem))"
   >
-    <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-spotify/20">
-      <Download aria-hidden="true" class="text-sm text-spotify"  />
+    <div class="bg-spotify/20 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl">
+      <Download aria-hidden="true" class="text-spotify text-sm" />
     </div>
     <div class="min-w-0 flex-1">
       <p class="text-sm font-semibold text-white">Install Muse</p>
       <p class="text-xs text-white/40">Get the best experience with our app</p>
     </div>
     <button
-      class="rounded-full bg-spotify px-4 py-2 text-xs font-bold text-black transition-all duration-200 hover:bg-spotify-hover active:scale-95 focus-visible:outline-2 focus-visible:outline-white"
+      class="bg-spotify hover:bg-spotify-hover rounded-full px-4 py-2 text-xs font-bold text-black transition-all duration-200 focus-visible:outline-2 focus-visible:outline-white active:scale-95"
       @click="install"
     >
       Install
     </button>
     <button
       aria-label="Dismiss"
-      class="flex h-8 w-8 items-center justify-center rounded-full text-white/30 transition hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-accent"
+      class="focus-visible:outline-accent flex h-8 w-8 items-center justify-center rounded-full text-white/30 transition hover:bg-white/10 hover:text-white focus-visible:outline-2"
       @click="dismiss"
     >
-      <X aria-hidden="true" class="text-xs"  />
+      <X aria-hidden="true" class="text-xs" />
     </button>
   </div>
 
@@ -32,25 +32,33 @@
   <div
     v-if="showIOS"
     role="alert"
-    class="fixed bottom-0 inset-x-0 z-50 flex items-start gap-3 bg-surface-raised/90 backdrop-blur-xl border-t border-white/10 px-4 py-4 motion-safe:animate-slide-up"
+    class="bg-surface-raised/90 motion-safe:animate-slide-up fixed inset-x-0 bottom-0 z-50 flex items-start gap-3 border-t border-white/10 px-4 py-4 backdrop-blur-xl"
     style="padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0.75rem))"
   >
-    <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-aurora-blue/20">
-      <Apple aria-hidden="true" class="text-sm text-aurora-blue"  />
+    <div class="bg-aurora-blue/20 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl">
+      <Apple aria-hidden="true" class="text-aurora-blue text-sm" />
     </div>
     <div class="min-w-0 flex-1">
       <p class="text-sm font-semibold text-white">Add Muse to Home Screen</p>
-      <p class="text-xs text-white/40 leading-relaxed">
-        Tap <span class="inline-flex items-center gap-0.5 rounded bg-white/10 px-1.5 py-0.5 text-[10px] font-medium text-white/70"><Share2 aria-hidden="true" class="text-[8px]"  /> Share</span>
-        then <span class="inline-flex items-center gap-0.5 rounded bg-white/10 px-1.5 py-0.5 text-[10px] font-medium text-white/70">Add to Home Screen</span>
+      <p class="text-xs leading-relaxed text-white/40">
+        Tap
+        <span
+          class="inline-flex items-center gap-0.5 rounded bg-white/10 px-1.5 py-0.5 text-[10px] font-medium text-white/70"
+          ><Share2 aria-hidden="true" class="text-[8px]" /> Share</span
+        >
+        then
+        <span
+          class="inline-flex items-center gap-0.5 rounded bg-white/10 px-1.5 py-0.5 text-[10px] font-medium text-white/70"
+          >Add to Home Screen</span
+        >
       </p>
     </div>
     <button
       aria-label="Dismiss"
-      class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white/30 transition hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-accent"
+      class="focus-visible:outline-accent flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white/30 transition hover:bg-white/10 hover:text-white focus-visible:outline-2"
       @click="dismissIOS"
     >
-      <X aria-hidden="true" class="text-xs"  />
+      <X aria-hidden="true" class="text-xs" />
     </button>
   </div>
 </template>
@@ -104,7 +112,8 @@ onMounted(() => {
   }
 
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream
-  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || (navigator as any).standalone
+  const isStandalone =
+    window.matchMedia('(display-mode: standalone)').matches || (navigator as any).standalone
   if (isIOS && !isStandalone) {
     showIOSInstructions.value = true
   }
@@ -136,13 +145,19 @@ function dismissIOS() {
 
 <style scoped>
 @keyframes slide-up {
-  from { transform: translateY(100%); }
-  to { transform: translateY(0); }
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
 }
 .motion-safe\:animate-slide-up {
   animation: slide-up 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 @media (prefers-reduced-motion: reduce) {
-  .motion-safe\:animate-slide-up { animation: none; }
+  .motion-safe\:animate-slide-up {
+    animation: none;
+  }
 }
 </style>

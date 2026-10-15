@@ -5,7 +5,7 @@
       @click="openDialog"
       class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/4 px-4 py-2 text-sm font-medium text-white/60 backdrop-blur-xs transition hover:border-pink-600/30 hover:bg-pink-600/10 hover:text-pink-600"
     >
-      <Heart aria-hidden="true" class="text-xs"  />
+      <Heart aria-hidden="true" class="text-xs" />
       Tip
     </button>
 
@@ -18,8 +18,12 @@
         <div class="glass-strong mx-4 w-full max-w-sm rounded-2xl p-6">
           <div class="flex items-center justify-between">
             <h3 class="text-lg font-bold text-white">Send a Tip</h3>
-            <button aria-label="Close dialog" class="text-white/30 hover:text-white/50" @click="visible = false">
-              <X aria-hidden="true" class=""  />
+            <button
+              aria-label="Close dialog"
+              class="text-white/30 hover:text-white/50"
+              @click="visible = false"
+            >
+              <X aria-hidden="true" class="" />
             </button>
           </div>
 
@@ -71,8 +75,8 @@
               class="flex w-full items-center justify-center gap-2 rounded-xl bg-linear-to-r from-pink-600 to-pink-300 py-3 text-sm font-bold text-white transition hover:scale-[1.02] disabled:opacity-50"
               :disabled="sending"
             >
-              <Loader2 aria-hidden="true" v-if="sending" class="animate-spin"  />
-              <Heart aria-hidden="true" v-else class=""  />
+              <Loader2 aria-hidden="true" v-if="sending" class="animate-spin" />
+              <Heart aria-hidden="true" v-else class="" />
               {{ sending ? 'Processing...' : `Send ${formatAmount(finalAmount)}` }}
             </button>
 
@@ -82,7 +86,7 @@
           </div>
 
           <div v-else class="py-8 text-center">
-            <CheckCircle aria-hidden="true" class="text-4xl text-spotify"  />
+            <CheckCircle aria-hidden="true" class="text-spotify text-4xl" />
             <p class="mt-3 text-lg font-bold text-white">Tip Sent!</p>
             <p class="mt-1 text-sm text-white/40">Thank you for supporting the artist.</p>
             <button

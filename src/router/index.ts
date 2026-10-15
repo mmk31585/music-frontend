@@ -31,11 +31,7 @@ async function chainMiddleware(
 router.beforeEach(async (to: RouteLocationNormalized, from: RouteLocationNormalized) => {
   const loader = usePageLoaderStore()
   if (to.meta.noNeedRouteWaiting !== true) loader.setLoading(true)
-  return chainMiddleware(to, from, [
-    checkMaintenanceGuard,
-    checkLoginGuard,
-    checkAuthGuard,
-  ])
+  return chainMiddleware(to, from, [checkMaintenanceGuard, checkLoginGuard, checkAuthGuard])
 })
 
 router.afterEach((to) => {

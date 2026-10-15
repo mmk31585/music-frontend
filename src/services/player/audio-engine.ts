@@ -26,12 +26,22 @@ type AudioEngineEventName = keyof AudioEngineEventMap
 type AudioEngineListener<K extends AudioEngineEventName> = (payload: AudioEngineEventMap[K]) => void
 
 type NativeEventName =
-  | 'play' | 'pause' | 'ended' | 'waiting' | 'playing' | 'canplay'
-  | 'loadedmetadata' | 'durationchange' | 'volumechange' | 'error'
+  | 'play'
+  | 'pause'
+  | 'ended'
+  | 'waiting'
+  | 'playing'
+  | 'canplay'
+  | 'loadedmetadata'
+  | 'durationchange'
+  | 'volumechange'
+  | 'error'
 
 class AudioEngine {
   private audio: HTMLAudioElement
-  private listeners: { [K in AudioEngineEventName]?: Set<AudioEngineListener<K>> } = {} as { [K in AudioEngineEventName]?: Set<AudioEngineListener<K>> }
+  private listeners: { [K in AudioEngineEventName]?: Set<AudioEngineListener<K>> } = {} as {
+    [K in AudioEngineEventName]?: Set<AudioEngineListener<K>>
+  }
   private animationFrameId: number | null = null
   private lastProgressEmit = 0
   private audioContext: AudioContext | null = null
@@ -52,7 +62,10 @@ class AudioEngine {
 
   private ensureAudioContext() {
     if (this.audioContext) return
-    this.audioContext = new (window.AudioContext || (window as any as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)()
+    this.audioContext = new (
+      window.AudioContext ||
+      (window as any as { webkitAudioContext: typeof AudioContext }).webkitAudioContext
+    )()
     this.sourceNode = this.audioContext.createMediaElementSource(this.audio)
     this.analyser = this.audioContext.createAnalyser()
     this.analyser.fftSize = 256
@@ -94,7 +107,7 @@ class AudioEngine {
   }
 
   private emit<K extends AudioEngineEventName>(event: K, payload: AudioEngineEventMap[K]) {
-    (this.listeners[event] as Set<AudioEngineListener<K>> | undefined)?.forEach((listener) => {
+    ;(this.listeners[event] as Set<AudioEngineListener<K>> | undefined)?.forEach((listener) => {
       listener(payload)
     })
   }

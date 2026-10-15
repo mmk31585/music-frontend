@@ -16,7 +16,7 @@
     <template #header>
       <div class="flex items-center gap-3">
         <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-red-500/10">
-          <Trash2 aria-hidden="true" class="text-red-400"  />
+          <Trash2 aria-hidden="true" class="text-red-400" />
         </div>
         <div>
           <h3 class="text-base font-semibold text-white">{{ title }}</h3>

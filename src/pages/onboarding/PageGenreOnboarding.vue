@@ -1,15 +1,15 @@
 <template>
   <div
-    class="flex min-h-screen items-center justify-center bg-linear-to-br from-surface-base via-surface-overlay to-surface-base px-4"
+    class="from-surface-base via-surface-overlay to-surface-base flex min-h-screen items-center justify-center bg-linear-to-br px-4"
   >
     <div
       class="w-full max-w-xl rounded-3xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-xl"
     >
       <div class="mb-8 text-center">
         <div
-          class="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-spotify/20"
+          class="bg-spotify/20 mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl"
         >
-          <Music aria-hidden="true" class="text-3xl text-spotify"  />
+          <Music aria-hidden="true" class="text-spotify text-3xl" />
         </div>
         <h1 class="text-2xl font-bold text-white md:text-3xl">چه سبک موسیقی رو دوست داری؟</h1>
         <p class="mt-2 text-sm text-slate-400">
@@ -29,10 +29,7 @@
       </div>
 
       <!-- Genre chips -->
-      <div
-        v-else-if="genres.length > 0"
-        class="mb-6 flex flex-wrap justify-center gap-3"
-      >
+      <div v-else-if="genres.length > 0" class="mb-6 flex flex-wrap justify-center gap-3">
         <button
           v-for="genre in genres"
           :key="genre.id"
@@ -40,7 +37,7 @@
           class="spring rounded-xl border px-5 py-2.5 text-sm font-medium transition-all"
           :class="
             selectedIds.includes(genre.id)
-              ? 'border-spotify bg-spotify/15 text-spotify shadow-[0_0_12px] shadow-spotify/15'
+              ? 'border-spotify bg-spotify/15 text-spotify shadow-spotify/15 shadow-[0_0_12px]'
               : 'border-white/10 bg-white/4 text-slate-300 hover:border-white/20 hover:bg-white/8 hover:text-white'
           "
           @click="toggleGenre(genre.id)"
@@ -65,7 +62,7 @@
           icon-class="ml-2"
           :loading="saving"
           :disabled="selectedIds.length < 3 || saving"
-          class="w-full max-w-xs border-0 bg-spotify px-6 text-black hover:bg-spotify-hover"
+          class="bg-spotify hover:bg-spotify-hover w-full max-w-xs border-0 px-6 text-black"
           @click="saveGenres"
         />
         <button

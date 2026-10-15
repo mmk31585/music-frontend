@@ -1,7 +1,7 @@
 <template>
   <div class="mx-auto w-full max-w-7xl px-4 pt-6 pb-32 md:px-6 lg:px-8">
     <section
-      class="rounded-2xl bg-linear-to-br from-spotify via-primary-700 to-surface-base p-8 text-white"
+      class="from-spotify via-primary-700 to-surface-base rounded-2xl bg-linear-to-br p-8 text-white"
     >
       <p class="text-sm font-bold tracking-[0.35em] text-white/70 uppercase">Trending</p>
       <h1 class="mt-3 text-4xl font-black md:text-6xl">Popular Tracks</h1>
@@ -22,7 +22,7 @@
         <div
           class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-white/10 text-2xl text-white"
         >
-          <TrendingUp aria-hidden="true" class=""  />
+          <TrendingUp aria-hidden="true" class="" />
         </div>
         <h2 class="mt-5 text-xl font-black text-white">No popular tracks yet</h2>
         <p class="mt-2 text-sm text-slate-400">Tracks need plays to appear here.</p>
@@ -40,9 +40,9 @@
           <span class="w-8 text-center text-sm font-bold text-slate-500">{{ index + 1 }}</span>
 
           <div
-            class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-spotify/20 text-lg text-spotify"
+            class="bg-spotify/20 text-spotify flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-lg"
           >
-            <Music aria-hidden="true" class=""  />
+            <Music aria-hidden="true" class="" />
           </div>
 
           <div class="min-w-0 flex-1">

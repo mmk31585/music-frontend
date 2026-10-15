@@ -11,7 +11,12 @@ export function useScrollReveal(
   target: () => HTMLElement | null | undefined,
   options: ScrollRevealOptions = {},
 ) {
-  const { threshold = 0.1, rootMargin = '0px 0px -40px 0px', triggerOnce = true, immediate } = options
+  const {
+    threshold = 0.1,
+    rootMargin = '0px 0px -40px 0px',
+    triggerOnce = true,
+    immediate,
+  } = options
   const isVisible = ref(false)
   const hasTriggered = ref(false)
 

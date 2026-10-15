@@ -13,7 +13,7 @@
       <Transition name="fade">
         <div
           v-if="showTopBar"
-          class="pointer-events-none absolute top-0 right-0 left-0 z-10 flex items-center justify-between bg-linear-to-b from-black/60 to-transparent px-4 pb-6 pt-4"
+          class="pointer-events-none absolute top-0 right-0 left-0 z-10 flex items-center justify-between bg-linear-to-b from-black/60 to-transparent px-4 pt-4 pb-6"
         >
           <button
             type="button"
@@ -21,7 +21,7 @@
             aria-label="Close"
             @click="handleClose"
           >
-            <ChevronRight aria-hidden="true" class="text-lg"  />
+            <ChevronRight aria-hidden="true" class="text-lg" />
           </button>
 
           <button
@@ -30,7 +30,7 @@
             aria-label="More options"
             @click="openOverflowMenu"
           >
-            <MoreVertical aria-hidden="true" class="text-sm"  />
+            <MoreVertical aria-hidden="true" class="text-sm" />
           </button>
         </div>
       </Transition>
@@ -50,7 +50,7 @@
         aria-label="Previous video"
         @click="goToPrevious"
       >
-        <ChevronUp aria-hidden="true" class="text-xl"  />
+        <ChevronUp aria-hidden="true" class="text-xl" />
       </button>
       <button
         v-if="hasNext && !isTransitioning"
@@ -59,19 +59,19 @@
         aria-label="Next video"
         @click="goToNext"
       >
-        <ChevronDown aria-hidden="true" class="text-xl"  />
+        <ChevronDown aria-hidden="true" class="text-xl" />
       </button>
 
       <!-- Swipeable video area -->
-      <div
-        ref="swipeRef"
-        class="relative flex flex-1 touch-none overflow-hidden outline-hidden"
-      >
+      <div ref="swipeRef" class="relative flex flex-1 touch-none overflow-hidden outline-hidden">
         <!-- Current video -->
         <div
           class="absolute inset-0 flex items-center justify-center"
           :class="{ 'transition-transform': reducedMotion! }"
-          :style="{ transform: `translateY(${currentTranslateY}%)`, transitionDuration: transitionDuration }"
+          :style="{
+            transform: `translateY(${currentTranslateY}%)`,
+            transitionDuration: transitionDuration,
+          }"
         >
           <video
             ref="currentVideoRef"
@@ -102,7 +102,10 @@
           v-if="nextVideo"
           class="absolute inset-0 flex items-center justify-center"
           :class="{ 'transition-transform': reducedMotion! }"
-          :style="{ transform: `translateY(${nextTranslateY}%)`, transitionDuration: transitionDuration }"
+          :style="{
+            transform: `translateY(${nextTranslateY}%)`,
+            transitionDuration: transitionDuration,
+          }"
         >
           <video
             ref="nextVideoRef"
@@ -120,8 +123,10 @@
             v-if="showSwipeHint && hasNext"
             class="absolute bottom-20 left-1/2 z-20 -translate-x-1/2 animate-bounce"
           >
-            <div class="flex flex-col items-center gap-1 rounded-full bg-black/40 px-4 py-2 backdrop-blur-xs">
-              <ChevronDown aria-hidden="true" class="text-sm text-white/60"  />
+            <div
+              class="flex flex-col items-center gap-1 rounded-full bg-black/40 px-4 py-2 backdrop-blur-xs"
+            >
+              <ChevronDown aria-hidden="true" class="text-sm text-white/60" />
               <span class="text-[10px] font-medium text-white/40">Swipe for more</span>
             </div>
           </div>
@@ -135,14 +140,18 @@
           <button
             type="button"
             class="like-btn flex h-11 w-11 items-center justify-center rounded-full text-lg backdrop-blur-xs transition-all duration-150"
-            :class="isLiked ? 'bg-spotify/20 text-spotify' : 'bg-white/10 text-white hover:bg-white/20'"
+            :class="
+              isLiked ? 'bg-spotify/20 text-spotify' : 'bg-white/10 text-white hover:bg-white/20'
+            "
             :style="{ transform: `scale(${likeScale})` }"
             @click.stop="toggleLike"
             :aria-label="isLiked ? 'Unlike' : 'Like'"
           >
-            <component :is="isLiked ? Heart : Heart"<i aria-hidden="true"  /> />
+            <component :is="isLiked ? Heart : Heart" aria-hidden="true" />
           </button>
-          <span class="text-[10px] font-bold text-white/70">{{ formatCount(currentVideo?.like_count || 0) }}</span>
+          <span class="text-[10px] font-bold text-white/70">{{
+            formatCount(currentVideo?.like_count || 0)
+          }}</span>
         </div>
 
         <!-- Comment button (placeholder) -->
@@ -153,16 +162,13 @@
             aria-label="Comments"
             @click.stop="showComments = !showComments"
           >
-            <MessageCircle aria-hidden="true" class="text-lg"  />
+            <MessageCircle aria-hidden="true" class="text-lg" />
           </button>
           <span class="text-[10px] font-bold text-white/70">{{ commentCount }}</span>
         </div>
 
         <!-- Track indicator -->
-        <div
-          v-if="currentVideo?.track"
-          class="flex flex-col items-center gap-1"
-        >
+        <div v-if="currentVideo?.track" class="flex flex-col items-center gap-1">
           <div
             class="flex h-11 w-11 items-center justify-center overflow-hidden rounded-full bg-white/10"
           >
@@ -183,17 +189,27 @@
           v-if="showMuteIndicator"
           class="pointer-events-none absolute top-1/2 left-1/2 z-20 -translate-x-1/2 -translate-y-1/2"
         >
-          <div class="flex h-16 w-16 items-center justify-center rounded-full bg-black/50 backdrop-blur-xs">
-            <component :is="isMuted ? VolumeOff : Volume2"<i aria-hidden="true"  class="text-2xl text-white" /> />
+          <div
+            class="flex h-16 w-16 items-center justify-center rounded-full bg-black/50 backdrop-blur-xs"
+          >
+            <component
+              :is="isMuted ? VolumeOff : Volume2"
+              aria-hidden="true"
+              class="text-2xl text-white"
+            />
           </div>
         </div>
       </Transition>
 
       <!-- Bottom strip -->
-      <div class="absolute right-0 bottom-0 left-0 z-10 space-y-2 bg-linear-to-t from-black/80 via-black/40 to-transparent px-4 pb-4 pt-12">
+      <div
+        class="absolute right-0 bottom-0 left-0 z-10 space-y-2 bg-linear-to-t from-black/80 via-black/40 to-transparent px-4 pt-12 pb-4"
+      >
         <!-- Uploader info -->
         <div v-if="currentVideo?.uploader" class="flex items-center gap-2">
-          <div class="flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-full bg-white/10">
+          <div
+            class="flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-full bg-white/10"
+          >
             <AppImage
               :src="currentVideo.uploader.avatar_url"
               :alt="currentVideo.uploader.username"
@@ -203,7 +219,11 @@
             />
           </div>
           <span class="text-xs font-semibold text-white">{{ currentVideo.uploader.username }}</span>
-          <span v-if="currentVideo.type === 'official_mv'" class="rounded-sm bg-spotify/20 px-1.5 py-0.5 text-[9px] font-bold text-spotify">MV</span>
+          <span
+            v-if="currentVideo.type === 'official_mv'"
+            class="bg-spotify/20 text-spotify rounded-sm px-1.5 py-0.5 text-[9px] font-bold"
+            >MV</span
+          >
         </div>
 
         <!-- Title -->
@@ -223,7 +243,7 @@
       <Transition name="slide-up">
         <div
           v-if="showComments"
-          class="absolute inset-0 z-30 flex flex-col bg-surface-base/95 backdrop-blur-xl"
+          class="bg-surface-base/95 absolute inset-0 z-30 flex flex-col backdrop-blur-xl"
         >
           <div class="flex items-center justify-between border-b border-white/6 px-4 py-3">
             <h3 class="text-sm font-bold text-white">Comments</h3>
@@ -233,31 +253,34 @@
               aria-label="Close comments"
               @click="showComments = false"
             >
-              <X aria-hidden="true" class="text-sm"  />
+              <X aria-hidden="true" class="text-sm" />
             </button>
           </div>
 
           <!-- Comments list -->
           <div class="flex-1 overflow-y-auto px-4 py-3">
-            <div v-if="comments.length === 0" class="flex flex-col items-center justify-center py-16 text-center">
+            <div
+              v-if="comments.length === 0"
+              class="flex flex-col items-center justify-center py-16 text-center"
+            >
               <div class="flex h-12 w-12 items-center justify-center rounded-full bg-white/5">
-                <MessageCircle aria-hidden="true" class="text-slate-500"  />
+                <MessageCircle aria-hidden="true" class="text-slate-500" />
               </div>
               <p class="mt-3 text-sm font-medium text-white/50">No comments yet</p>
               <p class="mt-1 text-xs text-white/30">Be the first to share your thoughts!</p>
             </div>
             <div v-else class="space-y-4">
-              <div
-                v-for="comment in comments"
-                :key="String(comment.id)"
-                class="flex gap-3"
-              >
-                <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/10 text-xs font-bold text-white">
+              <div v-for="comment in comments" :key="String(comment.id)" class="flex gap-3">
+                <div
+                  class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/10 text-xs font-bold text-white"
+                >
                   {{ comment.author?.charAt(0).toUpperCase() || '?' }}
                 </div>
                 <div class="min-w-0 flex-1">
                   <div class="flex items-baseline gap-2">
-                    <span class="text-xs font-semibold text-white/90">{{ comment.author || 'Anonymous' }}</span>
+                    <span class="text-xs font-semibold text-white/90">{{
+                      comment.author || 'Anonymous'
+                    }}</span>
                     <span class="text-[10px] text-white/30">{{ timeAgo(comment.created_at) }}</span>
                   </div>
                   <p class="mt-0.5 text-sm leading-relaxed text-white/80">{{ comment.content }}</p>
@@ -273,17 +296,17 @@
                 v-model="newComment"
                 type="text"
                 placeholder="Write a comment..."
-                class="flex-1 rounded-xl border border-white/8 bg-white/3 px-4 py-2.5 text-sm text-white placeholder:text-slate-600 outline-hidden transition focus:border-spotify/40 focus:bg-white/6"
+                class="focus:border-spotify/40 flex-1 rounded-xl border border-white/8 bg-white/3 px-4 py-2.5 text-sm text-white outline-hidden transition placeholder:text-slate-600 focus:bg-white/6"
                 @keydown.enter="submitComment"
               />
               <button
                 type="button"
-                class="flex h-10 w-10 items-center justify-center rounded-xl bg-spotify text-black transition hover:bg-spotify/90 disabled:opacity-30"
+                class="bg-spotify hover:bg-spotify/90 flex h-10 w-10 items-center justify-center rounded-xl text-black transition disabled:opacity-30"
                 :disabled="!newComment.trim() || submittingComment"
                 @click="submitComment"
               >
                 <Send aria-hidden="true" v-if="!submittingComment" class="text-sm" />
-                <Loader2 aria-hidden="true" v-else class="text-sm animate-spin" />
+                <Loader2 aria-hidden="true" v-else class="animate-spin text-sm" />
               </button>
             </div>
           </div>
@@ -294,7 +317,19 @@
 </template>
 
 <script setup lang="ts">
-import { ChevronDown, ChevronRight, ChevronUp, Flag, Heart, Loader2, MessageCircle, MoreVertical, Music, Send, Volume2, VolumeOff, X } from 'lucide-vue-next'
+import {
+  ChevronDown,
+  ChevronRight,
+  ChevronUp,
+  Heart,
+  Loader2,
+  MessageCircle,
+  MoreVertical,
+  Send,
+  Volume2,
+  VolumeOff,
+  X,
+} from 'lucide-vue-next'
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import type { VideoItem, TrackSummary } from '@/services/api/video/types'
@@ -406,7 +441,9 @@ const overflowSections = computed<ContextMenuSection[]>(() => {
           icon: 'Flag',
           danger: true,
           separator: true,
-          action: () => { showOverflow.value = false },
+          action: () => {
+            showOverflow.value = false
+          },
         },
       ],
     },
@@ -447,7 +484,9 @@ const nextSrc = computed(() => {
 onMounted(() => {
   reducedMotion.value = window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
-  nextTick(() => { playCurrentVideo() })
+  nextTick(() => {
+    playCurrentVideo()
+  })
 
   // Focus container for keyboard events
   containerRef.value?.focus()
@@ -468,7 +507,9 @@ onMounted(() => {
   document.addEventListener('mousemove', resetTopBar, { passive: true })
 
   // Hide swipe hint after 5s
-  setTimeout(() => { showSwipeHint.value = false }, 5000)
+  setTimeout(() => {
+    showSwipeHint.value = false
+  }, 5000)
 
   countView()
 
@@ -602,7 +643,9 @@ function toggleMute() {
     currentVideoRef.value.muted = isMuted.value
   }
   showMuteIndicator.value = true
-  setTimeout(() => { showMuteIndicator.value = false }, 1000)
+  setTimeout(() => {
+    showMuteIndicator.value = false
+  }, 1000)
 }
 
 // ── Navigation ────────────────────────────────────────────────────────
@@ -645,7 +688,9 @@ async function toggleLike() {
   if (video.like_count < 0) video.like_count = 0
 
   likeScale.value = 1.1
-  setTimeout(() => { likeScale.value = 1 }, 150)
+  setTimeout(() => {
+    likeScale.value = 1
+  }, 150)
 
   try {
     if (isLiked.value) {
@@ -679,7 +724,10 @@ function shareOnTelegram() {
   const video = currentVideo.value
   if (!video?.track?.id) return
   const url = `${window.location.origin}/track/${String(video.track.id)}`
-  window.open(`https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(video.title)}`, '_blank')
+  window.open(
+    `https://t.me/share/url?url=${encodeURIComponent(url)}&text=${encodeURIComponent(video.title)}`,
+    '_blank',
+  )
   showOverflow.value = false
 }
 
@@ -747,9 +795,13 @@ function timeAgo(dateStr: string): string {
 }
 
 // Load initial like state
-watch(currentVideo, (v) => {
-  if (v) isLiked.value = v.is_liked || false
-}, { immediate: true })
+watch(
+  currentVideo,
+  (v) => {
+    if (v) isLiked.value = v.is_liked || false
+  },
+  { immediate: true },
+)
 </script>
 
 <style scoped>

@@ -6,7 +6,10 @@
         :key="widget.label"
         class="flex items-center gap-3 rounded-xl border border-white/[4%] bg-white/[1%] px-4 py-3"
       >
-        <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg" :class="widget.bgClass">
+        <div
+          class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg"
+          :class="widget.bgClass"
+        >
           <component :is="widget.icon" class="h-4 w-4" :class="widget.iconClass" />
         </div>
         <div>
@@ -38,9 +41,33 @@ defineProps<{
 }>()
 
 const widgets: Widget[] = [
-  { label: 'Minutes Listened', value: '—', icon: h(Clock), bgClass: 'bg-spotify/15', iconClass: 'text-spotify' },
-  { label: 'Tracks Played', value: '—', icon: h(Headphones), bgClass: 'bg-aurora-purple/15', iconClass: 'text-aurora-purple' },
-  { label: 'Top Genre', value: '—', icon: h(Award), bgClass: 'bg-amber-500/15', iconClass: 'text-amber-400' },
-  { label: 'Day Streak', value: '—', icon: h(BarChart3), bgClass: 'bg-rose-500/15', iconClass: 'text-rose-300' },
+  {
+    label: 'Minutes Listened',
+    value: '—',
+    icon: h(Clock),
+    bgClass: 'bg-spotify/15',
+    iconClass: 'text-spotify',
+  },
+  {
+    label: 'Tracks Played',
+    value: '—',
+    icon: h(Headphones),
+    bgClass: 'bg-aurora-purple/15',
+    iconClass: 'text-aurora-purple',
+  },
+  {
+    label: 'Top Genre',
+    value: '—',
+    icon: h(Award),
+    bgClass: 'bg-amber-500/15',
+    iconClass: 'text-amber-400',
+  },
+  {
+    label: 'Day Streak',
+    value: '—',
+    icon: h(BarChart3),
+    bgClass: 'bg-rose-500/15',
+    iconClass: 'text-rose-300',
+  },
 ]
 </script>

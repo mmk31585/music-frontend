@@ -1,13 +1,16 @@
 <template>
   <aside
-    class="hidden h-screen shrink-0 border-e border-border-subtle bg-surface-raised/40 backdrop-blur-2xl xl:flex xl:flex-col transition-all duration-300 ease-out-expo z-30"
+    class="border-border-subtle bg-surface-raised/40 ease-out-expo z-30 hidden h-screen shrink-0 border-e backdrop-blur-2xl transition-all duration-300 xl:flex xl:flex-col"
     :class="collapsed ? 'w-14 items-center' : 'w-88'"
   >
     <div class="flex h-full flex-col overflow-hidden" :class="collapsed ? 'items-center' : ''">
-      <div class="flex shrink-0 items-center px-5 py-4" :class="collapsed ? 'flex-col gap-4' : 'gap-3 border-b border-border-subtle w-full'">
+      <div
+        class="flex shrink-0 items-center px-5 py-4"
+        :class="collapsed ? 'flex-col gap-4' : 'border-border-subtle w-full gap-3 border-b'"
+      >
         <button
           type="button"
-          class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition-all duration-150 hover:bg-surface-active active:scale-90"
+          class="hover:bg-surface-active flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition-all duration-150 active:scale-90"
           :class="currentTrack ? 'bg-accent-subtle' : 'bg-surface-overlay'"
           :title="collapsed ? 'Show now playing panel' : 'Hide now playing panel'"
           @click="toggleCollapsed"
@@ -17,33 +20,37 @@
             :size="14"
             :class="currentTrack ? 'text-accent' : 'text-tertiary'"
           />
-          <ChevronLeft
-            v-else
-            :size="14"
-            :class="currentTrack ? 'text-accent' : 'text-tertiary'"
-          />
+          <ChevronLeft v-else :size="14" :class="currentTrack ? 'text-accent' : 'text-tertiary'" />
         </button>
         <template v-if="!collapsed">
-          <div class="flex h-6 w-6 items-center justify-center rounded-lg bg-accent-subtle">
+          <div class="bg-accent-subtle flex h-6 w-6 items-center justify-center rounded-lg">
             <Music :size="12" class="text-accent" />
           </div>
-          <h2 class="text-xs font-bold tracking-[0.2em] text-secondary uppercase">Now Playing</h2>
+          <h2 class="text-secondary text-xs font-bold tracking-[0.2em] uppercase">Now Playing</h2>
         </template>
         <template v-else>
           <div v-if="currentTrack" class="flex flex-col items-center gap-2">
-            <div class="h-10 w-10 overflow-hidden rounded-xl ring-1 ring-border-default">
-              <img v-if="currentTrack.coverUrl" :src="currentTrack.coverUrl" :alt="currentTrack.title" class="h-full w-full object-cover" />
-              <div v-else class="flex h-full w-full items-center justify-center bg-linear-to-br from-accent/30 to-accent-hover/30">
+            <div class="ring-border-default h-10 w-10 overflow-hidden rounded-xl ring-1">
+              <img
+                v-if="currentTrack.coverUrl"
+                :src="currentTrack.coverUrl"
+                :alt="currentTrack.title"
+                class="h-full w-full object-cover"
+              />
+              <div
+                v-else
+                class="from-accent/30 to-accent-hover/30 flex h-full w-full items-center justify-center bg-linear-to-br"
+              >
                 <Headphones :size="16" class="text-tertiary" />
               </div>
             </div>
-            <span v-if="isPlaying" class="h-1.5 w-1.5 rounded-full bg-accent animate-pulse" />
+            <span v-if="isPlaying" class="bg-accent h-1.5 w-1.5 animate-pulse rounded-full" />
           </div>
         </template>
       </div>
 
       <template v-if="!collapsed">
-        <div class="flex-1 space-y-5 overflow-y-auto p-4 pb-32 scroll-smooth scroll-bar">
+        <div class="scroll-bar flex-1 space-y-5 overflow-y-auto scroll-smooth p-4 pb-32">
           <RightPaneNowPlaying
             v-if="currentTrack"
             :track="currentTrack"
@@ -71,21 +78,14 @@
           />
           <RightPaneNowPlayingEmpty v-else />
 
-          <RightPaneQueue
-            :items="queue"
-            @play="playFromQueue"
-            @clear="clearQueue"
-          />
+          <RightPaneQueue :items="queue" @play="playFromQueue" @clear="clearQueue" />
 
-          <RightPaneSuggestions
-            :items="suggestions"
-            @play="playSuggestion"
-          />
+          <RightPaneSuggestions :items="suggestions" @play="playSuggestion" />
 
           <div class="flex items-center justify-center pt-2">
             <button
               type="button"
-              class="flex items-center gap-2 rounded-xl px-4 py-2 text-[11px] font-bold text-tertiary transition-all duration-150 hover:bg-surface-hover hover:text-primary active:scale-95"
+              class="text-tertiary hover:bg-surface-hover hover:text-primary flex items-center gap-2 rounded-xl px-4 py-2 text-[11px] font-bold transition-all duration-150 active:scale-95"
               @click="$emit('toggle-queue-overlay')"
             >
               <MoreHorizontal :size="12" />
@@ -163,25 +163,29 @@ const accentColor = computed(() => {
 
 const suggestions = ref<SuggestionItem[]>([])
 
-watch(currentTrack, async (track) => {
-  suggestions.value = []
-  if (track?.id) {
-    try {
-      const recsApi = useRecommendationsApi()
-      const result = await recsApi.getSimilar(track.id, { limit: 3 })
-      const items = result?.items ?? []
-      suggestions.value = items.map((item: RecommendationTrack) => ({
-        id: item.id,
-        title: item.title,
-        artistName: item.artist_name || 'Unknown',
-        coverUrl: item.cover_url,
-        durationSeconds: item.duration_seconds,
-      }))
-    } catch (err) {
-      console.error('Failed to fetch suggestions:', err)
+watch(
+  currentTrack,
+  async (track) => {
+    suggestions.value = []
+    if (track?.id) {
+      try {
+        const recsApi = useRecommendationsApi()
+        const result = await recsApi.getSimilar(track.id, { limit: 3 })
+        const items = result?.items ?? []
+        suggestions.value = items.map((item: RecommendationTrack) => ({
+          id: item.id,
+          title: item.title,
+          artistName: item.artist_name || 'Unknown',
+          coverUrl: item.cover_url,
+          durationSeconds: item.duration_seconds,
+        }))
+      } catch (err) {
+        console.error('Failed to fetch suggestions:', err)
+      }
     }
-  }
-}, { immediate: true })
+  },
+  { immediate: true },
+)
 
 function playFromQueue(index: number) {
   const track = queue.value[index]

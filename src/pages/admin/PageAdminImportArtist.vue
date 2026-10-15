@@ -30,7 +30,7 @@
 
     <!-- Loading -->
     <div v-if="searching" class="mt-12 text-center">
-      <Loader2 aria-hidden="true" class="text-3xl text-slate-400 animate-spin"></Loader2>
+      <Loader2 aria-hidden="true" class="animate-spin text-3xl text-slate-400"></Loader2>
       <p class="mt-3 text-sm text-slate-500">Searching Deezer and MusicBrainz for discography...</p>
     </div>
 
@@ -43,7 +43,7 @@
     <div v-else-if="batchId" class="mt-6">
       <div class="rounded-xl border border-white/6 bg-white/3 p-6">
         <div class="text-center">
-          <Loader2 aria-hidden="true" class="text-3xl text-emerald-400 animate-spin"></Loader2>
+          <Loader2 aria-hidden="true" class="animate-spin text-3xl text-emerald-400"></Loader2>
           <p class="mt-3 text-sm font-medium text-white">Importing {{ batchTotal }} tracks...</p>
           <p class="mt-1 text-xs text-slate-400">
             {{ batchCompleted + batchFailed }} / {{ batchTotal }} processed
@@ -60,7 +60,7 @@
 
         <!-- Per-track status list -->
         <div class="mt-6 space-y-2 border-t border-white/6 pt-4">
-          <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Tracks</p>
+          <p class="text-xs font-medium tracking-wider text-slate-400 uppercase">Tracks</p>
           <div
             v-for="job in batchJobs"
             :key="job.title + job.artist"
@@ -70,10 +70,7 @@
               <p class="truncate text-sm text-white">{{ job.title }}</p>
               <p class="truncate text-xs text-slate-500">{{ job.artist }}</p>
             </div>
-            <span
-              class="ml-3 shrink-0 text-xs font-medium"
-              :class="batchJobStatusClass(job)"
-            >
+            <span class="ml-3 shrink-0 text-xs font-medium" :class="batchJobStatusClass(job)">
               {{ batchJobStatusLabel(job) }}
             </span>
           </div>
@@ -82,11 +79,7 @@
         <!-- Completed actions -->
         <div v-if="batchProgressPct >= 100" class="mt-6 text-center">
           <div class="flex items-center justify-center gap-3">
-            <Button
-              label="Review in Ingestion"
-              icon="pi pi-eye"
-              @click="goToIngestion"
-            />
+            <Button label="Review in Ingestion" icon="pi pi-eye" @click="goToIngestion" />
             <Button
               label="Search Another Artist"
               icon="pi pi-refresh"
@@ -108,30 +101,29 @@
           :alt="discography.artist_info.name"
           class="h-16 w-16 shrink-0 rounded-full object-cover ring-2 ring-white/8"
         />
-        <div v-else class="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-white/6">
+        <div
+          v-else
+          class="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-white/6"
+        >
           <User aria-hidden="true" class="text-2xl text-slate-500"></User>
         </div>
         <div>
           <h2 class="text-xl font-bold text-white">{{ discography.artist_info.name }}</h2>
           <p class="text-sm text-slate-400">
             {{ visibleTrackCount }} track{{ visibleTrackCount !== 1 ? 's' : '' }}
-            <template v-if="hasActiveFilter">
-              (filtered from {{ totalTracks }})
-            </template>
+            <template v-if="hasActiveFilter"> (filtered from {{ totalTracks }}) </template>
             across {{ visibleAlbumCount }} album{{ visibleAlbumCount !== 1 ? 's' : '' }}
           </p>
         </div>
       </div>
 
       <!-- Filter bar -->
-      <div class="mt-4 flex flex-wrap items-center gap-3 rounded-xl border border-white/6 bg-white/3 px-4 py-3">
+      <div
+        class="mt-4 flex flex-wrap items-center gap-3 rounded-xl border border-white/6 bg-white/3 px-4 py-3"
+      >
         <IconField class="min-w-50 flex-1">
           <InputIcon><Filter aria-hidden="true" class=""></Filter></InputIcon>
-          <InputText
-            v-model="filterQuery"
-            placeholder="Filter tracks by name..."
-            class="w-full"
-          />
+          <InputText v-model="filterQuery" placeholder="Filter tracks by name..." class="w-full" />
         </IconField>
         <Select
           v-model="filterSource"
@@ -142,7 +134,9 @@
           class="w-40"
           show-clear
         />
-        <span class="text-xs text-slate-500">{{ visibleSelectedCount }} of {{ visibleTrackCount }} selected</span>
+        <span class="text-xs text-slate-500"
+          >{{ visibleSelectedCount }} of {{ visibleTrackCount }} selected</span
+        >
         <Button
           v-if="hasActiveFilter"
           label="Clear"
@@ -183,88 +177,93 @@
             v-if="albumHasVisibleTracks(ai)"
             class="overflow-hidden rounded-xl border border-white/6 bg-white/2"
           >
-          <!-- Album header (clickable collapse) -->
-          <button
-            class="flex w-full items-center gap-4 px-4 py-3 text-left transition hover:bg-white/3"
-            @click="toggleAlbum(ai)"
-          >
-            <img
-              v-if="album.cover"
-              :src="album.cover"
-              :alt="album.title"
-              class="h-12 w-12 shrink-0 rounded-lg object-cover"
-            />
-            <div v-else class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-white/6">
-              <Disc3 aria-hidden="true" class="text-lg text-slate-500"></Disc3>
-            </div>
-            <div class="min-w-0 flex-1">
-              <p class="text-sm font-medium text-white truncate">{{ album.title || 'Unknown Album' }}</p>
-              <p class="text-xs text-slate-500">
-                {{ visibleAlbumTrackCount(ai) }} of {{ album.tracks.length }} track{{ album.tracks.length !== 1 ? 's' : '' }}
-                <template v-if="hasActiveFilter">visible</template>
-              </p>
-            </div>
-            <div class="flex items-center gap-2">
-              <label class="flex items-center gap-1.5 text-xs text-slate-400" @click.stop>
-                <Checkbox
-                  :binary="true"
-                  :model-value="albumTracksSelected(ai)"
-                  :indeterminate="albumPartiallySelected(ai)"
-                  @update:model-value="(v: boolean) => toggleAlbumTracks(ai, v)"
-                />
-                Album
-              </label>
-              <i
-                aria-hidden="true"
-                class="pi text-sm text-slate-500 transition-transform"
-                :class="isAlbumOpen(ai) ? 'pi-chevron-up' : 'pi-chevron-down'"
-              ></i>
-            </div>
-          </button>
-
-          <!-- Tracks (collapsible) -->
-          <div v-if="isAlbumOpen(ai)" class="border-t border-white/6">
-            <template v-for="(track, ti) in album.tracks" :key="track.title + ti">
-              <div
-                v-if="trackMatchesFilter(track)"
-                class="flex items-center gap-3 px-4 py-2.5 transition hover:bg-white/3"
-              >
-                <Checkbox
-                  :binary="true"
-                  :model-value="isTrackSelected(ai, ti)"
-                  @update:model-value="(v: boolean) => toggleTrack(ai, ti, v)"
-                />
-                <div class="min-w-0 flex-1">
-                  <p class="text-sm text-white truncate">{{ track.title }}</p>
-                  <p class="text-xs text-slate-500">
-                    {{ formatDuration(track.duration) }}
-                    <span v-if="track.source" class="ml-2">via {{ track.source }}</span>
-                  </p>
-                </div>
-                <span
-                  class="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider"
-                  :class="sourceBadge(track.source)"
-                >
-                  {{ track.source }}
-                </span>
-              </div>
-            </template>
-            <div
-              v-if="isAlbumOpen(ai) && visibleAlbumTrackCount(ai) === 0"
-              class="px-4 py-3 text-center text-sm text-slate-500"
+            <!-- Album header (clickable collapse) -->
+            <button
+              class="flex w-full items-center gap-4 px-4 py-3 text-left transition hover:bg-white/3"
+              @click="toggleAlbum(ai)"
             >
-              No tracks match the current filter.
+              <img
+                v-if="album.cover"
+                :src="album.cover"
+                :alt="album.title"
+                class="h-12 w-12 shrink-0 rounded-lg object-cover"
+              />
+              <div
+                v-else
+                class="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-white/6"
+              >
+                <Disc3 aria-hidden="true" class="text-lg text-slate-500"></Disc3>
+              </div>
+              <div class="min-w-0 flex-1">
+                <p class="truncate text-sm font-medium text-white">
+                  {{ album.title || 'Unknown Album' }}
+                </p>
+                <p class="text-xs text-slate-500">
+                  {{ visibleAlbumTrackCount(ai) }} of {{ album.tracks.length }} track{{
+                    album.tracks.length !== 1 ? 's' : ''
+                  }}
+                  <template v-if="hasActiveFilter">visible</template>
+                </p>
+              </div>
+              <div class="flex items-center gap-2">
+                <label class="flex items-center gap-1.5 text-xs text-slate-400" @click.stop>
+                  <Checkbox
+                    :binary="true"
+                    :model-value="albumTracksSelected(ai)"
+                    :indeterminate="albumPartiallySelected(ai)"
+                    @update:model-value="(v: boolean) => toggleAlbumTracks(ai, v)"
+                  />
+                  Album
+                </label>
+                <i
+                  aria-hidden="true"
+                  class="pi text-sm text-slate-500 transition-transform"
+                  :class="isAlbumOpen(ai) ? 'pi-chevron-up' : 'pi-chevron-down'"
+                ></i>
+              </div>
+            </button>
+
+            <!-- Tracks (collapsible) -->
+            <div v-if="isAlbumOpen(ai)" class="border-t border-white/6">
+              <template v-for="(track, ti) in album.tracks" :key="track.title + ti">
+                <div
+                  v-if="trackMatchesFilter(track)"
+                  class="flex items-center gap-3 px-4 py-2.5 transition hover:bg-white/3"
+                >
+                  <Checkbox
+                    :binary="true"
+                    :model-value="isTrackSelected(ai, ti)"
+                    @update:model-value="(v: boolean) => toggleTrack(ai, ti, v)"
+                  />
+                  <div class="min-w-0 flex-1">
+                    <p class="truncate text-sm text-white">{{ track.title }}</p>
+                    <p class="text-xs text-slate-500">
+                      {{ formatDuration(track.duration) }}
+                      <span v-if="track.source" class="ml-2">via {{ track.source }}</span>
+                    </p>
+                  </div>
+                  <span
+                    class="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium tracking-wider uppercase"
+                    :class="sourceBadge(track.source)"
+                  >
+                    {{ track.source }}
+                  </span>
+                </div>
+              </template>
+              <div
+                v-if="isAlbumOpen(ai) && visibleAlbumTrackCount(ai) === 0"
+                class="px-4 py-3 text-center text-sm text-slate-500"
+              >
+                No tracks match the current filter.
+              </div>
             </div>
           </div>
-        </div>
         </template>
       </div>
 
       <div v-if="visibleAlbumCount === 0" class="mt-12 text-center">
         <Disc3 aria-hidden="true" class="text-3xl text-slate-500"></Disc3>
-        <p class="mt-3 text-sm text-slate-500">
-          No albums match the current filter.
-        </p>
+        <p class="mt-3 text-sm text-slate-500">No albums match the current filter.</p>
       </div>
     </template>
 
@@ -288,7 +287,11 @@ import { useRouter } from 'vue-router'
 import { useToast } from 'primevue/usetoast'
 import { AdminSectionHeader } from '@/components/admin'
 import { useImportApi } from '@/services/api/importcmd'
-import type { AlbumGroup, TrackResult, BatchJobResult, ImportResponse } from '@/services/api/importcmd'
+import type {
+  AlbumGroup,
+  TrackResult,
+  BatchJobResult,
+} from '@/services/api/importcmd'
 import { formatDuration } from '@/utils/format'
 
 const router = useRouter()
@@ -317,7 +320,10 @@ const sourceOptions = computed(() => {
       if (track.source) sources.add(track.source.toLowerCase())
     }
   }
-  return Array.from(sources).map(s => ({ label: s.charAt(0).toUpperCase() + s.slice(1), value: s }))
+  return Array.from(sources).map((s) => ({
+    label: s.charAt(0).toUpperCase() + s.slice(1),
+    value: s,
+  }))
 })
 
 const hasActiveFilter = computed(() => filterQuery.value || filterSource.value)
@@ -332,20 +338,20 @@ function trackMatchesFilter(track: TrackResult): boolean {
 function albumHasVisibleTracks(albumIdx: number): boolean {
   const album = discography.value?.albums[albumIdx]
   if (!album) return false
-  return album.tracks.some(t => trackMatchesFilter(t))
+  return album.tracks.some((t) => trackMatchesFilter(t))
 }
 
 function visibleAlbumTrackCount(albumIdx: number): number {
   const album = discography.value?.albums[albumIdx]
   if (!album) return 0
-  return album.tracks.filter(t => trackMatchesFilter(t)).length
+  return album.tracks.filter((t) => trackMatchesFilter(t)).length
 }
 
 const visibleTrackCount = computed(() => {
   if (!discography.value) return 0
   let count = 0
   for (const album of discography.value.albums) {
-    count += album.tracks.filter(t => trackMatchesFilter(t)).length
+    count += album.tracks.filter((t) => trackMatchesFilter(t)).length
   }
   return count
 })
@@ -617,7 +623,9 @@ function startBatchProgressPolling(batchIdVal: string) {
               if (jobProgress) {
                 updatedJobs[i] = { ...job, status: jobProgress.status }
               }
-            } catch { /* ignore polling errors */ }
+            } catch {
+              /* ignore polling errors */
+            }
           }
         }
         batchJobs.value = updatedJobs
@@ -696,5 +704,4 @@ function resetAll() {
   selectedTracks.value = new Set()
   clearFilters()
 }
-
 </script>

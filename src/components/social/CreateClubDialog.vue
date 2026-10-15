@@ -2,11 +2,11 @@
   <Teleport to="body">
     <div
       v-if="visible"
-      class="fixed inset-0 z-50 flex items-center justify-center bg-bg-overlay/60 backdrop-blur-xs"
+      class="bg-bg-overlay/60 fixed inset-0 z-50 flex items-center justify-center backdrop-blur-xs"
       @click.self="emit('close')"
     >
       <div class="glass-strong mx-4 w-full max-w-md rounded-2xl p-8">
-        <h2 class="mb-6 text-xl font-bold text-primary">ساخت کلاب جدید</h2>
+        <h2 class="text-primary mb-6 text-xl font-bold">ساخت کلاب جدید</h2>
 
         <div class="space-y-4">
           <input
@@ -15,7 +15,7 @@
             placeholder="اسم کلاب"
             aria-label="اسم کلاب"
             autofocus
-            class="w-full rounded-xl border border-border-default bg-surface-overlay px-4 py-3 text-sm text-primary placeholder:text-muted outline-hidden transition focus:border-border-strong"
+            class="border-border-default bg-surface-overlay text-primary placeholder:text-muted focus:border-border-strong w-full rounded-xl border px-4 py-3 text-sm outline-hidden transition"
             dir="rtl"
           />
 
@@ -24,13 +24,13 @@
             placeholder="توضیحات (اختیاری)"
             rows="3"
             aria-label="توضیحات"
-            class="w-full rounded-xl border border-border-default bg-surface-overlay px-4 py-3 text-sm text-primary placeholder:text-muted outline-hidden transition focus:border-border-strong"
+            class="border-border-default bg-surface-overlay text-primary placeholder:text-muted focus:border-border-strong w-full rounded-xl border px-4 py-3 text-sm outline-hidden transition"
             dir="rtl"
           />
 
           <select
             v-model="genre"
-            class="w-full rounded-xl border border-border-default bg-surface-overlay px-4 py-3 text-sm text-primary outline-hidden transition focus:border-border-strong"
+            class="border-border-default bg-surface-overlay text-primary focus:border-border-strong w-full rounded-xl border px-4 py-3 text-sm outline-hidden transition"
             aria-label="دسته‌بندی"
             dir="rtl"
           >
@@ -45,20 +45,20 @@
             type="text"
             placeholder="لینک تصویر (اختیاری)"
             aria-label="لینک تصویر"
-            class="w-full rounded-xl border border-border-default bg-surface-overlay px-4 py-3 text-sm text-primary placeholder:text-muted outline-hidden transition focus:border-border-strong"
+            class="border-border-default bg-surface-overlay text-primary placeholder:text-muted focus:border-border-strong w-full rounded-xl border px-4 py-3 text-sm outline-hidden transition"
             dir="rtl"
           />
         </div>
 
         <div class="mt-6 flex gap-3">
           <button
-            class="flex-1 rounded-xl bg-surface-overlay py-3 text-sm font-medium text-secondary transition hover:bg-surface-active"
+            class="bg-surface-overlay text-secondary hover:bg-surface-active flex-1 rounded-xl py-3 text-sm font-medium transition"
             @click="emit('close')"
           >
             انصراف
           </button>
           <button
-            class="flex-1 rounded-xl bg-accent py-3 text-sm font-bold text-black transition hover:bg-accent/90 disabled:opacity-40"
+            class="bg-accent hover:bg-accent/90 flex-1 rounded-xl py-3 text-sm font-bold text-black transition disabled:opacity-40"
             :disabled="!name.trim() || creating"
             @click="handleCreate"
           >

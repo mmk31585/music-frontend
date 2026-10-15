@@ -1,13 +1,10 @@
 <script setup lang="ts">
 import { Image, Loader2, Tag, User, UserPlus } from 'lucide-vue-next'
-import { computed, reactive, ref, watch, onUnmounted, nextTick } from 'vue'
-import { useRouter } from 'vue-router'
+import { computed, reactive, ref, watch, onUnmounted } from 'vue'
 import { useToast } from 'primevue/usetoast'
 import { useLyricsApi } from '@/services/api/lyrics'
 import { useArtistsApi } from '@/services/api/catalog/artists'
-import { useAlbumsApi } from '@/services/api/catalog/albums'
 import { usePlayerApi } from '@/services/api/player'
-import { useTracksApi } from '@/services/api/catalog/tracks'
 import { formatDuration } from '@/utils/format'
 
 let _parseBlob: typeof import('music-metadata-browser').parseBlob | null = null
@@ -191,12 +188,12 @@ const form = reactive({
   release_date: '' as string | null,
   label: '' as string | null,
 
-    audioFile: null as File | null,
-    coverFile: null as File | null,
+  audioFile: null as File | null,
+  coverFile: null as File | null,
 
-    /** Blob URL for uploaded audio preview (create mode) */
-    uploadedAudioPreviewUrl: null as string | null,
-  })
+  /** Blob URL for uploaded audio preview (create mode) */
+  uploadedAudioPreviewUrl: null as string | null,
+})
 
 const primaryArtistModels = ref<CatalogOption[]>([])
 const featuredArtistModels = ref<CatalogOption[]>([])
@@ -223,12 +220,9 @@ const aiSyncing = ref(false)
 const aiReviewing = ref(false)
 
 const toast = useToast()
-const router = useRouter()
 const lyricsApi = useLyricsApi()
 const artistsApi = useArtistsApi()
-const albumsApi = useAlbumsApi()
 const playerApi = usePlayerApi()
-const tracksApi = useTracksApi()
 
 const detectedArtistNames = ref<string[]>([])
 const detectedAlbumName = ref('')
@@ -283,9 +277,7 @@ const unresolvedAlbumArtistName = computed(() => {
 })
 
 const unresolvedPrimaryArtistNames = computed(() => {
-  return detectedArtistNames.value.filter(
-    (name) => !findOptionByName(props.artistsOptions, name),
-  )
+  return detectedArtistNames.value.filter((name) => !findOptionByName(props.artistsOptions, name))
 })
 
 watch(
@@ -416,9 +408,7 @@ function hydrateFromTrack(track: ExistingTrack) {
     coverPreviewUrl.value = track.cover_url
   }
 
-  const credits = track.credits?.length
-    ? track.credits
-    : normalizeLegacyArtistsToCredits(track)
+  const credits = track.credits?.length ? track.credits : normalizeLegacyArtistsToCredits(track)
 
   // Try to find primary/featured artists in local options
   primaryArtistModels.value = credits
@@ -455,7 +445,9 @@ function hydrateFromTrack(track: ExistingTrack) {
       primaryArtistModels.value = updatedCredits
         .filter((item) => item.role === 'primary')
         .sort((a, b) => Number(a.position ?? 0) - Number(b.position ?? 0))
-        .map((item) => findOptionById([...props.artistsOptions, ...filteredArtists.value], item.artist_id))
+        .map((item) =>
+          findOptionById([...props.artistsOptions, ...filteredArtists.value], item.artist_id),
+        )
         .filter((item): item is CatalogOption => Boolean(item))
     }
 
@@ -463,7 +455,9 @@ function hydrateFromTrack(track: ExistingTrack) {
       featuredArtistModels.value = updatedCredits
         .filter((item) => item.role === 'featured')
         .sort((a, b) => Number(a.position ?? 0) - Number(b.position ?? 0))
-        .map((item) => findOptionById([...props.artistsOptions, ...filteredArtists.value], item.artist_id))
+        .map((item) =>
+          findOptionById([...props.artistsOptions, ...filteredArtists.value], item.artist_id),
+        )
         .filter((item): item is CatalogOption => Boolean(item))
     }
 
@@ -474,10 +468,15 @@ function hydrateFromTrack(track: ExistingTrack) {
         const existing = creditRows.value.find(
           (r) => r.artist && String(r.artist.id) === String(item.artist_id),
         )
-        return existing || {
-          artist: findOptionById([...props.artistsOptions, ...filteredArtists.value], item.artist_id),
-          role: item.role,
-        }
+        return (
+          existing || {
+            artist: findOptionById(
+              [...props.artistsOptions, ...filteredArtists.value],
+              item.artist_id,
+            ),
+            role: item.role,
+          }
+        )
       })
       .filter((item) => item.artist)
   })
@@ -545,10 +544,7 @@ function normalizeLegacyArtistsToCredits(track: ExistingTrack) {
 }
 
 function normalizeForSearch(value: string) {
-  return value
-    .toLowerCase()
-    .trim()
-    .replace(/\s+/g, ' ')
+  return value.toLowerCase().trim().replace(/\s+/g, ' ')
 }
 
 function normalizeText(value?: string | null) {
@@ -589,9 +585,7 @@ function searchOptions(options: CatalogOption[], query?: string) {
     return options.slice(0, 20)
   }
 
-  return options
-    .filter((item) => normalizeForSearch(item.name).includes(normalized))
-    .slice(0, 30)
+  return options.filter((item) => normalizeForSearch(item.name).includes(normalized)).slice(0, 30)
 }
 
 function searchAlbums(event: { query: string }) {
@@ -1096,9 +1090,10 @@ async function fillLyricsFromResult(content: string, type: 'synced' | 'plain', t
   form.lyrics_type = type
   toast.add({
     severity: type === 'synced' ? 'success' : 'info',
-    summary: type === 'synced'
-      ? `Synced LRC fetched for "${trackName}"`
-      : `Plain lyrics fetched for "${trackName}"`,
+    summary:
+      type === 'synced'
+        ? `Synced LRC fetched for "${trackName}"`
+        : `Plain lyrics fetched for "${trackName}"`,
     life: 3000,
   })
 }
@@ -1151,7 +1146,10 @@ async function fetchLRCLyrics() {
         if (resp.ok) {
           const results: any[] = await resp.json()
           // Prefer synced, then any with lyrics
-          data = results.find((r: any) => r.syncedLyrics) || results.find((r: any) => r.plainLyrics) || null
+          data =
+            results.find((r: any) => r.syncedLyrics) ||
+            results.find((r: any) => r.plainLyrics) ||
+            null
         } else {
           data = null
         }
@@ -1229,7 +1227,12 @@ async function fetchLRCLyrics() {
     if (err instanceof DOMException && err.name === 'AbortError') {
       await fetchLyricsViaPipeline(trackName)
     } else {
-      toast.add({ severity: 'error', summary: 'Failed to fetch lyrics', detail: String(err), life: 3000 })
+      toast.add({
+        severity: 'error',
+        summary: 'Failed to fetch lyrics',
+        detail: String(err),
+        life: 3000,
+      })
     }
   } finally {
     clearTimeout(timeout)
@@ -1245,7 +1248,11 @@ async function fetchLyricsViaPipeline(trackName: string) {
   // Pipeline needs a saved track ID (server-side processing requires a DB record)
   const trackId = props.track?.id
   if (!trackId) {
-    toast.add({ severity: 'warn', summary: 'Save the track first, then try Fetch LRC again for AI-powered lyrics', life: 5000 })
+    toast.add({
+      severity: 'warn',
+      summary: 'Save the track first, then try Fetch LRC again for AI-powered lyrics',
+      life: 5000,
+    })
     return
   }
 
@@ -1267,7 +1274,7 @@ async function fetchLyricsViaPipeline(trackName: string) {
       toast.add({
         severity: 'info',
         summary: 'AI lyrics generation started',
-        detail: 'This may take 30-60 seconds. We\'ll fill the form automatically when ready.',
+        detail: "This may take 30-60 seconds. We'll fill the form automatically when ready.",
         life: 8000,
       })
 
@@ -1286,7 +1293,9 @@ async function fetchLyricsViaPipeline(trackName: string) {
             stopAiPolling()
             aiGenerating.value = false
             // Fetch the actual lyrics
-            const lyricsResult = await lyricsApi.getTrackLyrics(trackId, undefined, { silent: true })
+            const lyricsResult = await lyricsApi.getTrackLyrics(trackId, undefined, {
+              silent: true,
+            })
             if (lyricsResult?.content) {
               await fillLyricsFromResult(
                 lyricsResult.content,
@@ -1323,7 +1332,7 @@ async function fetchLyricsViaPipeline(trackName: string) {
               life: 2000,
             })
           }
-        } catch (err) {
+        } catch {
           // Status endpoint unavailable — keep polling
         }
 
@@ -1333,7 +1342,8 @@ async function fetchLyricsViaPipeline(trackName: string) {
           toast.add({
             severity: 'warn',
             summary: 'AI lyrics generation taking longer than expected',
-            detail: 'The lyrics will be saved automatically. You can close this dialog and check back later.',
+            detail:
+              'The lyrics will be saved automatically. You can close this dialog and check back later.',
             life: 5000,
           })
         }
@@ -1342,9 +1352,18 @@ async function fetchLyricsViaPipeline(trackName: string) {
     }
 
     // source === "none"
-    toast.add({ severity: 'error', summary: result?.message || 'No lyrics found on LRCLIB and AI generation not available', life: 3000 })
+    toast.add({
+      severity: 'error',
+      summary: result?.message || 'No lyrics found on LRCLIB and AI generation not available',
+      life: 3000,
+    })
   } catch (err: any) {
-    toast.add({ severity: 'error', summary: 'Failed to fetch or generate lyrics', detail: String(err?.message || err), life: 3000 })
+    toast.add({
+      severity: 'error',
+      summary: 'Failed to fetch or generate lyrics',
+      detail: String(err?.message || err),
+      life: 3000,
+    })
   }
 }
 
@@ -1361,13 +1380,21 @@ onUnmounted(() => {
 async function syncLyricsWithAI() {
   const trackId = props.track?.id
   if (!trackId) {
-    toast.add({ severity: 'warn', summary: 'Save the track first before using AI sync', life: 5000 })
+    toast.add({
+      severity: 'warn',
+      summary: 'Save the track first before using AI sync',
+      life: 5000,
+    })
     return
   }
 
   const plainText = form.lyrics?.trim()
   if (!plainText) {
-    toast.add({ severity: 'warn', summary: 'Type some plain lyrics first, then click Sync with AI', life: 5000 })
+    toast.add({
+      severity: 'warn',
+      summary: 'Type some plain lyrics first, then click Sync with AI',
+      life: 5000,
+    })
     return
   }
 
@@ -1388,7 +1415,12 @@ async function syncLyricsWithAI() {
       toast.add({ severity: 'error', summary: result?.message || 'AI sync failed', life: 5000 })
     }
   } catch (err: any) {
-    toast.add({ severity: 'error', summary: 'AI sync failed', detail: String(err?.message || err), life: 5000 })
+    toast.add({
+      severity: 'error',
+      summary: 'AI sync failed',
+      detail: String(err?.message || err),
+      life: 5000,
+    })
   } finally {
     aiSyncing.value = false
   }
@@ -1401,13 +1433,21 @@ async function syncLyricsWithAI() {
 async function reviewLyricsWithAI() {
   const trackId = props.track?.id
   if (!trackId) {
-    toast.add({ severity: 'warn', summary: 'Save the track first before using AI review', life: 5000 })
+    toast.add({
+      severity: 'warn',
+      summary: 'Save the track first before using AI review',
+      life: 5000,
+    })
     return
   }
 
   const currentLRC = form.lyrics?.trim()
   if (!currentLRC) {
-    toast.add({ severity: 'warn', summary: 'Add lyrics first, then click Review with AI', life: 5000 })
+    toast.add({
+      severity: 'warn',
+      summary: 'Add lyrics first, then click Review with AI',
+      life: 5000,
+    })
     return
   }
 
@@ -1428,7 +1468,12 @@ async function reviewLyricsWithAI() {
       toast.add({ severity: 'error', summary: result?.message || 'AI review failed', life: 5000 })
     }
   } catch (err: any) {
-    toast.add({ severity: 'error', summary: 'AI review failed', detail: String(err?.message || err), life: 5000 })
+    toast.add({
+      severity: 'error',
+      summary: 'AI review failed',
+      detail: String(err?.message || err),
+      life: 5000,
+    })
   } finally {
     aiReviewing.value = false
   }
@@ -1518,7 +1563,6 @@ function seekAudioPreview(event: Event) {
     audioPreviewCurrent.value = value
   }
 }
-
 </script>
 
 <template>
@@ -1535,9 +1579,7 @@ function seekAudioPreview(event: Event) {
       <section class="grid grid-cols-1 gap-4 md:grid-cols-2">
         <!-- Audio file upload -->
         <div class="rounded-2xl border border-white/8 bg-white/3 p-4">
-          <label class="mb-2 block text-xs font-medium text-slate-400">
-            Audio file
-          </label>
+          <label class="mb-2 block text-xs font-medium text-slate-400"> Audio file </label>
 
           <input
             ref="audioInputRef"
@@ -1556,16 +1598,17 @@ function seekAudioPreview(event: Event) {
             @click="triggerAudioInput"
           />
 
-          <p v-if="metadataLoading" class="mt-2 text-xs text-slate-400">
-            Reading metadata...
-          </p>
+          <p v-if="metadataLoading" class="mt-2 text-xs text-slate-400">Reading metadata...</p>
 
           <p v-if="metadataError" class="mt-2 text-xs text-red-400">
             {{ metadataError }}
           </p>
 
           <!-- Audio preview (edit mode: existing track / create mode: uploaded file) -->
-          <div v-if="audioPreviewUrl || form.uploadedAudioPreviewUrl" class="mt-4 border-t border-white/6 pt-3">
+          <div
+            v-if="audioPreviewUrl || form.uploadedAudioPreviewUrl"
+            class="mt-4 border-t border-white/6 pt-3"
+          >
             <div class="mb-2 flex items-center gap-2">
               <Button
                 type="button"
@@ -1574,14 +1617,13 @@ function seekAudioPreview(event: Event) {
                 text
                 rounded
                 aria-label="Preview track audio"
-                class="text-emerald-400! text-xl!"
+                class="text-xl! text-emerald-400!"
                 @click="toggleAudioPreview"
               />
-              <span class="text-xs text-slate-500">
-                Preview
-              </span>
-              <span class="ml-auto text-xs tabular-nums text-slate-500">
-                {{ formatDuration(audioPreviewCurrent) }} / {{ formatDuration(audioPreviewDuration) }}
+              <span class="text-xs text-slate-500"> Preview </span>
+              <span class="ml-auto text-xs text-slate-500 tabular-nums">
+                {{ formatDuration(audioPreviewCurrent) }} /
+                {{ formatDuration(audioPreviewDuration) }}
               </span>
             </div>
 
@@ -1610,9 +1652,7 @@ function seekAudioPreview(event: Event) {
 
         <!-- Cover image -->
         <div class="rounded-2xl border border-white/8 bg-white/3 p-4">
-          <label class="mb-2 block text-xs font-medium text-slate-400">
-            Cover image
-          </label>
+          <label class="mb-2 block text-xs font-medium text-slate-400"> Cover image </label>
 
           <input
             ref="coverInputRef"
@@ -1632,7 +1672,7 @@ function seekAudioPreview(event: Event) {
                 alt="Cover"
                 class="h-full w-full object-cover"
               />
-              <Image aria-hidden="true" v-else class="text-2xl text-slate-500"  />
+              <Image aria-hidden="true" v-else class="text-2xl text-slate-500" />
             </div>
 
             <div class="flex flex-col gap-2">
@@ -1662,9 +1702,7 @@ function seekAudioPreview(event: Event) {
       <!-- Main metadata -->
       <section class="space-y-4">
         <div>
-          <label class="mb-1.5 block text-xs font-medium text-slate-400">
-            Title
-          </label>
+          <label class="mb-1.5 block text-xs font-medium text-slate-400"> Title </label>
 
           <InputText
             v-model="form.title"
@@ -1677,8 +1715,11 @@ function seekAudioPreview(event: Event) {
           <div>
             <label class="mb-1.5 flex items-center gap-2 text-xs font-medium text-slate-400">
               Primary artists
-              <Loader2 aria-hidden="true" v-if="artistSearchLoading"
-                class="text-[10px] text-emerald-400 animate-spin" />
+              <Loader2
+                aria-hidden="true"
+                v-if="artistSearchLoading"
+                class="animate-spin text-[10px] text-emerald-400"
+              />
             </label>
 
             <AutoComplete
@@ -1696,7 +1737,7 @@ function seekAudioPreview(event: Event) {
             >
               <template #option="{ option }">
                 <div class="flex items-center gap-2 text-sm text-white">
-                  <User aria-hidden="true" class="text-xs text-slate-500"  />
+                  <User aria-hidden="true" class="text-xs text-slate-500" />
                   <span>{{ option.name }}</span>
                 </div>
               </template>
@@ -1718,7 +1759,7 @@ function seekAudioPreview(event: Event) {
                 severity="success"
                 text
                 class="h-6! rounded-md! px-2! text-[11px]! text-emerald-400! hover:text-emerald-300!"
-                :label='`Create "${name}"`'
+                :label="`Create &quot;${name}&quot;`"
                 @click="emit('create-artist', name)"
               />
             </div>
@@ -1727,8 +1768,11 @@ function seekAudioPreview(event: Event) {
           <div>
             <label class="mb-1.5 flex items-center gap-2 text-xs font-medium text-slate-400">
               Featured artists
-              <Loader2 aria-hidden="true" v-if="artistSearchLoading"
-                class="text-[10px] text-emerald-400 animate-spin" />
+              <Loader2
+                aria-hidden="true"
+                v-if="artistSearchLoading"
+                class="animate-spin text-[10px] text-emerald-400"
+              />
             </label>
 
             <AutoComplete
@@ -1746,7 +1790,7 @@ function seekAudioPreview(event: Event) {
             >
               <template #option="{ option }">
                 <div class="flex items-center gap-2 text-sm text-white">
-                  <UserPlus aria-hidden="true" class="text-xs text-slate-500"  />
+                  <UserPlus aria-hidden="true" class="text-xs text-slate-500" />
                   <span>{{ option.name }}</span>
                 </div>
               </template>
@@ -1756,9 +1800,7 @@ function seekAudioPreview(event: Event) {
 
         <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div>
-            <label class="mb-1.5 block text-xs font-medium text-slate-400">
-              Album
-            </label>
+            <label class="mb-1.5 block text-xs font-medium text-slate-400"> Album </label>
 
             <AutoComplete
               v-model="albumModel"
@@ -1794,8 +1836,11 @@ function seekAudioPreview(event: Event) {
           <div>
             <label class="mb-1.5 flex items-center gap-2 text-xs font-medium text-slate-400">
               Album artist
-              <Loader2 aria-hidden="true" v-if="artistSearchLoading"
-                class="text-[10px] text-emerald-400 animate-spin" />
+              <Loader2
+                aria-hidden="true"
+                v-if="artistSearchLoading"
+                class="animate-spin text-[10px] text-emerald-400"
+              />
             </label>
 
             <AutoComplete
@@ -1812,10 +1857,7 @@ function seekAudioPreview(event: Event) {
               @blur="resolveAlbumArtistInput"
             />
 
-            <div
-              v-if="unresolvedAlbumArtistName"
-              class="mt-1 flex flex-wrap items-center gap-2"
-            >
+            <div v-if="unresolvedAlbumArtistName" class="mt-1 flex flex-wrap items-center gap-2">
               <span class="text-xs text-yellow-400">
                 Album artist not found: {{ unresolvedAlbumArtistName }}
               </span>
@@ -1834,9 +1876,7 @@ function seekAudioPreview(event: Event) {
         </div>
 
         <div>
-          <label class="mb-1.5 block text-xs font-medium text-slate-400">
-            Genres
-          </label>
+          <label class="mb-1.5 block text-xs font-medium text-slate-400"> Genres </label>
 
           <AutoComplete
             v-model="genreModels"
@@ -1853,7 +1893,7 @@ function seekAudioPreview(event: Event) {
           >
             <template #option="{ option }">
               <div class="flex items-center gap-2 text-sm text-white">
-                <Tag aria-hidden="true" class="text-xs text-slate-500"  />
+                <Tag aria-hidden="true" class="text-xs text-slate-500" />
                 <span>{{ option.name }}</span>
               </div>
             </template>
@@ -1872,9 +1912,7 @@ function seekAudioPreview(event: Event) {
       <!-- Numbers -->
       <section class="grid grid-cols-1 gap-4 md:grid-cols-4">
         <div>
-          <label class="mb-1.5 block text-xs font-medium text-slate-400">
-            Duration seconds
-          </label>
+          <label class="mb-1.5 block text-xs font-medium text-slate-400"> Duration seconds </label>
 
           <InputNumber
             v-model="form.duration_seconds"
@@ -1884,9 +1922,7 @@ function seekAudioPreview(event: Event) {
         </div>
 
         <div>
-          <label class="mb-1.5 block text-xs font-medium text-slate-400">
-            Track number
-          </label>
+          <label class="mb-1.5 block text-xs font-medium text-slate-400"> Track number </label>
 
           <InputNumber
             v-model="form.track_number"
@@ -1896,9 +1932,7 @@ function seekAudioPreview(event: Event) {
         </div>
 
         <div>
-          <label class="mb-1.5 block text-xs font-medium text-slate-400">
-            Disc number
-          </label>
+          <label class="mb-1.5 block text-xs font-medium text-slate-400"> Disc number </label>
 
           <InputNumber
             v-model="form.disc_number"
@@ -1908,9 +1942,7 @@ function seekAudioPreview(event: Event) {
         </div>
 
         <div>
-          <label class="mb-1.5 block text-xs font-medium text-slate-400">
-            Year
-          </label>
+          <label class="mb-1.5 block text-xs font-medium text-slate-400"> Year </label>
 
           <InputNumber
             v-model="form.year"
@@ -1924,9 +1956,7 @@ function seekAudioPreview(event: Event) {
       <section class="space-y-4">
         <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div>
-            <label class="mb-1.5 block text-xs font-medium text-slate-400">
-              ISRC
-            </label>
+            <label class="mb-1.5 block text-xs font-medium text-slate-400"> ISRC </label>
 
             <InputText
               v-model="form.isrc"
@@ -1936,9 +1966,7 @@ function seekAudioPreview(event: Event) {
           </div>
 
           <div>
-            <label class="mb-1.5 block text-xs font-medium text-slate-400">
-              Language
-            </label>
+            <label class="mb-1.5 block text-xs font-medium text-slate-400"> Language </label>
 
             <InputText
               v-model="form.language"
@@ -1950,9 +1978,7 @@ function seekAudioPreview(event: Event) {
 
         <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div>
-            <label class="mb-1.5 block text-xs font-medium text-slate-400">
-              Release date
-            </label>
+            <label class="mb-1.5 block text-xs font-medium text-slate-400"> Release date </label>
 
             <InputText
               v-model="form.release_date"
@@ -1962,9 +1988,7 @@ function seekAudioPreview(event: Event) {
           </div>
 
           <div>
-            <label class="mb-1.5 block text-xs font-medium text-slate-400">
-              Label
-            </label>
+            <label class="mb-1.5 block text-xs font-medium text-slate-400"> Label </label>
 
             <InputText
               v-model="form.label"
@@ -1977,17 +2001,13 @@ function seekAudioPreview(event: Event) {
         <div class="flex items-center gap-2">
           <Checkbox v-model="form.explicit" binary inputId="explicit" />
 
-          <label for="explicit" class="text-sm text-slate-300">
-            Explicit content
-          </label>
+          <label for="explicit" class="text-sm text-slate-300"> Explicit content </label>
         </div>
       </section>
 
       <!-- Composer -->
       <section>
-        <label class="mb-1.5 block text-xs font-medium text-slate-400">
-          Composer
-        </label>
+        <label class="mb-1.5 block text-xs font-medium text-slate-400"> Composer </label>
 
         <InputText
           v-model="form.composer"
@@ -2055,18 +2075,14 @@ function seekAudioPreview(event: Event) {
           />
         </div>
 
-        <p v-if="!creditRows.length" class="text-xs text-slate-500">
-          No extra credits added.
-        </p>
+        <p v-if="!creditRows.length" class="text-xs text-slate-500">No extra credits added.</p>
       </section>
 
       <!-- Lyrics -->
       <section class="space-y-4">
         <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
           <div>
-            <label class="mb-1.5 block text-xs font-medium text-slate-400">
-              Lyrics language
-            </label>
+            <label class="mb-1.5 block text-xs font-medium text-slate-400"> Lyrics language </label>
 
             <InputText
               v-model="form.lyrics_language"
@@ -2076,9 +2092,7 @@ function seekAudioPreview(event: Event) {
           </div>
 
           <div>
-            <label class="mb-1.5 block text-xs font-medium text-slate-400">
-              Lyrics type
-            </label>
+            <label class="mb-1.5 block text-xs font-medium text-slate-400"> Lyrics type </label>
 
             <Select
               v-model="form.lyrics_type"
@@ -2096,9 +2110,7 @@ function seekAudioPreview(event: Event) {
 
         <div>
           <div class="mb-1.5 flex items-center justify-between">
-            <label class="block text-xs font-medium text-slate-400">
-              Lyrics
-            </label>
+            <label class="block text-xs font-medium text-slate-400"> Lyrics </label>
 
             <div class="flex items-center gap-1">
               <Button
@@ -2150,13 +2162,7 @@ function seekAudioPreview(event: Event) {
 
       <!-- Actions -->
       <footer class="flex items-center justify-end gap-3 border-t border-white/8 pt-4">
-        <Button
-          type="button"
-          label="Cancel"
-          text
-          class="text-slate-300!"
-          @click="closeDialog"
-        />
+        <Button type="button" label="Cancel" text class="text-slate-300!" @click="closeDialog" />
 
         <Button
           type="submit"

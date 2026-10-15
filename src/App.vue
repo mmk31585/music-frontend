@@ -21,12 +21,15 @@ const playerStore = usePlayerStore()
 const toast = useToast()
 
 const trackAnnouncement = ref('')
-watch(() => playerStore.currentTrack?.title, (title, oldTitle) => {
-  if (title && title !== oldTitle) {
-    const artist = playerStore.currentTrack?.artistName ?? ''
-    trackAnnouncement.value = `Now playing: ${title} by ${artist}`
-  }
-})
+watch(
+  () => playerStore.currentTrack?.title,
+  (title, oldTitle) => {
+    if (title && title !== oldTitle) {
+      const artist = playerStore.currentTrack?.artistName ?? ''
+      trackAnnouncement.value = `Now playing: ${title} by ${artist}`
+    }
+  },
+)
 
 const layout = computed(() => {
   return route?.meta?.layout ?? 'layout-empty'
@@ -35,16 +38,19 @@ const layout = computed(() => {
 registerToast(useToast())
 registerRouter(useRouter())
 
-watch(() => authStore.restoreError, (hasError) => {
-  if (hasError) {
-    toast.add({
-      severity: 'warn',
-      summary: 'Session expired',
-      detail: 'Your session has expired. Please log in again.',
-      life: 5000,
-    })
-  }
-})
+watch(
+  () => authStore.restoreError,
+  (hasError) => {
+    if (hasError) {
+      toast.add({
+        severity: 'warn',
+        summary: 'Session expired',
+        detail: 'Your session has expired. Please log in again.',
+        life: 5000,
+      })
+    }
+  },
+)
 
 const libraryApi = useLibraryApi()
 const undoToast = useToast()
@@ -67,7 +73,11 @@ async function undoPlaylistRemove() {
   try {
     const api = usePlaylistsApi()
     await api.addTrack(data.playlistId, { track_id: data.trackId })
-    undoToast.add({ severity: 'success', summary: `Track re-added to ${data.playlistName}`, life: 3000 })
+    undoToast.add({
+      severity: 'success',
+      summary: `Track re-added to ${data.playlistName}`,
+      life: 3000,
+    })
   } catch {
     undoToast.add({ severity: 'error', summary: 'Failed to undo', life: 3000 })
   }
@@ -85,40 +95,35 @@ onMounted(() => {
   <Toast group="undo">
     <template #message="{ message }">
       <div class="flex items-center gap-3 px-2 py-1">
-        <span class="text-sm font-medium text-primary">{{ message.summary }}</span>
+        <span class="text-primary text-sm font-medium">{{ message.summary }}</span>
         <button
           type="button"
-          class="rounded-full bg-surface-active px-3 py-1 text-xs font-bold text-primary transition hover:bg-surface-hover"
+          class="bg-surface-active text-primary hover:bg-surface-hover rounded-full px-3 py-1 text-xs font-bold transition"
           @click="undoUnlike"
-        >Undo</button>
+        >
+          Undo
+        </button>
       </div>
     </template>
   </Toast>
   <Toast group="playlist-undo">
     <template #message="{ message }">
       <div class="flex items-center gap-3 px-2 py-1">
-        <span class="text-sm font-medium text-primary">{{ message.summary }}</span>
+        <span class="text-primary text-sm font-medium">{{ message.summary }}</span>
         <button
           type="button"
-          class="rounded-full bg-surface-active px-3 py-1 text-xs font-bold text-primary transition hover:bg-surface-hover"
+          class="bg-surface-active text-primary hover:bg-surface-hover rounded-full px-3 py-1 text-xs font-bold transition"
           @click="undoPlaylistRemove"
-        >Undo</button>
+        >
+          Undo
+        </button>
       </div>
     </template>
   </Toast>
 
-  <div
-    id="route-announcer"
-    aria-live="polite"
-    aria-atomic="true"
-    class="sr-only"
-  />
+  <div id="route-announcer" aria-live="polite" aria-atomic="true" class="sr-only" />
 
-  <div
-    aria-live="polite"
-    aria-atomic="true"
-    class="sr-only"
-  >{{ trackAnnouncement }}</div>
+  <div aria-live="polite" aria-atomic="true" class="sr-only">{{ trackAnnouncement }}</div>
 
   <ThemeProvider>
     <PwaInstallPrompt />

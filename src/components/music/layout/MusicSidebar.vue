@@ -1,22 +1,15 @@
 <template>
   <nav
     aria-label="Main navigation"
-    class="hidden h-screen w-[260px] shrink-0 border-r border-border-subtle bg-surface-raised/60 backdrop-blur-2xl lg:flex lg:flex-col"
+    class="border-border-subtle bg-surface-raised/60 hidden h-screen w-[260px] shrink-0 border-r backdrop-blur-2xl lg:flex lg:flex-col"
   >
-    <div class="flex shrink-0 flex-col px-4 pb-4 pt-4">
+    <div class="flex shrink-0 flex-col px-4 pt-4 pb-4">
       <SidebarLogo />
     </div>
 
-    <div
-      class="flex-1 overflow-y-auto px-4 scroll-bar"
-      :class="bottomPadding"
-    >
+    <div class="scroll-bar flex-1 overflow-y-auto px-4" :class="bottomPadding">
       <div class="flex flex-col gap-3 pt-1">
-        <SidebarSection
-          v-for="section in visibleSections"
-          :key="section.id"
-          :section="section"
-        />
+        <SidebarSection v-for="section in visibleSections" :key="section.id" :section="section" />
       </div>
       <div class="h-4" />
     </div>

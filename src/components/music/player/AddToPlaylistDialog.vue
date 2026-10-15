@@ -16,35 +16,38 @@
   >
     <template #header>
       <div class="flex items-center gap-2 px-1">
-        <List aria-hidden="true" class="text-sm text-spotify"  />
+        <List aria-hidden="true" class="text-spotify text-sm" />
         <span id="add-to-playlist-title">Add to Playlist</span>
       </div>
     </template>
 
-    <div class="flex flex-col max-h-[60vh]">
+    <div class="flex max-h-[60vh] flex-col">
       <div class="shrink-0 p-3">
         <div class="relative">
           <Search
             aria-hidden="true"
-            class="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-white/30"
-           />
+            class="absolute top-1/2 left-3 -translate-y-1/2 text-xs text-white/30"
+          />
           <input
             v-model="searchQuery"
             type="text"
             placeholder="Filter playlists..."
             aria-label="Filter playlists"
-            class="w-full rounded-xl border border-white/10 bg-white/5 py-2.5 pl-9 pr-3 text-sm text-white outline-hidden transition placeholder:text-white/30 focus:border-spotify/50"
+            class="focus:border-spotify/50 w-full rounded-xl border border-white/10 bg-white/5 py-2.5 pr-3 pl-9 text-sm text-white outline-hidden transition placeholder:text-white/30"
           />
         </div>
       </div>
 
       <div class="flex-1 overflow-y-auto px-1">
         <div v-if="loading" class="flex items-center justify-center py-12">
-          <Loader2 aria-hidden="true" class="text-lg text-white/30 animate-spin"  />
+          <Loader2 aria-hidden="true" class="animate-spin text-lg text-white/30" />
         </div>
 
-        <div v-else-if="filteredPlaylists.length === 0" class="flex flex-col items-center gap-2 py-12 text-center">
-          <Inbox aria-hidden="true" class="text-2xl text-white/20"  />
+        <div
+          v-else-if="filteredPlaylists.length === 0"
+          class="flex flex-col items-center gap-2 py-12 text-center"
+        >
+          <Inbox aria-hidden="true" class="text-2xl text-white/20" />
           <p class="text-sm text-white/40">No playlists found</p>
         </div>
 
@@ -55,14 +58,16 @@
           class="flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition hover:bg-white/5"
           @click="addTo(p.id)"
         >
-          <div class="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-white/10">
+          <div
+            class="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-white/10"
+          >
             <img
               v-if="p.cover_url"
               :src="p.cover_url"
               :alt="p.name"
               class="h-full w-full object-cover"
             />
-            <List v-else aria-hidden="true" class="text-sm text-white/30"  />
+            <List v-else aria-hidden="true" class="text-sm text-white/30" />
           </div>
           <div class="min-w-0 flex-1">
             <p class="truncate text-sm font-medium text-white">{{ p.name }}</p>
@@ -71,13 +76,13 @@
           <Loader2
             v-if="addingId === p.id"
             aria-hidden="true"
-            class="text-xs text-spotify animate-spin"
-           />
+            class="text-spotify animate-spin text-xs"
+          />
           <Plus
             v-else
             aria-hidden="true"
             class="text-xs text-white/30 transition group-hover:text-white"
-           />
+          />
         </button>
       </div>
     </div>
@@ -98,7 +103,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   'update:visible': [value: boolean]
-  'added': [playlistId: string]
+  added: [playlistId: string]
 }>()
 
 const toast = useToast()
@@ -112,9 +117,7 @@ const playlists = ref<PlaylistListItem[]>([])
 const filteredPlaylists = computed(() => {
   const q = searchQuery.value.toLowerCase().trim()
   if (!q) return playlists.value
-  return playlists.value.filter(
-    (p) => p.name.toLowerCase().includes(q),
-  )
+  return playlists.value.filter((p) => p.name.toLowerCase().includes(q))
 })
 
 async function fetch() {
@@ -166,9 +169,12 @@ async function addTo(playlistId: string) {
   }
 }
 
-watch(() => props.visible, (v) => {
-  if (v) fetch()
-})
+watch(
+  () => props.visible,
+  (v) => {
+    if (v) fetch()
+  },
+)
 
 onMounted(() => {
   if (props.visible) fetch()

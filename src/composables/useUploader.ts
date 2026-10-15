@@ -32,7 +32,11 @@ export function useUploader() {
     }
   }
 
-  async function submitUpload(filename: string, file?: File, clubId?: number): Promise<Draft | null> {
+  async function submitUpload(
+    filename: string,
+    file?: File,
+    clubId?: number,
+  ): Promise<Draft | null> {
     const draft = await useUploadsApi().createDraft(filename, clubId)
     if (file && draft?.id) {
       await useUploadsApi().uploadDraftFile(draft.id, file)

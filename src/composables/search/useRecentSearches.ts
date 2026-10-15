@@ -33,20 +33,20 @@ export function useRecentSearches() {
     if (!trimmed) return
 
     const filtered = recentSearches.value.filter(
-      (entry) => entry.query.toLowerCase() !== trimmed.toLowerCase()
+      (entry) => entry.query.toLowerCase() !== trimmed.toLowerCase(),
     )
 
-    recentSearches.value = [
-      { query: trimmed, timestamp: Date.now() },
-      ...filtered,
-    ].slice(0, MAX_ITEMS)
+    recentSearches.value = [{ query: trimmed, timestamp: Date.now() }, ...filtered].slice(
+      0,
+      MAX_ITEMS,
+    )
 
     saveToStorage(recentSearches.value)
   }
 
   function removeRecentSearch(query: string) {
     recentSearches.value = recentSearches.value.filter(
-      (entry) => entry.query.toLowerCase() !== query.toLowerCase()
+      (entry) => entry.query.toLowerCase() !== query.toLowerCase(),
     )
     saveToStorage(recentSearches.value)
   }

@@ -9,12 +9,8 @@ import {
 export type ArtistFormPayload = ArtistCreatePayload & ArtistUpdatePayload
 
 export function useAdminArtists() {
-  const {
-    adminGetArtists,
-    adminCreateArtist,
-    adminUpdateArtist,
-    adminDeleteArtist,
-  } = useArtistsApi()
+  const { adminGetArtists, adminCreateArtist, adminUpdateArtist, adminDeleteArtist } =
+    useArtistsApi()
 
   const artists = ref<Artist[]>([])
   const loading = ref(false)

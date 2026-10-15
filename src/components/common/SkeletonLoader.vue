@@ -43,8 +43,18 @@
           :key="i"
           class="rounded-sm"
           :style="{
-            width: typeof width === 'string' ? width : Array.isArray(width) ? width[i - 1] || width[0] : '100%',
-            height: typeof height === 'string' ? height : Array.isArray(height) ? height[i - 1] || height[0] : '16px',
+            width:
+              typeof width === 'string'
+                ? width
+                : Array.isArray(width)
+                  ? width[i - 1] || width[0]
+                  : '100%',
+            height:
+              typeof height === 'string'
+                ? height
+                : Array.isArray(height)
+                  ? height[i - 1] || height[0]
+                  : '16px',
           }"
         />
       </div>

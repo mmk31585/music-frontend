@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-duplicate-enum-values */
 export enum ArtistApiRoutes {
   // Public routes
   LIST = '/catalog/artists',
@@ -10,7 +11,7 @@ export enum ArtistApiRoutes {
   TOP_TRACKS = '/catalog/artists/:artistId/top-tracks',
   RELATED = '/catalog/artists/:artistId/related',
 
-  // Admin routes
+  // Admin routes (same URLs, different HTTP methods)
   ADMIN_LIST = '/admin/catalog/artist',
   ADMIN_CREATE = '/admin/catalog/artist',
   ADMIN_UPDATE = '/admin/catalog/artist/:artistId',

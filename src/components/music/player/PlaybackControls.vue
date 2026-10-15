@@ -1,17 +1,25 @@
 <template>
-  <div class="flex flex-col w-full items-center gap-1 px-4 pb-2" role="group" aria-label="Playback controls">
+  <div
+    class="flex w-full flex-col items-center gap-1 px-4 pb-2"
+    role="group"
+    aria-label="Playback controls"
+  >
     <!-- Playback Controls Row -->
-    <div class="flex items-center justify-center gap-1.5" role="group" aria-label="Playback controls">
+    <div
+      class="flex items-center justify-center gap-1.5"
+      role="group"
+      aria-label="Playback controls"
+    >
       <!-- Shuffle -->
       <div class="relative">
         <button
           ref="shuffleBtnRef"
           type="button"
-          class="relative flex h-9 w-9 items-center justify-center rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-spotify/60 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-base"
+          class="focus-visible:ring-spotify/60 focus-visible:ring-offset-surface-base relative flex h-9 w-9 items-center justify-center rounded-full transition-all duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
           :class="[
             props.shuffleMode !== 'off'
               ? 'text-aurora-purple hover:bg-aurora-purple/15 active:scale-95'
-              : 'text-white/40 hover:text-white hover:bg-white/10 active:scale-95'
+              : 'text-white/40 hover:bg-white/10 hover:text-white active:scale-95',
           ]"
           :disabled="!props.currentTrack"
           :aria-label="shuffleAriaLabel"
@@ -21,7 +29,7 @@
           <Shuffle class="h-4 w-4" aria-hidden="true" />
           <span
             v-if="props.shuffleMode !== 'off'"
-            class="absolute -top-0.5 -right-0.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-aurora-purple text-[8px] font-bold text-white"
+            class="bg-aurora-purple absolute -top-0.5 -right-0.5 flex h-3.5 w-3.5 items-center justify-center rounded-full text-[8px] font-bold text-white"
           >
             {{ shuffleIndicator }}
           </span>
@@ -34,24 +42,35 @@
             ref="shuffleMenuRef"
             role="menu"
             aria-label="Select shuffle mode"
-            class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-60 min-w-[150px] rounded-xl border border-white/10 bg-surface-raised p-1.5 shadow-[0_8px_32px_rgba(0,0,0,0.6)] backdrop-blur-2xl"
-            style="backdrop-filter: blur(24px);"
+            class="bg-surface-raised absolute bottom-full left-1/2 z-60 mb-2 min-w-[150px] -translate-x-1/2 rounded-xl border border-white/10 p-1.5 shadow-[0_8px_32px_rgba(0,0,0,0.6)] backdrop-blur-2xl"
+            style="backdrop-filter: blur(24px)"
             @keydown="onMenuKeydown($event, 'shuffle')"
           >
             <button
               v-for="(mode, idx) in shuffleModes"
               :key="mode.value"
-              :ref="(el) => { if (el) shuffleItemRefs[idx] = el as HTMLElement }"
+              :ref="
+                (el) => {
+                  if (el) shuffleItemRefs[idx] = el as HTMLElement
+                }
+              "
               type="button"
               role="menuitem"
               :tabindex="idx === 0 ? 0 : -1"
-              class="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-xs font-bold transition hover:bg-white/8 focus-visible:outline-none focus-visible:bg-white/10"
-              :class="props.shuffleMode === mode.value ? 'text-aurora-purple bg-white/6' : 'text-slate-400 hover:text-white'"
-              @click="setShuffleMode(mode.value)"
+              class="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-xs font-bold transition hover:bg-white/8 focus-visible:bg-white/10 focus-visible:outline-none"
+              :class="
+                props.shuffleMode === mode.value
+                  ? 'text-aurora-purple bg-white/6'
+                  : 'text-slate-400 hover:text-white'
+              "
+              @click="handleSetShuffleMode(mode.value)"
             >
               <component :is="mode.icon" class="h-4 w-4" aria-hidden="true" />
               <span class="flex-1 text-left">{{ mode.label }}</span>
-              <span v-if="props.shuffleMode === mode.value" class="h-2 w-2 rounded-full bg-aurora-purple" />
+              <span
+                v-if="props.shuffleMode === mode.value"
+                class="bg-aurora-purple h-2 w-2 rounded-full"
+              />
             </button>
           </div>
         </Transition>
@@ -60,7 +79,7 @@
       <!-- Previous -->
       <button
         type="button"
-        class="flex h-9 w-9 items-center justify-center rounded-full text-white/50 hover:text-white disabled:opacity-25 hover:bg-white/10 active:scale-95 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-spotify/60 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-base"
+        class="focus-visible:ring-spotify/60 focus-visible:ring-offset-surface-base flex h-9 w-9 items-center justify-center rounded-full text-white/50 transition-all duration-200 hover:bg-white/10 hover:text-white focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-95 disabled:opacity-25"
         :disabled="!props.hasPrevious"
         aria-label="Previous track"
         @click="props.playPrevious"
@@ -72,24 +91,31 @@
       <GuestPlayGate action="play" #default="{ proceed }">
         <button
           type="button"
-          class="relative flex h-11 w-11 items-center justify-center rounded-full shadow-xl disabled:opacity-40 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-spotify/60 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-base"
+          class="focus-visible:ring-spotify/60 focus-visible:ring-offset-surface-base relative flex h-11 w-11 items-center justify-center rounded-full shadow-xl transition-all duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none disabled:opacity-40"
           :style="{ background: props.progressColor }"
           :disabled="!props.currentTrack || props.isLoadingTrack"
           :aria-label="playAriaLabel"
           @click="props.isPlaying ? props.togglePlayPause() : proceed()"
         >
-          <span v-if="props.isLoadingTrack || props.isBuffering" class="absolute inset-0 animate-spin-slow">
+          <span
+            v-if="props.isLoadingTrack || props.isBuffering"
+            class="animate-spin-slow absolute inset-0"
+          >
             <Loader class="h-5 w-5 text-white" aria-hidden="true" />
           </span>
-          <Pause v-else-if="props.isPlaying" class="absolute h-5 w-5 text-white" aria-hidden="true" />
-          <Play v-else class="absolute h-5 w-5 text-white ml-0.5" aria-hidden="true" />
+          <Pause
+            v-else-if="props.isPlaying"
+            class="absolute h-5 w-5 text-white"
+            aria-hidden="true"
+          />
+          <Play v-else class="absolute ml-0.5 h-5 w-5 text-white" aria-hidden="true" />
         </button>
       </GuestPlayGate>
 
       <!-- Next -->
       <button
         type="button"
-        class="flex h-9 w-9 items-center justify-center rounded-full text-white/50 hover:text-white disabled:opacity-25 hover:bg-white/10 active:scale-95 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-spotify/60 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-base"
+        class="focus-visible:ring-spotify/60 focus-visible:ring-offset-surface-base flex h-9 w-9 items-center justify-center rounded-full text-white/50 transition-all duration-200 hover:bg-white/10 hover:text-white focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-95 disabled:opacity-25"
         :disabled="!props.hasNext"
         aria-label="Next track"
         @click="props.playNext"
@@ -102,11 +128,11 @@
         <button
           ref="repeatBtnRef"
           type="button"
-          class="relative flex h-9 w-9 items-center justify-center rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-spotify/60 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-base"
+          class="focus-visible:ring-spotify/60 focus-visible:ring-offset-surface-base relative flex h-9 w-9 items-center justify-center rounded-full transition-all duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none"
           :class="[
             props.repeatMode !== 'off'
               ? 'text-aurora-pink hover:bg-aurora-pink/15 active:scale-95'
-              : 'text-white/40 hover:text-white hover:bg-white/10 active:scale-95'
+              : 'text-white/40 hover:bg-white/10 hover:text-white active:scale-95',
           ]"
           :disabled="!props.currentTrack"
           :aria-label="repeatAriaLabel"
@@ -116,7 +142,7 @@
           <Repeat class="h-4 w-4" aria-hidden="true" />
           <span
             v-if="props.repeatMode === 'one'"
-            class="absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-aurora-pink text-[8px] font-bold text-black"
+            class="bg-aurora-pink absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full text-[8px] font-bold text-black"
           >
             1
           </span>
@@ -129,33 +155,46 @@
             ref="repeatMenuRef"
             role="menu"
             aria-label="Select repeat mode"
-            class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-60 min-w-[130px] rounded-xl border border-white/10 bg-surface-raised p-1.5 shadow-[0_8px_32px_rgba(0,0,0,0.6)] backdrop-blur-2xl"
-            style="backdrop-filter: blur(24px);"
+            class="bg-surface-raised absolute bottom-full left-1/2 z-60 mb-2 min-w-[130px] -translate-x-1/2 rounded-xl border border-white/10 p-1.5 shadow-[0_8px_32px_rgba(0,0,0,0.6)] backdrop-blur-2xl"
+            style="backdrop-filter: blur(24px)"
             @keydown="onMenuKeydown($event, 'repeat')"
           >
             <button
               v-for="(mode, idx) in repeatModes"
               :key="mode.value"
-              :ref="(el) => { if (el) repeatItemRefs[idx] = el as HTMLElement }"
+              :ref="
+                (el) => {
+                  if (el) repeatItemRefs[idx] = el as HTMLElement
+                }
+              "
               type="button"
               role="menuitem"
               :tabindex="idx === 0 ? 0 : -1"
-              class="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-xs font-bold transition hover:bg-white/8 focus-visible:outline-none focus-visible:bg-white/10"
-              :class="props.repeatMode === mode.value ? 'text-aurora-pink bg-white/6' : 'text-slate-400 hover:text-white'"
+              class="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-xs font-bold transition hover:bg-white/8 focus-visible:bg-white/10 focus-visible:outline-none"
+              :class="
+                props.repeatMode === mode.value
+                  ? 'text-aurora-pink bg-white/6'
+                  : 'text-slate-400 hover:text-white'
+              "
               @click="setRepeatMode(mode.value)"
             >
-            <component :is="mode.icon" class="h-4 w-4" aria-hidden="true" />
-            <span class="flex-1 text-left">{{ mode.label }}</span>
-            <span v-if="props.repeatMode === mode.value" class="h-2 w-2 rounded-full bg-aurora-pink" />
-          </button>
-        </div>
-      </Transition>
+              <component :is="mode.icon" class="h-4 w-4" aria-hidden="true" />
+              <span class="flex-1 text-left">{{ mode.label }}</span>
+              <span
+                v-if="props.repeatMode === mode.value"
+                class="bg-aurora-pink h-2 w-2 rounded-full"
+              />
+            </button>
+          </div>
+        </Transition>
+      </div>
     </div>
-  </div>
-  
-  <!-- Progress Bar / Timeline -->
-  <div class="w-full flex justify-center items-center gap-3">
-      <span class="text-[11px] text-white/50 font-mono tabular-nums">{{ formatTime(props.currentTime) }}</span>
+
+    <!-- Progress Bar / Timeline -->
+    <div class="flex w-full items-center justify-center gap-3">
+      <span class="font-mono text-[11px] text-white/50 tabular-nums">{{
+        formatTime(props.currentTime)
+      }}</span>
       <div
         role="slider"
         tabindex="0"
@@ -174,38 +213,54 @@
         @keydown.home.prevent="seekPercent(0)"
         @keydown.end.prevent="seekPercent(100)"
       >
-      <!-- Base track glow when playing -->
-      <div
-      v-if="props.isPlaying && props.progressColor"
-      class="absolute inset-0 rounded-full opacity-20 blur-xs transition-opacity duration-500"
-      :style="{ background: props.progressColor }"
-      />
-      
-      <!-- Progress fill -->
-      <div
-      class="relative h-full rounded-full"
-        :class="props.isPlaying ? 'progress-bar-fill' : ''"
-        :style="progressStyle"
+        <!-- Base track glow when playing -->
+        <div
+          v-if="props.isPlaying && props.progressColor"
+          class="absolute inset-0 rounded-full opacity-20 blur-xs transition-opacity duration-500"
+          :style="{ background: props.progressColor }"
         />
-        
+
+        <!-- Progress fill -->
+        <div
+          class="relative h-full rounded-full"
+          :class="props.isPlaying ? 'progress-bar-fill' : ''"
+          :style="progressStyle"
+        />
+
         <!-- Thumb dot - only visible on hover/focus/drag -->
         <div
-        class="absolute top-1/2 -translate-y-1/2 size-4 rounded-full shadow-xl opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 scale-0 group-hover:scale-100 group-focus-visible:scale-100 transition-all duration-300 ease-spring"
-        :style="{
-          left: `calc(${props.progressPercent}% - 8px)`,
-          background: props.progressColor || 'var(--p-500)',
-          boxShadow: props.progressColor ? `0 0 0 3px ${props.progressColor}22, 0 4px 12px rgba(0,0,0,0.5)` : '0 0 0 3px rgba(29,185,84,0.2), 0 4px 12px rgba(0,0,0,0.5)',
-        }"
+          class="ease-spring absolute top-1/2 size-4 -translate-y-1/2 scale-0 rounded-full opacity-0 shadow-xl transition-all duration-300 group-hover:scale-100 group-hover:opacity-100 group-focus-visible:scale-100 group-focus-visible:opacity-100"
+          :style="{
+            left: `calc(${props.progressPercent}% - 8px)`,
+            background: props.progressColor || 'var(--p-500)',
+            boxShadow: props.progressColor
+              ? `0 0 0 3px ${props.progressColor}22, 0 4px 12px rgba(0,0,0,0.5)`
+              : '0 0 0 3px rgba(29,185,84,0.2), 0 4px 12px rgba(0,0,0,0.5)',
+          }"
         />
       </div>
-      <span class="text-[11px] text-white/50 font-mono tabular-nums">{{ formatTime(props.duration) }}</span>
+      <span class="font-mono text-[11px] text-white/50 tabular-nums">{{
+        formatTime(props.duration)
+      }}</span>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
-import { Ban, Globe, Loader, Pause, Play, Repeat, RotateCcw, Shuffle, SkipBack, SkipForward, Star } from 'lucide-vue-next'
+import {
+  Ban,
+  Globe,
+  Loader,
+  Pause,
+  Play,
+  Repeat,
+  RotateCcw,
+  Shuffle,
+  SkipBack,
+  SkipForward,
+  Star,
+} from 'lucide-vue-next'
 import GuestPlayGate from '@/components/common/GuestPlayGate.vue'
 
 const props = defineProps<{
@@ -245,10 +300,16 @@ const repeatMenuRef = ref<HTMLElement | null>(null)
 const repeatItemRefs = ref<HTMLElement[]>([])
 
 watch(showShuffleMenu, async (v) => {
-  if (v) { await nextTick(); shuffleItemRefs.value[0]?.focus() }
+  if (v) {
+    await nextTick()
+    shuffleItemRefs.value[0]?.focus()
+  }
 })
 watch(showRepeatMenu, async (v) => {
-  if (v) { await nextTick(); repeatItemRefs.value[0]?.focus() }
+  if (v) {
+    await nextTick()
+    repeatItemRefs.value[0]?.focus()
+  }
 })
 
 function onMenuKeydown(e: KeyboardEvent, type: 'shuffle' | 'repeat') {
@@ -302,7 +363,7 @@ const repeatModes = [
   { value: 'one' as const, label: 'Repeat One', icon: RotateCcw },
 ]
 
-function setShuffleMode(mode: 'off' | 'queue' | 'catalog' | 'similar') {
+function handleSetShuffleMode(mode: 'off' | 'queue' | 'catalog' | 'similar') {
   props.setShuffleMode(mode)
   showShuffleMenu.value = false
 }
@@ -314,27 +375,38 @@ const playAriaLabel = computed(() => {
 
 const shuffleAriaLabel = computed(() => {
   switch (props.shuffleMode) {
-    case 'queue': return 'Shuffle queue'
-    case 'catalog': return 'Random catalog tracks'
-    case 'similar': return 'Similar tracks'
-    default: return 'Shuffle off'
+    case 'queue':
+      return 'Shuffle queue'
+    case 'catalog':
+      return 'Random catalog tracks'
+    case 'similar':
+      return 'Similar tracks'
+    default:
+      return 'Shuffle off'
   }
 })
 
 const repeatAriaLabel = computed(() => {
   switch (props.repeatMode) {
-    case 'all': return 'Repeat all'
-    case 'one': return 'Repeat one'
-    default: return 'Repeat off'
+    case 'all':
+      return 'Repeat all'
+    case 'one':
+      return 'Repeat one'
+    default:
+      return 'Repeat off'
   }
 })
 
 const shuffleIndicator = computed(() => {
   switch (props.shuffleMode) {
-    case 'queue': return 'Q'
-    case 'catalog': return 'R'
-    case 'similar': return 'S'
-    default: return ''
+    case 'queue':
+      return 'Q'
+    case 'catalog':
+      return 'R'
+    case 'similar':
+      return 'S'
+    default:
+      return ''
   }
 })
 
@@ -390,7 +462,9 @@ function handleOutsideClick(e: MouseEvent) {
 
 <style scoped>
 @keyframes spin-slow {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .animate-spin-slow {
@@ -399,7 +473,9 @@ function handleOutsideClick(e: MouseEvent) {
 
 .fade-scale-enter-active,
 .fade-scale-leave-active {
-  transition: opacity 200ms cubic-bezier(0.34, 1.56, 0.64, 1), transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition:
+    opacity 200ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .fade-scale-enter-from {
   opacity: 0;
@@ -411,8 +487,13 @@ function handleOutsideClick(e: MouseEvent) {
 }
 
 @keyframes progress-glow {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; }
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 
 .progress-bar-fill::after {

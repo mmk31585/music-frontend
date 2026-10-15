@@ -2,7 +2,7 @@
   <header
     ref="headerRef"
     role="banner"
-    class="sticky top-0 z-30 border-b border-border-default backdrop-blur-xl transition-all duration-300"
+    class="border-border-default sticky top-0 z-30 border-b backdrop-blur-xl transition-all duration-300"
     :class="[isScrolled ? 'bg-surface-elevated shadow-lg' : 'bg-transparent']"
   >
     <div class="flex h-[72px] items-center justify-between px-6 md:px-8 lg:px-10">
@@ -10,12 +10,12 @@
         <button
           type="button"
           aria-label="Open navigation menu"
-          class="flex h-10 w-10 items-center justify-center rounded-xl bg-surface-overlay text-primary transition hover:bg-surface-active lg:hidden"
+          class="bg-surface-overlay text-primary hover:bg-surface-active flex h-10 w-10 items-center justify-center rounded-xl transition lg:hidden"
           @click="$emit('toggle-mobile')"
         >
-          <Menu aria-hidden="true" class="text-sm"  />
+          <Menu aria-hidden="true" class="text-sm" />
         </button>
-        <h1 class="text-xl font-bold tracking-tight text-primary">{{ pageTitle }}</h1>
+        <h1 class="text-primary text-xl font-bold tracking-tight">{{ pageTitle }}</h1>
       </div>
 
       <div class="hidden flex-1 items-center justify-center gap-2 px-8 md:flex">
@@ -23,18 +23,24 @@
           v-if="!isHome"
           to="/"
           aria-label="Go to home"
-          class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-secondary transition-all duration-150 hover:bg-surface-overlay hover:text-primary active:scale-90"
+          class="text-secondary hover:bg-surface-overlay hover:text-primary flex h-9 w-9 shrink-0 items-center justify-center rounded-xl transition-all duration-150 active:scale-90"
         >
           <ChevronLeft :size="18" />
         </RouterLink>
         <button
           type="button"
-          class="group flex w-full max-w-md items-center gap-3 rounded-xl border border-border-default bg-surface-overlay px-4 py-2.5 text-sm text-muted transition-all duration-200 hover:border-border-strong hover:bg-surface-active hover:text-secondary focus-visible:border-accent focus-visible:outline-none"
+          class="group border-border-default bg-surface-overlay text-muted hover:border-border-strong hover:bg-surface-active hover:text-secondary focus-visible:border-accent flex w-full max-w-md items-center gap-3 rounded-xl border px-4 py-2.5 text-sm transition-all duration-200 focus-visible:outline-none"
           @click="$emit('toggle-search')"
         >
-          <Search aria-hidden="true" class="text-accent text-sm transition-colors group-hover:text-accent"  />
+          <Search
+            aria-hidden="true"
+            class="text-accent group-hover:text-accent text-sm transition-colors"
+          />
           <span>Search songs, artists, albums...</span>
-          <kbd class="ml-auto rounded-lg border border-border-default bg-surface-active px-2 py-0.5 text-[11px] font-medium text-muted">Ctrl+K</kbd>
+          <kbd
+            class="border-border-default bg-surface-active text-muted ml-auto rounded-lg border px-2 py-0.5 text-[11px] font-medium"
+            >Ctrl+K</kbd
+          >
         </button>
       </div>
 
@@ -42,22 +48,22 @@
         <button
           type="button"
           aria-label="Search"
-          class="flex h-10 w-10 items-center justify-center rounded-xl bg-surface-overlay text-secondary transition hover:bg-surface-active hover:text-primary md:hidden"
+          class="bg-surface-overlay text-secondary hover:bg-surface-active hover:text-primary flex h-10 w-10 items-center justify-center rounded-xl transition md:hidden"
           @click="$emit('toggle-search')"
         >
-          <Search aria-hidden="true" class="text-sm"  />
+          <Search aria-hidden="true" class="text-sm" />
         </button>
 
         <template v-if="isAuthenticated">
           <RouterLink
             to="/notifications"
             aria-label="Notifications"
-            class="relative flex h-10 w-10 items-center justify-center rounded-xl bg-surface-overlay text-secondary transition hover:bg-surface-active hover:text-primary"
+            class="bg-surface-overlay text-secondary hover:bg-surface-active hover:text-primary relative flex h-10 w-10 items-center justify-center rounded-xl transition"
           >
-            <Bell aria-hidden="true" class="text-sm"  />
+            <Bell aria-hidden="true" class="text-sm" />
             <span
               v-if="unreadCount > 0"
-              class="absolute -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] font-bold text-accent-text"
+              class="bg-accent text-accent-text absolute -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-[10px] font-bold"
               :class="isRTL ? '-left-0.5' : '-right-0.5'"
             >
               {{ unreadCount > 99 ? '99+' : unreadCount }}
@@ -71,7 +77,7 @@
               aria-label="User menu"
               aria-haspopup="true"
               :aria-expanded="showUserMenu"
-              class="flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl bg-accent text-sm font-bold text-accent-text ring-2 ring-transparent transition-all duration-200 hover:bg-accent-hover focus-visible:ring-accent/50"
+              class="bg-accent text-accent-text hover:bg-accent-hover focus-visible:ring-accent/50 flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl text-sm font-bold ring-2 ring-transparent transition-all duration-200"
               :class="{ 'ring-accent/40': showUserMenu }"
               @click="showUserMenu = !showUserMenu"
             >
@@ -100,13 +106,13 @@
         <template v-else>
           <RouterLink
             to="/auth/login"
-            class="rounded-xl bg-accent px-5 py-2 text-sm font-bold text-accent-text transition hover:bg-accent-hover"
+            class="bg-accent text-accent-text hover:bg-accent-hover rounded-xl px-5 py-2 text-sm font-bold transition"
           >
             Log in
           </RouterLink>
           <RouterLink
             to="/auth/register"
-            class="hidden rounded-xl border border-border-strong px-5 py-2 text-sm font-bold text-primary transition hover:bg-surface-overlay md:inline-flex"
+            class="border-border-strong text-primary hover:bg-surface-overlay hidden rounded-xl border px-5 py-2 text-sm font-bold transition md:inline-flex"
           >
             Sign up
           </RouterLink>
@@ -217,10 +223,14 @@ onUnmounted(() => {
 
 <style scoped>
 .menu-pop-enter-active {
-  transition: opacity 0.15s ease-out, transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+  transition:
+    opacity 0.15s ease-out,
+    transform 0.15s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .menu-pop-leave-active {
-  transition: opacity 0.1s ease-in, transform 0.1s ease-in;
+  transition:
+    opacity 0.1s ease-in,
+    transform 0.1s ease-in;
 }
 .menu-pop-enter-from {
   opacity: 0;

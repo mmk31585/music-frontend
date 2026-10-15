@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid'
 import Cookie from 'js-cookie'
 
 import { safeLocalStorage } from '@/services/storage'
-import { useAuthApi } from '@/services/api/auth/routes'
+import { useAuthApi } from '@/services/api/auth'
 import type { User, LoginPayload, AuthResponse } from '@/services/api/auth/types'
 import type { UseRequestConfig } from '@/plugins/client/types'
 
@@ -114,13 +114,17 @@ export const useUserAuthStore = defineStore('auth', () => {
     persistUser(payload.user)
   }
 
-  async function login(payload: LoginPayload, testingOrOptions?: boolean | { rememberMe?: boolean; testing?: boolean }): Promise<User> {
+  async function login(
+    payload: LoginPayload,
+    testingOrOptions?: boolean | { rememberMe?: boolean; testing?: boolean },
+  ): Promise<User> {
     loading.value = true
 
     try {
-      const options = typeof testingOrOptions === 'boolean'
-        ? { testing: testingOrOptions }
-        : (testingOrOptions ?? {})
+      const options =
+        typeof testingOrOptions === 'boolean'
+          ? { testing: testingOrOptions }
+          : (testingOrOptions ?? {})
 
       const config: UseRequestConfig<AuthResponse> = options.testing
         ? { headers: { 'X-Testing': 'true' } }

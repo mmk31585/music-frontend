@@ -88,9 +88,13 @@ export function usePageMeta(route: RouteLocationNormalizedLoaded) {
     return bestMatch
   })
 
-  watch(pageTitle, (title) => {
-    document.title = title ? `${title} — Muse` : 'Muse'
-  }, { immediate: true })
+  watch(
+    pageTitle,
+    (title) => {
+      document.title = title ? `${title} — Muse` : 'Muse'
+    },
+    { immediate: true },
+  )
 
   return {
     pageTitle,

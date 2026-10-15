@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-duplicate-enum-values */
 export enum TrackApiRoutes {
   // Public routes
   LIST = '/catalog/tracks',
@@ -6,7 +7,7 @@ export enum TrackApiRoutes {
   CREDITS = '/catalog/tracks/:trackId/credits',
   TRACK_ARTISTS = '/catalog/tracks/:trackId/artists',
 
-  // Admin routes
+  // Admin routes (same URLs, different HTTP methods)
   ADMIN_LIST = '/admin/catalog/tracks',
   ADMIN_CREATE = '/admin/catalog/tracks',
   ADMIN_UPDATE = '/admin/catalog/tracks/:trackId',

@@ -11,7 +11,7 @@
     <template v-else>
       <!-- Header -->
       <div class="mb-8">
-        <p class="text-xs font-bold tracking-[0.25em] text-spotify uppercase">Subscription</p>
+        <p class="text-spotify text-xs font-bold tracking-[0.25em] uppercase">Subscription</p>
         <h1 class="mt-2 text-3xl font-black text-white">Plans &amp; Pricing</h1>
         <p class="mt-1 text-sm text-white/40">Choose the plan that fits your listening habits</p>
       </div>
@@ -19,7 +19,7 @@
       <!-- Current subscription banner -->
       <div
         v-if="currentSub && currentSub.plan"
-        class="mb-8 overflow-hidden rounded-2xl border border-white/6 bg-linear-to-r from-spotify/5 to-transparent p-5"
+        class="from-spotify/5 mb-8 overflow-hidden rounded-2xl border border-white/6 bg-linear-to-r to-transparent p-5"
       >
         <div class="flex flex-wrap items-center justify-between gap-3">
           <div>
@@ -61,7 +61,7 @@
           <!-- Premium badge -->
           <div
             v-if="plan.isPremium"
-            class="absolute top-3 right-3 rounded-full bg-linear-to-r from-amber-400 to-spotify px-2.5 py-0.5 text-[10px] font-bold text-black"
+            class="to-spotify absolute top-3 right-3 rounded-full bg-linear-to-r from-amber-400 px-2.5 py-0.5 text-[10px] font-bold text-black"
           >
             Premium
           </div>
@@ -79,7 +79,8 @@
               :key="feat"
               class="flex items-center gap-2 text-xs text-white/60"
             >
-              <Check aria-hidden="true" class="text-[10px] text-spotify"  /> {{ formatFeature(feat) }}
+              <Check aria-hidden="true" class="text-spotify text-[10px]" />
+              {{ formatFeature(feat) }}
             </li>
           </ul>
 
@@ -90,7 +91,7 @@
                 ? 'cursor-default bg-white/5 text-white/40'
                 : plan.priceCents === 0
                   ? 'bg-white/10 text-white hover:bg-white/20'
-                  : 'bg-spotify text-black hover:bg-spotify-hover'
+                  : 'bg-spotify hover:bg-spotify-hover text-black'
             "
             :disabled="isCurrentPlan(plan)"
             @click="selectPlan(plan)"
@@ -144,7 +145,7 @@
         @click.self="showCheckout = false"
       >
         <div class="glass-strong mx-4 w-full max-w-md rounded-2xl p-8 text-center">
-          <ExternalLink aria-hidden="true" class="text-4xl text-spotify"  />
+          <ExternalLink aria-hidden="true" class="text-spotify text-4xl" />
           <h3 class="mt-4 text-xl font-bold text-white">Redirecting to Payment</h3>
           <p class="mt-2 text-sm text-white/40">
             You'll be redirected to the payment gateway to complete your subscription.
@@ -159,7 +160,7 @@
             <a
               :href="checkoutUrl"
               target="_blank"
-              class="block flex-1 rounded-xl bg-spotify py-3 text-center text-sm font-bold text-black hover:bg-spotify-hover"
+              class="bg-spotify hover:bg-spotify-hover block flex-1 rounded-xl py-3 text-center text-sm font-bold text-black"
             >
               Proceed to Pay
             </a>
@@ -218,9 +219,9 @@ async function selectPlan(plan: Plan) {
       await api.checkout({ planId: plan.id, callbackUrl: window.location.origin + '/subscription' })
       toast.add({ severity: 'success', summary: `${plan.name} activated!`, life: 3000 })
       await loadData()
-  } catch (err) {
-    console.error('Failed to activate plan:', err)
-    toast.add({ severity: 'error', summary: 'Failed to activate plan', life: 3000 })
+    } catch (err) {
+      console.error('Failed to activate plan:', err)
+      toast.add({ severity: 'error', summary: 'Failed to activate plan', life: 3000 })
     }
     return
   }

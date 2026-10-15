@@ -6,7 +6,10 @@ import { TrackApiRoutes } from './enums'
 import { TrackSchema, type Track, type TrackCreatePayload, type TrackUpdatePayload } from './types'
 
 export const useTracksApi = () => {
-  const getTracks = async (params?: Record<string, string | number>, config?: UseRequestConfig<Track[]>) => {
+  const getTracks = async (
+    params?: Record<string, string | number>,
+    config?: UseRequestConfig<Track[]>,
+  ) => {
     return useRequest<Track, true>(
       TrackApiRoutes.LIST,
       { method: 'GET', params },

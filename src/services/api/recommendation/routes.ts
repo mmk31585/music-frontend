@@ -122,9 +122,7 @@ export const useRecommendationsApi = () => {
     )
   }
 
-  const getHomeFeed = async (
-    config?: UseRequestConfig<HomeFeedResponse>,
-  ) => {
+  const getHomeFeed = async (config?: UseRequestConfig<HomeFeedResponse>) => {
     return useRequest<HomeFeedResponse>(
       RecommendationApiRoutes.HOME,
       {
@@ -138,9 +136,7 @@ export const useRecommendationsApi = () => {
     )
   }
 
-  const getDiscoverWeekly = async (
-    config?: UseRequestConfig<DiscoverWeeklyResponse>,
-  ) => {
+  const getDiscoverWeekly = async (config?: UseRequestConfig<DiscoverWeeklyResponse>) => {
     return useRequest<DiscoverWeeklyResponse>(
       RecommendationApiRoutes.DISCOVER_WEEKLY,
       { method: 'GET' },

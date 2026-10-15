@@ -6,21 +6,23 @@
         role="dialog"
         aria-modal="true"
         aria-label="Keyboard Shortcuts"
-        class="fixed inset-0 z-[300] flex items-center justify-center bg-bg-overlay/60 backdrop-blur-xs"
+        class="bg-bg-overlay/60 fixed inset-0 z-[300] flex items-center justify-center backdrop-blur-xs"
         @click.self="visible = false"
         @keydown.escape="visible = false"
       >
-        <div class="mx-4 w-full max-w-md rounded-2xl border border-border-default bg-surface-raised p-6 shadow-2xl">
+        <div
+          class="border-border-default bg-surface-raised mx-4 w-full max-w-md rounded-2xl border p-6 shadow-2xl"
+        >
           <div class="mb-6 flex items-center justify-between">
-            <h2 class="text-lg font-bold text-primary">Keyboard Shortcuts</h2>
+            <h2 class="text-primary text-lg font-bold">Keyboard Shortcuts</h2>
             <button
               ref="closeBtnRef"
               type="button"
               aria-label="Close shortcuts"
-              class="flex h-8 w-8 items-center justify-center rounded-full text-secondary transition hover:bg-surface-active hover:text-primary"
+              class="text-secondary hover:bg-surface-active hover:text-primary flex h-8 w-8 items-center justify-center rounded-full transition"
               @click="visible = false"
             >
-              <X aria-hidden="true" class="text-sm"  />
+              <X aria-hidden="true" class="text-sm" />
             </button>
           </div>
 
@@ -28,14 +30,14 @@
             <div
               v-for="shortcut in shortcuts"
               :key="shortcut.label"
-              class="flex items-center justify-between rounded-lg px-3 py-2.5 transition hover:bg-surface-overlay/60"
+              class="hover:bg-surface-overlay/60 flex items-center justify-between rounded-lg px-3 py-2.5 transition"
             >
-              <span class="text-sm text-secondary">{{ shortcut.label }}</span>
+              <span class="text-secondary text-sm">{{ shortcut.label }}</span>
               <kbd class="flex items-center gap-1">
                 <span
                   v-for="(key, i) in shortcut.keys"
                   :key="i"
-                  class="inline-flex items-center rounded-md border border-border-default bg-surface-overlay px-2 py-0.5 text-xs font-medium text-secondary"
+                  class="border-border-default bg-surface-overlay text-secondary inline-flex items-center rounded-md border px-2 py-0.5 text-xs font-medium"
                 >
                   {{ key }}
                 </span>
@@ -43,7 +45,11 @@
             </div>
           </div>
 
-          <p class="mt-4 text-center text-xs text-muted">Press <kbd class="rounded-sm bg-surface-overlay px-1.5 py-0.5 text-xs text-secondary">?</kbd> to toggle this panel</p>
+          <p class="text-muted mt-4 text-center text-xs">
+            Press
+            <kbd class="bg-surface-overlay text-secondary rounded-sm px-1.5 py-0.5 text-xs">?</kbd>
+            to toggle this panel
+          </p>
         </div>
       </div>
     </Transition>

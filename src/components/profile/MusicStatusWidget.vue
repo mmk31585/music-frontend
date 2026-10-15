@@ -9,7 +9,7 @@
         <span class="relative flex h-2 w-2">
           <span
             v-if="isPlayingAny"
-            class="absolute inline-flex h-full w-full animate-ping rounded-full bg-spotify opacity-75"
+            class="bg-spotify absolute inline-flex h-full w-full animate-ping rounded-full opacity-75"
           />
           <span
             :class="isPlayingAny ? 'bg-spotify' : 'bg-slate-500'"
@@ -30,7 +30,10 @@
       </div>
 
       <!-- Playing track (owner or visible visitor) -->
-      <div v-else-if="currentTrackData" class="flex items-center gap-3 rounded-xl px-3 py-3 backdrop-blur-xs">
+      <div
+        v-else-if="currentTrackData"
+        class="flex items-center gap-3 rounded-xl px-3 py-3 backdrop-blur-xs"
+      >
         <!-- Album art -->
         <div class="h-11 w-11 shrink-0 overflow-hidden rounded-lg bg-white/10">
           <img
@@ -40,7 +43,7 @@
             class="h-full w-full object-cover"
           />
           <div v-else class="flex h-full items-center justify-center">
-            <Music aria-hidden="true" class="text-sm text-slate-500"  />
+            <Music aria-hidden="true" class="text-sm text-slate-500" />
           </div>
         </div>
 
@@ -58,11 +61,11 @@
         <button
           v-if="!isOwnProfile"
           type="button"
-          class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-xs transition hover:bg-spotify hover:text-black"
+          class="hover:bg-spotify flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-xs transition hover:text-black"
           @click="playTrack"
           aria-label="Play track"
         >
-          <Play aria-hidden="true" class="text-sm"  />
+          <Play aria-hidden="true" class="text-sm" />
         </button>
       </div>
 
@@ -75,9 +78,11 @@
             :key="opt.value"
             type="button"
             class="rounded-full px-2.5 py-1 text-[10px] font-bold transition"
-            :class="privacy === opt.value
-              ? 'bg-spotify/20 text-spotify'
-              : 'bg-white/5 text-white/40 hover:bg-white/10 hover:text-white/70'"
+            :class="
+              privacy === opt.value
+                ? 'bg-spotify/20 text-spotify'
+                : 'bg-white/5 text-white/40 hover:bg-white/10 hover:text-white/70'
+            "
             @click="setPrivacy(opt.value)"
           >
             {{ opt.label }}
@@ -158,7 +163,12 @@ watch(
   },
 )
 
-function setFromPlayerTrack(track: { id: string; title: string; artistName?: string | null; coverUrl?: string | null }) {
+function setFromPlayerTrack(track: {
+  id: string
+  title: string
+  artistName?: string | null
+  coverUrl?: string | null
+}) {
   currentTrackData.value = {
     id: track.id,
     title: track.title,

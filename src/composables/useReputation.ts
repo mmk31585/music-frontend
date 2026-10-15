@@ -4,7 +4,7 @@ import { usePermissionsApi } from '@/services/api/permissions'
 import type { ReputationSummary } from '@/services/api/reputation/types'
 
 export function useReputation(userId?: string | number) {
-  const resolvedId = computed(() => userId != null ? String(userId) : undefined)
+  const resolvedId = computed(() => (userId != null ? String(userId) : undefined))
   const summary = ref<ReputationSummary | null>(null)
   const loading = ref(false)
   const error = ref<unknown>(null)

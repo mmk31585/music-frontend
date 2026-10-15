@@ -3,10 +3,10 @@
     <!-- Back -->
     <button
       type="button"
-      class="mb-6 inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm text-white/50 transition hover:bg-white/6 hover:text-white focus-visible:outline-2 focus-visible:outline-spotify"
+      class="focus-visible:outline-spotify mb-6 inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-sm text-white/50 transition hover:bg-white/6 hover:text-white focus-visible:outline-2"
       @click="goBack"
     >
-      <ArrowRight aria-hidden="true" class="text-xs"  />
+      <ArrowRight aria-hidden="true" class="text-xs" />
       {{ t('back') }}
     </button>
 
@@ -23,7 +23,7 @@
           class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold transition-all duration-300"
           :class="stepClass(i)"
         >
-          <Check v-if="isStepComplete(i)" aria-hidden="true" class="text-xs"  />
+          <Check v-if="isStepComplete(i)" aria-hidden="true" class="text-xs" />
           <span v-else>{{ i + 1 }}</span>
         </div>
         <span
@@ -36,7 +36,7 @@
           v-if="i < steps.length - 1"
           aria-hidden="true"
           class="text-[10px] text-white/8"
-         />
+        />
       </div>
     </div>
 
@@ -48,14 +48,14 @@
       <div class="relative">
         <Search
           aria-hidden="true"
-          class="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-slate-400"
-         />
+          class="absolute top-1/2 right-3 -translate-y-1/2 text-sm text-slate-400"
+        />
         <input
           ref="searchInputRef"
           v-model="searchQuery"
           type="text"
           :placeholder="t('searchPlaceholder')"
-          class="h-11 w-full rounded-2xl border border-white/10 bg-white/4 px-10 text-sm text-white outline-hidden backdrop-blur-xs transition placeholder:text-slate-500 focus:border-spotify/40 focus:bg-white/6"
+          class="focus:border-spotify/40 h-11 w-full rounded-2xl border border-white/10 bg-white/4 px-10 text-sm text-white outline-hidden backdrop-blur-xs transition placeholder:text-slate-500 focus:bg-white/6"
           aria-label="جستجوی آهنگ"
           @input="onSearchInput"
           @keydown="onSearchKeydown"
@@ -63,8 +63,8 @@
         <Loader2
           v-if="searching"
           aria-hidden="true"
-          class="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 animate-spin"
-         />
+          class="absolute top-1/2 left-3 -translate-y-1/2 animate-spin text-xs text-slate-400"
+        />
       </div>
 
       <!-- Search results -->
@@ -73,7 +73,7 @@
           v-if="!searchQuery"
           class="flex items-center justify-center py-16 text-sm text-white/30"
         >
-          <Headphones aria-hidden="true" class="ml-2"  />
+          <Headphones aria-hidden="true" class="ml-2" />
           {{ t('typeToSearch') }}
         </div>
 
@@ -81,7 +81,7 @@
           v-else-if="searching"
           class="flex items-center justify-center py-16 text-sm text-white/40"
         >
-          <Loader2 aria-hidden="true" class="ml-2 animate-spin"  />
+          <Loader2 aria-hidden="true" class="ml-2 animate-spin" />
           {{ t('searching') }}
         </div>
 
@@ -89,7 +89,7 @@
           v-else-if="!searchResults.length"
           class="flex items-center justify-center py-16 text-sm text-white/30"
         >
-          <Info aria-hidden="true" class="ml-2"  />
+          <Info aria-hidden="true" class="ml-2" />
           {{ t('noResults') }}
         </div>
 
@@ -102,10 +102,8 @@
             :aria-selected="focusedIdx === i"
             class="flex w-full items-center gap-3 rounded-2xl px-4 py-3 text-right transition"
             :class="[
-              focusedIdx === i
-                ? 'bg-white/12 ring-1 ring-white/20'
-                : 'hover:bg-white/6',
-              selectedTrack?.id === track.id ? 'ring-1 ring-spotify/30 bg-spotify/5' : '',
+              focusedIdx === i ? 'bg-white/12 ring-1 ring-white/20' : 'hover:bg-white/6',
+              selectedTrack?.id === track.id ? 'ring-spotify/30 bg-spotify/5 ring-1' : '',
             ]"
             @click="selectTrack(track)"
             @mouseenter="focusedIdx = i"
@@ -119,14 +117,16 @@
                 loading="lazy"
               />
               <div v-else class="flex h-full items-center justify-center">
-                <Music aria-hidden="true" class="text-sm text-slate-500"  />
+                <Music aria-hidden="true" class="text-sm text-slate-500" />
               </div>
             </div>
             <div class="min-w-0 flex-1">
               <p class="truncate text-sm font-semibold text-white">{{ track.title }}</p>
               <p class="mt-0.5 truncate text-xs text-white/40">{{ track.artist_name || '' }}</p>
             </div>
-            <span class="text-xs text-white/30 tabular-nums">{{ fmtDuration(track.duration_seconds || 0) }}</span>
+            <span class="text-xs text-white/30 tabular-nums">{{
+              fmtDuration(track.duration_seconds || 0)
+            }}</span>
           </button>
         </TransitionGroup>
       </div>
@@ -137,7 +137,9 @@
       <h1 class="text-2xl font-black text-white">{{ t('uploadVideo') }}</h1>
 
       <!-- Selected track info card -->
-      <div class="flex items-center gap-3 rounded-2xl border border-white/8 bg-white/3 px-4 py-3 backdrop-blur-xs">
+      <div
+        class="flex items-center gap-3 rounded-2xl border border-white/8 bg-white/3 px-4 py-3 backdrop-blur-xs"
+      >
         <div class="h-12 w-12 shrink-0 overflow-hidden rounded-xl bg-white/10 shadow-lg">
           <img
             v-if="selectedTrack?.cover_url"
@@ -147,7 +149,7 @@
             loading="lazy"
           />
           <div v-else class="flex h-full items-center justify-center">
-            <Music aria-hidden="true" class="text-sm text-slate-500"  />
+            <Music aria-hidden="true" class="text-sm text-slate-500" />
           </div>
         </div>
         <div class="min-w-0 flex-1">
@@ -159,7 +161,7 @@
         </div>
         <button
           type="button"
-          class="shrink-0 rounded-lg bg-white/8 px-3 py-1.5 text-xs font-medium text-spotify transition hover:bg-white/12 focus-visible:outline-2 focus-visible:outline-spotify"
+          class="text-spotify focus-visible:outline-spotify shrink-0 rounded-lg bg-white/8 px-3 py-1.5 text-xs font-medium transition hover:bg-white/12 focus-visible:outline-2"
           @click="currentStep = 1"
         >
           {{ t('change') }}
@@ -169,10 +171,12 @@
       <!-- File upload dropzone -->
       <button
         type="button"
-        class="flex w-full flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed px-6 py-12 transition cursor-pointer"
-        :class="videoFile
-          ? 'border-spotify/40 bg-spotify/5'
-          : 'border-white/10 bg-white/2 hover:border-spotify/30 hover:bg-white/4'"
+        class="flex w-full cursor-pointer flex-col items-center justify-center gap-3 rounded-2xl border-2 border-dashed px-6 py-12 transition"
+        :class="
+          videoFile
+            ? 'border-spotify/40 bg-spotify/5'
+            : 'hover:border-spotify/30 border-white/10 bg-white/2 hover:bg-white/4'
+        "
         :aria-label="t('uploadFile')"
         @click="triggerFileInput"
         @drop.prevent="onDrop"
@@ -180,7 +184,7 @@
         <!-- No file state -->
         <template v-if="!videoFile">
           <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/5">
-            <Video aria-hidden="true" class="text-2xl text-slate-400"  />
+            <Video aria-hidden="true" class="text-2xl text-slate-400" />
           </div>
           <p class="text-sm font-medium text-white/60">{{ t('selectVideo') }}</p>
           <p class="text-xs text-white/30">MP4, WebM, MOV — {{ t('maxSize') }} 200MB</p>
@@ -189,11 +193,13 @@
         <!-- File selected state -->
         <template v-else>
           <!-- Video preview player -->
-          <div class="relative w-full overflow-hidden rounded-2xl bg-black/60 shadow-2xl ring-1 ring-white/6">
+          <div
+            class="relative w-full overflow-hidden rounded-2xl bg-black/60 shadow-2xl ring-1 ring-white/6"
+          >
             <video
               ref="videoPreviewRef"
               :src="videoPreviewUrl"
-              class="w-full max-h-80 object-contain"
+              class="max-h-80 w-full object-contain"
               :aria-label="t('videoPreview')"
               controls
               playsinline
@@ -202,9 +208,11 @@
           </div>
 
           <!-- File info bar -->
-          <div class="flex w-full items-center gap-3 rounded-xl border border-white/6 bg-white/3 px-4 py-3 backdrop-blur-xs">
-            <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-spotify/15">
-              <Video aria-hidden="true" class="text-sm text-spotify"  />
+          <div
+            class="flex w-full items-center gap-3 rounded-xl border border-white/6 bg-white/3 px-4 py-3 backdrop-blur-xs"
+          >
+            <div class="bg-spotify/15 flex h-9 w-9 shrink-0 items-center justify-center rounded-lg">
+              <Video aria-hidden="true" class="text-spotify text-sm" />
             </div>
             <div class="min-w-0 flex-1">
               <p class="truncate text-sm font-medium text-white">{{ videoFile.name }}</p>
@@ -216,14 +224,17 @@
               :aria-label="t('remove')"
               @click.stop="removeVideo"
             >
-              <Trash2 aria-hidden="true" class="text-xs"  />
+              <Trash2 aria-hidden="true" class="text-xs" />
             </button>
           </div>
 
           <!-- Upload progress bar -->
-          <div v-if="uploadProgress > 0 && uploadProgress < 100" class="h-1.5 w-full overflow-hidden rounded-full bg-white/8">
+          <div
+            v-if="uploadProgress > 0 && uploadProgress < 100"
+            class="h-1.5 w-full overflow-hidden rounded-full bg-white/8"
+          >
             <div
-              class="h-full rounded-full bg-spotify transition-all duration-500 ease-out"
+              class="bg-spotify h-full rounded-full transition-all duration-500 ease-out"
               :style="{ width: uploadProgress + '%' }"
             />
           </div>
@@ -240,7 +251,10 @@
       </button>
 
       <!-- Track info card — just shows the selected track, no sync -->
-      <div v-if="selectedTrack" class="space-y-3 rounded-2xl border border-white/6 bg-white/2 px-4 py-4 backdrop-blur-xs">
+      <div
+        v-if="selectedTrack"
+        class="space-y-3 rounded-2xl border border-white/6 bg-white/2 px-4 py-4 backdrop-blur-xs"
+      >
         <p class="text-xs font-medium text-white/50">{{ t('editWillUse') }}</p>
         <div class="flex items-center gap-3">
           <div class="h-10 w-10 shrink-0 overflow-hidden rounded-xl bg-white/10">
@@ -251,7 +265,7 @@
               class="h-full w-full object-cover"
             />
             <div v-else class="flex h-full items-center justify-center">
-              <Music aria-hidden="true" class="text-sm text-slate-500"  />
+              <Music aria-hidden="true" class="text-sm text-slate-500" />
             </div>
           </div>
           <div class="min-w-0 flex-1">
@@ -267,7 +281,7 @@
       <!-- Continue button -->
       <button
         type="button"
-        class="w-full rounded-2xl bg-spotify py-3.5 text-sm font-bold text-black transition hover:bg-spotify-hover disabled:opacity-40 focus-visible:outline-2 focus-visible:outline-white"
+        class="bg-spotify hover:bg-spotify-hover w-full rounded-2xl py-3.5 text-sm font-bold text-black transition focus-visible:outline-2 focus-visible:outline-white disabled:opacity-40"
         :disabled="!videoFile"
         @click="currentStep = 3"
       >
@@ -280,7 +294,9 @@
       <h1 class="text-2xl font-black text-white">{{ t('editDetails') }}</h1>
 
       <!-- Selected track summary -->
-      <div class="flex items-center gap-3 rounded-2xl border border-white/8 bg-white/3 px-4 py-3 backdrop-blur-xs">
+      <div
+        class="flex items-center gap-3 rounded-2xl border border-white/8 bg-white/3 px-4 py-3 backdrop-blur-xs"
+      >
         <div class="h-11 w-11 shrink-0 overflow-hidden rounded-xl bg-white/10">
           <img
             v-if="selectedTrack?.cover_url"
@@ -290,7 +306,7 @@
             loading="lazy"
           />
           <div v-else class="flex h-full items-center justify-center">
-            <Music aria-hidden="true" class="text-sm text-slate-500"  />
+            <Music aria-hidden="true" class="text-sm text-slate-500" />
           </div>
         </div>
         <div class="min-w-0 flex-1">
@@ -310,7 +326,11 @@
           required
           :placeholder="t('titlePlaceholder')"
           class="w-full rounded-2xl border bg-white/4 px-4 py-3 text-sm text-white outline-hidden backdrop-blur-xs transition placeholder:text-slate-500 focus:bg-white/6"
-          :class="titleError ? 'border-red-400/40 focus:border-red-400/60' : 'border-white/10 focus:border-spotify/40'"
+          :class="
+            titleError
+              ? 'border-red-400/40 focus:border-red-400/60'
+              : 'focus:border-spotify/40 border-white/10'
+          "
           aria-describedby="edit-title-char-count edit-title-error"
           @blur="titleTouched = true"
           @input="titleTouched = true"
@@ -319,32 +339,38 @@
           <p v-if="titleError" id="edit-title-error" class="text-[10px] text-red-400" role="alert">
             {{ titleError }}
           </p>
-          <p id="edit-title-char-count" class="text-[10px] text-white/30 tabular-nums">{{ editTitle.length }}/100</p>
+          <p id="edit-title-char-count" class="text-[10px] text-white/30 tabular-nums">
+            {{ editTitle.length }}/100
+          </p>
         </div>
       </div>
 
       <!-- Description (optional) -->
       <div class="space-y-1.5">
-        <label for="edit-desc" class="text-xs font-medium text-white/50">{{ t('description') }}</label>
+        <label for="edit-desc" class="text-xs font-medium text-white/50">{{
+          t('description')
+        }}</label>
         <textarea
           id="edit-desc"
           v-model="editDescription"
           maxlength="300"
           rows="3"
           :placeholder="t('descPlaceholder')"
-          class="w-full resize-none rounded-2xl border border-white/10 bg-white/4 px-4 py-3 text-sm text-white outline-hidden backdrop-blur-xs transition placeholder:text-slate-500 focus:border-spotify/40 focus:bg-white/6"
+          class="focus:border-spotify/40 w-full resize-none rounded-2xl border border-white/10 bg-white/4 px-4 py-3 text-sm text-white outline-hidden backdrop-blur-xs transition placeholder:text-slate-500 focus:bg-white/6"
         />
-        <p class="text-left text-[10px] text-white/30 tabular-nums">{{ editDescription.length }}/300</p>
+        <p class="text-left text-[10px] text-white/30 tabular-nums">
+          {{ editDescription.length }}/300
+        </p>
       </div>
 
       <!-- Publish button -->
       <button
         type="button"
-        class="mt-4 flex w-full items-center justify-center gap-2 rounded-2xl bg-spotify py-3.5 text-sm font-bold text-black transition hover:bg-spotify-hover disabled:opacity-40 focus-visible:outline-2 focus-visible:outline-white"
+        class="bg-spotify hover:bg-spotify-hover mt-4 flex w-full items-center justify-center gap-2 rounded-2xl py-3.5 text-sm font-bold text-black transition focus-visible:outline-2 focus-visible:outline-white disabled:opacity-40"
         :disabled="publishing || !isPublishValid"
         @click="publish"
       >
-        <Loader2 v-if="publishing" aria-hidden="true" class="animate-spin"  />
+        <Loader2 v-if="publishing" aria-hidden="true" class="animate-spin" />
         {{ publishing ? t('publishing') : t('publish') }}
       </button>
 
@@ -369,12 +395,12 @@
         <!-- Processing -->
         <template v-if="processingState === 'processing'">
           <div class="flex flex-col items-center gap-4">
-            <div class="flex h-16 w-16 items-center justify-center rounded-full bg-spotify/15">
-              <Loader2 aria-hidden="true" class="text-3xl text-spotify animate-spin"  />
+            <div class="bg-spotify/15 flex h-16 w-16 items-center justify-center rounded-full">
+              <Loader2 aria-hidden="true" class="text-spotify animate-spin text-3xl" />
             </div>
             <p class="text-sm font-medium text-white/70">{{ t('processingMessage') }}</p>
             <div class="h-1 w-48 overflow-hidden rounded-full bg-white/10">
-              <div class="h-full animate-pulse rounded-full bg-spotify/60" style="width: 60%" />
+              <div class="bg-spotify/60 h-full animate-pulse rounded-full" style="width: 60%" />
             </div>
           </div>
         </template>
@@ -382,8 +408,8 @@
         <!-- Success -->
         <template v-else-if="processingState === 'success'">
           <div class="flex flex-col items-center gap-4">
-            <div class="flex h-16 w-16 items-center justify-center rounded-full bg-spotify/20">
-              <CheckCircle aria-hidden="true" class="text-3xl text-spotify"  />
+            <div class="bg-spotify/20 flex h-16 w-16 items-center justify-center rounded-full">
+              <CheckCircle aria-hidden="true" class="text-spotify text-3xl" />
             </div>
             <p class="text-sm font-bold text-white">{{ t('successMessage') }}</p>
             <p class="text-xs text-white/50">{{ t('redirecting') }}</p>
@@ -394,7 +420,7 @@
         <template v-else-if="processingState === 'timeout'">
           <div class="flex flex-col items-center gap-4">
             <div class="flex h-16 w-16 items-center justify-center rounded-full bg-amber-400/20">
-              <Clock aria-hidden="true" class="text-3xl text-amber-400"  />
+              <Clock aria-hidden="true" class="text-3xl text-amber-400" />
             </div>
             <p class="text-sm font-medium text-white/70">{{ t('timeoutMessage') }}</p>
             <button
@@ -411,12 +437,12 @@
         <template v-else-if="processingState === 'error'">
           <div class="flex flex-col items-center gap-4">
             <div class="flex h-16 w-16 items-center justify-center rounded-full bg-red-500/20">
-              <AlertCircle aria-hidden="true" class="text-3xl text-red-400"  />
+              <AlertCircle aria-hidden="true" class="text-3xl text-red-400" />
             </div>
             <p class="text-sm font-medium text-white/70">{{ t('errorMessage') }}</p>
             <button
               type="button"
-              class="rounded-full bg-spotify px-6 py-2 text-sm font-bold text-black transition hover:bg-spotify-hover focus-visible:outline-2 focus-visible:outline-white"
+              class="bg-spotify hover:bg-spotify-hover rounded-full px-6 py-2 text-sm font-bold text-black transition focus-visible:outline-2 focus-visible:outline-white"
               @click="resetAfterError"
             >
               {{ t('tryAgain') }}
@@ -429,7 +455,21 @@
 </template>
 
 <script setup lang="ts">
-import { AlertCircle, ArrowRight, Check, CheckCircle, ChevronLeft, Clock, Headphones, Info, Loader2, Music, Search, Trash2, Video } from 'lucide-vue-next'
+import {
+  AlertCircle,
+  ArrowRight,
+  Check,
+  CheckCircle,
+  ChevronLeft,
+  Clock,
+  Headphones,
+  Info,
+  Loader2,
+  Music,
+  Search,
+  Trash2,
+  Video,
+} from 'lucide-vue-next'
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useSearchApi } from '@/services/api/catalog/search'
@@ -503,7 +543,8 @@ function isStepComplete(i: number): boolean {
 
 function stepClass(i: number): string {
   if (isStepComplete(i)) return 'bg-spotify text-black shadow-sm shadow-spotify/30'
-  if (currentStep.value === (steps[i]?.step ?? 0)) return 'bg-spotify/20 text-spotify ring-1 ring-spotify/30'
+  if (currentStep.value === (steps[i]?.step ?? 0))
+    return 'bg-spotify/20 text-spotify ring-1 ring-spotify/30'
   return 'bg-white/10 text-white/40'
 }
 
@@ -610,10 +651,9 @@ async function doSearch() {
 
   searching.value = true
   try {
-    const res = await searchApi.searchCatalog(
-      { query: term, type: 'tracks', limit: 10 },
-      { signal: abortController.signal } as Record<string, unknown>,
-    )
+    const res = await searchApi.searchCatalog({ query: term, type: 'tracks', limit: 10 }, {
+      signal: abortController.signal,
+    } as Record<string, unknown>)
     searchResults.value = (res.tracks ?? []) as unknown as Track[]
   } catch (err) {
     if ((err as Record<string, unknown>)?.name === 'AbortError') return
@@ -673,12 +713,22 @@ function onDrop(e: DragEvent) {
 function setVideoFile(file: File) {
   // Validate video MIME type
   if (!file.type.startsWith('video/')) {
-    toast.add({ severity: 'error', summary: 'خطا', detail: 'فایل انتخاب شده ویدیو نیست', life: 4000 })
+    toast.add({
+      severity: 'error',
+      summary: 'خطا',
+      detail: 'فایل انتخاب شده ویدیو نیست',
+      life: 4000,
+    })
     return
   }
   // Validate size (200MB max)
   if (file.size > 200 * 1024 * 1024) {
-    toast.add({ severity: 'error', summary: 'خطا', detail: 'حجم فایل بیشتر از ۲۰۰ مگابایت است', life: 4000 })
+    toast.add({
+      severity: 'error',
+      summary: 'خطا',
+      detail: 'حجم فایل بیشتر از ۲۰۰ مگابایت است',
+      life: 4000,
+    })
     return
   }
   videoFile.value = file
@@ -712,14 +762,11 @@ async function publish() {
   publishing.value = true
 
   try {
-    const result = await videoApi.uploadVideoFile(
-      videoFile.value,
-      {
-        track_id: selectedTrack.value.id,
-        title: editTitle.value || undefined,
-        description: editDescription.value || undefined,
-      },
-    )
+    const result = await videoApi.uploadVideoFile(videoFile.value, {
+      track_id: selectedTrack.value.id,
+      title: editTitle.value || undefined,
+      description: editDescription.value || undefined,
+    })
 
     // Transition to processing overlay
     processingState.value = 'processing'

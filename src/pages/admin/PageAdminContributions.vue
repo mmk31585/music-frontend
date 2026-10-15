@@ -16,7 +16,12 @@
             :disabled="loading"
             @click="refreshAll"
           >
-            <component :is="loading ? Loader2 : RefreshCw"<i aria-hidden="true"  class="text-xs" /> :class="loading ? 'animate-spin' : ''" />
+            <component
+              :is="loading ? Loader2 : RefreshCw"
+              aria-hidden="true"
+              class="text-xs"
+              :class="loading ? 'animate-spin' : ''"
+            />
             {{ loading ? 'Loading...' : 'RefreshCw' }}
           </button>
         </div>
@@ -49,11 +54,14 @@
     <!-- Search & Filter Bar -->
     <div class="mt-4 flex items-center gap-3">
       <div class="relative flex-1">
-        <Search class="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-white/30"<i aria-hidden="true"  /> />
+        <Search
+          class="absolute top-1/2 left-3 -translate-y-1/2 text-xs text-white/30"
+          aria-hidden="true"
+        />
         <input
           v-model="searchQuery"
           placeholder="Search by summary or contributor name..."
-          class="w-full rounded-lg border border-white/10 bg-white/4 py-2 pl-9 pr-3 text-xs text-white outline-hidden placeholder:text-white/20 focus:border-white/20"
+          class="w-full rounded-lg border border-white/10 bg-white/4 py-2 pr-3 pl-9 text-xs text-white outline-hidden placeholder:text-white/20 focus:border-white/20"
           @input="onSearchInput"
         />
       </div>
@@ -114,7 +122,11 @@
                 {{ c.summary || c.contribution_type + ' contribution' }}
               </p>
               <p class="mt-1.5 text-xs text-white/30">
-                by <span class="font-medium text-white/40">{{ c.contributor_username || shortId(c.contributor_id) }}</span> ·
+                by
+                <span class="font-medium text-white/40">{{
+                  c.contributor_username || shortId(c.contributor_id)
+                }}</span>
+                ·
                 {{ timeAgo(c.created_at) }}
                 <span v-if="c.ai_verdict">
                   · AI: <span :class="aiVerdictClass(c.ai_verdict)">{{ c.ai_verdict }}</span>
@@ -126,17 +138,17 @@
               <button
                 title="View details"
                 class="rounded-lg bg-white/5 p-2 text-xs text-white/30 transition hover:bg-white/10 hover:text-white"
-                @click="selected = c; showDetail = true"
+                @click="viewDetails(c)"
               >
-                <Eye aria-hidden="true" class=""  />
+                <Eye aria-hidden="true" class="" />
               </button>
               <button
                 v-if="reviewingId !== c.id"
                 title="Review"
                 class="rounded-lg bg-white/5 p-2 text-xs text-white/30 transition hover:bg-amber-500/10 hover:text-amber-400"
-                @click="reviewingId = c.id; reviewNote = ''"
+                @click="startReview(c.id)"
               >
-                <CheckCircle aria-hidden="true" class=""  />
+                <CheckCircle aria-hidden="true" class="" />
               </button>
             </div>
           </div>
@@ -217,7 +229,8 @@
                 >
               </div>
               <p class="mt-1 text-xs text-white/30">
-                by {{ c.contributor_username || shortId(c.contributor_id) }} · {{ timeAgo(c.created_at) }}
+                by {{ c.contributor_username || shortId(c.contributor_id) }} ·
+                {{ timeAgo(c.created_at) }}
               </p>
             </div>
             <div class="flex shrink-0 gap-1.5">
@@ -225,7 +238,7 @@
                 v-if="c.applied_at"
                 class="flex items-center gap-1 rounded-full bg-blue-500/10 px-2 py-1 text-[10px] font-medium text-blue-400"
               >
-                <Check aria-hidden="true"  /> Applied
+                <Check aria-hidden="true" /> Applied
               </span>
               <button
                 v-else
@@ -233,7 +246,7 @@
                 :disabled="applyingId === c.id"
                 @click="doApply(c.id)"
               >
-                <Loader2 aria-hidden="true" v-if="applyingId === c.id" class="mr-1 animate-spin"  />
+                <Loader2 aria-hidden="true" v-if="applyingId === c.id" class="mr-1 animate-spin" />
                 Apply
               </button>
               <button
@@ -241,7 +254,7 @@
                 class="rounded-lg bg-white/5 p-2 text-xs text-white/30 transition hover:bg-white/10 hover:text-white"
                 @click="selected = c; showDetail = true"
               >
-                <Eye aria-hidden="true" class=""  />
+                <Eye aria-hidden="true" class="" />
               </button>
             </div>
           </div>
@@ -287,7 +300,8 @@
                 >
               </div>
               <p class="mt-1 text-xs text-white/30">
-                by {{ c.contributor_username || shortId(c.contributor_id) }} · {{ timeAgo(c.created_at) }}
+                by {{ c.contributor_username || shortId(c.contributor_id) }} ·
+                {{ timeAgo(c.created_at) }}
                 <span v-if="c.moderator_note"> · Note: {{ c.moderator_note }}</span>
               </p>
             </div>
@@ -296,7 +310,7 @@
               class="rounded-lg bg-white/5 p-2 text-xs text-white/30 transition hover:bg-white/10 hover:text-white"
               @click="selected = c; showDetail = true"
             >
-              <Eye aria-hidden="true" class=""  />
+              <Eye aria-hidden="true" class="" />
             </button>
           </div>
         </div>
@@ -320,7 +334,7 @@
       <template #header>
         <div class="flex items-center gap-3">
           <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-500/10">
-            <SquarePen aria-hidden="true" class="text-amber-400"  />
+            <SquarePen aria-hidden="true" class="text-amber-400" />
           </div>
           <div>
             <h3 class="text-base font-semibold text-white">Contribution Details</h3>
@@ -391,8 +405,7 @@
           <span class="mb-1 block text-white/40">Data</span>
           <pre
             class="max-h-40 overflow-x-auto rounded-xl bg-black/40 p-3 font-mono text-xs text-white/60"
-            >{{ formatJSON(selected.data) }}</pre
-          >
+            >{{ formatJSON(selected.data) }}</pre>
         </div>
       </div>
 
@@ -523,6 +536,16 @@ function aiVerdictClass(verdict: string): string {
   return 'text-yellow-400'
 }
 
+function startReview(id: string) {
+  reviewingId.value = id
+  reviewNote.value = ''
+}
+
+function viewDetails(c: Contribution) {
+  selected.value = c
+  showDetail.value = true
+}
+
 async function fetchCurrentTab() {
   if (activeTab.value === 'pending') {
     pendingPage.value = 1
@@ -550,7 +573,11 @@ async function fetchPending() {
 
 async function fetchApproved() {
   try {
-    const params: { page: number; page_size: number; status: string; type?: string; q?: string } = { page: 1, page_size: 50, status: 'approved' }
+    const params: { page: number; page_size: number; status: string; type?: string; q?: string } = {
+      page: 1,
+      page_size: 50,
+      status: 'approved',
+    }
     if (typeFilter.value) params.type = typeFilter.value
     if (searchQuery.value) params.q = searchQuery.value
     const res = await api.adminListContributions(params)
@@ -562,7 +589,11 @@ async function fetchApproved() {
 
 async function fetchRejected() {
   try {
-    const params: { page: number; page_size: number; status: string; type?: string; q?: string } = { page: 1, page_size: 50, status: 'rejected' }
+    const params: { page: number; page_size: number; status: string; type?: string; q?: string } = {
+      page: 1,
+      page_size: 50,
+      status: 'rejected',
+    }
     if (typeFilter.value) params.type = typeFilter.value
     if (searchQuery.value) params.q = searchQuery.value
     const res = await api.adminListContributions(params)

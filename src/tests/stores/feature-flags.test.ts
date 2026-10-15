@@ -49,11 +49,20 @@ describe('useFeatureFlagsStore', () => {
   it('$reset clears all state', () => {
     const store = useFeatureFlagsStore()
     store.setFlags({
-      analytics: false, recommendation: false, search: false,
-      social: false, reactions: false, creator: false,
-      moderation: false, ai: false, contribution: false,
-      gamification: false, tips: false, subscription: false,
-      notification: false, redesignedPlayer: false,
+      analytics: false,
+      recommendation: false,
+      search: false,
+      social: false,
+      reactions: false,
+      creator: false,
+      moderation: false,
+      ai: false,
+      contribution: false,
+      gamification: false,
+      tips: false,
+      subscription: false,
+      notification: false,
+      redesignedPlayer: false,
     })
     expect(store.fetched).toBe(true)
     store.$reset()
@@ -64,14 +73,26 @@ describe('useFeatureFlagsStore', () => {
 
   it('handles all feature flag keys', () => {
     const keys = [
-      'analytics', 'recommendation', 'search', 'social',
-      'reactions', 'creator', 'moderation', 'ai',
-      'contribution', 'gamification', 'tips', 'subscription',
-      'notification', 'redesignedPlayer',
+      'analytics',
+      'recommendation',
+      'search',
+      'social',
+      'reactions',
+      'creator',
+      'moderation',
+      'ai',
+      'contribution',
+      'gamification',
+      'tips',
+      'subscription',
+      'notification',
+      'redesignedPlayer',
     ] as const
     const store = useFeatureFlagsStore()
     const enabled: Record<string, boolean> = {}
-    keys.forEach((k) => { enabled[k] = true })
+    keys.forEach((k) => {
+      enabled[k] = true
+    })
     enabled.social = false
     enabled.ai = false
     store.setFlags(enabled as any as FeatureFlags)

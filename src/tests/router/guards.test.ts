@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { describe, it, expect, beforeEach } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
 import { createRouter, createWebHistory } from 'vue-router'
 import type { Router, RouteRecordRaw } from 'vue-router'
@@ -9,10 +9,30 @@ function createTestRouter(routes: RouteRecordRaw[]): Router {
     history: createWebHistory(),
     routes: [
       { path: '/', name: 'app.home', component: { template: '<div>Home</div>' }, meta: {} },
-      { path: '/login', name: 'auth.login', component: { template: '<div>Login</div>' }, meta: { guestOnly: true } },
-      { path: '/register', name: 'auth.register', component: { template: '<div>Register</div>' }, meta: { guestOnly: true } },
-      { path: '/admin/dashboard', name: 'admin.dashboard', component: { template: '<div>Admin</div>' }, meta: { requiresRole: 'admin' } },
-      { path: '/profile', name: 'app.profile', component: { template: '<div>Profile</div>' }, meta: { requiresAuth: true } },
+      {
+        path: '/login',
+        name: 'auth.login',
+        component: { template: '<div>Login</div>' },
+        meta: { guestOnly: true },
+      },
+      {
+        path: '/register',
+        name: 'auth.register',
+        component: { template: '<div>Register</div>' },
+        meta: { guestOnly: true },
+      },
+      {
+        path: '/admin/dashboard',
+        name: 'admin.dashboard',
+        component: { template: '<div>Admin</div>' },
+        meta: { requiresRole: 'admin' },
+      },
+      {
+        path: '/profile',
+        name: 'app.profile',
+        component: { template: '<div>Profile</div>' },
+        meta: { requiresAuth: true },
+      },
       ...routes,
     ],
   })

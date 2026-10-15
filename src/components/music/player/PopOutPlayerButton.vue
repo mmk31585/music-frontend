@@ -5,7 +5,7 @@
     :disabled="disabled"
     @click="onClick"
   >
-    <ExternalLink aria-hidden="true" class="text-xs"  />
+    <ExternalLink aria-hidden="true" class="text-xs" />
     <span>{{ label }}</span>
   </button>
 </template>

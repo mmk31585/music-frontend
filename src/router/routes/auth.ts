@@ -20,7 +20,8 @@ export const authRoutes: RouteRecordRaw[] = [
       {
         path: 'register',
         name: 'auth.register',
-        component: () => import(/* webpackChunkName: "auth-register" */ '@/pages/auth/PageRegister.vue'),
+        component: () =>
+          import(/* webpackChunkName: "auth-register" */ '@/pages/auth/PageRegister.vue'),
         meta: {
           title: 'Register',
         },
@@ -28,7 +29,10 @@ export const authRoutes: RouteRecordRaw[] = [
       {
         path: 'forgot-password',
         name: 'auth.forgot-password',
-        component: () => import(/* webpackChunkName: "auth-forgot-password" */ '@/pages/auth/PageForgotPassword.vue'),
+        component: () =>
+          import(
+            /* webpackChunkName: "auth-forgot-password" */ '@/pages/auth/PageForgotPassword.vue'
+          ),
         meta: {
           title: 'Forgot Password',
         },

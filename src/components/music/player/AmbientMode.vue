@@ -20,7 +20,7 @@
           />
           <div
             v-else
-            class="h-full w-full bg-linear-to-br from-surface-base via-surface-raised to-surface-overlay"
+            class="from-surface-base via-surface-raised to-surface-overlay h-full w-full bg-linear-to-br"
           />
         </div>
 
@@ -38,15 +38,17 @@
           <div class="flex items-center justify-between px-5 pt-5 pb-3">
             <button
               type="button"
-              class="spring flex h-10 w-10 items-center justify-center rounded-full text-secondary backdrop-blur-xs transition-all hover:bg-surface-active hover:text-primary"
+              class="spring text-secondary hover:bg-surface-active hover:text-primary flex h-10 w-10 items-center justify-center rounded-full backdrop-blur-xs transition-all"
               aria-label="Close"
               @click="close"
             >
-              <ChevronDown aria-hidden="true" class="text-lg"  />
+              <ChevronDown aria-hidden="true" class="text-lg" />
             </button>
-            <div class="glass flex items-center gap-2 rounded-full px-4 py-2 text-xs text-secondary">
+            <div
+              class="glass text-secondary flex items-center gap-2 rounded-full px-4 py-2 text-xs"
+            >
               <span
-                class="flex h-2 w-2 rounded-full bg-accent"
+                class="bg-accent flex h-2 w-2 rounded-full"
                 :class="{ 'glow-spread': isPlaying }"
               />
               <span class="font-semibold tracking-wider uppercase">Ambient Mode</span>
@@ -58,7 +60,7 @@
           <div class="flex flex-1 flex-col items-center justify-center gap-5 px-6">
             <div class="relative h-48 w-48 md:h-64 md:w-64 lg:h-80 lg:w-80">
               <div
-                class="h-full w-full overflow-hidden rounded-3xl shadow-2xl ring-1 shadow-bg-overlay/50 ring-border-default"
+                class="shadow-bg-overlay/50 ring-border-default h-full w-full overflow-hidden rounded-3xl shadow-2xl ring-1"
               >
                 <img
                   v-if="coverUrl"
@@ -69,16 +71,16 @@
                 />
                 <div
                   v-else
-                  class="flex h-full w-full items-center justify-center bg-linear-to-br from-spotify/30 to-surface-raised"
+                  class="from-spotify/30 to-surface-raised flex h-full w-full items-center justify-center bg-linear-to-br"
                 >
-                  <Music aria-hidden="true" class="text-5xl text-muted"  />
+                  <Music aria-hidden="true" class="text-muted text-5xl" />
                 </div>
               </div>
             </div>
 
             <div class="text-center">
-              <p class="text-2xl font-bold text-primary drop-shadow-lg">{{ title }}</p>
-              <p class="mt-1 text-sm text-secondary drop-shadow">{{ artistName }}</p>
+              <p class="text-primary text-2xl font-bold drop-shadow-lg">{{ title }}</p>
+              <p class="text-secondary mt-1 text-sm drop-shadow">{{ artistName }}</p>
             </div>
           </div>
 
@@ -99,71 +101,79 @@
             <div class="flex items-center gap-6">
               <button
                 type="button"
-                class="spring relative flex h-10 w-10 items-center justify-center rounded-full text-tertiary backdrop-blur-xs transition-all hover:bg-surface-active hover:text-primary"
+                class="spring text-tertiary hover:bg-surface-active hover:text-primary relative flex h-10 w-10 items-center justify-center rounded-full backdrop-blur-xs transition-all"
                 :class="{ 'text-accent!': shuffleMode !== 'off' }"
                 :disabled="!currentTrack"
                 aria-label="Shuffle"
                 @click="toggleShuffle"
               >
-                <ArrowUpDown aria-hidden="true" class="text-sm"  />
+                <ArrowUpDown aria-hidden="true" class="text-sm" />
                 <span
                   v-if="shuffleMode !== 'off'"
-                  class="absolute -top-0.5 -right-0.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-aurora-purple text-[8px] font-bold text-primary"
-                >{{ shuffleMode === 'queue' ? 'Q' : shuffleMode === 'catalog' ? 'R' : 'S' }}</span>
+                  class="bg-aurora-purple text-primary absolute -top-0.5 -right-0.5 flex h-3.5 w-3.5 items-center justify-center rounded-full text-[8px] font-bold"
+                  >{{ shuffleMode === 'queue' ? 'Q' : shuffleMode === 'catalog' ? 'R' : 'S' }}</span
+                >
               </button>
 
               <button
                 type="button"
-                class="spring flex h-12 w-12 items-center justify-center rounded-full text-secondary backdrop-blur-xs transition-all hover:bg-surface-active hover:text-primary disabled:opacity-20"
+                class="spring text-secondary hover:bg-surface-active hover:text-primary flex h-12 w-12 items-center justify-center rounded-full backdrop-blur-xs transition-all disabled:opacity-20"
                 :disabled="!hasPrevious"
                 aria-label="Previous track"
                 @click="playPrevious"
               >
-                <SkipBack aria-hidden="true" class="text-xl"  />
+                <SkipBack aria-hidden="true" class="text-xl" />
               </button>
 
               <button
                 type="button"
-                class="glow-green spring relative flex h-16 w-16 items-center justify-center rounded-full bg-surface-active text-black shadow-2xl backdrop-blur-xs transition-all hover:scale-105 hover:bg-accent hover:text-primary disabled:opacity-40"
+                class="glow-green spring bg-surface-active hover:bg-accent hover:text-primary relative flex h-16 w-16 items-center justify-center rounded-full text-black shadow-2xl backdrop-blur-xs transition-all hover:scale-105 disabled:opacity-40"
                 :class="{ 'bg-accent! text-primary!': isPlaying }"
                 :disabled="!currentTrack || isLoadingTrack"
-                :aria-label="isLoadingTrack || isBuffering ? 'Loading' : isPlaying ? 'Pause' : 'Play'"
+                :aria-label="
+                  isLoadingTrack || isBuffering ? 'Loading' : isPlaying ? 'Pause' : 'Play'
+                "
                 @click="togglePlayPause"
               >
-                <Loader2 aria-hidden="true" v-if="isLoadingTrack || isBuffering" class="text-xl animate-spin"  />
-                <component :is="isPlaying ? Pause : Play" aria-hidden="true"<i
+                <Loader2
+                  aria-hidden="true"
+                  v-if="isLoadingTrack || isBuffering"
+                  class="animate-spin text-xl"
+                />
+                <component
+                  :is="isPlaying ? Pause : Play"
+                  aria-hidden="true"
                   v-else
-                  
                   class="text-xl"
-                /> />
+                />
                 <div
                   v-if="isPlaying"
-                  class="absolute -inset-2 animate-ping rounded-full border-2 border-spotify/30"
+                  class="border-spotify/30 absolute -inset-2 animate-ping rounded-full border-2"
                 />
               </button>
 
               <button
                 type="button"
-                class="spring flex h-12 w-12 items-center justify-center rounded-full text-secondary backdrop-blur-xs transition-all hover:bg-surface-active hover:text-primary disabled:opacity-20"
+                class="spring text-secondary hover:bg-surface-active hover:text-primary flex h-12 w-12 items-center justify-center rounded-full backdrop-blur-xs transition-all disabled:opacity-20"
                 :disabled="!hasNext"
                 aria-label="Next track"
                 @click="playNext"
               >
-                <SkipForward aria-hidden="true" class="text-xl"  />
+                <SkipForward aria-hidden="true" class="text-xl" />
               </button>
 
               <button
                 type="button"
-                class="spring relative flex h-10 w-10 items-center justify-center rounded-full text-tertiary backdrop-blur-xs transition-all hover:bg-surface-active hover:text-primary"
+                class="spring text-tertiary hover:bg-surface-active hover:text-primary relative flex h-10 w-10 items-center justify-center rounded-full backdrop-blur-xs transition-all"
                 :class="{ 'text-accent!': repeatMode !== 'off' }"
                 :disabled="!currentTrack"
                 aria-label="Repeat"
                 @click="toggleRepeat"
               >
-                <RefreshCw aria-hidden="true" class="text-sm"  />
+                <RefreshCw aria-hidden="true" class="text-sm" />
                 <span
                   v-if="repeatMode === 'one'"
-                  class="absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full bg-accent text-[9px] font-bold text-black"
+                  class="bg-accent absolute -top-0.5 -right-0.5 flex h-4 w-4 items-center justify-center rounded-full text-[9px] font-bold text-black"
                   >1</span
                 >
               </button>
@@ -181,7 +191,17 @@
 </template>
 
 <script setup lang="ts">
-import { ArrowUpDown, ChevronDown, Loader2, Music, Pause, Play, RefreshCw, SkipBack, SkipForward } from 'lucide-vue-next'
+import {
+  ArrowUpDown,
+  ChevronDown,
+  Loader2,
+  Music,
+  Pause,
+  Play,
+  RefreshCw,
+  SkipBack,
+  SkipForward,
+} from 'lucide-vue-next'
 import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { usePlayerControls } from '@/composables/player'
 import { useAlbumColors } from '@/composables/useAlbumColors'
@@ -228,9 +248,8 @@ const bgStyle = computed(() => {
   }
 })
 
-
 function onSeek(val: number | number[]) {
-  seekPercent(typeof val === 'number' ? val : val[0] ?? 0)
+  seekPercent(typeof val === 'number' ? val : (val[0] ?? 0))
 }
 
 function close() {

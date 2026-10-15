@@ -167,8 +167,6 @@ export const AppPreset = definePreset(Aura, {
         paddingX: '0.875rem',
         paddingY: '0.625rem',
         transitionDuration: '0.15s',
-        transitionProperty: 'border-color, box-shadow',
-        transitionTimingFunction: 'cubic-bezier(0, 0, 0.2, 1)',
       },
       colorScheme: {
         dark: {
@@ -302,23 +300,17 @@ export const AppPreset = definePreset(Aura, {
       },
       value: {
         background: 'var(--accent)',
-        borderRadius: '999px',
       },
     },
     chip: {
       root: {
-        background: 'var(--surface-2)',
-        borderColor: 'var(--border-default)',
         borderRadius: '9999px',
-        color: 'var(--text-secondary)',
         paddingX: '0.75rem',
         paddingY: '0.25rem',
       },
     },
     badge: {
       root: {
-        background: 'var(--accent)',
-        color: 'var(--accent-text)',
         borderRadius: '9999px',
         fontSize: '0.7rem',
         fontWeight: '700',
@@ -427,37 +419,16 @@ export const AppPreset = definePreset(Aura, {
     },
     accordion: {
       root: {
-        borderColor: 'var(--border-default)',
+        transitionDuration: '0.15s',
       },
-      content: {
-        background: 'transparent',
-        borderColor: 'var(--border-subtle)',
-      },
+      content: {},
     },
     datatable: {
-      root: {
-        background: 'transparent',
-      },
-      headerRow: {
-        background: 'var(--surface-1)',
-      },
       headerCell: {
-        borderColor: 'var(--border-default)',
         color: 'var(--text-tertiary)',
-        fontWeight: '600',
-        fontSize: '0.6875rem',
-        letterSpacing: '0.04em',
-        textTransform: 'uppercase',
         padding: '0.625rem 1rem',
       },
-      bodyRow: {
-        borderColor: 'var(--border-subtle)',
-        transitionDuration: '0.15s',
-        transitionProperty: 'background',
-      },
       bodyCell: {
-        color: 'var(--text-secondary)',
-        fontSize: 'var(--text-sm)',
         padding: '0.75rem 1rem',
       },
     },

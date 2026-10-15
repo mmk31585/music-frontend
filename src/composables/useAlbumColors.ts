@@ -145,9 +145,13 @@ export function useAlbumColors(coverUrl: Ref<string | null | undefined>) {
   const loading = ref(false)
   const extract = createExtractFunction(palette, loading)
 
-  watchDebounced(coverUrl, (url) => {
-    if (url) void extract(url)
-  }, { debounce: 300, maxWait: 1000 })
+  watchDebounced(
+    coverUrl,
+    (url) => {
+      if (url) void extract(url)
+    },
+    { debounce: 300, maxWait: 1000 },
+  )
 
   return {
     palette,

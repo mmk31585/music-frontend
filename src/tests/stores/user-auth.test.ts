@@ -2,38 +2,41 @@ import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { setActivePinia, createPinia } from 'pinia'
 import { useUserAuthStore } from '@/stores/user-auth'
 
-vi.mock('@/services/api/auth', () => ({
-  useAuthApi: () => ({
-    login: vi.fn().mockResolvedValue({
-      access_token: 'access-123',
-      refresh_token: 'refresh-456',
-      user: {
-        id: 'user-1',
-        email: 'test@example.com',
-        username: 'testuser',
-        display_name: 'Test User',
-        role: 'listener',
-      },
-    }),
-    refresh: vi.fn().mockResolvedValue({
-      access_token: 'new-access-789',
-      refresh_token: 'new-refresh-012',
-    }),
-    register: vi.fn().mockResolvedValue({
-      access_token: 'access-123',
-      refresh_token: 'refresh-456',
-      user: { id: 'user-1', email: 'test@example.com', username: 'testuser' },
-    }),
-    me: vi.fn().mockResolvedValue({
+vi.mock('@/services/api/auth', () => {
+  const login = vi.fn().mockResolvedValue({
+    access_token: 'access-123',
+    refresh_token: 'refresh-456',
+    user: {
       id: 'user-1',
       email: 'test@example.com',
       username: 'testuser',
       display_name: 'Test User',
       role: 'listener',
+    },
+  })
+  return {
+    useAuthApi: () => ({
+      login,
+      refresh: vi.fn().mockResolvedValue({
+        access_token: 'new-access-789',
+        refresh_token: 'new-refresh-012',
+      }),
+      register: vi.fn().mockResolvedValue({
+        access_token: 'access-123',
+        refresh_token: 'refresh-456',
+        user: { id: 'user-1', email: 'test@example.com', username: 'testuser' },
+      }),
+      me: vi.fn().mockResolvedValue({
+        id: 'user-1',
+        email: 'test@example.com',
+        username: 'testuser',
+        display_name: 'Test User',
+        role: 'listener',
+      }),
+      logout: vi.fn().mockResolvedValue({}),
     }),
-    logout: vi.fn().mockResolvedValue({}),
-  }),
-}))
+  }
+})
 
 vi.mock('uuid', () => ({
   v4: () => 'mocked-uuid-1234',
@@ -144,7 +147,10 @@ describe('useUserAuthStore', () => {
 
   it('login sets session on success', async () => {
     const store = useUserAuthStore()
-    const result = await store.login({ email: 'test@example.com', password: 'pass123' } as any, true)
+    const result = await store.login(
+      { email: 'test@example.com', password: 'pass123' } as any,
+      true,
+    )
     expect(result).toBeDefined()
     expect(store.isAuthenticated).toBe(true)
   })

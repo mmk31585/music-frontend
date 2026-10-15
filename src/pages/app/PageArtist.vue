@@ -1,5 +1,8 @@
 <template>
-  <div :key="String(route.params.id)" class="mx-auto w-full max-w-7xl px-4 pt-4 pb-32 md:px-6 lg:px-8">
+  <div
+    :key="String(route.params.id)"
+    class="mx-auto w-full max-w-7xl px-4 pt-4 pb-32 md:px-6 lg:px-8"
+  >
     <div v-if="loading" class="space-y-6">
       <SkeletonLoader variant="hero" />
       <div class="space-y-3">
@@ -17,21 +20,18 @@
       <template #action>
         <RouterLink
           to="/"
-          class="inline-flex items-center gap-2 rounded-full bg-spotify px-5 py-2.5 text-sm font-bold text-black transition hover:bg-spotify-hover"
+          class="bg-spotify hover:bg-spotify-hover inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-bold text-black transition"
         >
-          <Home aria-hidden="true" class=""  />
+          <Home aria-hidden="true" class="" />
           Go home
         </RouterLink>
       </template>
     </AppEmptyState>
 
     <template v-else-if="artist">
-      <div
-        class="relative overflow-hidden rounded-2xl border border-white/6"
-        :style="headerBg"
-      >
-        <div class="aurora-spot-1 -top-60 -left-40 bg-spotify/10" />
-        <div class="aurora-spot-2 -right-40 -bottom-40 bg-aurora-blue/8" />
+      <div class="relative overflow-hidden rounded-2xl border border-white/6" :style="headerBg">
+        <div class="aurora-spot-1 bg-spotify/10 -top-60 -left-40" />
+        <div class="aurora-spot-2 bg-aurora-blue/8 -right-40 -bottom-40" />
         <div class="relative z-10">
           <ArtistHero
             :artist="artist"
@@ -49,10 +49,12 @@
         <template v-if="displayedTracks.length">
           <div class="flex items-baseline justify-between gap-4">
             <div>
-              <p class="text-[10px] font-bold tracking-[0.3em] text-white/30 uppercase">Top tracks</p>
+              <p class="text-[10px] font-bold tracking-[0.3em] text-white/30 uppercase">
+                Top tracks
+              </p>
               <h2 class="mt-1 text-xl font-bold text-white md:text-2xl">Popular</h2>
             </div>
-            <span class="text-xs tabular-nums text-white/25">{{ tracks.length }} tracks</span>
+            <span class="text-xs text-white/25 tabular-nums">{{ tracks.length }} tracks</span>
           </div>
           <div class="mt-5">
             <TrackList :tracks="displayedTracks" />
@@ -86,10 +88,14 @@
         <template v-if="albums.length">
           <div class="flex items-baseline justify-between gap-4">
             <div>
-              <p class="text-[10px] font-bold tracking-[0.3em] text-white/30 uppercase">Discography</p>
+              <p class="text-[10px] font-bold tracking-[0.3em] text-white/30 uppercase">
+                Discography
+              </p>
               <h2 class="mt-1 text-xl font-bold text-white md:text-2xl">Albums</h2>
             </div>
-            <span class="text-xs tabular-nums text-white/25">{{ albums.length }} album{{ albums.length === 1 ? '' : 's' }}</span>
+            <span class="text-xs text-white/25 tabular-nums"
+              >{{ albums.length }} album{{ albums.length === 1 ? '' : 's' }}</span
+            >
           </div>
           <div class="mt-5">
             <HomeCarousel>
@@ -110,7 +116,9 @@
         <template v-if="related.length">
           <div class="flex items-baseline justify-between gap-4">
             <div>
-              <p class="text-[10px] font-bold tracking-[0.3em] text-white/30 uppercase">You might also like</p>
+              <p class="text-[10px] font-bold tracking-[0.3em] text-white/30 uppercase">
+                You might also like
+              </p>
               <h2 class="mt-1 text-xl font-bold text-white md:text-2xl">Related Artists</h2>
             </div>
           </div>
@@ -135,7 +143,9 @@
             <div class="w-full border-t border-white/6" />
           </div>
           <div class="relative flex justify-center">
-            <span class="bg-surface-base px-4 text-[10px] font-bold tracking-[0.3em] text-white/20 uppercase">
+            <span
+              class="bg-surface-base px-4 text-[10px] font-bold tracking-[0.3em] text-white/20 uppercase"
+            >
               Biography
             </span>
           </div>
@@ -147,7 +157,7 @@
           <button
             v-if="artist.bio.length > 300"
             type="button"
-            class="mt-3 text-sm font-medium text-spotify transition hover:underline"
+            class="text-spotify mt-3 text-sm font-medium transition hover:underline"
             @click="bioExpanded = !bioExpanded"
           >
             {{ bioExpanded ? 'Show less' : 'Show more' }}
@@ -167,13 +177,7 @@ import { useArtist } from '@/composables/catalog/useArtist'
 import { usePlayer } from '@/composables/player'
 import { mapToPlaybackTracks } from '@/factories/playbackTrack'
 import { useAlbumColors } from '@/composables/useAlbumColors'
-import {
-  HomeCarousel,
-  TrackList,
-  ArtistHero,
-  ArtistCard,
-  AlbumCard,
-} from '@/components/music'
+import { HomeCarousel, TrackList, ArtistHero, ArtistCard, AlbumCard } from '@/components/music'
 
 const route = useRoute()
 const artistId = String(route.params.id)

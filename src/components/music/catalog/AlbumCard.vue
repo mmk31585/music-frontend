@@ -1,7 +1,7 @@
 <template>
   <RouterLink :to="`/album/${album.id}`" class="group block w-44 shrink-0 space-y-3">
     <div
-      class="relative aspect-square overflow-hidden rounded-2xl bg-surface-overlay shadow-lg ring-1 ring-border-default transition group-hover:ring-accent/50"
+      class="bg-surface-overlay ring-border-default group-hover:ring-accent/50 relative aspect-square overflow-hidden rounded-2xl shadow-lg ring-1 transition"
     >
       <img
         v-if="album.cover_url"
@@ -12,26 +12,26 @@
         @error="onImgError"
       />
       <div v-else class="flex h-full items-center justify-center">
-        <Disc3 aria-hidden="true" class="text-3xl text-tertiary"  />
+        <Disc3 aria-hidden="true" class="text-tertiary text-3xl" />
       </div>
       <div
-        class="absolute inset-0 flex items-center justify-center bg-bg-overlay/30 opacity-0 transition group-hover:opacity-100"
+        class="bg-bg-overlay/30 absolute inset-0 flex items-center justify-center opacity-0 transition group-hover:opacity-100"
       >
         <div
-          class="flex h-12 w-12 items-center justify-center rounded-full bg-accent text-black shadow-xl"
+          class="bg-accent flex h-12 w-12 items-center justify-center rounded-full text-black shadow-xl"
         >
-          <Play aria-hidden="true" class="text-lg"  />
+          <Play aria-hidden="true" class="text-lg" />
         </div>
       </div>
     </div>
     <div class="space-y-0.5 px-1">
-      <p class="truncate text-sm font-bold text-primary">
+      <p class="text-primary truncate text-sm font-bold">
         {{ album.title }}
       </p>
-      <p v-if="album.artist_name" class="truncate text-xs text-secondary">
+      <p v-if="album.artist_name" class="text-secondary truncate text-xs">
         {{ album.artist_name }}
       </p>
-      <p class="text-xs text-tertiary">
+      <p class="text-tertiary text-xs">
         {{ album.release_date?.slice(0, 4) || ''
         }}{{ album.track_count ? ` • ${album.track_count} tracks` : '' }}
       </p>

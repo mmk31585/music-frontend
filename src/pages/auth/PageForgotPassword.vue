@@ -1,35 +1,46 @@
 <template>
-  <div class="flex min-h-screen items-center justify-center bg-surface-base px-5 py-8">
+  <div class="bg-surface-base flex min-h-screen items-center justify-center px-5 py-8">
     <div
-      class="auth-card w-full max-w-105 animate-reveal rounded-2xl border border-white/6 bg-black/40 p-8 shadow-2xl backdrop-blur-xl"
+      class="auth-card animate-reveal w-full max-w-105 rounded-2xl border border-white/6 bg-black/40 p-8 shadow-2xl backdrop-blur-xl"
     >
       <div class="mb-8 text-center">
-        <div class="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-spotify/10">
-          <LockOpen aria-hidden="true" class="text-2xl text-spotify" />
+        <div
+          class="bg-spotify/10 mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-xl"
+        >
+          <LockOpen aria-hidden="true" class="text-spotify text-2xl" />
         </div>
-        <h1 class="font-display text-2xl font-bold text-white tracking-tight">Forgot password</h1>
+        <h1 class="font-display text-2xl font-bold tracking-tight text-white">Forgot password</h1>
         <p class="mt-1.5 text-sm text-white/40">Enter your email and we'll send you a reset link</p>
       </div>
 
       <Transition name="fade-slide">
         <div
           v-if="sent"
-          class="mb-6 flex items-start gap-2.5 rounded-xl border border-spotify/20 bg-spotify/8 px-4 py-3 text-sm text-spotify-300"
+          class="border-spotify/20 bg-spotify/8 text-spotify-300 mb-6 flex items-start gap-2.5 rounded-xl border px-4 py-3 text-sm"
           role="alert"
         >
-          <CheckCircle aria-hidden="true" class="mt-0.5 shrink-0 text-spotify" />
-          <span>If an account with that email exists, you'll receive a password reset link shortly.</span>
+          <CheckCircle aria-hidden="true" class="text-spotify mt-0.5 shrink-0" />
+          <span
+            >If an account with that email exists, you'll receive a password reset link
+            shortly.</span
+          >
         </div>
       </Transition>
 
       <form v-if="!sent" class="space-y-5" @submit.prevent="onSubmit">
         <!-- Email -->
         <div class="group">
-          <label for="reset-email" class="mb-1.5 block text-sm font-medium text-white/60 group-focus-within:text-spotify transition-colors duration-200">
+          <label
+            for="reset-email"
+            class="group-focus-within:text-spotify mb-1.5 block text-sm font-medium text-white/60 transition-colors duration-200"
+          >
             Email
           </label>
           <span class="relative block">
-            <Mail aria-hidden="true" class="absolute top-1/2 left-3 -translate-y-1/2 text-sm text-white/30" />
+            <Mail
+              aria-hidden="true"
+              class="absolute top-1/2 left-3 -translate-y-1/2 text-sm text-white/30"
+            />
             <InputText
               id="reset-email"
               v-model="email"
@@ -42,11 +53,7 @@
             />
           </span>
           <Transition name="fade-slide">
-            <small
-              v-if="error"
-              class="mt-1 block text-xs text-red-400"
-              role="alert"
-            >
+            <small v-if="error" class="mt-1 block text-xs text-red-400" role="alert">
               {{ error }}
             </small>
           </Transition>
@@ -58,12 +65,15 @@
           icon="pi pi-send"
           icon-pos="right"
           :loading="loading"
-          class="auth-btn w-full border-0 bg-spotify text-black font-semibold hover:bg-spotify-hover transition-all duration-200"
+          class="auth-btn bg-spotify hover:bg-spotify-hover w-full border-0 font-semibold text-black transition-all duration-200"
         />
       </form>
 
       <div class="mt-6 text-center text-sm text-white/40">
-        <RouterLink to="/auth/login" class="font-medium text-spotify transition-colors duration-200 hover:text-spotify-hover">
+        <RouterLink
+          to="/auth/login"
+          class="text-spotify hover:text-spotify-hover font-medium transition-colors duration-200"
+        >
           <ArrowLeft aria-hidden="true" class="mr-1" />
           Back to login
         </RouterLink>
@@ -94,7 +104,7 @@ async function onSubmit() {
   try {
     await axiosClient.post('/auth/forgot-password', { email: email.value.trim() })
     sent.value = true
-  } catch (err: any) {
+  } catch {
     // Always show success to prevent email enumeration
     sent.value = true
   } finally {

@@ -1,10 +1,9 @@
 <template>
-  <div
-    class="relative z-10 flex justify-center items-center gap-3 px-6 pb-3 pt-1"
-    :dir="dir"
-  >
-    <span class="text-[11px] text-white/50 font-mono tabular-nums w-10 text-right">{{ formatTime(currentTime) }}</span>
-    
+  <div class="relative z-10 flex items-center justify-center gap-3 px-6 pt-1 pb-3" :dir="dir">
+    <span class="w-10 text-right font-mono text-[11px] text-white/50 tabular-nums">{{
+      formatTime(currentTime)
+    }}</span>
+
     <div
       role="slider"
       tabindex="0"
@@ -12,7 +11,7 @@
       :aria-valuemax="duration"
       :aria-valuenow="currentTime"
       aria-label="Seek"
-      class="group relative w-1/4 h-1.5 cursor-pointer rounded-full transition-all duration-150"
+      class="group relative h-1.5 w-1/4 cursor-pointer rounded-full transition-all duration-150"
       :class="isPlaying ? 'bg-white/15' : 'bg-white/10'"
       dir="ltr"
       @click="onSeekClick"
@@ -29,26 +28,30 @@
         class="absolute inset-0 rounded-full opacity-20 blur-xs transition-opacity duration-500"
         :style="{ background: progressColor }"
       />
-      
+
       <!-- Progress fill -->
       <div
         class="relative h-full rounded-full"
         :class="isPlaying ? 'progress-bar-fill' : ''"
         :style="progressStyle"
       />
-      
+
       <!-- Thumb dot - only visible on hover/focus/drag -->
       <div
-        class="absolute top-1/2 -translate-y-1/2 size-4 rounded-full shadow-xl opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 scale-0 group-hover:scale-100 group-focus-visible:scale-100 transition-all duration-300 ease-spring"
+        class="ease-spring absolute top-1/2 size-4 -translate-y-1/2 scale-0 rounded-full opacity-0 shadow-xl transition-all duration-300 group-hover:scale-100 group-hover:opacity-100 group-focus-visible:scale-100 group-focus-visible:opacity-100"
         :style="{
           left: `calc(${progressPercent}% - 8px)`,
           background: progressColor || 'var(--p-500)',
-          boxShadow: progressColor ? `0 0 0 3px ${progressColor}22, 0 4px 12px rgba(0,0,0,0.5)` : '0 0 0 3px rgba(29,185,84,0.2), 0 4px 12px rgba(0,0,0,0.5)',
+          boxShadow: progressColor
+            ? `0 0 0 3px ${progressColor}22, 0 4px 12px rgba(0,0,0,0.5)`
+            : '0 0 0 3px rgba(29,185,84,0.2), 0 4px 12px rgba(0,0,0,0.5)',
         }"
       />
     </div>
-    
-    <span class="text-[11px] text-white/50 font-mono tabular-nums w-10">{{ formatTime(duration) }}</span>
+
+    <span class="w-10 font-mono text-[11px] text-white/50 tabular-nums">{{
+      formatTime(duration)
+    }}</span>
   </div>
 </template>
 
@@ -109,8 +112,13 @@ function seekPercent(pct: number) {
 <style scoped>
 /* Progress bar fill glow */
 @keyframes progress-glow {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; }
+  0%,
+  100% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
 }
 .progress-bar-fill::after {
   content: '';
@@ -130,10 +138,21 @@ function seekPercent(pct: number) {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .progress-bar-fill::after { animation: none; opacity: 0; }
-  .group-hover\:opacity-100 { opacity: 1 !important; }
-  .group-hover\:scale-100 { transform: translateY(-50%) scale(1) !important; }
-  .group-focus-visible\:opacity-100 { opacity: 1 !important; }
-  .group-focus-visible\:scale-100 { transform: translateY(-50%) scale(1) !important; }
+  .progress-bar-fill::after {
+    animation: none;
+    opacity: 0;
+  }
+  .group-hover\:opacity-100 {
+    opacity: 1 !important;
+  }
+  .group-hover\:scale-100 {
+    transform: translateY(-50%) scale(1) !important;
+  }
+  .group-focus-visible\:opacity-100 {
+    opacity: 1 !important;
+  }
+  .group-focus-visible\:scale-100 {
+    transform: translateY(-50%) scale(1) !important;
+  }
 }
 </style>

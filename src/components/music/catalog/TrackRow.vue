@@ -1,12 +1,12 @@
 <template>
   <div
-    class="group grid grid-cols-[48px_1fr_auto] items-center gap-4 rounded-xl px-3 py-2.5 transition-all duration-200 hover:bg-surface-active"
+    class="group hover:bg-surface-active grid grid-cols-[48px_1fr_auto] items-center gap-4 rounded-xl px-3 py-2.5 transition-all duration-200"
     :class="isCurrent ? 'bg-surface-active shadow-[inset_3px_0_0_var(--accent)]' : ''"
     @contextmenu.prevent="openContextMenu"
   >
     <button
       type="button"
-      class="relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl bg-surface-active text-primary transition-all duration-200 hover:scale-105 hover:bg-accent hover:text-black disabled:cursor-wait disabled:opacity-70"
+      class="bg-surface-active text-primary hover:bg-accent relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl transition-all duration-200 hover:scale-105 hover:text-black disabled:cursor-wait disabled:opacity-70"
       :disabled="loadingThisTrack"
       @click="handlePlay"
     >
@@ -20,7 +20,7 @@
       />
 
       <span class="relative z-10 flex items-center justify-center">
-        <Loader2 aria-hidden="true" v-if="loadingThisTrack" class="text-sm animate-spin"  />
+        <Loader2 aria-hidden="true" v-if="loadingThisTrack" class="animate-spin text-sm" />
 
         <span
           v-else-if="isCurrent && player.isPlaying.value"
@@ -46,12 +46,12 @@
         {{ title }}
       </RouterLink>
 
-      <div class="mt-0.5 truncate text-xs text-secondary">
+      <div class="text-secondary mt-0.5 truncate text-xs">
         {{ artistName }}
       </div>
     </div>
 
-    <div class="flex items-center gap-4 text-xs text-secondary">
+    <div class="text-secondary flex items-center gap-4 text-xs">
       <span v-if="durationLabel" class="tabular-nums">
         {{ durationLabel }}
       </span>
@@ -59,10 +59,10 @@
       <button
         type="button"
         aria-label="More options"
-        class="hidden rounded-full p-2 text-secondary transition group-hover:block hover:bg-surface-active hover:text-primary"
+        class="text-secondary hover:bg-surface-active hover:text-primary hidden rounded-full p-2 transition group-hover:block"
         @click.stop="openContextMenu"
       >
-        <MoreHorizontal aria-hidden="true" class=""  />
+        <MoreHorizontal aria-hidden="true" class="" />
       </button>
     </div>
   </div>
@@ -95,7 +95,12 @@ interface TrackRowTrack {
   coverUrl?: string | null
   cover_url?: string | null
   cover?: string | null
-  album?: { title?: string | null; coverUrl?: string | null; cover_url?: string | null; id?: string | number } | null
+  album?: {
+    title?: string | null
+    coverUrl?: string | null
+    cover_url?: string | null
+    id?: string | number
+  } | null
   album_id?: string | number | null
   albumTitle?: string | null
   album_title?: string | null
@@ -164,13 +169,17 @@ const menuVisible = ref(false)
 const menuX = ref(0)
 const menuY = ref(0)
 
-const openRadioFromTrack = inject<(trackId: string, seedLabel?: string) => void>('openRadio', () => {})
+const openRadioFromTrack = inject<(trackId: string, seedLabel?: string) => void>(
+  'openRadio',
+  () => {},
+)
 
 const queueTrackInput = () => ({
   id: trackId.value,
   title: title.value,
   artist_name: String(artistName.value),
-  album_title: props.track.albumTitle || props.track.album_title || props.track.album?.title || null,
+  album_title:
+    props.track.albumTitle || props.track.album_title || props.track.album?.title || null,
   cover_url: coverUrl.value,
   duration_seconds: durationSeconds.value,
 })
@@ -255,14 +264,17 @@ const buttonIcon = computed(() => {
 })
 
 async function handlePlay() {
-  await player.toggleTrack(buildPlaybackTrack({
-    id: trackId.value,
-    title: title.value,
-    artist_name: String(artistName.value),
-    album_title: props.track.albumTitle || props.track.album_title || props.track.album?.title || null,
-    cover_url: coverUrl.value,
-    duration_seconds: durationSeconds.value,
-  }))
+  await player.toggleTrack(
+    buildPlaybackTrack({
+      id: trackId.value,
+      title: title.value,
+      artist_name: String(artistName.value),
+      album_title:
+        props.track.albumTitle || props.track.album_title || props.track.album?.title || null,
+      cover_url: coverUrl.value,
+      duration_seconds: durationSeconds.value,
+    }),
+  )
 }
 </script>
 
@@ -284,7 +296,13 @@ async function handlePlay() {
 }
 
 @keyframes equalizer {
-  from { transform: scaleY(0.45); opacity: 0.6; }
-  to { transform: scaleY(1); opacity: 1; }
+  from {
+    transform: scaleY(0.45);
+    opacity: 0.6;
+  }
+  to {
+    transform: scaleY(1);
+    opacity: 1;
+  }
 }
 </style>

@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-duplicate-enum-values */
 export enum SocialApiRoutes {
-   
   FOLLOW = '/social/follow/:userId',
-   
+
   UNFOLLOW = '/social/unfollow/:userId',
   FOLLOWERS = '/social/followers/:userId',
   FOLLOWING = '/social/following/:userId',

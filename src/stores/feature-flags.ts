@@ -10,7 +10,10 @@ export const useFeatureFlagsStore = defineStore('useFeatureFlags', () => {
   const isLoaded = computed(() => fetched.value && flags.value !== null)
 
   function isEnabled(key: FeatureFlagKey): boolean {
-    return flags.value?.[key] ?? false
+    // Defaults to `true` until flags are loaded so the UI stays usable
+    // before the first (mocked or real) API response.
+    if (flags.value === null) return true
+    return flags.value?.[key] ?? true
   }
 
   function setFlags(data: FeatureFlags) {

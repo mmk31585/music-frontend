@@ -1,3 +1,4 @@
+import { beforeEach } from 'vitest'
 import { config } from '@vue/test-utils'
 import { createRouter, createWebHistory } from 'vue-router'
 
@@ -9,9 +10,18 @@ if (typeof window !== 'undefined' && !window.localStorage) {
     setItem: (key: string, value: string) => store.set(key, value),
     removeItem: (key: string) => store.delete(key),
     clear: () => store.clear(),
-    get length() { return store.size },
+    get length() {
+      return store.size
+    },
     key: (index: number) => [...store.keys()][index] ?? null,
   } as Storage
+}
+
+// Clear localStorage before every test so auth/session state does not leak
+if (typeof window !== 'undefined') {
+  beforeEach(() => {
+    window.localStorage.clear()
+  })
 }
 
 const router = createRouter({

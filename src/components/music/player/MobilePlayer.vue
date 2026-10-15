@@ -5,7 +5,7 @@
       key="mobile-bar"
       role="contentinfo"
       aria-label="Music player"
-      class="fixed inset-x-0 z-45 md:hidden select-none"
+      class="fixed inset-x-0 z-45 select-none md:hidden"
       style="bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px))"
     >
       <button
@@ -17,7 +17,7 @@
         <!-- Artwork background with blur -->
         <div
           v-if="coverUrl"
-          class="absolute inset-0 scale-110 bg-cover bg-center blur-2xl opacity-[0.25] transition-all duration-700"
+          class="absolute inset-0 scale-110 bg-cover bg-center opacity-[0.25] blur-2xl transition-all duration-700"
           :style="{ backgroundImage: `url(${coverUrl})` }"
           aria-hidden="true"
         />
@@ -25,7 +25,7 @@
 
         <!-- Artwork -->
         <div class="relative shrink-0">
-          <div class="h-12 w-12 overflow-hidden rounded-xl shadow-lg ring-1 ring-border-default">
+          <div class="ring-border-default h-12 w-12 overflow-hidden rounded-xl shadow-lg ring-1">
             <img
               v-if="coverUrl"
               :src="coverUrl"
@@ -33,16 +33,19 @@
               class="h-full w-full object-cover"
               loading="lazy"
             />
-            <div v-else class="flex h-full w-full items-center justify-center bg-linear-to-br from-spotify/30 to-aurora-purple/30">
-              <Music class="h-6 w-6 text-tertiary" aria-hidden="true" />
+            <div
+              v-else
+              class="from-spotify/30 to-aurora-purple/30 flex h-full w-full items-center justify-center bg-linear-to-br"
+            >
+              <Music class="text-tertiary h-6 w-6" aria-hidden="true" />
             </div>
           </div>
         </div>
 
         <!-- Track info -->
         <div class="relative min-w-0 flex-1">
-          <p class="truncate text-sm font-bold text-primary">{{ title }}</p>
-          <p class="truncate text-xs text-secondary">{{ artistName }}</p>
+          <p class="text-primary truncate text-sm font-bold">{{ title }}</p>
+          <p class="text-secondary truncate text-xs">{{ artistName }}</p>
         </div>
 
         <!-- Controls -->
@@ -50,19 +53,23 @@
           <GuestPlayGate action="play" #default="{ proceed }">
             <button
               type="button"
-              class="flex h-10 w-10 items-center justify-center rounded-full bg-surface-active text-black shadow-lg disabled:opacity-40 active:scale-90 transition-transform"
+              class="bg-surface-active flex h-10 w-10 items-center justify-center rounded-full text-black shadow-lg transition-transform active:scale-90 disabled:opacity-40"
               :disabled="!props.currentTrack || props.isLoadingTrack"
               :aria-label="playAriaLabel"
               @click="props.isPlaying ? props.togglePlayPause() : proceed()"
             >
-              <Loader v-if="props.isLoadingTrack || props.isBuffering" class="h-5 w-5 animate-spin-slow" aria-hidden="true" />
+              <Loader
+                v-if="props.isLoadingTrack || props.isBuffering"
+                class="animate-spin-slow h-5 w-5"
+                aria-hidden="true"
+              />
               <Pause v-else-if="props.isPlaying" class="h-5 w-5" aria-hidden="true" />
-              <Play v-else class="h-5 w-5 ml-0.5" aria-hidden="true" />
+              <Play v-else class="ml-0.5 h-5 w-5" aria-hidden="true" />
             </button>
           </GuestPlayGate>
           <button
             type="button"
-            class="flex h-10 w-10 items-center justify-center rounded-full text-secondary hover:text-primary active:scale-90 transition-transform"
+            class="text-secondary hover:text-primary flex h-10 w-10 items-center justify-center rounded-full transition-transform active:scale-90"
             :disabled="!props.hasNext"
             aria-label="Next track"
             @click.stop="$emit('play-next')"

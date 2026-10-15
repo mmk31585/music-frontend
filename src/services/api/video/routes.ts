@@ -1,6 +1,5 @@
 import { useRequest } from '@/composables/useRequest'
 import type { UseRequestConfig } from '@/plugins/client/types'
-import { apiReplaceParams } from '@/utils/api-replace-params'
 import { VideoApiRoutes } from './enums'
 import {
   ExploreResponseSchema,
@@ -42,33 +41,15 @@ export const useVideoApi = () => {
     },
     config?: UseRequestConfig<VideoItem>,
   ) => {
-    return useRequest<VideoItem>(
-      `/admin/videos/${id}`,
-      { method: 'PUT', data: payload },
-      config,
-    )
+    return useRequest<VideoItem>(`/admin/videos/${id}`, { method: 'PUT', data: payload }, config)
   }
 
-  const adminDeleteVideo = async (
-    id: string,
-    config?: UseRequestConfig<void>,
-  ) => {
-    return useRequest<void>(
-      `/admin/videos/${id}`,
-      { method: 'DELETE' },
-      config,
-    )
+  const adminDeleteVideo = async (id: string, config?: UseRequestConfig<void>) => {
+    return useRequest<void>(`/admin/videos/${id}`, { method: 'DELETE' }, config)
   }
 
-  const adminApproveVideo = async (
-    id: string,
-    config?: UseRequestConfig<VideoItem>,
-  ) => {
-    return useRequest<VideoItem>(
-      `/admin/videos/${id}/approve`,
-      { method: 'POST' },
-      config,
-    )
+  const adminApproveVideo = async (id: string, config?: UseRequestConfig<VideoItem>) => {
+    return useRequest<VideoItem>(`/admin/videos/${id}/approve`, { method: 'POST' }, config)
   }
 
   // ── Admin comment methods ────────────────────────────────────────────
@@ -106,15 +87,8 @@ export const useVideoApi = () => {
     )
   }
 
-  const adminDeleteComment = async (
-    commentId: string,
-    config?: UseRequestConfig<void>,
-  ) => {
-    return useRequest<void>(
-      `/admin/comments/${commentId}`,
-      { method: 'DELETE' },
-      config,
-    )
+  const adminDeleteComment = async (commentId: string, config?: UseRequestConfig<void>) => {
+    return useRequest<void>(`/admin/comments/${commentId}`, { method: 'DELETE' }, config)
   }
 
   // ── Public / user methods ────────────────────────────────────────────
@@ -129,10 +103,7 @@ export const useVideoApi = () => {
     )
   }
 
-  const getTrackVideos = async (
-    trackId: string,
-    config?: UseRequestConfig<ExploreResponse>,
-  ) => {
+  const getTrackVideos = async (trackId: string, config?: UseRequestConfig<ExploreResponse>) => {
     return useRequest<ExploreResponse>(
       VideoApiRoutes.TRACK_VIDEOS.replace(':trackId', trackId),
       { method: 'GET' },
@@ -140,10 +111,7 @@ export const useVideoApi = () => {
     )
   }
 
-  const getVideoJobStatus = async (
-    jobId: string,
-    config?: UseRequestConfig<VideoJobStatus>,
-  ) => {
+  const getVideoJobStatus = async (jobId: string, config?: UseRequestConfig<VideoJobStatus>) => {
     return useRequest<VideoJobStatus>(
       VideoApiRoutes.VIDEO_JOB.replace(':jobId', jobId),
       { method: 'GET' },
@@ -151,10 +119,7 @@ export const useVideoApi = () => {
     )
   }
 
-  const likeVideo = async (
-    videoId: string,
-    config?: UseRequestConfig<void>,
-  ) => {
+  const likeVideo = async (videoId: string, config?: UseRequestConfig<void>) => {
     return useRequest<void>(
       VideoApiRoutes.VIDEO_LIKE.replace(':id', videoId),
       { method: 'POST' },
@@ -162,10 +127,7 @@ export const useVideoApi = () => {
     )
   }
 
-  const unlikeVideo = async (
-    videoId: string,
-    config?: UseRequestConfig<void>,
-  ) => {
+  const unlikeVideo = async (videoId: string, config?: UseRequestConfig<void>) => {
     return useRequest<void>(
       VideoApiRoutes.VIDEO_LIKE.replace(':id', videoId),
       { method: 'DELETE' },
@@ -173,10 +135,7 @@ export const useVideoApi = () => {
     )
   }
 
-  const viewVideo = async (
-    videoId: string,
-    config?: UseRequestConfig<void>,
-  ) => {
+  const viewVideo = async (videoId: string, config?: UseRequestConfig<void>) => {
     return useRequest<void>(
       VideoApiRoutes.VIDEO_VIEW.replace(':id', videoId),
       { method: 'POST' },
@@ -212,8 +171,10 @@ export const useVideoApi = () => {
     formData.append('track_id', String(metadata.track_id))
     if (metadata.title) formData.append('title', metadata.title)
     if (metadata.description) formData.append('description', metadata.description)
-    if (metadata.track_start_ms !== undefined) formData.append('track_start_ms', String(metadata.track_start_ms))
-    if (metadata.track_end_ms !== undefined) formData.append('track_end_ms', String(metadata.track_end_ms))
+    if (metadata.track_start_ms !== undefined)
+      formData.append('track_start_ms', String(metadata.track_start_ms))
+    if (metadata.track_end_ms !== undefined)
+      formData.append('track_end_ms', String(metadata.track_end_ms))
 
     return useRequest<UploadEditResponse>(
       VideoApiRoutes.UPLOAD_EDIT,
@@ -226,10 +187,7 @@ export const useVideoApi = () => {
     )
   }
 
-  const getMusicStatus = async (
-    userId: string,
-    config?: UseRequestConfig<MusicStatusResponse>,
-  ) => {
+  const getMusicStatus = async (userId: string, config?: UseRequestConfig<MusicStatusResponse>) => {
     return useRequest<MusicStatusResponse>(
       `/users/${userId}/music-status`,
       { method: 'GET' },

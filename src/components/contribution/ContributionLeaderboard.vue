@@ -18,7 +18,7 @@
       class="flex flex-col items-center gap-3 py-8 text-center"
     >
       <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/5">
-        <Trophy aria-hidden="true" class="text-xl text-white/15"  />
+        <Trophy aria-hidden="true" class="text-xl text-white/15" />
       </div>
       <p class="text-sm text-white/25">No contributors yet. Be the first!</p>
     </div>
@@ -35,13 +35,13 @@
           :class="rankClass(idx)"
         >
           <template v-if="idx === 0">
-            <Star aria-hidden="true" class="text-sm text-amber-500"  />
+            <Star aria-hidden="true" class="text-sm text-amber-500" />
           </template>
           <template v-else-if="idx === 1">
-            <Star aria-hidden="true" class="text-sm text-slate-400"  />
+            <Star aria-hidden="true" class="text-sm text-slate-400" />
           </template>
           <template v-else-if="idx === 2">
-            <Star aria-hidden="true" class="text-sm text-[#cd7f32]"  />
+            <Star aria-hidden="true" class="text-sm text-[#cd7f32]" />
           </template>
           <template v-else>
             {{ c.rank }}
@@ -79,7 +79,7 @@
 
         <!-- XP -->
         <div class="text-right">
-          <p class="text-sm font-bold text-spotify">{{ c.xp_earned.toLocaleString() }}</p>
+          <p class="text-spotify text-sm font-bold">{{ c.xp_earned.toLocaleString() }}</p>
           <p class="text-[10px] text-white/20">XP</p>
         </div>
       </div>

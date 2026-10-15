@@ -9,23 +9,27 @@
       >
         <!-- Background with dynamic album color -->
         <div class="absolute inset-0 backdrop-blur-2xl" :style="{ background: bgGradient }" />
-        <div class="absolute inset-0 bg-bg-overlay/40" />
+        <div class="bg-bg-overlay/40 absolute inset-0" />
 
         <!-- Drag handle (44px min touch target for WCAG 2.5.8) -->
         <div
-          class="absolute top-0 left-1/2 z-20 flex w-full -translate-x-1/2 flex-col items-center justify-center min-h-11 gap-1"
+          class="absolute top-0 left-1/2 z-20 flex min-h-11 w-full -translate-x-1/2 flex-col items-center justify-center gap-1"
           @touchstart.prevent="onDragStart"
           @mousedown.prevent="onDragStart"
         >
-          <div class="h-1 w-10 rounded-full bg-surface-active" />
-          <div class="h-0.5 w-6 rounded-full bg-surface-active" />
+          <div class="bg-surface-active h-1 w-10 rounded-full" />
+          <div class="bg-surface-active h-0.5 w-6 rounded-full" />
         </div>
 
-        <div ref="sheetRef" class="relative z-10 flex h-full flex-col px-5 pt-12" :style="{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 1.5rem)' }">
+        <div
+          ref="sheetRef"
+          class="relative z-10 flex h-full flex-col px-5 pt-12"
+          :style="{ paddingBottom: 'calc(env(safe-area-inset-bottom, 0px) + 1.5rem)' }"
+        >
           <!-- Track info + art -->
           <div class="flex items-start gap-4">
             <div
-              class="h-20 w-20 shrink-0 overflow-hidden rounded-2xl shadow-xl ring-1 ring-border-default transition-transform duration-300"
+              class="ring-border-default h-20 w-20 shrink-0 overflow-hidden rounded-2xl shadow-xl ring-1 transition-transform duration-300"
               :class="{ 'scale-105': isPlaying }"
             >
               <img
@@ -37,23 +41,23 @@
                 loading="lazy"
                 @error="onImgError"
               />
-              <div v-else class="flex h-full items-center justify-center bg-surface-active">
-                <Music aria-hidden="true" class="text-primary/30"  />
+              <div v-else class="bg-surface-active flex h-full items-center justify-center">
+                <Music aria-hidden="true" class="text-primary/30" />
               </div>
             </div>
 
             <div class="min-w-0 flex-1">
-              <p class="truncate text-base font-bold text-primary">{{ title }}</p>
-              <p class="truncate text-sm text-secondary">{{ artistName }}</p>
+              <p class="text-primary truncate text-base font-bold">{{ title }}</p>
+              <p class="text-secondary truncate text-sm">{{ artistName }}</p>
             </div>
 
             <button
               type="button"
-              class="flex h-10 w-10 items-center justify-center rounded-full text-secondary transition-all hover:bg-surface-active hover:text-primary"
+              class="text-secondary hover:bg-surface-active hover:text-primary flex h-10 w-10 items-center justify-center rounded-full transition-all"
               aria-label="Close"
               @click="close"
             >
-              <ChevronDown aria-hidden="true" class="text-lg"  />
+              <ChevronDown aria-hidden="true" class="text-lg" />
             </button>
           </div>
 
@@ -61,15 +65,17 @@
           <div class="mt-3 flex items-center gap-3">
             <button
               type="button"
-              class="spring flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium transition-all active:scale-95 min-h-11"
+              class="spring flex min-h-11 items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium transition-all active:scale-95"
               :class="liked ? '' : 'text-tertiary hover:bg-surface-overlay'"
               :style="liked ? { color: accentColor, backgroundColor: `${accentColor}15` } : {}"
               @click="liked = !liked"
             >
-              <component :is="liked ? Heart : Heart" aria-hidden="true"<i
-                
+              <component
+                :is="liked ? Heart : Heart"
+                aria-hidden="true"
                 class="text-base"
-              /> :class="liked ? 'heart-pulse' : ''" />
+                :class="liked ? 'heart-pulse' : ''"
+              />
               <span>{{ liked ? 'Liked' : 'Like' }}</span>
             </button>
           </div>
@@ -86,7 +92,7 @@
               :value="progressPercent"
               @input="onSeek"
             />
-            <div class="mt-1 flex justify-between text-[10px] text-tertiary tabular-nums">
+            <div class="text-tertiary mt-1 flex justify-between text-[10px] tabular-nums">
               <span>{{ currentTimeLabel }}</span>
               <span>{{ durationLabel }}</span>
             </div>
@@ -99,33 +105,42 @@
           >
             <button
               type="button"
-              class="relative flex flex-col items-center gap-1 transition-all hover:text-primary active:scale-90"
+              class="hover:text-primary relative flex flex-col items-center gap-1 transition-all active:scale-90"
               :class="shuffleMode !== 'off' ? '' : 'text-tertiary'"
               :style="shuffleMode !== 'off' ? { color: accentColor } : {}"
-              :title="shuffleMode === 'off' ? 'Shuffle off' : shuffleMode === 'queue' ? 'Shuffle queue' : shuffleMode === 'catalog' ? 'Random catalog tracks' : 'Similar tracks'"
+              :title="
+                shuffleMode === 'off'
+                  ? 'Shuffle off'
+                  : shuffleMode === 'queue'
+                    ? 'Shuffle queue'
+                    : shuffleMode === 'catalog'
+                      ? 'Random catalog tracks'
+                      : 'Similar tracks'
+              "
               @click="toggleShuffle"
             >
-              <ArrowUpDown aria-hidden="true" class="text-lg"  />
+              <ArrowUpDown aria-hidden="true" class="text-lg" />
               <span class="text-[8px] font-medium">Shuffle</span>
               <span
                 v-if="shuffleMode !== 'off'"
-                class="absolute -top-0.5 -right-0.5 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-aurora-purple text-[8px] font-bold text-primary"
-              >{{ shuffleMode === 'queue' ? 'Q' : shuffleMode === 'catalog' ? 'R' : 'S' }}</span>
+                class="bg-aurora-purple text-primary absolute -top-0.5 -right-0.5 flex h-3.5 w-3.5 items-center justify-center rounded-full text-[8px] font-bold"
+                >{{ shuffleMode === 'queue' ? 'Q' : shuffleMode === 'catalog' ? 'R' : 'S' }}</span
+              >
             </button>
 
             <button
               type="button"
-              class="text-secondary transition-all hover:text-primary active:scale-90 disabled:opacity-30"
+              class="text-secondary hover:text-primary transition-all active:scale-90 disabled:opacity-30"
               :disabled="!hasPrevious"
               aria-label="Previous track"
               @click="playPrevious"
             >
-              <SkipBack aria-hidden="true" class="text-2xl"  />
+              <SkipBack aria-hidden="true" class="text-2xl" />
             </button>
 
             <button
               type="button"
-              class="spring relative flex h-16 w-16 items-center justify-center rounded-full bg-white text-black shadow-xl transition-all hover:scale-110 hover:text-primary active:scale-95"
+              class="spring hover:text-primary relative flex h-16 w-16 items-center justify-center rounded-full bg-white text-black shadow-xl transition-all hover:scale-110 active:scale-95"
               :style="
                 isPlaying
                   ? {
@@ -140,11 +155,8 @@
               :aria-label="isPlaying ? 'Pause' : 'Play'"
               @click="togglePlayPause"
             >
-              <Loader2 aria-hidden="true" v-if="isBuffering" class="text-xl animate-spin"  />
-              <component :is="isPlaying ? Pause : Play" aria-hidden="true"<i
-                v-else
-                
-                class="text-xl"
+              <Loader2 aria-hidden="true" v-if="isBuffering" class="animate-spin text-xl" />
+              <component :is="isPlaying ? Pause : Play" aria-hidden="true" v-else class="text-xl" />
               /> />
               <span
                 v-if="isPlaying"
@@ -155,22 +167,22 @@
 
             <button
               type="button"
-              class="text-secondary transition-all hover:text-primary active:scale-90 disabled:opacity-30"
+              class="text-secondary hover:text-primary transition-all active:scale-90 disabled:opacity-30"
               :disabled="!hasNext"
               aria-label="Next track"
               @click="playNext"
             >
-              <SkipForward aria-hidden="true" class="text-2xl"  />
+              <SkipForward aria-hidden="true" class="text-2xl" />
             </button>
 
             <button
               type="button"
-              class="flex flex-col items-center gap-1 transition-all hover:text-primary active:scale-90"
+              class="hover:text-primary flex flex-col items-center gap-1 transition-all active:scale-90"
               :class="repeatMode !== 'off' ? '' : 'text-tertiary'"
               :style="repeatMode !== 'off' ? { color: accentColor } : {}"
               @click="toggleRepeat"
             >
-              <RefreshCw aria-hidden="true" class="text-lg"  />
+              <RefreshCw aria-hidden="true" class="text-lg" />
               <span class="text-[8px] font-medium">
                 {{ repeatMode === 'one' ? '1' : repeatMode === 'all' ? 'All' : 'Off' }}
               </span>
@@ -182,7 +194,7 @@
             <div class="flex items-center gap-3">
               <button
                 type="button"
-                class="flex h-10 w-10 items-center justify-center rounded-full text-tertiary transition-all hover:bg-surface-active hover:text-primary"
+                class="text-tertiary hover:bg-surface-active hover:text-primary flex h-10 w-10 items-center justify-center rounded-full transition-all"
                 :aria-label="muted ? 'Unmute' : 'Mute'"
                 @click="toggleMute"
               >
@@ -210,20 +222,19 @@
               "
               @click="cycleSpeed"
             >
-              <Forward aria-hidden="true" class="text-[10px]"  />
+              <Forward aria-hidden="true" class="text-[10px]" />
               {{ speedLabel }}
             </button>
 
             <button
               type="button"
-              class="flex h-10 w-10 items-center justify-center rounded-full text-tertiary transition-all hover:bg-surface-active hover:text-primary"
+              class="text-tertiary hover:bg-surface-active hover:text-primary flex h-10 w-10 items-center justify-center rounded-full transition-all"
               aria-label="Fullscreen"
               @click="$emit('open-fullscreen')"
             >
-              <Maximize2 aria-hidden="true" class="text-base"  />
+              <Maximize2 aria-hidden="true" class="text-base" />
             </button>
           </div>
-
         </div>
       </div>
     </Transition>
@@ -231,7 +242,20 @@
 </template>
 
 <script setup lang="ts">
-import { ArrowUpDown, ChevronDown, Forward, Heart, Loader2, Maximize2, Music, Pause, Play, RefreshCw, SkipBack, SkipForward } from 'lucide-vue-next'
+import {
+  ArrowUpDown,
+  ChevronDown,
+  Forward,
+  Heart,
+  Loader2,
+  Maximize2,
+  Music,
+  Pause,
+  Play,
+  RefreshCw,
+  SkipBack,
+  SkipForward,
+} from 'lucide-vue-next'
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
 import { usePlayerControls } from '@/composables/player'
 import { useAlbumColors } from '@/composables/useAlbumColors'
@@ -284,7 +308,12 @@ function cycleSpeed() {
   setPlaybackRate(speedOptions[nextIdx]!)
 }
 
-useSwipe({ element: sheetRef, onSwipeLeft: () => playNext(), onSwipeRight: () => playPrevious(), threshold: 80 })
+useSwipe({
+  element: sheetRef,
+  onSwipeLeft: () => playNext(),
+  onSwipeRight: () => playPrevious(),
+  threshold: 80,
+})
 
 const title = computed(() => currentTrack.value?.title || '')
 const artistName = computed(() => currentTrack.value?.artistName || '')
@@ -380,7 +409,7 @@ function onSeek(e: Event) {
 }
 
 function onVolume(val: number | number[]) {
-  setVolume(typeof val === 'number' ? val : val[0] ?? 0)
+  setVolume(typeof val === 'number' ? val : (val[0] ?? 0))
 }
 
 function close() {
@@ -423,7 +452,7 @@ onUnmounted(() => {
   cursor: pointer;
   appearance: none;
   background: transparent;
-  padding: 14px 0;    /* vertically center the 3px track inside 44px */
+  padding: 14px 0; /* vertically center the 3px track inside 44px */
   box-sizing: border-box;
 }
 .sheet-range::-webkit-slider-runnable-track {
@@ -440,12 +469,14 @@ onUnmounted(() => {
 .sheet-range::-webkit-slider-thumb {
   width: 24px;
   height: 24px;
-  margin-top: -10.5px;   /* (track 3px - thumb 24px) / 2 = -10.5px */
+  margin-top: -10.5px; /* (track 3px - thumb 24px) / 2 = -10.5px */
   border-radius: 999px;
   appearance: none;
   background: #fff;
   box-shadow: 0 0 16px color-mix(in srgb, var(--accent-color) 50%, transparent);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease;
 }
 .sheet-range::-webkit-slider-thumb:hover,
 .sheet-range::-webkit-slider-thumb:focus-visible {
