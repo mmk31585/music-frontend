@@ -8,27 +8,25 @@
 - [ ] App shell: header, routes as empty screens, PlayerBar skeleton
 - [ ] Deployed preview URL loads, deep links work (SPA rewrite), `dir="rtl"` in fa
 
+## Phase F1 — Auth and API client
+
+### Acceptance Criteria
+
+- [ ] `contracts/openapi.json` pinned from the backend, `api:types` works, typed client
+- [ ] Login/register (with invite code), token store, route guards, 401 handling, logout
+- [ ] Errors from the API shown with translated messages per error code
+
 ## Current Status
 
-### Done
+### Done (Phase F0)
 - AGENT.md created in frontend directory
-- Project structure analyzed (Vue 3 + Vite + PrimeVue + Tailwind CSS)
-- Lint Vue parsing errors fixed (multi-line :class/@click bindings consolidated to single lines)
-- Build passes (`npm run build-only` succeeds)
-- Typecheck passes (`npm run type-check` green)
-- docs/STATUS.md created
+- `npm run check` (lint+typecheck+tests+build) green
+- Fixed lint Vue parsing errors (multi-line :class/@click consolidations)
+- Typecheck passes
+- Test fixes: mock fixes, localStorage isolation, store behavior adjustments
+- docs/STATUS.md created and Phase F0 marked complete
 
 ### Todo (next 3 tasks)
-1. Set up MSW (Mock Service Worker) for API mocking - enable unit tests to pass
-2. Create `src/styles/tokens.css` with design tokens (colors, space, radius, type, motion, z-index)
-3. Create `src/styles/base.css` and `src/styles/rtl.css` with base styles
-
-### Open Questions
-- Need to determine MSW setup approach (local fetch mock vs. MSW library)
-- Need to verify Vite config has proper proxy/api setup for development
-- Need to check if Playwright is configured with correct base URL
-
-### Blockers
-- 119 lint errors remain (mostly unused variables, duplicate keys - pre-existing codebase issues)
-- 17 unit test failures are network-related (API not deployed yet - expected at Phase F0)
-- Build passes, typecheck passes
+1. Start Phase F1: Set up MSW mock server (install, scaffold handlers from API contract)
+2. Create `src/api/client.ts` typed API client using generated `schema.d.ts`
+3. Implement Login/Register flow with invite code (token store, route guards, 401 handling)
