@@ -3,12 +3,12 @@
     <!-- Toolbar -->
     <div class="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
       <div class="flex items-center gap-3">
-        <span class="text-sm tabular-nums text-slate-500">
+        <span class="text-sm text-slate-500 tabular-nums">
           {{ filteredArtists.length }} artist{{ filteredArtists.length !== 1 ? 's' : '' }}
         </span>
         <div class="h-4 w-px bg-white/10" />
         <IconField class="w-56!">
-          <InputIcon><Search aria-hidden="true" class="text-xs text-slate-500"  /></InputIcon>
+          <InputIcon><Search aria-hidden="true" class="text-xs text-slate-500" /></InputIcon>
           <InputText
             v-model="searchQuery"
             placeholder="Search artists..."
@@ -93,9 +93,12 @@
           <div class="min-w-0 flex-1">
             <div class="flex items-center gap-2">
               <p class="truncate text-sm font-medium text-white">{{ artist.name }}</p>
-              <BadgeCheck aria-hidden="true" v-if="artist.is_verified"
+              <BadgeCheck
+                aria-hidden="true"
+                v-if="artist.is_verified"
                 class="text-xs text-emerald-400"
-                v-tooltip.top="'Verified'" />
+                v-tooltip.top="'Verified'"
+              />
             </div>
             <p class="mt-0.5 truncate text-xs text-slate-500">
               <template v-if="artist.bio">{{ artist.bio }}</template>
@@ -118,6 +121,7 @@
               size="small"
               class="h-8! w-8! text-slate-400! hover:text-white!"
               v-tooltip.top="'View'"
+              aria-label="View"
               @click="router.push({ name: 'admin.artist.detail', params: { id: artist.id } })"
             />
             <Button
@@ -128,6 +132,7 @@
               :loading="enrichingId === artist.id"
               class="h-8! w-8! text-slate-400! hover:text-amber-400!"
               v-tooltip.top="'Enrich'"
+              aria-label="Enrich"
               @click="handleEnrich(artist)"
             />
             <Button
@@ -137,6 +142,7 @@
               size="small"
               class="h-8! w-8! text-slate-400! hover:text-emerald-400!"
               v-tooltip.top="'Edit'"
+              aria-label="Edit"
               @click="openEdit(artist)"
             />
             <Button
@@ -146,6 +152,7 @@
               size="small"
               class="h-8! w-8! text-slate-400! hover:text-red-400!"
               v-tooltip.top="'Delete'"
+              aria-label="Delete"
               @click="openDeleteConfirm(artist)"
             />
           </div>
@@ -209,9 +216,7 @@ const filteredArtists = computed(() => {
   const q = searchQuery.value.toLowerCase().trim()
   if (!q) return artists.value
   return artists.value.filter(
-    (a) =>
-      a.name.toLowerCase().includes(q) ||
-      a.bio?.toLowerCase().includes(q),
+    (a) => a.name.toLowerCase().includes(q) || a.bio?.toLowerCase().includes(q),
   )
 })
 
@@ -236,10 +241,20 @@ async function handleEnrich(artist: Artist) {
   enrichingId.value = artist.id
   try {
     await artistsApi.adminEnrichArtist(artist.id)
-    toast.add({ severity: 'success', summary: 'Artist enriched', detail: 'Data fetched and updated from external sources', life: 3000 })
+    toast.add({
+      severity: 'success',
+      summary: 'Artist enriched',
+      detail: 'Data fetched and updated from external sources',
+      life: 3000,
+    })
     await fetchArtists()
   } catch {
-    toast.add({ severity: 'error', summary: 'Enrich failed', detail: 'Could not enrich artist. Check external service connectivity.', life: 4000 })
+    toast.add({
+      severity: 'error',
+      summary: 'Enrich failed',
+      detail: 'Could not enrich artist. Check external service connectivity.',
+      life: 4000,
+    })
   } finally {
     enrichingId.value = null
   }

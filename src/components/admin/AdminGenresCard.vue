@@ -3,7 +3,7 @@
     <!-- Toolbar -->
     <div class="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
       <div class="flex items-center gap-3">
-        <span class="text-sm tabular-nums text-slate-500">
+        <span class="text-sm text-slate-500 tabular-nums">
           {{ genres.length }} genre{{ genres.length !== 1 ? 's' : '' }}
         </span>
       </div>
@@ -55,17 +55,20 @@
           <div
             v-for="genre in genres"
             :key="genre.id"
-            class="group flex items-center gap-2 rounded-full border border-white/8 bg-white/3 py-1.5 pl-4 pr-2 transition-all hover:border-emerald-500/20 hover:bg-emerald-500/5"
+            class="group flex items-center gap-2 rounded-full border border-white/8 bg-white/3 py-1.5 pr-2 pl-4 transition-all hover:border-emerald-500/20 hover:bg-emerald-500/5"
           >
             <span class="text-sm text-slate-300 group-hover:text-white">{{ genre.name }}</span>
 
-            <div class="flex items-center gap-0.5 opacity-0 transition-opacity group-hover:opacity-100">
+            <div
+              class="flex items-center gap-0.5 opacity-0 transition-opacity group-hover:opacity-100"
+            >
               <Button
                 icon="pi pi-pencil"
                 text
                 rounded
                 size="small"
                 class="h-6! w-6! text-xs! text-slate-500! hover:text-emerald-400!"
+                aria-label="Edit"
                 @click="openEdit(genre)"
               />
               <Button
@@ -74,6 +77,7 @@
                 rounded
                 size="small"
                 class="h-6! w-6! text-xs! text-slate-500! hover:text-red-400!"
+                aria-label="Delete"
                 @click="openDeleteConfirm(genre)"
               />
             </div>
@@ -99,7 +103,7 @@
       <template #header>
         <div class="flex items-center gap-3">
           <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-purple-500/10">
-            <Tag aria-hidden="true" class="text-purple-400"  />
+            <Tag aria-hidden="true" class="text-purple-400" />
           </div>
           <h3 class="text-base font-semibold text-white">
             {{ selectedGenre ? 'Edit genre' : 'New genre' }}
@@ -160,16 +164,8 @@ import { useAdminGenres } from '@/composables/admin/useAdminGenres'
 import type { Genre } from '@/services/api/catalog/genres'
 
 const toast = useToast()
-const {
-  genres,
-  loading,
-  saving,
-  deleting,
-  fetchGenres,
-  createGenre,
-  updateGenre,
-  deleteGenre,
-} = useAdminGenres()
+const { genres, loading, saving, deleting, fetchGenres, createGenre, updateGenre, deleteGenre } =
+  useAdminGenres()
 
 const showForm = ref(false)
 const showDelete = ref(false)

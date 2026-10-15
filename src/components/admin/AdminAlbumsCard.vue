@@ -3,14 +3,14 @@
     <!-- Toolbar -->
     <div class="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
       <div class="flex items-center gap-3">
-        <span class="text-sm tabular-nums text-tertiary">
+        <span class="text-tertiary text-sm tabular-nums">
           {{ filteredAlbums.length }} album{{ filteredAlbums.length !== 1 ? 's' : '' }}
         </span>
-        <div class="h-4 w-px bg-border-default" />
+        <div class="bg-border-default h-4 w-px" />
         <InputText
           v-model="searchQuery"
           placeholder="Search albums..."
-          class="h-9! w-56! rounded-lg! border-border-default! bg-surface-hover! text-sm! text-primary! placeholder:text-muted!"
+          class="border-border-default! bg-surface-hover! text-primary! placeholder:text-muted! h-9! w-56! rounded-lg! text-sm!"
         />
       </div>
 
@@ -18,19 +18,19 @@
         label="Add album"
         icon="pi pi-plus"
         size="small"
-        class="rounded-xl! bg-accent! px-4! text-accent-text! hover:bg-accent-hover!"
+        class="bg-accent! text-accent-text! hover:bg-accent-hover! rounded-xl! px-4!"
         @click="openCreate"
       />
     </div>
 
     <!-- Content -->
-    <div class="overflow-hidden rounded-2xl border border-border-default bg-surface-raised">
+    <div class="border-border-default bg-surface-raised overflow-hidden rounded-2xl border">
       <!-- Loading -->
       <div v-if="loading" class="grid grid-cols-2 gap-4 p-5 sm:grid-cols-3 lg:grid-cols-4">
         <div v-for="i in 8" :key="i" class="space-y-3">
-          <div class="aspect-square animate-pulse rounded-xl bg-surface-overlay" />
-          <div class="h-4 w-3/4 animate-pulse rounded bg-surface-overlay" />
-          <div class="h-3 w-1/2 animate-pulse rounded bg-surface-active" />
+          <div class="bg-surface-overlay aspect-square animate-pulse rounded-xl" />
+          <div class="bg-surface-overlay h-4 w-3/4 animate-pulse rounded" />
+          <div class="bg-surface-active h-3 w-1/2 animate-pulse rounded" />
         </div>
       </div>
 
@@ -46,7 +46,7 @@
             label="Add album"
             icon="pi pi-plus"
             size="small"
-            class="rounded-xl! bg-accent! px-4! text-accent-text! hover:bg-accent-hover!"
+            class="bg-accent! text-accent-text! hover:bg-accent-hover! rounded-xl! px-4!"
             @click="openCreate"
           />
         </template>
@@ -61,14 +61,10 @@
 
       <!-- Album Grid -->
       <div v-else class="grid grid-cols-2 gap-4 p-5 sm:grid-cols-3 lg:grid-cols-4">
-        <div
-          v-for="album in filteredAlbums"
-          :key="album.id"
-          class="group cursor-default"
-        >
+        <div v-for="album in filteredAlbums" :key="album.id" class="group cursor-default">
           <!-- Cover -->
           <div
-            class="relative aspect-square overflow-hidden rounded-xl border border-border-default bg-surface-overlay"
+            class="border-border-default bg-surface-overlay relative aspect-square overflow-hidden rounded-xl border"
           >
             <img
               v-if="album.cover_url"
@@ -77,22 +73,20 @@
               class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
               @error="($event.target as HTMLImageElement).style.display = 'none'"
             />
-            <div
-              v-else
-              class="flex h-full w-full items-center justify-center"
-            >
-              <Image aria-hidden="true" class="text-3xl text-muted"  />
+            <div v-else class="flex h-full w-full items-center justify-center">
+              <Image aria-hidden="true" class="text-muted text-3xl" />
             </div>
 
             <!-- Overlay actions -->
             <div
-              class="absolute inset-0 flex items-end justify-end gap-1 bg-linear-to-t from-bg-overlay via-transparent p-3 opacity-0 transition-opacity group-hover:opacity-100"
+              class="from-bg-overlay absolute inset-0 flex items-end justify-end gap-1 bg-linear-to-t via-transparent p-3 opacity-0 transition-opacity group-hover:opacity-100"
             >
               <Button
                 icon="pi pi-eye"
                 rounded
                 size="small"
-                class="h-8! w-8! bg-surface-active! text-primary! backdrop-blur-xs! hover:bg-surface-hover!"
+                class="bg-surface-active! text-primary! hover:bg-surface-hover! h-8! w-8! backdrop-blur-xs!"
+                aria-label="View"
                 @click="router.push({ name: 'admin.album.detail', params: { id: album.id } })"
               />
               <Button
@@ -100,22 +94,25 @@
                 rounded
                 size="small"
                 :loading="enrichingId === album.id"
-                class="h-8! w-8! bg-surface-active! text-warning! backdrop-blur-xs! hover:bg-warning-subtle!"
+                class="bg-surface-active! text-warning! hover:bg-warning-subtle! h-8! w-8! backdrop-blur-xs!"
                 v-tooltip.top="'Fetch cover'"
+                aria-label="Fetch cover"
                 @click="handleEnrich(album)"
               />
               <Button
                 icon="pi pi-pencil"
                 rounded
                 size="small"
-                class="h-8! w-8! bg-surface-active! text-primary! backdrop-blur-xs! hover:bg-surface-hover!"
+                class="bg-surface-active! text-primary! hover:bg-surface-hover! h-8! w-8! backdrop-blur-xs!"
+                aria-label="Edit"
                 @click="openEdit(album)"
               />
               <Button
                 icon="pi pi-trash"
                 rounded
                 size="small"
-                class="h-8! w-8! bg-surface-active! text-danger! backdrop-blur-xs! hover:bg-danger-subtle!"
+                class="bg-surface-active! text-danger! hover:bg-danger-subtle! h-8! w-8! backdrop-blur-xs!"
+                aria-label="Delete"
                 @click="openDeleteConfirm(album)"
               />
             </div>
@@ -123,8 +120,8 @@
 
           <!-- Info -->
           <div class="mt-2.5 min-w-0">
-            <p class="truncate text-sm font-medium text-primary">{{ album.title }}</p>
-            <p class="mt-0.5 truncate text-xs text-tertiary">
+            <p class="text-primary truncate text-sm font-medium">{{ album.title }}</p>
+            <p class="text-tertiary mt-0.5 truncate text-xs">
               {{ album.artist_name || 'Unknown artist' }}
             </p>
           </div>
@@ -166,16 +163,8 @@ import type { Album } from '@/services/api/catalog/albums'
 const router = useRouter()
 const toast = useToast()
 const albumsApi = useAlbumsApi()
-const {
-  albums,
-  loading,
-  saving,
-  deleting,
-  fetchAlbums,
-  createAlbum,
-  updateAlbum,
-  deleteAlbum,
-} = useAdminAlbums()
+const { albums, loading, saving, deleting, fetchAlbums, createAlbum, updateAlbum, deleteAlbum } =
+  useAdminAlbums()
 
 const searchQuery = ref('')
 const showForm = ref(false)
@@ -188,9 +177,7 @@ const filteredAlbums = computed(() => {
   const q = searchQuery.value.toLowerCase().trim()
   if (!q) return albums.value
   return albums.value.filter(
-    (a) =>
-      a.title.toLowerCase().includes(q) ||
-      a.artist_name?.toLowerCase().includes(q),
+    (a) => a.title.toLowerCase().includes(q) || a.artist_name?.toLowerCase().includes(q),
   )
 })
 
@@ -215,10 +202,20 @@ async function handleEnrich(album: Album) {
   enrichingId.value = album.id
   try {
     await albumsApi.adminEnrichAlbum(album.id)
-    toast.add({ severity: 'success', summary: 'Album enriched', detail: 'Cover art fetched from external sources', life: 3000 })
+    toast.add({
+      severity: 'success',
+      summary: 'Album enriched',
+      detail: 'Cover art fetched from external sources',
+      life: 3000,
+    })
     await fetchAlbums()
   } catch {
-    toast.add({ severity: 'error', summary: 'Enrich failed', detail: 'Could not fetch album cover. Check external service connectivity.', life: 4000 })
+    toast.add({
+      severity: 'error',
+      summary: 'Enrich failed',
+      detail: 'Could not fetch album cover. Check external service connectivity.',
+      life: 4000,
+    })
   } finally {
     enrichingId.value = null
   }
