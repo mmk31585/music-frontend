@@ -1,6 +1,7 @@
-import { beforeEach } from 'vitest'
+import { beforeAll, afterAll, beforeEach } from 'vitest'
 import { config } from '@vue/test-utils'
 import { createRouter, createWebHistory } from 'vue-router'
+import { server } from '@/mocks/server'
 
 // Mock localStorage for test environment (jsdom doesn't provide it by default)
 if (typeof window !== 'undefined' && !window.localStorage) {
@@ -17,12 +18,13 @@ if (typeof window !== 'undefined' && !window.localStorage) {
   } as Storage
 }
 
-// Clear localStorage before every test so auth/session state does not leak
-if (typeof window !== 'undefined') {
-  beforeEach(() => {
-    window.localStorage.clear()
-  })
-}
+beforeAll(() => server.listen({ onUnhandledRequest: 'warn' }))
+afterAll(() => server.close())
+
+beforeEach(() => {
+  server.resetHandlers()
+  if (typeof window !== 'undefined') window.localStorage.clear()
+})
 
 const router = createRouter({
   history: createWebHistory(),
