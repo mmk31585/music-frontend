@@ -20,7 +20,7 @@
         size="small"
         class="bg-accent! text-accent-text! hover:bg-accent-hover! rounded-xl! px-4!"
         @click="openCreate"
-      />
+       aria-label="Add album" />
     </div>
 
     <!-- Content -->
@@ -48,7 +48,7 @@
             size="small"
             class="bg-accent! text-accent-text! hover:bg-accent-hover! rounded-xl! px-4!"
             @click="openCreate"
-          />
+           aria-label="Add album" />
         </template>
       </AdminEmptyState>
 

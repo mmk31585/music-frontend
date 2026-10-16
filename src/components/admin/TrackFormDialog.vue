@@ -1596,7 +1596,7 @@ function seekAudioPreview(event: Event) {
             class="rounded-xl!"
             outlined
             @click="triggerAudioInput"
-          />
+           :aria-label="audioFileName || 'Choose audio file'" />
 
           <p v-if="metadataLoading" class="mt-2 text-xs text-slate-400">Reading metadata...</p>
 
@@ -1683,7 +1683,7 @@ function seekAudioPreview(event: Event) {
                 class="rounded-xl!"
                 outlined
                 @click="triggerCoverInput"
-              />
+               aria-label="Choose cover" />
 
               <Button
                 v-if="coverPreviewUrl"
@@ -1693,7 +1693,7 @@ function seekAudioPreview(event: Event) {
                 text
                 class="text-red-400!"
                 @click="removeCover"
-              />
+               aria-label="Remove" />
             </div>
           </div>
         </div>
@@ -1761,7 +1761,7 @@ function seekAudioPreview(event: Event) {
                 class="h-6! rounded-md! px-2! text-[11px]! text-emerald-400! hover:text-emerald-300!"
                 :label="`Create &quot;${name}&quot;`"
                 @click="emit('create-artist', name)"
-              />
+               :aria-label="`Create &quot;${name}&quot;`" />
             </div>
           </div>
 
@@ -1829,7 +1829,7 @@ function seekAudioPreview(event: Event) {
                 class="h-6! rounded-md! px-2! text-[11px]! text-emerald-400! hover:text-emerald-300!"
                 label="Create album"
                 @click="emit('create-album', unresolvedAlbumName)"
-              />
+               aria-label="Create album" />
             </div>
           </div>
 
@@ -1870,7 +1870,7 @@ function seekAudioPreview(event: Event) {
                 class="h-6! rounded-md! px-2! text-[11px]! text-emerald-400! hover:text-emerald-300!"
                 label="Create artist"
                 @click="emit('create-artist', unresolvedAlbumArtistName)"
-              />
+               aria-label="Create artist" />
             </div>
           </div>
         </div>
@@ -2034,7 +2034,7 @@ function seekAudioPreview(event: Event) {
             outlined
             class="rounded-lg!"
             @click="addCreditRow"
-          />
+           aria-label="Add credit" />
         </div>
 
         <div
@@ -2123,7 +2123,7 @@ function seekAudioPreview(event: Event) {
                 :disabled="!form.lyrics?.trim() || aiSyncing || !props.track?.id"
                 class="text-indigo-400! hover:text-indigo-300!"
                 @click="syncLyricsWithAI"
-              />
+               aria-label="Sync with AI" />
 
               <Button
                 type="button"
@@ -2135,7 +2135,7 @@ function seekAudioPreview(event: Event) {
                 :disabled="!form.lyrics?.trim() || aiReviewing || !props.track?.id"
                 class="text-amber-400! hover:text-amber-300!"
                 @click="reviewLyricsWithAI"
-              />
+               aria-label="Review with AI" />
 
               <Button
                 type="button"
@@ -2146,7 +2146,7 @@ function seekAudioPreview(event: Event) {
                 :loading="metadataLoading || aiGenerating"
                 class="text-teal-400! hover:text-teal-300!"
                 @click="fetchLRCLyrics"
-              />
+               :aria-label="aiGenerating ? 'AI Generating...' : 'Fetch LRC'" />
             </div>
           </div>
 
@@ -2171,7 +2171,7 @@ function seekAudioPreview(event: Event) {
           :loading="props.loading"
           :disabled="!canSubmit || props.loading"
           class="rounded-xl!"
-        />
+         :aria-label="isEditMode ? 'Save changes' : 'Create track'" />
       </footer>
     </form>
   </Dialog>

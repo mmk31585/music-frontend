@@ -47,7 +47,7 @@
           severity="danger"
           class="rounded-xl! bg-red-500/10! text-red-400! ring-1! ring-red-500/20! hover:bg-red-500/20!"
           @click="$emit('confirm')"
-        />
+         aria-label="Delete" />
       </div>
     </template>
   </Dialog>

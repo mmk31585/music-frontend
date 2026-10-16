@@ -119,7 +119,7 @@
         size="small"
         outlined
         @click="ctx.fetchSection('track')"
-      />
+       aria-label="Fetch Lyrics &amp; Cover" />
       <p class="mt-1.5 text-[11px] text-slate-500">
         Load track data from the track's embedded metadata (ID3 tags).
       </p>
@@ -224,7 +224,7 @@
               severity="help"
               size="small"
               @click="ctx.showSyncedLyrics.value = !ctx.showSyncedLyrics.value"
-            />
+             :aria-label="ctx.showSyncedLyrics.value ? 'Hide' : 'Karaoke'" />
             <Button
               icon="pi pi-arrows-alt"
               severity="secondary"

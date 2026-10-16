@@ -157,7 +157,7 @@
           :loading="enriching"
           class="mr-auto text-slate-500! hover:text-emerald-400!"
           @click="handleEnrich"
-        />
+         aria-label="Enrich data" />
         <Button
           label="Cancel"
           text
@@ -171,7 +171,7 @@
           :loading="saving"
           class="rounded-xl! bg-emerald-500! text-black! hover:bg-emerald-400!"
           @click="handleSubmit"
-        />
+         :aria-label="isEditing ? 'Save changes' : 'Create album'" />
       </div>
     </template>
   </Dialog>

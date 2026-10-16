@@ -14,7 +14,7 @@
         size="small"
         class="rounded-xl! bg-emerald-500! px-4! text-black! hover:bg-emerald-400!"
         @click="openCreate"
-      />
+       aria-label="Add genre" />
     </div>
 
     <!-- Content -->
@@ -45,7 +45,7 @@
             size="small"
             class="rounded-xl! bg-emerald-500! px-4! text-black! hover:bg-emerald-400!"
             @click="openCreate"
-          />
+           aria-label="Add genre" />
         </template>
       </AdminEmptyState>
 

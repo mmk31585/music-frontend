@@ -80,8 +80,8 @@
     </div>
 
     <div class="flex justify-center gap-3">
-      <Button label="Back to Drafts" icon="pi pi-arrow-left" severity="secondary" @click="goBack" />
-      <Button label="Upload Another" icon="pi pi-upload" @click="uploadAnother" />
+      <Button label="Back to Drafts" icon="pi pi-arrow-left" severity="secondary" @click="goBack"  aria-label="Back to Drafts" />
+      <Button label="Upload Another" icon="pi pi-upload" @click="uploadAnother"  aria-label="Upload Another" />
     </div>
   </div>
 </template>

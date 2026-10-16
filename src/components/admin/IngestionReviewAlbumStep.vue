@@ -117,7 +117,7 @@
         size="small"
         outlined
         @click="ctx.fetchSection('album')"
-      />
+       aria-label="Fetch Album Data" />
       <p class="mt-1.5 text-[11px] text-slate-500">
         Load album data from the track's embedded metadata (ID3 tags).
       </p>
@@ -280,7 +280,7 @@
             size="small"
             severity="success"
             @click="ctx.finalMetadata.album.musicbrainzReleaseId = ctx.enrichment.value!.musicbrainz!.albumMbid; ctx.hasUnsavedChanges.value = true"
-          />
+           aria-label="Apply" />
           <CheckCircle aria-hidden="true" v-else class="text-green-400" />
         </div>
       </div>

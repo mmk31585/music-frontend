@@ -17,7 +17,9 @@
     "check": "run-p lint type-check test:unit build-only",
     "format": "prettier --write src/",
     "test:unit": "vitest",
-    "test:unit:run": "vitest run --coverage"
+    "test:unit:run": "vitest run --coverage",
+    "api:types": "node scripts/api-types.cjs",
+    "api:pull": "node scripts/api-pull.cjs"
   },
   "dependencies": {
     "@primeuix/themes": "^1.2.5",
@@ -69,8 +71,10 @@
     "jsdom": "^29.1.1",
     "msw": "^2.15.0",
     "npm-run-all2": "^8.0.4",
+    "openapi-typescript": "^7.13.0",
     "prettier": "^3.6.2",
     "prettier-plugin-tailwindcss": "^0.6.14",
+    "swagger2openapi": "^7.0.8",
     "typescript": "~5.9.0",
     "unplugin-vue-components": "^30.0.0",
     "vite": "^7.3.1",
