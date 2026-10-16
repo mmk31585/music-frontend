@@ -17,6 +17,19 @@ const QUEUE_STORAGE_KEY = 'player-queue-track-ids'
 const QUEUE_META_KEY = 'player-queue-metadata'
 const SESSION_STORAGE_KEY = 'player-session-state'
 
+/** Generate a UUID v4 string with a fallback for environments lacking crypto.randomUUID. */
+function generateUUID(): string {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID()
+  }
+  // Fallback: Math.random-based UUID v4 approximation
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
+    const r = (Math.random() * 16) | 0
+    const v = c === 'x' ? r : (r & 0x3) | 0x8
+    return v.toString(16)
+  })
+}
+
 interface QueuePersistData {
   trackIds: string[]
   hydratedAt: number
@@ -83,7 +96,7 @@ export const usePlayerStore = defineStore('player', () => {
   let playbackStopped = false
 
   // Play tracking: reports plays to backend for gamification (XP, challenges, badges)
-  const playSessionId = crypto.randomUUID()
+  const playSessionId = generateUUID()
   let lastReportedTrackId: string | null = null
   let playStartTime = 0
 
