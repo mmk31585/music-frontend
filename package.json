@@ -62,6 +62,7 @@
     "@types/lodash.isobject": "^3.0.9",
     "@types/node": "^22.18.11",
     "@vitejs/plugin-vue": "^6.0.1",
+    "@vitest/coverage-v8": "^4.1.12",
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/eslint-config-typescript": "^14.8.0",
     "@vue/test-utils": "^2.4.11",
