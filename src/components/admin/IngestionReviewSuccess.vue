@@ -12,7 +12,7 @@
       <a
         v-if="publishResult.artistId"
         :href="`/admin/catalog/artists/${publishResult.artistId}`"
-        class="flex items-center gap-3 rounded-lg border border-white/6 bg-white/3 p-4 text-left transition-colors hover:bg-white/6"
+        class="flex items-center gap-3 rounded-lg border border-white/6 bg-white/3 p-4 text-start transition-colors hover:bg-white/6"
       >
         <img
           v-if="finalMetadata.artists[0]?.imageUrl"
@@ -31,7 +31,7 @@
       <a
         v-if="publishResult.albumId"
         :href="`/admin/catalog/albums/${publishResult.albumId}`"
-        class="flex items-center gap-3 rounded-lg border border-white/6 bg-white/3 p-4 text-left transition-colors hover:bg-white/6"
+        class="flex items-center gap-3 rounded-lg border border-white/6 bg-white/3 p-4 text-start transition-colors hover:bg-white/6"
       >
         <img
           v-if="finalMetadata.album.coverUrl"
@@ -50,7 +50,7 @@
       <a
         v-if="publishResult.trackId"
         :href="`/admin/catalog/tracks/${publishResult.trackId}`"
-        class="flex items-center gap-3 rounded-lg border border-white/6 bg-white/3 p-4 text-left transition-colors hover:bg-white/6"
+        class="flex items-center gap-3 rounded-lg border border-white/6 bg-white/3 p-4 text-start transition-colors hover:bg-white/6"
       >
         <img
           v-if="finalMetadata.track.coverUrl"
@@ -69,7 +69,7 @@
       <a
         :href="publishResult.audioUrl"
         target="_blank"
-        class="flex items-center gap-3 rounded-lg border border-white/6 bg-white/3 p-4 text-left transition-colors hover:bg-white/6"
+        class="flex items-center gap-3 rounded-lg border border-white/6 bg-white/3 p-4 text-start transition-colors hover:bg-white/6"
       >
         <ExternalLink aria-hidden="true" class="text-xl text-emerald-400" />
         <div>

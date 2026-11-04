@@ -95,7 +95,7 @@
               </div>
             </div>
             <div class="flex shrink-0 items-center gap-3">
-              <ProgressBar :value="enrichPercent" class="h-1.5 w-32 sm:w-48" :show-value="false" />
+              <Progress :value="enrichPercent" class="h-1.5 w-32 sm:w-48" :showValue="false" />
               <span class="w-14 text-right text-xs text-slate-400 tabular-nums">
                 {{ enrichAttempt }}/{{ enrichMaxAttempts }}
               </span>
@@ -458,6 +458,7 @@
 </template>
 
 <script setup lang="ts">
+import Progress from 'primevue/progressbar'
 import {
   AlertCircle,
   AlertTriangle,
