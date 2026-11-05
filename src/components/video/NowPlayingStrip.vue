@@ -2,7 +2,7 @@
   <Transition name="slide-up">
     <div
       v-if="track"
-      class="flex items-center gap-3 rounded-2xl bg-black/70 px-4 py-3 backdrop-blur-xs"
+      class="flex items-center gap-3 rounded-2xl surface-card px-4 py-3"
     >
       <!-- Album art -->
       <div class="relative h-10 w-10 shrink-0 overflow-hidden rounded-xl">

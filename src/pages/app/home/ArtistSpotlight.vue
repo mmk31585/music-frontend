@@ -32,7 +32,7 @@
           </div>
           <button
             type="button"
-            class="mt-1 inline-flex h-9 cursor-pointer items-center gap-2 rounded-full bg-white/10 px-5 text-xs font-semibold text-white/80 backdrop-blur-xs transition hover:bg-white/20 hover:text-white"
+            class="mt-1 inline-flex h-9 cursor-pointer items-center gap-2 rounded-full bg-white/10 px-5 text-xs font-semibold text-white/80 transition hover:bg-white/20 hover:text-white"
             @click.prevent="$emit('playArtist', artist)"
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-3 w-3"><polygon points="5 3 19 12 5 21 5 3"/></svg>

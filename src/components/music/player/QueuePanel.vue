@@ -2,7 +2,7 @@
   <Transition name="slide-right">
     <div
       v-if="visible"
-      class="fixed inset-y-0 right-0 z-50 flex w-full max-w-md flex-col border-l border-border-default shadow-floating glass-strong"
+      class="fixed inset-y-0 right-0 z-50 flex w-full max-w-md flex-col border-l border-border-default shadow-floating surface-card"
     >
       <div class="flex items-center justify-between border-b border-border-default px-5 py-4">
         <h2 class="text-lg font-bold text-primary">Queue</h2>
@@ -145,7 +145,7 @@
   <Transition name="fade">
     <div
       v-if="visible"
-      class="fixed inset-0 z-40 bg-bg-overlay/60 backdrop-blur-sm"
+      class="fixed inset-0 z-40 bg-bg-overlay/60"
       @click="visible = false"
     />
   </Transition>

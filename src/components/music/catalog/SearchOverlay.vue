@@ -3,7 +3,7 @@
     <Transition name="search-fade">
       <div
         v-if="visible"
-        class="fixed inset-0 z-100 flex items-start justify-center bg-bg-overlay pt-16 backdrop-blur-xs md:pt-24"
+        class="fixed inset-0 z-100 flex items-start justify-center bg-bg-overlay pt-16 md:pt-24"
         @click.self="close"
       >
         <div

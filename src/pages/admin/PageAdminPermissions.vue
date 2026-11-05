@@ -178,7 +178,7 @@ onMounted(loadData)
     <Teleport to="body">
       <div
         v-if="editingRole"
-        class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 surface-card"
         @click.self="cancelEdit"
       >
         <div class="mx-4 w-full max-w-2xl rounded-2xl bg-slate-900 p-6 shadow-2xl">

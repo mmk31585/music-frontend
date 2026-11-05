@@ -49,7 +49,7 @@
 
       <div
         v-else
-        class="overflow-hidden rounded-3xl border border-white/10 bg-black/20 p-2 backdrop-blur-xs"
+        class="overflow-hidden rounded-3xl border border-white/10 bg-black/20 p-2"
       >
         <div
           v-for="(item, index) in trackRows"

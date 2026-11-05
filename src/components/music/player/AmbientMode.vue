@@ -38,7 +38,7 @@
           <div class="flex items-center justify-between px-5 pt-5 pb-3">
             <button
               type="button"
-              class="spring flex h-10 w-10 items-center justify-center rounded-full text-secondary backdrop-blur-xs transition-all hover:bg-surface-active hover:text-primary"
+              class="spring flex h-10 w-10 items-center justify-center rounded-full text-secondary transition-all hover:bg-surface-active hover:text-primary"
               aria-label="Close"
               @click="close"
             >
@@ -99,7 +99,7 @@
             <div class="flex items-center gap-6">
               <button
                 type="button"
-                class="spring relative flex h-10 w-10 items-center justify-center rounded-full text-tertiary backdrop-blur-xs transition-all hover:bg-surface-active hover:text-primary"
+                class="spring relative flex h-10 w-10 items-center justify-center rounded-full text-tertiary transition-all hover:bg-surface-active hover:text-primary"
                 :class="{ 'text-accent!': shuffleMode !== 'off' }"
                 :disabled="!currentTrack"
                 aria-label="Shuffle"
@@ -114,7 +114,7 @@
 
               <button
                 type="button"
-                class="spring flex h-12 w-12 items-center justify-center rounded-full text-secondary backdrop-blur-xs transition-all hover:bg-surface-active hover:text-primary disabled:opacity-20"
+                class="spring flex h-12 w-12 items-center justify-center rounded-full text-secondary transition-all hover:bg-surface-active hover:text-primary disabled:opacity-20"
                 :disabled="!hasPrevious"
                 aria-label="Previous track"
                 @click="playPrevious"
@@ -124,7 +124,7 @@
 
               <button
                 type="button"
-                class="glow-green spring relative flex h-16 w-16 items-center justify-center rounded-full bg-surface-active text-black shadow-2xl backdrop-blur-xs transition-all hover:scale-105 hover:bg-accent hover:text-primary disabled:opacity-40"
+                class="glow-green spring relative flex h-16 w-16 items-center justify-center rounded-full bg-surface-active text-black shadow-2xl transition-all hover:scale-105 hover:bg-accent hover:text-primary disabled:opacity-40"
                 :class="{ 'bg-accent! text-primary!': isPlaying }"
                 :disabled="!currentTrack || isLoadingTrack"
                 :aria-label="isLoadingTrack || isBuffering ? 'Loading' : isPlaying ? 'Pause' : 'Play'"
@@ -144,7 +144,7 @@
 
               <button
                 type="button"
-                class="spring flex h-12 w-12 items-center justify-center rounded-full text-secondary backdrop-blur-xs transition-all hover:bg-surface-active hover:text-primary disabled:opacity-20"
+                class="spring flex h-12 w-12 items-center justify-center rounded-full text-secondary transition-all hover:bg-surface-active hover:text-primary disabled:opacity-20"
                 :disabled="!hasNext"
                 aria-label="Next track"
                 @click="playNext"
@@ -154,7 +154,7 @@
 
               <button
                 type="button"
-                class="spring relative flex h-10 w-10 items-center justify-center rounded-full text-tertiary backdrop-blur-xs transition-all hover:bg-surface-active hover:text-primary"
+                class="spring relative flex h-10 w-10 items-center justify-center rounded-full text-tertiary transition-all hover:bg-surface-active hover:text-primary"
                 :class="{ 'text-accent!': repeatMode !== 'off' }"
                 :disabled="!currentTrack"
                 aria-label="Repeat"

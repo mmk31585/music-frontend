@@ -29,7 +29,7 @@
           </button>
           <button
             type="button"
-            class="inline-flex h-11 cursor-pointer items-center gap-2 rounded-full border border-white/15 bg-white/4 px-6 text-sm font-medium text-white/80 backdrop-blur-xs transition hover:bg-white/10 hover:text-white active:scale-95 focus-visible:ring-2 focus-visible:ring-spotify focus-visible:ring-offset-2 focus-visible:outline-hidden"
+            class="inline-flex h-11 cursor-pointer items-center gap-2 rounded-full border border-white/15 bg-white/4 px-6 text-sm font-medium text-white/80 transition hover:bg-white/10 hover:text-white active:scale-95 focus-visible:ring-2 focus-visible:ring-spotify focus-visible:ring-offset-2 focus-visible:outline-hidden"
             @click="$emit('discover')"
           >
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4"><circle cx="12" cy="12" r="10"/><polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" fill="currentColor" stroke="none"/></svg>

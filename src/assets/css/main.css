@@ -257,18 +257,6 @@
     transparent 70%
   );
 
-  /* Glass system */
-  --glass-bg: rgba(255, 255, 255, 0.03);
-  --glass-bg-strong: rgba(255, 255, 255, 0.06);
-  --glass-bg-hover: rgba(255, 255, 255, 0.06);
-  --glass-bg-soft: rgba(255, 255, 255, 0.02);
-  --glass-bg-floating: rgba(255, 255, 255, 0.05);
-  --glass-border: rgba(255, 255, 255, 0.07);
-  --glass-border-strong: rgba(255, 255, 255, 0.12);
-  --glass-blur: 16px;
-  --glass-blur-strong: 28px;
-  --glass-blur-floating: 32px;
-
   /* Shadow system — layered with subtle accent glow */
   --shadow-ambient: 0 0 0 1px rgba(255, 255, 255, 0.04);
   --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.30), 0 0 0 1px rgba(255, 255, 255, 0.04);
@@ -394,18 +382,6 @@ html:not(.app-dark) {
     color-mix(in oklch, var(--p-500, #10b981) 3%, transparent) 0%,
     transparent 60%
   );
-
-  /* Glass system — TRUE glassmorphism in light mode */
-  --glass-bg: rgba(255, 255, 255, 0.65);
-  --glass-bg-strong: rgba(255, 255, 255, 0.80);
-  --glass-bg-hover: rgba(255, 255, 255, 0.72);
-  --glass-bg-soft: rgba(255, 255, 255, 0.50);
-  --glass-bg-floating: rgba(255, 255, 255, 0.75);
-  --glass-border: rgba(255, 255, 255, 0.50);
-  --glass-border-strong: rgba(255, 255, 255, 0.70);
-  --glass-blur: 12px;
-  --glass-blur-strong: 20px;
-  --glass-blur-floating: 24px;
 
   /* Shadow system — layered with soft colored glow */
   --shadow-ambient: 0 0 0 1px rgba(0, 0, 0, 0.03);
@@ -766,55 +742,40 @@ h1, h2, h3, h4, h5, h6 {
 @utility border-strong { border-color: var(--border-strong); }
 @utility border-accent { border-color: var(--border-accent); }
 
-/* ── Glass System ── */
-@utility glass {
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--glass-border);
+/* ── Surface System (replacing glassmorphism) ── */
+@utility surface-card {
+  background: var(--surface-1);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  transition: transform var(--motion-hover), box-shadow var(--motion-hover), border-color var(--motion-hover);
 }
-@utility glass-strong {
-  background: var(--glass-bg-strong);
-  backdrop-filter: blur(var(--glass-blur-strong));
-  -webkit-backdrop-filter: blur(var(--glass-blur-strong));
-  border: 1px solid var(--glass-border-strong);
-}
-@utility glass-hover {
-  background: var(--glass-bg-hover);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--glass-border);
-  transition: background var(--motion-hover), border-color var(--motion-hover);
+@utility surface-card-hover {
   &:hover {
-    background: var(--glass-bg-strong);
-    border-color: var(--glass-border-strong);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-floating);
+    border-color: var(--border-hover);
   }
 }
-@utility glass-soft {
-  background: var(--glass-bg-soft);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
-  border: 1px solid var(--glass-border);
-}
-@utility glass-floating {
-  background: var(--glass-bg-floating);
-  backdrop-filter: blur(var(--glass-blur-floating));
-  -webkit-backdrop-filter: blur(var(--glass-blur-floating));
-  border: 1px solid var(--glass-border-strong);
-  box-shadow: var(--shadow-floating);
-}
-@utility glass-dialog {
-  background: var(--glass-bg-floating);
-  backdrop-filter: blur(var(--glass-blur-floating));
-  -webkit-backdrop-filter: blur(var(--glass-blur-floating));
-  border: 1px solid var(--glass-border-strong);
+@utility surface-dialog {
+  background: var(--surface-1);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-xl);
   box-shadow: var(--shadow-dialog);
 }
-@utility glass-sidebar {
-  background: var(--glass-bg);
-  backdrop-filter: blur(var(--glass-blur-strong));
-  -webkit-backdrop-filter: blur(var(--glass-blur-strong));
-  border-inline-end: 1px solid var(--glass-border);
+@utility surface-elevated {
+  background: var(--surface-1);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-floating);
+}
+@utility surface-panel {
+  background: var(--surface-1);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+}
+@utility surface-sidebar {
+  background: var(--surface-1);
+  border-inline-end: 1px solid var(--border-subtle);
 }
 
 /* ── Card Utilities ── */
@@ -1096,8 +1057,6 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-floating);
   padding: var(--space-1);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
 }
 .p-menuitem,
 .p-contextmenuitem,
@@ -1481,8 +1440,6 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid var(--border-default);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-dialog);
-  backdrop-filter: blur(var(--glass-blur));
-  -webkit-backdrop-filter: blur(var(--glass-blur));
 }
 
 

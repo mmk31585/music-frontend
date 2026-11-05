@@ -19,7 +19,7 @@
 
     <template v-else-if="party">
       <!-- Party header -->
-      <div class="glass-strong rounded-2xl p-6">
+      <div class="surface-card rounded-2xl p-6">
         <div class="flex items-start gap-4">
           <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-spotify/10 text-2xl">
             🎉

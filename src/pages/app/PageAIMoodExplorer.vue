@@ -136,7 +136,7 @@
           <!-- Track list -->
           <div
             v-else-if="tracks.length"
-            class="overflow-hidden rounded-2xl border border-white/6 bg-white/2 backdrop-blur-xs"
+            class="overflow-hidden rounded-2xl border border-white/6 bg-white/2"
           >
             <button
               v-for="(track, index) in tracks"

@@ -203,10 +203,10 @@
           <Teleport to="body">
             <div
               v-if="showLeaveConfirm"
-              class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs"
+              class="fixed inset-0 z-50 flex items-center justify-center bg-black/60"
               @click.self="showLeaveConfirm = false"
             >
-              <div class="glass-strong mx-4 w-full max-w-sm rounded-2xl p-8 text-center">
+              <div class="surface-dialog mx-4 w-full max-w-sm rounded-2xl p-8 text-center">
                 <p class="mb-6 text-sm text-white/60">Are you sure you want to leave this room?</p>
                 <div class="flex gap-3">
                   <button

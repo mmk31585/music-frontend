@@ -92,7 +92,7 @@
                 icon="pi pi-eye"
                 rounded
                 size="small"
-                class="h-8! w-8! bg-surface-active! text-primary! backdrop-blur-xs! hover:bg-surface-hover!"
+                class="h-8! w-8! bg-surface-active! text-primary!! hover:bg-surface-hover!"
                 @click="router.push({ name: 'admin.album.detail', params: { id: album.id } })"
               />
               <Button
@@ -100,7 +100,7 @@
                 rounded
                 size="small"
                 :loading="enrichingId === album.id"
-                class="h-8! w-8! bg-surface-active! text-warning! backdrop-blur-xs! hover:bg-warning-subtle!"
+                class="h-8! w-8! surface-card! text-warning! hover:bg-warning-subtle!"
                 v-tooltip.top="'Fetch cover'"
                 @click="handleEnrich(album)"
               />
@@ -108,14 +108,14 @@
                 icon="pi pi-pencil"
                 rounded
                 size="small"
-                class="h-8! w-8! bg-surface-active! text-primary! backdrop-blur-xs! hover:bg-surface-hover!"
+                class="h-8! w-8! bg-surface-active! text-primary!! hover:bg-surface-hover!"
                 @click="openEdit(album)"
               />
               <Button
                 icon="pi pi-trash"
                 rounded
                 size="small"
-                class="h-8! w-8! bg-surface-active! text-danger! backdrop-blur-xs! hover:bg-danger-subtle!"
+                class="h-8! w-8! surface-card! text-danger! hover:bg-danger-subtle!"
                 @click="openDeleteConfirm(album)"
               />
             </div>

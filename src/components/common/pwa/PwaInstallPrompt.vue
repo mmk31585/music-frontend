@@ -3,7 +3,7 @@
   <div
     v-if="showInstall"
     role="alert"
-    class="fixed bottom-0 inset-x-0 z-50 flex items-center gap-3 bg-surface-raised/90 backdrop-blur-xl border-t border-white/10 px-4 py-3 motion-safe:animate-slide-up"
+    class="fixed bottom-0 inset-x-0 z-50 flex items-center gap-3 surface-card border-t border-border-default px-4 py-3 motion-safe:animate-fade-in-up"
     style="padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0.75rem))"
   >
     <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-spotify/20">
@@ -32,7 +32,7 @@
   <div
     v-if="showIOS"
     role="alert"
-    class="fixed bottom-0 inset-x-0 z-50 flex items-start gap-3 bg-surface-raised/90 backdrop-blur-xl border-t border-white/10 px-4 py-4 motion-safe:animate-slide-up"
+    class="fixed bottom-0 inset-x-0 z-50 flex items-start gap-3 surface-card border-t border-border-default px-4 py-4 motion-safe:animate-fade-in-up"
     style="padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0.75rem))"
   >
     <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-aurora-blue/20">

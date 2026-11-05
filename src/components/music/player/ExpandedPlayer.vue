@@ -423,7 +423,7 @@
           </div>
         </div>
 
-        <div class="relative z-10 flex justify-center border-t border-border-subtle bg-bg-overlay/20 backdrop-blur-xs">
+        <div class="relative z-10 flex justify-center border-t border-border-subtle bg-bg-overlay/20">
           <div class="relative flex gap-8">
             <button
               v-for="tab in tabs"

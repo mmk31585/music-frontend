@@ -44,7 +44,7 @@
     <!-- Track count badge -->
     <div
       v-if="trackCount !== undefined"
-      class="absolute right-2 bottom-2 z-10 rounded-full bg-bg-overlay/70 px-2 py-0.5 text-[10px] font-bold text-primary/80 backdrop-blur-xs"
+      class="absolute right-2 bottom-2 z-10 rounded-full bg-bg-overlay/70 px-2 py-0.5 text-[10px] font-bold text-primary/80"
     >
       {{ trackCount }} {{ trackCount === 1 ? 'track' : 'tracks' }}
     </div>

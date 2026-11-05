@@ -2,7 +2,7 @@
   <header
     ref="headerRef"
     role="banner"
-    class="sticky top-0 z-30 border-b border-border-default backdrop-blur-xl transition-all duration-300"
+    class="sticky top-0 z-30 border-b border-border-default bg-surface-1 transition-all duration-300"
     :class="[isScrolled ? 'bg-surface-elevated shadow-lg' : 'bg-transparent']"
   >
     <div class="flex h-[72px] items-center justify-between px-6 md:px-8 lg:px-10">

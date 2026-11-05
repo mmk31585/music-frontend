@@ -152,7 +152,7 @@
               <!-- Visibility badge (own profile) -->
               <div v-if="isOwnProfile" class="absolute top-2 start-2">
                 <span
-                  class="flex h-6 w-6 items-center justify-center rounded-full backdrop-blur-xs text-[10px]"
+                  class="flex h-6 w-6 items-center justify-center rounded-full surface-card text-[10px]"
                   :class="isTrackPublic(track) ? 'bg-black/30 text-white/60' : 'bg-amber-500/30 text-amber-300'"
                   :title="isTrackPublic(track) ? 'Public' : 'Private'"
                 >

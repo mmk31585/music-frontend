@@ -1,6 +1,6 @@
 <template>
   <div
-    class="auth-card w-full animate-reveal rounded-2xl border border-white/6 bg-black/40 p-8 shadow-2xl backdrop-blur-xl"
+    class="auth-card w-full animate-reveal rounded-2xl border border-white/10 surface-card p-8 shadow-2xl"
   >
     <div class="mb-8 text-center">
       <div class="mx-auto mb-5 flex h-14 w-14 items-center justify-center rounded-xl bg-aurora-purple/10">

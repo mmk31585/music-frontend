@@ -277,7 +277,7 @@
             <div class="absolute top-2 left-2 flex flex-wrap gap-1">
               <span
                 v-if="isExplicit(track)"
-                class="rounded-sm bg-black/60 px-1.5 py-0.5 text-[10px] font-semibold text-white backdrop-blur-xs"
+                class="rounded-sm surface-card px-1.5 py-0.5 text-[10px] font-semibold text-white"
               >
                 E
               </span>
@@ -314,7 +314,7 @@
                 icon="pi pi-pencil"
                 rounded
                 size="small"
-                class="h-7! w-7! bg-white/20! text-white! backdrop-blur-xs! hover:bg-white/30!"
+                class="h-7! w-7! surface-card! text-white! hover:bg-white/30!"
                 @click="openEdit(track)"
               />
 
@@ -322,7 +322,7 @@
                 icon="pi pi-trash"
                 rounded
                 size="small"
-                class="h-7! w-7! bg-white/20! text-white! backdrop-blur-xs! hover:bg-red-500/60!"
+                class="h-7! w-7! surface-card! text-white! hover:bg-red-500/60!"
                 @click="openDeleteConfirm(track)"
               />
             </div>

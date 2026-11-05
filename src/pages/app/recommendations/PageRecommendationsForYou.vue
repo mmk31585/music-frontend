@@ -113,7 +113,7 @@
               </div>
             </div>
             <div
-              class="absolute top-2 right-2 rounded-full bg-black/60 px-2 py-0.5 text-[10px] font-bold text-pink-400 opacity-0 backdrop-blur-xs transition group-hover:opacity-100"
+              class="absolute top-2 right-2 rounded-full bg-black/60 px-2 py-0.5 text-[10px] font-bold text-pink-400 opacity-0 transition group-hover:opacity-100"
               :title="track.genre ? `چون شبیه آهنگ‌های ${track.genre} است` : undefined"
             >
               <HelpCircle aria-hidden="true" class="mr-1"  />

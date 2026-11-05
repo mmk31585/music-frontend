@@ -1,6 +1,6 @@
 <template>
   <div
-    class="relative overflow-hidden rounded-2xl bg-surface-overlay p-4 ring-1 ring-border-default backdrop-blur-sm transition-all duration-300"
+    class="relative overflow-hidden rounded-2xl bg-surface-overlay p-4 ring-1 ring-border-default transition-all duration-300"
     :class="musicStatus?.playing ? 'ring-spotify/20' : ''"
   >
     <!-- Ambient glow when playing -->

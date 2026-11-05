@@ -1,5 +1,5 @@
 <template>
-  <div class="glass-strong rounded-2xl p-6 md:p-8">
+  <div class="surface-card rounded-2xl p-6 md:p-8">
     <h3 class="mb-6 text-lg font-bold text-white">Version History</h3>
 
     <div v-if="loading" class="space-y-3">

@@ -59,11 +59,11 @@
             <!-- Edit cover overlay (owner only) -->
             <div
               v-if="isOwner"
-              class="absolute inset-0 flex cursor-pointer items-center justify-center bg-black/50 opacity-0 backdrop-blur-xs transition-opacity duration-300 group-hover:opacity-100"
+              class="absolute inset-0 flex cursor-pointer items-center justify-center bg-black/50 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
               @click="triggerCoverUpload"
             >
               <div class="flex flex-col items-center gap-1.5 text-white">
-                <div class="flex h-10 w-10 items-center justify-center rounded-full bg-white/20 backdrop-blur-xs">
+                <div class="flex h-10 w-10 items-center justify-center rounded-full bg-white/20">
                   <Camera aria-hidden="true" class="text-lg"  />
                 </div>
                 <span class="text-xs font-bold">{{ playlist.cover_url ? 'Change cover' : 'Add cover' }}</span>
@@ -175,7 +175,7 @@
 
             <div
               v-if="tracks.length"
-              class="overflow-hidden rounded-2xl border border-white/6 bg-white/2 backdrop-blur-xs"
+              class="overflow-hidden rounded-2xl border border-white/6 bg-white/2"
               aria-live="polite"
             >
               <div
@@ -290,7 +290,7 @@
       :style="{ maxWidth: '500px', width: '90vw' }"
       :pt="{
         root: 'border-none',
-        mask: 'backdrop-blur-xs bg-black/60',
+        mask: 'surface-card bg-black/60',
         header: 'border-b border-white/5',
         title: 'text-white text-sm font-bold',
         content: 'p-0',

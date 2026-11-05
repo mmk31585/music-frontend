@@ -81,7 +81,7 @@
               <!-- Playing indicator overlay -->
               <div
                 v-if="isPlaying"
-                class="absolute inset-0 flex items-center justify-center bg-black/20 backdrop-blur-[1px]"
+                class="absolute inset-0 flex items-center justify-center bg-black/20"
               >
                 <div class="flex items-end gap-0.75">
                   <span class="now-playing-bar h-5 w-0.75 rounded-full bg-white" />
@@ -96,7 +96,7 @@
               <RouterLink
                 v-if="isAdmin"
                 :to="`/admin/catalog/tracks/${trackId}`"
-                class="absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-black/50 text-white opacity-0 backdrop-blur-xs transition-opacity hover:bg-black/70 group-hover:opacity-100"
+                class="absolute top-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-black/50 text-white opacity-0 surface-card transition-opacity hover:bg-black/70 group-hover:opacity-100"
                 title="Edit track in admin"
                 @click.stop
               >
@@ -342,7 +342,7 @@
         <!-- MUSIC VISUALIZER                       -->
         <!-- ════════════════════════════════════════ -->
         <section class="mx-auto mt-16 w-full max-w-2xl">
-          <div class="relative h-28 overflow-hidden rounded-2xl border border-white/4 bg-white/2 backdrop-blur-xs">
+          <div class="relative h-28 overflow-hidden rounded-2xl border border-white/4 surface-card">
             <div class="flex h-full items-end justify-center gap-0.5 px-4 pb-3">
               <div
                 v-for="i in 96"
@@ -362,7 +362,7 @@
               @click="togglePlay"
             >
               <div
-                class="flex h-12 w-12 items-center justify-center rounded-full bg-spotify/90 text-black shadow-xl backdrop-blur-xs transition-transform hover:scale-110"
+                class="flex h-12 w-12 items-center justify-center rounded-full bg-spotify/90 text-black shadow-xl surface-card transition-transform hover:scale-110"
               >
                 <component :is="isPlaying ? Pause : Play"<i aria-hidden="true"  class="text-lg" /> />
               </div>
@@ -420,7 +420,7 @@
 
                 <!-- Type badge -->
                 <div
-                  class="absolute top-2 right-2 rounded-full px-2 py-0.5 text-[10px] font-bold backdrop-blur-xs"
+                  class="absolute top-2 right-2 rounded-full px-2 py-0.5 text-[10px] font-bold surface-card"
                   :class="v.type === 'official_mv' ? 'bg-spotify/20 text-spotify' : 'bg-blue-500/20 text-blue-400'"
                 >
                   {{ v.type === 'official_mv' ? 'MV' : 'Edit' }}
@@ -438,7 +438,7 @@
                       {{ formatCount(v.like_count) }}
                     </span>
                   </div>
-                  <div class="flex h-7 w-7 items-center justify-center rounded-full bg-black/50 text-white opacity-0 backdrop-blur-xs transition-opacity group-hover:opacity-100">
+                  <div class="flex h-7 w-7 items-center justify-center rounded-full bg-black/50 text-white opacity-0 transition-opacity group-hover:opacity-100">
                     <Play aria-hidden="true" class="text-xs"  />
                   </div>
                 </div>
@@ -484,7 +484,7 @@
 
           <div
             v-if="karaokeActive && lyrics?.content"
-            class="overflow-hidden rounded-2xl border border-white/6 bg-white/3 backdrop-blur-xl"
+            class="overflow-hidden rounded-2xl border border-white/6 surface-card"
             style="height: 400px"
           >
             <KaraokeLyrics
@@ -499,7 +499,7 @@
           </div>
           <div
             v-else
-            class="rounded-2xl border border-white/6 bg-white/3 p-6 backdrop-blur-xl"
+            class="rounded-2xl border border-white/6 surface-card p-6"
           >
             <LyricsDisplay :lyrics="lyrics" :loading="loading" :error="lyrics! && loading!" />
           </div>

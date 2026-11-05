@@ -1,5 +1,5 @@
 <template>
-  <div v-if="profile" class="glass-strong rounded-2xl p-6 md:p-8">
+  <div v-if="profile" class="surface-card rounded-2xl p-6 md:p-8">
     <div class="flex items-center gap-5">
       <!-- Avatar -->
       <div class="relative h-16 w-16 shrink-0 md:h-20 md:w-20">
@@ -57,7 +57,7 @@
     </div>
   </div>
 
-  <div v-else class="glass-strong flex items-center gap-4 rounded-2xl p-6">
+  <div v-else class="surface-card flex items-center gap-4 rounded-2xl p-6">
     <div class="h-16 w-16 animate-pulse rounded-2xl bg-white/5" />
     <div class="flex-1 space-y-2">
       <div class="h-5 w-32 animate-pulse rounded bg-white/5" />

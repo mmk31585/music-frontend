@@ -55,7 +55,7 @@
           v-model="searchQuery"
           type="text"
           :placeholder="t('searchPlaceholder')"
-          class="h-11 w-full rounded-2xl border border-white/10 bg-white/4 px-10 text-sm text-white outline-hidden backdrop-blur-xs transition placeholder:text-slate-500 focus:border-spotify/40 focus:bg-white/6"
+          class="h-11 w-full rounded-2xl border border-white/10 bg-white/4 px-10 text-sm text-white outline-hidden transition placeholder:text-slate-500 focus:border-spotify/40 focus:bg-white/6"
           aria-label="جستجوی آهنگ"
           @input="onSearchInput"
           @keydown="onSearchKeydown"
@@ -137,7 +137,7 @@
       <h1 class="text-2xl font-black text-white">{{ t('uploadVideo') }}</h1>
 
       <!-- Selected track info card -->
-      <div class="flex items-center gap-3 rounded-2xl border border-white/8 bg-white/3 px-4 py-3 backdrop-blur-xs">
+      <div class="flex items-center gap-3 rounded-2xl border border-white/8 bg-white/3 px-4 py-3">
         <div class="h-12 w-12 shrink-0 overflow-hidden rounded-xl bg-white/10 shadow-lg">
           <img
             v-if="selectedTrack?.cover_url"
@@ -202,7 +202,7 @@
           </div>
 
           <!-- File info bar -->
-          <div class="flex w-full items-center gap-3 rounded-xl border border-white/6 bg-white/3 px-4 py-3 backdrop-blur-xs">
+          <div class="flex w-full items-center gap-3 rounded-xl border border-white/6 bg-white/3 px-4 py-3">
             <div class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-spotify/15">
               <Video aria-hidden="true" class="text-sm text-spotify"  />
             </div>
@@ -240,7 +240,7 @@
       </button>
 
       <!-- Track info card — just shows the selected track, no sync -->
-      <div v-if="selectedTrack" class="space-y-3 rounded-2xl border border-white/6 bg-white/2 px-4 py-4 backdrop-blur-xs">
+      <div v-if="selectedTrack" class="space-y-3 rounded-2xl border border-white/6 bg-white/2 px-4 py-4">
         <p class="text-xs font-medium text-white/50">{{ t('editWillUse') }}</p>
         <div class="flex items-center gap-3">
           <div class="h-10 w-10 shrink-0 overflow-hidden rounded-xl bg-white/10">
@@ -280,7 +280,7 @@
       <h1 class="text-2xl font-black text-white">{{ t('editDetails') }}</h1>
 
       <!-- Selected track summary -->
-      <div class="flex items-center gap-3 rounded-2xl border border-white/8 bg-white/3 px-4 py-3 backdrop-blur-xs">
+      <div class="flex items-center gap-3 rounded-2xl border border-white/8 bg-white/3 px-4 py-3">
         <div class="h-11 w-11 shrink-0 overflow-hidden rounded-xl bg-white/10">
           <img
             v-if="selectedTrack?.cover_url"
@@ -309,7 +309,7 @@
           maxlength="100"
           required
           :placeholder="t('titlePlaceholder')"
-          class="w-full rounded-2xl border bg-white/4 px-4 py-3 text-sm text-white outline-hidden backdrop-blur-xs transition placeholder:text-slate-500 focus:bg-white/6"
+          class="w-full rounded-2xl border bg-white/4 px-4 py-3 text-sm text-white outline-hidden transition placeholder:text-slate-500 focus:bg-white/6"
           :class="titleError ? 'border-red-400/40 focus:border-red-400/60' : 'border-white/10 focus:border-spotify/40'"
           aria-describedby="edit-title-char-count edit-title-error"
           @blur="titleTouched = true"
@@ -332,7 +332,7 @@
           maxlength="300"
           rows="3"
           :placeholder="t('descPlaceholder')"
-          class="w-full resize-none rounded-2xl border border-white/10 bg-white/4 px-4 py-3 text-sm text-white outline-hidden backdrop-blur-xs transition placeholder:text-slate-500 focus:border-spotify/40 focus:bg-white/6"
+          class="w-full resize-none rounded-2xl border border-white/10 bg-white/4 px-4 py-3 text-sm text-white outline-hidden transition placeholder:text-slate-500 focus:border-spotify/40 focus:bg-white/6"
         />
         <p class="text-left text-[10px] text-white/30 tabular-nums">{{ editDescription.length }}/300</p>
       </div>
@@ -362,7 +362,7 @@
     <Transition name="fade">
       <div
         v-if="processingState"
-        class="fixed inset-0 z-9999 flex flex-col items-center justify-center gap-4 bg-black/80 backdrop-blur-xs"
+        class="fixed inset-0 z-9999 flex flex-col items-center justify-center gap-4 bg-black/80"
         role="alertdialog"
         :aria-label="t('processing')"
       >

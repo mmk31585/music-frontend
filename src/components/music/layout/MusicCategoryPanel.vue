@@ -1,6 +1,6 @@
 <template>
   <aside
-    class="hidden h-screen w-56 shrink-0 border-x border-border-subtle bg-bg-overlay/20 backdrop-blur-2xl lg:block"
+    class="hidden h-screen w-56 shrink-0 border-x border-border-subtle bg-bg-overlay/20 lg:block"
     style="backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);"
   >
     <div class="flex h-full flex-col">

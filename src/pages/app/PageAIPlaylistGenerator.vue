@@ -33,7 +33,7 @@
           <!-- ──── LEFT: Controls ──── -->
           <div class="space-y-6 lg:col-span-2">
             <!-- Prompt Card -->
-            <div class="rounded-2xl border border-white/6 bg-white/2 p-6 backdrop-blur-xs">
+            <div class="rounded-2xl border border-white/6 surface-card p-6">
               <h2 class="mb-5 text-sm font-bold text-white">What are you in the mood for?</h2>
 
               <!-- Prompt textarea -->
@@ -123,7 +123,7 @@
             <!-- Generation History -->
             <div
               v-if="history.length"
-              class="rounded-2xl border border-white/6 bg-white/2 p-6 backdrop-blur-xs"
+              class="rounded-2xl border border-white/6 bg-white/2 p-6"
             >
               <h3 class="mb-3 flex items-center gap-2 text-[10px] font-bold tracking-[0.2em] text-white/40 uppercase">
                 <History aria-hidden="true" class=""  />
@@ -160,7 +160,7 @@
             <!-- Generating State -->
             <div
               v-if="generating"
-              class="flex flex-col items-center justify-center rounded-2xl border border-white/6 bg-linear-to-br from-spotify/5 via-aurora-purple/5 to-black/40 px-6 py-24 text-center backdrop-blur-xs"
+              class="flex flex-col items-center justify-center rounded-2xl border border-white/6 surface-card px-6 py-24 text-center"
             >
               <div class="relative mb-6">
                 <div
@@ -190,7 +190,7 @@
             <div v-else-if="result" class="space-y-5">
               <!-- Playlist Header -->
               <div
-                class="relative overflow-hidden rounded-2xl border border-white/6 bg-linear-to-br from-spotify/10 via-aurora-purple/5 to-black/40 p-8 backdrop-blur-2xl md:p-10"
+                class="relative overflow-hidden rounded-2xl border border-white/6 bg-linear-to-br from-spotify/10 via-spotify/5 to-black/40 p-8 surface-card md:p-10"
               >
                 <div class="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
                   <div
@@ -266,7 +266,7 @@
               </div>
 
               <!-- Track List -->
-              <div class="overflow-hidden rounded-2xl border border-white/6 bg-white/2 backdrop-blur-xs">
+              <div class="overflow-hidden rounded-2xl border border-white/6 surface-card">
                 <template v-if="result.tracks?.length">
                   <button
                     v-for="(track, index) in result.tracks"
@@ -325,7 +325,7 @@
             <!-- Empty / Ready State -->
             <div
               v-else
-              class="flex flex-col items-center justify-center rounded-2xl border border-dashed border-white/6 bg-linear-to-br from-white/1 to-white/2 px-6 py-24 text-center backdrop-blur-xs"
+              class="flex flex-col items-center justify-center rounded-2xl border border-dashed border-white/6 surface-card px-6 py-24 text-center"
             >
               <div
                 class="mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-linear-to-br from-spotify/20 to-aurora-purple/20"

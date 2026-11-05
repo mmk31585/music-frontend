@@ -3,7 +3,7 @@
     class="flex min-h-screen items-center justify-center bg-linear-to-br from-surface-base via-surface-overlay to-surface-base px-4"
   >
     <div
-      class="w-full max-w-xl rounded-3xl border border-white/10 bg-white/5 p-8 shadow-2xl backdrop-blur-xl"
+      class="w-full max-w-xl rounded-3xl border border-white/10 bg-white/5 p-8 shadow-2xl"
     >
       <div class="mb-8 text-center">
         <div

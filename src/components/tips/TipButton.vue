@@ -3,7 +3,7 @@
     <button
       type="button"
       @click="openDialog"
-      class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/4 px-4 py-2 text-sm font-medium text-white/60 backdrop-blur-xs transition hover:border-pink-600/30 hover:bg-pink-600/10 hover:text-pink-600"
+      class="inline-flex items-center gap-2 rounded-full border border-white/10 surface-card px-4 py-2 text-sm font-medium text-white transition hover:border-pink-600/30 hover:bg-pink-600/10 hover:text-pink-600"
     >
       <Heart aria-hidden="true" class="text-xs"  />
       Tip
@@ -12,10 +12,10 @@
     <Teleport to="body">
       <div
         v-if="visible"
-        class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 surface-card"
         @click.self="visible = false"
       >
-        <div class="glass-strong mx-4 w-full max-w-sm rounded-2xl p-6">
+        <div class="surface-card mx-4 w-full max-w-sm rounded-2xl p-6">
           <div class="flex items-center justify-between">
             <h3 class="text-lg font-bold text-white">Send a Tip</h3>
             <button aria-label="Close dialog" class="text-white/30 hover:text-white/50" @click="visible = false">

@@ -45,7 +45,7 @@
       </div>
       <div
         v-if="reason"
-        class="absolute top-2 left-2 rounded-full bg-surface-active px-2 py-0.5 text-[10px] font-medium text-primary backdrop-blur-xs"
+        class="absolute top-2 left-2 rounded-full surface-card px-2 py-0.5 text-[10px] font-medium text-primary"
       >
         {{ reason }}
       </div>

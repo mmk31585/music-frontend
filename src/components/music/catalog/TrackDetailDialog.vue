@@ -6,7 +6,7 @@
     :style="{ maxWidth: '480px', width: '92vw' }"
     :pt="{
       root: 'border-none',
-      mask: 'backdrop-blur-xs',
+      mask: 'surface-card',
       header: 'border-b border-white/5 p-0',
       title: 'text-white text-sm font-bold',
       content: 'p-0',

@@ -1,6 +1,6 @@
 <template>
   <header
-    class="sticky top-0 z-30 border-b border-border-default bg-surface-raised/70 px-4 py-3 backdrop-blur-xs md:px-6"
+    class="sticky top-0 z-30 border-b border-border-default bg-surface-raised/70 px-4 py-3 md:px-6"
   >
     <div class="flex items-center justify-between gap-4">
       <div class="flex items-center gap-3">

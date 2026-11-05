@@ -4,7 +4,7 @@
     role="alert"
     class="fixed bottom-20 inset-x-0 z-50 flex items-center justify-center pointer-events-none"
   >
-    <div class="pointer-events-auto flex items-center gap-3 rounded-2xl bg-surface-raised/90 backdrop-blur-xl px-5 py-3 shadow-2xl ring-1 ring-white/10 motion-safe:animate-fade-in-up">
+    <div class="pointer-events-auto flex items-center gap-3 rounded-2xl surface-card px-5 py-3 shadow-2xl ring-1 ring-white/10 motion-safe:animate-fade-in-up">
       <div class="flex h-8 w-8 items-center justify-center rounded-full bg-aurora-blue/20">
         <RefreshCw aria-hidden="true" class="text-xs text-aurora-blue"  />
       </div>

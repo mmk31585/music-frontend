@@ -85,7 +85,7 @@
             class="absolute inset-0 flex cursor-pointer items-center justify-center bg-black/30"
             @click="togglePlay"
           >
-            <div class="flex h-20 w-20 items-center justify-center rounded-full bg-white/5 text-white shadow-2xl backdrop-blur-2xl transition-all hover:scale-110 hover:bg-white/10 md:h-24 md:w-24">
+            <div class="flex h-20 w-20 items-center justify-center rounded-full bg-white/5 text-white shadow-2xl surface-card transition-all hover:scale-110 hover:bg-white/10 md:h-24 md:w-24">
               <Play aria-hidden="true" class="ml-1 text-4xl md:text-5xl" />
             </div>
           </div>

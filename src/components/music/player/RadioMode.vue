@@ -23,7 +23,7 @@
         <div class="relative z-10 flex items-center justify-between px-5 pt-5 pb-3">
           <button
             type="button"
-            class="spring flex h-10 w-10 items-center justify-center rounded-full text-secondary backdrop-blur-xs transition-all hover:bg-surface-active hover:text-primary"
+            class="spring flex h-10 w-10 items-center justify-center rounded-full text-secondary transition-all hover:bg-surface-active hover:text-primary"
             aria-label="بستن رادیو"
             title="رادیو متوقف می‌شه"
             @click="close"
@@ -37,7 +37,7 @@
           </div>
           <button
             type="button"
-            class="spring flex h-10 w-10 items-center justify-center rounded-full text-secondary backdrop-blur-xs transition-all hover:bg-surface-active hover:text-primary"
+            class="spring flex h-10 w-10 items-center justify-center rounded-full text-secondary transition-all hover:bg-surface-active hover:text-primary"
             :disabled="!canSkip"
             aria-label="آهنگ بعدی"
             @click="skipTrack"

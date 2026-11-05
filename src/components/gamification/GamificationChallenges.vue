@@ -1,5 +1,5 @@
 <template>
-  <div class="glass-strong rounded-2xl p-6 md:p-8">
+  <div class="surface-card rounded-2xl p-6 md:p-8">
     <div class="mb-6 flex items-center justify-between">
       <h3 class="text-lg font-bold text-white">Challenges</h3>
       <span class="rounded-full bg-spotify/10 px-2.5 py-0.5 text-xs font-medium text-spotify">

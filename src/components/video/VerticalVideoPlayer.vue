@@ -17,7 +17,7 @@
         >
           <button
             type="button"
-            class="pointer-events-auto flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-xs transition hover:bg-white/20"
+            class="pointer-events-auto flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white surface-card transition hover:bg-white/20"
             aria-label="Close"
             @click="handleClose"
           >
@@ -26,7 +26,7 @@
 
           <button
             type="button"
-            class="pointer-events-auto flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-xs transition hover:bg-white/20"
+            class="pointer-events-auto flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white surface-card transition hover:bg-white/20"
             aria-label="More options"
             @click="openOverflowMenu"
           >
@@ -46,7 +46,7 @@
       <button
         v-if="hasPrevious && !isTransitioning"
         type="button"
-        class="absolute top-1/2 left-4 z-20 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-xs transition hover:bg-white/20 md:flex"
+        class="absolute top-1/2 left-4 z-20 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-white surface-card transition hover:bg-white/20 md:flex"
         aria-label="Previous video"
         @click="goToPrevious"
       >
@@ -55,7 +55,7 @@
       <button
         v-if="hasNext && !isTransitioning"
         type="button"
-        class="absolute top-1/2 right-4 z-20 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-white backdrop-blur-xs transition hover:bg-white/20 md:flex"
+        class="absolute top-1/2 right-4 z-20 hidden h-12 w-12 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-white surface-card transition hover:bg-white/20 md:flex"
         aria-label="Next video"
         @click="goToNext"
       >
@@ -120,7 +120,7 @@
             v-if="showSwipeHint && hasNext"
             class="absolute bottom-20 left-1/2 z-20 -translate-x-1/2 animate-bounce"
           >
-            <div class="flex flex-col items-center gap-1 rounded-full bg-black/40 px-4 py-2 backdrop-blur-xs">
+            <div class="flex flex-col items-center gap-1 rounded-full bg-black/40 px-4 py-2 surface-card">
               <ChevronDown aria-hidden="true" class="text-sm text-white/60"  />
               <span class="text-[10px] font-medium text-white/40">Swipe for more</span>
             </div>
@@ -134,7 +134,7 @@
         <div class="flex flex-col items-center gap-1">
           <button
             type="button"
-            class="like-btn flex h-11 w-11 items-center justify-center rounded-full text-lg backdrop-blur-xs transition-all duration-150"
+            class="like-btn flex h-11 w-11 items-center justify-center rounded-full text-lg surface-card transition-all duration-150"
             :class="isLiked ? 'bg-spotify/20 text-spotify' : 'bg-white/10 text-white hover:bg-white/20'"
             :style="{ transform: `scale(${likeScale})` }"
             @click.stop="toggleLike"
@@ -149,7 +149,7 @@
         <div class="flex flex-col items-center gap-1">
           <button
             type="button"
-            class="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-xs transition hover:bg-white/20"
+            class="flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white surface-card transition hover:bg-white/20"
             aria-label="Comments"
             @click.stop="showComments = !showComments"
           >
@@ -183,7 +183,7 @@
           v-if="showMuteIndicator"
           class="pointer-events-none absolute top-1/2 left-1/2 z-20 -translate-x-1/2 -translate-y-1/2"
         >
-          <div class="flex h-16 w-16 items-center justify-center rounded-full bg-black/50 backdrop-blur-xs">
+          <div class="flex h-16 w-16 items-center justify-center rounded-full bg-black/50 surface-card">
             <component :is="isMuted ? VolumeOff : Volume2"<i aria-hidden="true"  class="text-2xl text-white" /> />
           </div>
         </div>
@@ -223,7 +223,7 @@
       <Transition name="slide-up">
         <div
           v-if="showComments"
-          class="absolute inset-0 z-30 flex flex-col bg-surface-base/95 backdrop-blur-xl"
+          class="absolute inset-0 z-30 flex flex-col surface-card shadow-floating"
         >
           <div class="flex items-center justify-between border-b border-white/6 px-4 py-3">
             <h3 class="text-sm font-bold text-white">Comments</h3>

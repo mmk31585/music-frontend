@@ -3,7 +3,7 @@
     <Transition name="track-picker-fade">
       <div
         v-if="visible"
-        class="fixed inset-0 z-[100] flex items-start justify-center bg-black/70 pt-16 backdrop-blur-xs md:pt-24"
+        class="fixed inset-0 z-[100] flex items-start justify-center bg-black/60 surface-card pt-16 md:pt-24"
         @click.self="close"
       >
         <div

@@ -25,7 +25,7 @@
     <Transition name="fade-scale">
       <div
         v-if="showQueuePreview"
-        class="absolute bottom-full right-0 mb-2 z-99 w-72 origin-bottom-right rounded-2xl border border-border-default p-2 shadow-floating glass-strong"
+        class="absolute bottom-full right-0 mb-2 z-99 w-72 origin-bottom-right rounded-2xl border border-border-default p-2 shadow-floating surface-card"
       >
         <!-- Now Playing -->
         <div class="mb-2 px-2 pt-1">

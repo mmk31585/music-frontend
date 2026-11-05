@@ -9,7 +9,7 @@
         <div class="flex items-center gap-2">
           <button
             type="button"
-            class="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/4 px-3 py-1.5 text-xs font-medium text-white/60 backdrop-blur-xs transition hover:bg-white/8 disabled:opacity-40"
+            class="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/4 px-3 py-1.5 text-xs font-medium text-white/60 transition hover:bg-white/8 disabled:opacity-40"
             :disabled="refreshing"
             @click="refreshAll"
           >
@@ -329,7 +329,7 @@
         <!-- Metric cards -->
         <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
           <div
-            class="rounded-2xl bg-white/4 p-5 backdrop-blur-xs transition hover:bg-white/6"
+            class="rounded-2xl bg-white/4 p-5 transition hover:bg-white/6"
           >
             <p class="text-[10px] font-medium tracking-wider text-white/30 uppercase">
               Total Reports
@@ -339,7 +339,7 @@
             </p>
           </div>
           <div
-            class="rounded-2xl bg-white/4 p-5 backdrop-blur-xs transition hover:bg-white/6"
+            class="rounded-2xl bg-white/4 p-5 transition hover:bg-white/6"
           >
             <p class="text-[10px] font-medium tracking-wider text-white/30 uppercase">Pending</p>
             <p class="mt-2 text-3xl font-black text-red-400 tabular-nums">
@@ -347,7 +347,7 @@
             </p>
           </div>
           <div
-            class="rounded-2xl bg-white/4 p-5 backdrop-blur-xs transition hover:bg-white/6"
+            class="rounded-2xl bg-white/4 p-5 transition hover:bg-white/6"
           >
             <p class="text-[10px] font-medium tracking-wider text-white/30 uppercase">
               Resolved Today
@@ -357,7 +357,7 @@
             </p>
           </div>
           <div
-            class="rounded-2xl bg-white/4 p-5 backdrop-blur-xs transition hover:bg-white/6"
+            class="rounded-2xl bg-white/4 p-5 transition hover:bg-white/6"
           >
             <p class="text-[10px] font-medium tracking-wider text-white/30 uppercase">
               Flagged Content
@@ -370,7 +370,7 @@
 
         <div class="grid grid-cols-2 gap-4 md:grid-cols-3">
           <div
-            class="rounded-2xl bg-white/4 p-5 backdrop-blur-xs transition hover:bg-white/6"
+            class="rounded-2xl bg-white/4 p-5 transition hover:bg-white/6"
           >
             <p class="text-[10px] font-medium tracking-wider text-white/30 uppercase">
               Unique Reporters
@@ -380,7 +380,7 @@
             </p>
           </div>
           <div
-            class="rounded-2xl bg-white/4 p-5 backdrop-blur-xs transition hover:bg-white/6"
+            class="rounded-2xl bg-white/4 p-5 transition hover:bg-white/6"
           >
             <p class="text-[10px] font-medium tracking-wider text-white/30 uppercase">
               Avg Resolution
@@ -450,7 +450,7 @@
         header: { class: 'bg-transparent! border-0! pb-2!' },
         content: { class: 'bg-transparent! px-6! pt-0! pb-2!' },
         footer: { class: 'bg-transparent! border-0!' },
-        mask: { class: 'backdrop-blur-xs!' },
+        mask: { class: 'surface-card!' },
       }"
     >
       <template #header>

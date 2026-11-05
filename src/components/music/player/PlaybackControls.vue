@@ -34,7 +34,7 @@
             ref="shuffleMenuRef"
             role="menu"
             aria-label="Select shuffle mode"
-            class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-60 min-w-[150px] rounded-xl border border-white/10 bg-surface-raised p-1.5 shadow-[0_8px_32px_rgba(0,0,0,0.6)] backdrop-blur-2xl"
+            class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-60 min-w-[150px] rounded-xl border border-white/10 bg-surface-raised p-1.5 shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
             style="backdrop-filter: blur(24px);"
             @keydown="onMenuKeydown($event, 'shuffle')"
           >
@@ -129,7 +129,7 @@
             ref="repeatMenuRef"
             role="menu"
             aria-label="Select repeat mode"
-            class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-60 min-w-[130px] rounded-xl border border-white/10 bg-surface-raised p-1.5 shadow-[0_8px_32px_rgba(0,0,0,0.6)] backdrop-blur-2xl"
+            class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-60 min-w-[130px] rounded-xl border border-white/10 bg-surface-raised p-1.5 shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
             style="backdrop-filter: blur(24px);"
             @keydown="onMenuKeydown($event, 'repeat')"
           >

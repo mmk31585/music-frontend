@@ -336,7 +336,7 @@
                   class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition group-hover:opacity-100"
                 >
                   <div
-                    class="flex h-12 w-12 items-center justify-center rounded-full bg-spotify/90 text-black shadow-xl backdrop-blur-xs transition-transform group-hover:scale-110"
+                    class="flex h-12 w-12 items-center justify-center rounded-full bg-spotify/90 text-black shadow-xl transition-transform group-hover:scale-110"
                   >
                     <Play aria-hidden="true" class="text-lg"  />
                   </div>

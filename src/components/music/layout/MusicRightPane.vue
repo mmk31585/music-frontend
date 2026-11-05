@@ -1,6 +1,6 @@
 <template>
   <aside
-    class="hidden h-screen shrink-0 border-e border-border-subtle bg-surface-raised/40 backdrop-blur-2xl xl:flex xl:flex-col transition-all duration-300 ease-out-expo z-30"
+    class="hidden h-screen shrink-0 border-e border-border-subtle bg-surface-raised/40 xl:flex xl:flex-col transition-all duration-300 ease-out-expo z-30"
     :class="collapsed ? 'w-14 items-center' : 'w-88'"
   >
     <div class="flex h-full flex-col overflow-hidden" :class="collapsed ? 'items-center' : ''">

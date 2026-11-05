@@ -21,7 +21,7 @@
       <!-- Status badge (for processing/failed) -->
       <div
         v-if="video.status && video.status !== 'ready'"
-        class="absolute top-2 left-2 z-10 flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold backdrop-blur-xs"
+        class="absolute top-2 left-2 z-10 flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold surface-card"
         :class="statusBadgeClass"
       >
         <Loader2 aria-hidden="true" v-if="video.status === 'processing'" class="text-[10px] animate-spin" />
@@ -31,7 +31,7 @@
 
       <!-- Type badge -->
       <div
-        class="absolute top-2 right-2 flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold backdrop-blur-xs"
+        class="absolute top-2 right-2 flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold surface-card"
         :class="typeBadgeClass"
       >
         <i aria-hidden="true" :class="typeIcon" class="text-[10px]" />
@@ -52,7 +52,7 @@
         </div>
 
         <div
-          class="flex h-7 w-7 items-center justify-center rounded-full bg-black/50 text-white opacity-0 backdrop-blur-xs transition-opacity duration-150 group-hover:opacity-100"
+          class="flex h-7 w-7 items-center justify-center rounded-full bg-black/50 text-white opacity-0 surface-card transition-opacity duration-150 group-hover:opacity-100"
         >
           <Play aria-hidden="true" class="text-xs"  />
         </div>

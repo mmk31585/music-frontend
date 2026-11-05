@@ -93,7 +93,7 @@
       <!-- Top Tracks -->
       <section v-if="stats.top_tracks.length" class="mt-10">
         <h2 class="mb-5 text-2xl font-black text-white">پرشنیده‌ترین‌های تو</h2>
-        <div class="overflow-hidden rounded-3xl border border-white/10 bg-black/20 p-2 backdrop-blur-xs">
+        <div class="overflow-hidden rounded-3xl border border-white/10 bg-black/20 p-2">
           <div
             v-for="(track, i) in stats.top_tracks"
             :key="track.track_id"
@@ -115,7 +115,7 @@
       <!-- Top Artists -->
       <section v-if="stats.top_artists.length" class="mt-10">
         <h2 class="mb-5 text-2xl font-black text-white">خواننده‌های محبوبت</h2>
-        <div class="overflow-hidden rounded-3xl border border-white/10 bg-black/20 p-2 backdrop-blur-xs">
+        <div class="overflow-hidden rounded-3xl border border-white/10 bg-black/20 p-2">
           <div
             v-for="(artist, i) in stats.top_artists"
             :key="artist.artist_id"

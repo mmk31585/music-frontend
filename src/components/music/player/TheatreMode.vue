@@ -10,14 +10,14 @@
         tabindex="0"
       >
         <!-- Dimmed overlay -->
-        <div class="pointer-events-none absolute inset-0 bg-bg-overlay/40 backdrop-blur-xs" />
+        <div class="pointer-events-none absolute inset-0 bg-bg-overlay/40" />
 
         <div class="relative z-10 flex w-full flex-col">
           <!-- Top bar -->
           <div class="flex items-center justify-between px-5 pt-5 pb-3">
             <button
               type="button"
-              class="spring flex h-10 w-10 items-center justify-center rounded-full text-secondary backdrop-blur-xs transition-all hover:bg-surface-active hover:text-primary"
+              class="spring flex h-10 w-10 items-center justify-center rounded-full text-secondary transition-all hover:bg-surface-active hover:text-primary"
               aria-label="Close"
               @click="close"
             >
@@ -32,7 +32,7 @@
             </div>
               <button
                 type="button"
-                class="spring flex h-10 w-10 items-center justify-center rounded-full text-secondary backdrop-blur-xs transition-all hover:bg-surface-active hover:text-primary"
+                class="spring flex h-10 w-10 items-center justify-center rounded-full text-secondary transition-all hover:bg-surface-active hover:text-primary"
                 :class="{ 'bg-accent-subtle! text-accent!': karaokeMode }"
                 aria-label="Toggle karaoke"
                 @click="karaokeMode = !karaokeMode"

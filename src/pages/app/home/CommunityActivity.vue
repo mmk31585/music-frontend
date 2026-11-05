@@ -8,7 +8,7 @@
       <div
         v-for="(item, i) in items.slice(0, 6)"
         :key="i"
-        class="w-44 shrink-0 rounded-2xl border border-white/[4%] bg-white/[2%] p-4 backdrop-blur-xs"
+        class="w-44 shrink-0 rounded-2xl border border-white/[4%] bg-white/[2%] p-4"
         @contextmenu.prevent="openContextMenu($event, item, i)"
       >
         <div class="flex items-center gap-2">

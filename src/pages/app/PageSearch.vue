@@ -65,7 +65,7 @@
     <Transition name="fade">
       <div
         v-if="showRecent && !query && recentSearches.length && !hasSearched && !searching"
-        class="mb-6 rounded-2xl border border-white/6 bg-white/2 p-4 backdrop-blur-xs"
+        class="mb-6 rounded-2xl border border-white/6 surface-card p-4"
         @mouseenter="showRecent = true"
         @mouseleave="showRecent = false"
       >

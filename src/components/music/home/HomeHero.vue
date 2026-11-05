@@ -35,11 +35,11 @@
     </div>
     <div class="absolute inset-0 bg-linear-to-l from-transparent via-black/40 to-black/80" />
 
-    <!-- Frosted glass card overlay -->
+    <!-- Frosted card overlay -->
     <div class="relative z-10 flex h-full items-center px-6 md:px-10">
       <div class="flex w-full items-center justify-between">
         <div
-          class="max-w-lg rounded-2xl border border-white/10 bg-black/30 px-8 py-8 backdrop-blur-xl shadow-2xl"
+          class="max-w-lg rounded-2xl border border-white/10 bg-black/30 px-8 py-8 shadow-2xl"
           style="backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);"
           :style="{
             opacity: slideVisible ? 1 : 0,
@@ -71,7 +71,7 @@
             </button>
             <button
               type="button"
-              class="inline-flex h-12 cursor-pointer items-center gap-2 rounded-full border border-white/15 bg-white/4 px-6 text-base font-medium text-white backdrop-blur-xs transition-all hover:bg-white/10 active:scale-95 focus-visible:ring-2 focus-visible:ring-spotify focus-visible:ring-offset-2 focus-visible:outline-hidden"
+              class="inline-flex h-12 cursor-pointer items-center gap-2 rounded-full border border-white/15 bg-white/4 px-6 text-base font-medium text-white transition-all hover:bg-white/10 active:scale-95 focus-visible:ring-2 focus-visible:ring-spotify focus-visible:ring-offset-2 focus-visible:outline-hidden"
               @click="$emit('add-to-library', currentItem)"
             >
               <Plus aria-hidden="true" class="text-sm"  />
@@ -100,7 +100,7 @@
     <!-- Arrow buttons -->
     <button
       type="button"
-      class="absolute top-1/2 right-4 z-20 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-black/60 text-white backdrop-blur-xs transition hover:bg-white/10 md:flex"
+      class="absolute top-1/2 right-4 z-20 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-black/60 text-white transition hover:bg-white/10 md:flex"
       :class="showArrows ? 'opacity-100' : 'opacity-0'"
       aria-label="اسلاید قبلی"
       @click="prev"
@@ -109,7 +109,7 @@
     </button>
     <button
       type="button"
-      class="absolute top-1/2 left-4 z-20 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-black/60 text-white backdrop-blur-xs transition hover:bg-white/10 md:flex"
+      class="absolute top-1/2 left-4 z-20 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-black/60 text-white transition hover:bg-white/10 md:flex"
       :class="showArrows ? 'opacity-100' : 'opacity-0'"
       aria-label="اسلاید بعدی"
       @click="next"
@@ -136,7 +136,7 @@
     <!-- Pause auto-rotate button -->
     <button
       type="button"
-      class="absolute top-4 left-4 z-20 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-black/40 text-white/60 backdrop-blur-xs transition hover:bg-white/10"
+      class="absolute top-4 left-4 z-20 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-black/40 text-white/60 transition hover:bg-white/10"
       :aria-label="autoRotating ? 'توقف چرخش خودکار' : 'شروع چرخش خودکار'"
       @click="toggleAutoRotate"
     >

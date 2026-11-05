@@ -1,5 +1,5 @@
 <template>
-  <div v-if="musicStatus?.playing" class="glass-strong rounded-full px-3 py-1.5 flex items-center gap-2">
+  <div v-if="musicStatus?.playing" class="surface-card rounded-full px-3 py-1.5 flex items-center gap-2">
     <template v-if="musicStatus.currentTrack">
       <img
         v-if="musicStatus.currentTrack.coverUrl"
@@ -63,7 +63,7 @@ defineEmits<{
 </script>
 
 <style scoped>
-.glass-strong {
+.surface-card {
   background: rgba(18,18,18,0.8);
   backdrop-filter: blur(28px);
 }

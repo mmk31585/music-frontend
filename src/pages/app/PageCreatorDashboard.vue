@@ -48,7 +48,7 @@
               type="button"
               :disabled="refreshing"
               @click="refreshStats"
-              class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/4 px-5 py-2.5 text-sm font-medium text-white backdrop-blur-xs transition hover:bg-white/10 disabled:opacity-50"
+              class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/4 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-white/10 disabled:opacity-50"
             >
               <component :is="refreshing ? Loader2 : RefreshCw"<i aria-hidden="true"  /> :class="refreshing ? 'animate-spin' : ''" />
               {{ refreshing ? 'RefreshCwing...' : 'RefreshCw' }}
@@ -416,10 +416,10 @@
     <Teleport to="body">
       <div
         v-if="showTrackModal"
-        class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black/60"
         @click.self="showTrackModal = false"
       >
-        <div class="glass-strong mx-4 w-full max-w-lg rounded-2xl p-8">
+        <div class="surface-dialog mx-4 w-full max-w-lg rounded-2xl p-8">
           <h2 class="mb-6 text-xl font-bold text-white">Edit Track</h2>
           <div v-if="editTrack" class="space-y-4">
             <div>

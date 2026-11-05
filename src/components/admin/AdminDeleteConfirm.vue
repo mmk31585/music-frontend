@@ -10,7 +10,7 @@
       header: { class: 'bg-transparent! border-0! pb-0!' },
       content: { class: 'bg-transparent! pt-0!' },
       footer: { class: 'bg-transparent! border-0!' },
-      mask: { class: 'backdrop-blur-xs!' },
+      mask: { class: 'surface-card!' },
     }"
   >
     <template #header>

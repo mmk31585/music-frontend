@@ -13,7 +13,7 @@
       <section class="relative overflow-hidden px-4 pt-8 md:px-6 lg:px-8">
         <div class="mx-auto max-w-7xl">
           <div
-            class="relative rounded-3xl border border-white/6 bg-linear-to-br from-spotify/10 via-aurora-purple/5 to-black/40 p-8 backdrop-blur-2xl md:p-14"
+            class="relative rounded-3xl border border-white/6 bg-linear-to-br from-spotify/10 via-aurora-purple/5 to-black/40 p-8 md:p-14"
           >
             <!-- Aurora overlay -->
             <div class="pointer-events-none absolute inset-0 overflow-hidden rounded-3xl">
@@ -312,7 +312,7 @@
             <!-- Card content -->
             <div class="relative">
               <div
-                class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl text-lg backdrop-blur-xs"
+                class="mb-4 flex h-12 w-12 items-center justify-center rounded-xl text-lg"
                 :class="card.iconBg"
               >
                 <i aria-hidden="true" :class="card.icon" class="relative z-10" />
@@ -388,7 +388,7 @@
                 </div>
                 <!-- Play overlay -->
                 <div
-                  class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 backdrop-blur-xs transition-all duration-300 group-hover:opacity-100"
+                  class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-all duration-300 group-hover:opacity-100"
                 >
                   <div
                     class="flex h-12 w-12 items-center justify-center rounded-full bg-spotify/90 text-black shadow-xl shadow-spotify/20 transition-transform duration-300 group-hover:scale-105"
@@ -399,7 +399,7 @@
                 <!-- AI Reason Chip -->
                 <div
                   v-if="track.genre"
-                  class="absolute top-2 left-2 rounded-full bg-black/60 px-2 py-0.5 text-[9px] font-medium text-white/70 backdrop-blur-xs"
+                  class="absolute top-2 left-2 rounded-full bg-black/60 px-2 py-0.5 text-[9px] font-medium text-white/70"
                 >
                   {{ track.genre }}
                 </div>
@@ -453,7 +453,7 @@
                   <Music aria-hidden="true" class="text-2xl text-white/20"  />
                 </div>
                 <div
-                  class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 backdrop-blur-xs transition-all duration-300 group-hover:opacity-100"
+                  class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-all duration-300 group-hover:opacity-100"
                 >
                   <div
                     class="flex h-12 w-12 items-center justify-center rounded-full bg-aurora-purple/90 text-white shadow-xl shadow-aurora-purple/20 transition-transform duration-300 group-hover:scale-105"
@@ -462,7 +462,7 @@
                   </div>
                 </div>
                 <div
-                  class="absolute top-2 left-2 rounded-full bg-aurora-purple/30 px-2 py-0.5 text-[9px] font-medium text-white/80 backdrop-blur-xs"
+                  class="absolute top-2 left-2 rounded-full bg-aurora-purple/30 px-2 py-0.5 text-[9px] font-medium text-white/80"
                 >
                   <Zap aria-hidden="true" class="mr-0.5 text-[8px]"  />
                   Similar
@@ -484,7 +484,7 @@
       >
         <div class="mx-auto max-w-7xl">
           <div
-            class="relative overflow-hidden rounded-2xl border border-white/6 bg-linear-to-br from-aurora-purple/10 via-spotify/5 to-black/40 p-8 backdrop-blur-2xl md:p-10"
+            class="relative overflow-hidden rounded-2xl border border-white/6 bg-linear-to-br from-aurora-purple/10 via-spotify/5 to-black/40 p-8 md:p-10"
           >
             <div class="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
               <div
@@ -595,7 +595,7 @@
           </div>
           <div
             v-else
-            class="overflow-hidden rounded-2xl border border-white/6 bg-white/2 backdrop-blur-xs"
+            class="overflow-hidden rounded-2xl border border-white/6 bg-white/2"
           >
             <button
               v-for="(track, index) in popularTracks"

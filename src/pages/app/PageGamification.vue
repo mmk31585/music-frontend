@@ -9,7 +9,7 @@
     </div>
 
     <!-- Profile & Stats -->
-    <div class="glass-strong rounded-2xl p-6 md:p-8">
+    <div class="surface-card rounded-2xl p-6 md:p-8">
       <div class="flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
         <!-- User Profile -->
         <div class="flex flex-1 items-center gap-4">

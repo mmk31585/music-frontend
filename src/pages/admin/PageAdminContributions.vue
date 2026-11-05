@@ -12,7 +12,7 @@
           >
           <button
             type="button"
-            class="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/4 px-3 py-1.5 text-xs font-medium text-white/60 backdrop-blur-xs transition hover:bg-white/8 disabled:opacity-40"
+            class="inline-flex items-center gap-1.5 rounded-lg border border-white/10 bg-white/4 px-3 py-1.5 text-xs font-medium text-white/60 transition hover:bg-white/8 disabled:opacity-40"
             :disabled="loading"
             @click="refreshAll"
           >
@@ -314,7 +314,7 @@
         header: { class: 'bg-transparent! border-0! pb-2!' },
         content: { class: 'bg-transparent! px-6! pt-0! pb-2!' },
         footer: { class: 'bg-transparent! border-0!' },
-        mask: { class: 'backdrop-blur-xs!' },
+        mask: { class: 'surface-card!' },
       }"
     >
       <template #header>

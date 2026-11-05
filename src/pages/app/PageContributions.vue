@@ -91,7 +91,7 @@
 
       <div
         v-else-if="myContributions.length === 0"
-        class="glass-strong flex flex-col items-center gap-3 rounded-2xl py-12 text-center"
+        class="surface-card flex flex-col items-center gap-3 rounded-2xl py-12 text-center"
       >
         <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/5">
           <Inbox aria-hidden="true" class="text-2xl text-white/15"  />
@@ -110,7 +110,7 @@
         <div
           v-for="c in myContributions"
           :key="c.id"
-          class="contribution-card glass-strong spring rounded-2xl p-5 transition-all hover:bg-white/6"
+          class="contribution-card surface-card spring rounded-2xl p-5 transition-all hover:bg-white/6"
         >
           <div class="flex items-start justify-between gap-4">
             <div class="min-w-0 flex-1">
@@ -200,7 +200,7 @@
 
       <div
         v-else-if="pendingItems.length === 0"
-        class="glass-strong flex flex-col items-center gap-3 rounded-2xl py-12 text-center"
+        class="surface-card flex flex-col items-center gap-3 rounded-2xl py-12 text-center"
       >
         <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/5">
           <CheckCircle class="text-2xl text-white/15"<i aria-hidden="true"  /> />
@@ -209,7 +209,7 @@
       </div>
 
       <div v-else class="space-y-3">
-        <div v-for="c in pendingItems" :key="c.id" class="glass-strong rounded-2xl p-5">
+        <div v-for="c in pendingItems" :key="c.id" class="surface-card rounded-2xl p-5">
           <div class="mb-3 flex items-center gap-2">
             <span
               class="rounded-lg px-2 py-0.5 text-[10px] font-semibold tracking-wider uppercase"

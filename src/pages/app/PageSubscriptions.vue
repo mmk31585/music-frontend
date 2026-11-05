@@ -140,10 +140,10 @@
     <Teleport to="body">
       <div
         v-if="showCheckout"
-        class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs"
+        class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 surface-card"
         @click.self="showCheckout = false"
       >
-        <div class="glass-strong mx-4 w-full max-w-md rounded-2xl p-8 text-center">
+        <div class="surface-dialog mx-4 w-full max-w-md rounded-2xl p-8 text-center">
           <ExternalLink aria-hidden="true" class="text-4xl text-spotify"  />
           <h3 class="mt-4 text-xl font-bold text-white">Redirecting to Payment</h3>
           <p class="mt-2 text-sm text-white/40">

@@ -72,7 +72,7 @@
     <!-- Karaoke badge -->
     <div v-if="karaoke && content" class="absolute top-4 left-1/2 z-20 -translate-x-1/2">
       <span
-        class="inline-flex items-center gap-1.5 rounded-full border border-spotify/20 bg-spotify/10 px-3 py-1 text-[10px] font-bold tracking-wider text-spotify uppercase backdrop-blur-xs"
+        class="inline-flex items-center gap-1.5 rounded-full border border-spotify/20 bg-spotify/10 px-3 py-1 text-[10px] font-bold tracking-wider text-spotify uppercase"
       >
         <span class="glow-spread flex h-1.5 w-1.5 rounded-full bg-spotify" />
         Karaoke

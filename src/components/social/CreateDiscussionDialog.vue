@@ -2,10 +2,10 @@
   <Teleport to="body">
     <div
       v-if="visible"
-      class="fixed inset-0 z-50 flex items-center justify-center bg-bg-overlay/60 backdrop-blur-xs"
+      class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 surface-card"
       @click.self="emit('close')"
     >
-      <div class="glass-strong mx-4 w-full max-w-lg rounded-2xl p-8">
+      <div class="surface-dialog mx-4 w-full max-w-lg rounded-2xl p-8">
         <h2 class="mb-6 text-xl font-bold text-primary">بحث جدید</h2>
 
         <div class="space-y-4">

@@ -6,7 +6,7 @@
         role="dialog"
         aria-modal="true"
         aria-label="Keyboard Shortcuts"
-        class="fixed inset-0 z-[300] flex items-center justify-center bg-bg-overlay/60 backdrop-blur-xs"
+        class="fixed inset-0 z-[300] flex items-center justify-center bg-bg-overlay/60"
         @click.self="visible = false"
         @keydown.escape="visible = false"
       >

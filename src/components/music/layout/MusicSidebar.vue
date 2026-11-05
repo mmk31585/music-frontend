@@ -1,7 +1,7 @@
 <template>
   <nav
     aria-label="Main navigation"
-    class="hidden h-screen w-[260px] shrink-0 border-r border-border-subtle bg-surface-raised/60 backdrop-blur-2xl lg:flex lg:flex-col"
+    class="hidden h-screen w-[260px] shrink-0 border-r border-border-subtle bg-surface-raised/60 lg:flex lg:flex-col"
   >
     <div class="flex shrink-0 flex-col px-4 pb-4 pt-4">
       <SidebarLogo />

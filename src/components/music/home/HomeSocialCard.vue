@@ -1,5 +1,5 @@
 <template>
-  <div class="w-48 shrink-0 rounded-2xl border border-border-subtle bg-surface-overlay/60 p-4 backdrop-blur-xs">
+  <div class="w-48 shrink-0 rounded-2xl border border-border-subtle bg-surface-overlay/60 p-4">
     <div class="flex items-center gap-2">
       <div
         class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-linear-to-br from-accent to-aurora-blue text-sm font-bold text-primary"

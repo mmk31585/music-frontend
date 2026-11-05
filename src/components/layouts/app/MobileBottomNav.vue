@@ -1,7 +1,7 @@
 <template>
   <nav
     aria-label="Main navigation"
-    class="fixed inset-x-0 bottom-0 z-40 border-t border-border-default bg-surface-2 shadow-lg lg:hidden"
+    class="fixed inset-x-0 bottom-0 z-40 border-t border-border-default bg-surface-1 shadow-lg lg:hidden"
     style="padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0.75rem))"
   >
     <div class="flex items-center justify-around px-2 pt-2">
@@ -9,21 +9,14 @@
         v-for="tab in tabs"
         :key="tab.to"
         :to="tab.to"
-        class="flex flex-col items-center gap-0.5 rounded-xl px-2.5 py-1.5 text-[10px] font-medium transition-all duration-200"
+        class="flex flex-col items-center gap-0.5 rounded-xl px-2.5 py-1.5 text-[10px] font-medium transition-colors duration-200"
         :class="
           isActive(tab.to)
-            ? 'bg-accent/15 text-accent'
-            : 'text-muted hover:text-secondary hover:bg-white/5'
+            ? 'bg-accent/15 text-accent ring-1 ring-accent/20'
+            : 'text-muted hover:bg-surface-hover hover:text-secondary'
         "
       >
-        <div
-          class="flex h-10 w-10 items-center justify-center rounded-xl transition-all duration-200"
-          :class="
-            isActive(tab.to)
-              ? 'bg-accent/20 text-accent ring-1 ring-accent/20'
-              : ''
-          "
-        >
+        <div class="flex h-10 w-10 items-center justify-center rounded-xl transition-all duration-200">
           <i aria-hidden="true" :class="tab.icon" class="text-lg" />
         </div>
         <span>{{ tab.label }}</span>

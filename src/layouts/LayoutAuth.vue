@@ -4,7 +4,7 @@
     <div
       v-if="!isOnline"
       role="alert"
-      class="fixed top-0 left-0 right-0 z-9999 flex items-center justify-center gap-2 bg-red-600/90 px-4 py-2 text-sm font-medium text-white backdrop-blur-xs"
+      class="fixed top-0 left-0 right-0 z-9999 flex items-center justify-center gap-2 bg-red-600/90 px-4 py-2 text-sm font-medium text-white"
       style="padding-top: max(0.5rem, env(safe-area-inset-top, 0.5rem))"
     >
       <Wifi class="text-xs" aria-hidden="true"  />

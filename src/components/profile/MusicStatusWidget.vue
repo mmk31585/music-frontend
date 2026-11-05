@@ -1,6 +1,6 @@
 <template>
   <div
-    class="overflow-hidden rounded-2xl border border-white/6 bg-white/2 backdrop-blur-xs"
+    class="overflow-hidden rounded-2xl border border-white/6 bg-white/2"
     dir="rtl"
   >
     <!-- Header -->
@@ -30,7 +30,7 @@
       </div>
 
       <!-- Playing track (owner or visible visitor) -->
-      <div v-else-if="currentTrackData" class="flex items-center gap-3 rounded-xl px-3 py-3 backdrop-blur-xs">
+      <div v-else-if="currentTrackData" class="flex items-center gap-3 rounded-xl px-3 py-3">
         <!-- Album art -->
         <div class="h-11 w-11 shrink-0 overflow-hidden rounded-lg bg-white/10">
           <img
@@ -58,7 +58,7 @@
         <button
           v-if="!isOwnProfile"
           type="button"
-          class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/10 text-white backdrop-blur-xs transition hover:bg-spotify hover:text-black"
+          class="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-white/10 text-white transition hover:bg-spotify hover:text-black"
           @click="playTrack"
           aria-label="Play track"
         >

@@ -8,7 +8,7 @@
         :style="sheetStyle"
       >
         <!-- Background with dynamic album color -->
-        <div class="absolute inset-0 backdrop-blur-2xl" :style="{ background: bgGradient }" />
+        <div class="absolute inset-0" :style="{ background: bgGradient }" />
         <div class="absolute inset-0 bg-bg-overlay/40" />
 
         <!-- Drag handle (44px min touch target for WCAG 2.5.8) -->

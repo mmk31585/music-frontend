@@ -61,7 +61,7 @@
 
           <button
             type="button"
-            class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-8 py-3 text-sm font-bold text-white backdrop-blur-xs transition hover:bg-white/15"
+            class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-8 py-3 text-sm font-bold text-white transition hover:bg-white/15"
             @click="$emit('shuffle')"
           >
             <Shuffle aria-hidden="true" class=""  />

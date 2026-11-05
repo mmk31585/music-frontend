@@ -12,7 +12,7 @@
         <!-- HERO — Your Library                      -->
         <!-- ════════════════════════════════════════ -->
         <section
-          class="relative overflow-hidden rounded-3xl border border-white/6 bg-linear-to-br from-spotify/10 via-surface-overlay to-black/60 p-8 backdrop-blur-2xl md:p-12"
+          class="relative overflow-hidden rounded-3xl border border-white/6 bg-linear-to-br from-spotify/10 via-surface-overlay to-black/60 p-8 md:p-12"
         >
           <div class="pointer-events-none absolute inset-0 overflow-hidden rounded-3xl">
             <div class="absolute -top-1/2 -right-1/4 h-80 w-80 rounded-full bg-spotify/8 blur-[120px]" />
@@ -111,7 +111,7 @@
             </div>
             <div
               v-else-if="filteredTracks.length"
-              class="overflow-hidden rounded-2xl border border-white/6 bg-white/2 backdrop-blur-xs"
+              class="overflow-hidden rounded-2xl border border-white/6 bg-white/2"
             >
               <div
                 v-for="(item, index) in filteredTracks"
@@ -191,7 +191,7 @@
                   >
                     <X aria-hidden="true" class="text-xs" />
                   </button>
-                  <div class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 backdrop-blur-xs transition group-hover:opacity-100">
+                  <div class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition group-hover:opacity-100">
                     <div class="flex h-12 w-12 items-center justify-center rounded-full bg-spotify/90 text-black shadow-xl">
                       <Play aria-hidden="true" class="text-lg"  />
                     </div>
@@ -328,7 +328,7 @@
                   >
                     <X aria-hidden="true" class="text-xs" />
                   </button>
-                  <div class="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 backdrop-blur-xs transition group-hover:opacity-100">
+                  <div class="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 transition group-hover:opacity-100">
                     <div class="flex h-12 w-12 items-center justify-center rounded-full bg-spotify/90 text-black shadow-xl">
                       <Play aria-hidden="true" class="text-lg"  />
                     </div>
@@ -374,7 +374,7 @@
             </div>
             <div
               v-else-if="recentTracks.length"
-              class="overflow-hidden rounded-2xl border border-white/6 bg-white/2 backdrop-blur-xs"
+              class="overflow-hidden rounded-2xl border border-white/6 bg-white/2"
             >
               <TrackRow
                 v-for="(item, index) in recentTrackItems"
@@ -415,7 +415,7 @@
       :style="{ maxWidth: '440px', width: '90vw' }"
       :pt="{
         root: 'border-none',
-        mask: 'backdrop-blur-xs bg-black/60',
+        mask: 'surface-card bg-black/60',
         header: 'border-b border-white/5',
         title: 'text-white text-sm font-bold',
         content: 'p-0',
