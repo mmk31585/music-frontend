@@ -613,7 +613,8 @@ async function uploadFile(file: File) {
         file.name,
         file.type,
         file.size,
-        { signal: uploadAbort.signal },
+        undefined, // config
+        { signal: uploadAbort.signal }, // requestConfig
       )
 
       // Phase 2: PUT file directly to S3
@@ -628,9 +629,12 @@ async function uploadFile(file: File) {
       }
 
       // Phase 3: tell backend to verify and create draft
-      result = await ingestionApi.completeUpload(prepared.draftId, prepared.key, {
-        signal: uploadAbort.signal,
-      })
+      result = await ingestionApi.completeUpload(
+        prepared.draftId,
+        prepared.key,
+        undefined, // config
+        { signal: uploadAbort.signal }, // requestConfig
+      )
     } else {
       result = await ingestionApi.uploadAudio(file, undefined, {
         signal: uploadAbort.signal,

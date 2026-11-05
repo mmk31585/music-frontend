@@ -57,12 +57,14 @@ export const useIngestionApi = () => {
     contentType: string,
     size: number,
     config?: UseRequestConfig<PrepareUploadResponse>,
+    requestConfig?: Pick<AxiosRequestConfig, 'signal'>,
   ) => {
     return useRequest<PrepareUploadResponse>(
       IngestionApiRoutes.ADMIN_UPLOAD_URL,
       {
         method: 'POST',
         data: { filename, contentType, size },
+        ...requestConfig,
       },
       {
         schema: PrepareUploadResponseSchema,
@@ -76,12 +78,14 @@ export const useIngestionApi = () => {
     draftId: string,
     key: string,
     config?: UseRequestConfig<UploadResponse>,
+    requestConfig?: Pick<AxiosRequestConfig, 'signal'>,
   ) => {
     return useRequest<UploadResponse>(
       IngestionApiRoutes.ADMIN_UPLOAD_COMPLETE,
       {
         method: 'POST',
         data: { draftId, key },
+        ...requestConfig,
       },
       {
         schema: UploadResponseSchema,
