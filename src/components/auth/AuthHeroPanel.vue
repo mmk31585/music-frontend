@@ -3,28 +3,28 @@
     class="relative hidden min-h-screen overflow-hidden bg-surface-900 p-10 text-primary lg:flex lg:flex-col lg:justify-between"
   >
     <!-- Aurora orbs -->
-    <div class="aurora-orb absolute -top-32 -right-20 h-96 w-96 rounded-full bg-accent opacity-20 blur-[100px]" />
-    <div class="aurora-orb absolute top-1/2 -left-16 h-72 w-72 rounded-full bg-accent opacity-15 blur-[80px]" style="animation-delay: 2.5s" />
-    <div class="aurora-orb absolute -bottom-20 right-1/3 h-80 w-80 rounded-full bg-accent opacity-15 blur-[90px]" style="animation-delay: 5s" />
+    <div class="aurora-orb absolute -top-24 -right-20 h-80 w-80 rounded-full bg-accent opacity-20 blur-[100px]" />
+    <div class="aurora-orb absolute top-1/3 -left-10 h-64 w-64 rounded-full bg-accent opacity-15 blur-[80px]" style="animation-delay: 2.5s" />
+    <div class="aurora-orb absolute -bottom-16 right-1/4 h-72 w-72 rounded-full bg-accent opacity-15 blur-[90px]" style="animation-delay: 5s" />
 
     <!-- Equalizer bars -->
-    <div class="absolute right-12 top-1/3 z-10 flex items-end gap-0.75 opacity-40">
-      <div v-for="i in 24" :key="i" class="equalizer-bar w-0.75 rounded-full bg-accent" />
+    <div class="absolute right-10 top-1/4 z-10 flex items-end gap-0.75 opacity-40">
+      <div v-for="i in 18" :key="i" class="equalizer-bar w-0.75 rounded-full bg-accent" />
     </div>
 
     <!-- Main content -->
-    <div class="relative z-10 flex h-full flex-col justify-between">
+    <div class="relative z-10 flex h-full flex-col justify-between p-6 lg:p-10">
 
       <!-- Brand -->
       <div class="flex items-center gap-3">
-        <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-accent text-lg font-extrabold text-accent-text shadow-lg" :style="{ boxShadow: '0 8px 32px var(--accent-glow)' }">
+        <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-accent text-lg font-extrabold text-accent-text shadow-lg" :style="{ boxShadow: '0 8px 32px var(--accent-glow)' }">
           M
         </div>
-        <h1 class="text-xl font-bold tracking-tight">{{ $t('app.name') }}</h1>
+        <h1 class="text-lg font-bold tracking-tight">{{ $t('app.name') }}</h1>
       </div>
 
       <!-- Hero text -->
-      <div class="pb-20">
+      <div class="mt-auto mb-10">
         <h2 class="font-display max-w-md text-5xl leading-[1.1] font-extrabold tracking-tight">
           <span class="text-gradient">Feel every beat</span>
         </h2>
@@ -37,7 +37,7 @@
       </div>
 
       <!-- Footer -->
-      <div class="flex items-center gap-2 text-xs text-tertiary">
+      <div class="flex items-center gap-2 text-xs text-tertiary mt-6">
         <span class="inline-block h-1 w-1 rounded-full bg-accent" />
         <span>© 2026 Musicify — Music streaming reimagined</span>
       </div>

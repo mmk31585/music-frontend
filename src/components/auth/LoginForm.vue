@@ -220,6 +220,7 @@ const { form, errors, apiError, loading, rememberMe, validateField, onSubmit } =
   border-radius: 12px !important;
   padding-top: 10px !important;
   padding-bottom: 10px !important;
+  padding-left: 40px !important;
   font-size: 0.875rem !important;
 }
 
