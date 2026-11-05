@@ -704,6 +704,21 @@ h1, h2, h3, h4, h5, h6 {
 @utility text-success { color: var(--success); }
 @utility text-info { color: var(--info); }
 
+/* ── Brand Color Variables ── */
+/* Derived from the active primary palette so they follow the selected theme
+   color. Tailwind's /10, /20 opacity modifiers work on these automatically. */
+:root {
+  --color-spotify: var(--p-500);
+  --color-aurora-purple: var(--p-500);
+  --color-aurora-blue: var(--p-400);
+}
+
+@utility text-spotify { color: var(--color-spotify); }
+@utility bg-spotify { background: var(--color-spotify); }
+@utility border-spotify { border-color: var(--color-spotify); }
+@utility text-aurora-purple { color: var(--color-aurora-purple); }
+@utility text-aurora-blue { color: var(--color-aurora-blue); }
+
 /* ── Border Utilities ── */
 @utility border-default { border-color: var(--border-default); }
 @utility border-subtle { border-color: var(--border-subtle); }
