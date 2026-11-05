@@ -156,7 +156,7 @@
               <div class="flex items-center justify-center gap-1 w-full max-w-sm">
                 <div class="flex shrink-0 items-center gap-1">
                   <button class="flex h-9 w-9 items-center justify-center transition-all hover:scale-110" :class="liked ? 'text-aurora-pink' : 'text-tertiary hover:text-primary'" :aria-label="liked ? 'Unlike' : 'Like'" @click="toggleLike">
-                    <component :is="liked ? Heart : Heart"<i aria-hidden="true"  class="text-base" /> />
+                    <component :is="liked ? Heart : Heart" aria-hidden="true" class="text-base" />
                   </button>
                   <button class="flex h-9 w-9 items-center justify-center transition-all hover:scale-110 text-tertiary hover:text-primary" aria-label="Add to playlist" @click="showAddToPlaylist = true">
                     <ListPlus aria-hidden="true" class="text-base"  />
@@ -180,7 +180,7 @@
                 </button>
                 <button class="flex h-14 w-14 items-center justify-center rounded-full shadow-2xl transition-all duration-200 active:scale-95 hover:scale-105 disabled:opacity-40" :style="{ background: progressColor }" :disabled="!currentTrack || isLoadingTrack" :aria-label="isLoadingTrack || isBuffering ? 'Loading' : isPlaying ? 'Pause' : 'Play'" @click="togglePlay">
                   <Loader2 aria-hidden="true" v-if="isLoadingTrack || isBuffering" class="text-xl text-primary animate-spin"  />
-                  <component :is="isPlaying ? Pause : Play"<i aria-hidden="true" v-else  class="text-xl text-primary" /> />
+                  <component :is="isPlaying ? Pause : Play" aria-hidden="true" class="text-xl text-primary" />
                 </button>
                 <button class="flex h-9 w-9 items-center justify-center rounded-full text-tertiary transition-all duration-200 hover:text-primary hover:scale-110 disabled:opacity-20" :disabled="!hasNext" aria-label="Next track" @click="playNext">
                   <SkipForward aria-hidden="true" class="text-lg"  />
@@ -203,7 +203,7 @@
               <!-- Volume -->
               <div class="flex items-center gap-2 w-full max-w-65 mx-auto">
                 <button class="flex h-8 w-8 items-center justify-center text-tertiary transition-colors hover:text-primary shrink-0" :aria-label="muted ? 'Unmute' : 'Mute'" @click="toggleMute">
-                  <component :is="muted ? VolumeOff : Volume2"<i aria-hidden="true"  class="text-xs" /> />
+                  <component :is="muted ? VolumeOff : Volume2" aria-hidden="true" class="text-xs" />
                 </button>
                 <div class="relative flex-1 flex items-center group/vol h-4">
                   <div class="absolute inset-x-0 h-0.5 rounded-full bg-surface-active" />
@@ -369,7 +369,7 @@
                 </div>
                 <div class="flex shrink-0 items-center gap-0.5">
                   <button class="flex h-8 w-8 items-center justify-center transition-all hover:scale-110" :class="liked ? 'text-aurora-pink' : 'text-tertiary hover:text-primary'" :aria-label="liked ? 'Unlike' : 'Like'" @click="toggleLike">
-                    <component :is="liked ? Heart : Heart"<i aria-hidden="true"  class="text-sm" /> />
+                    <component :is="liked ? Heart : Heart" aria-hidden="true" class="text-sm" />
                   </button>
                 </div>
               </div>
@@ -441,7 +441,7 @@
               </button>
               <button class="flex h-12 w-12 items-center justify-center rounded-full shadow-2xl transition-all active:scale-90" :style="{ background: progressColor }" :disabled="!currentTrack || isLoadingTrack" :aria-label="isLoadingTrack || isBuffering ? 'Loading' : isPlaying ? 'Pause' : 'Play'" @click="togglePlay">
                 <Loader2 aria-hidden="true" v-if="isLoadingTrack || isBuffering" class="text-lg text-primary animate-spin"  />
-                <component :is="isPlaying ? Pause : Play"<i aria-hidden="true" v-else  class="text-lg ml-0.5 text-primary" /> />
+                <component :is="isPlaying ? Pause : Play" aria-hidden="true" class="text-lg ml-0.5 text-primary" />
               </button>
               <button class="flex h-9 w-9 items-center justify-center rounded-full text-tertiary transition-all hover:text-primary active:scale-90" :disabled="!hasNext" aria-label="Next track" @click="playNext">
                 <SkipForward aria-hidden="true" class="text-lg"  />
@@ -454,7 +454,7 @@
             <!-- Volume row -->
             <div class="flex items-center gap-2 w-full max-w-60 mx-auto mt-3 mb-4">
               <button class="flex h-7 w-7 items-center justify-center text-tertiary hover:text-primary shrink-0" :aria-label="muted ? 'Unmute' : 'Mute'" @click="toggleMute">
-                <component :is="muted ? VolumeOff : Volume2"<i aria-hidden="true"  class="text-[10px]" /> />
+                <component :is="muted ? VolumeOff : Volume2" aria-hidden="true" class="text-[10px]" />
               </button>
               <div class="relative flex-1 flex items-center h-3">
                 <div class="absolute inset-x-0 h-0.5 rounded-full bg-surface-active" />

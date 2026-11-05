@@ -1478,6 +1478,16 @@ h1, h2, h3, h4, h5, h6 {
   );
   transition: height 150ms ease;
 }
+
+[dir="rtl"] .player-range::-webkit-slider-runnable-track {
+  background: linear-gradient(
+    to left,
+    var(--accent-color) 0%,
+    var(--accent-color) var(--range-progress),
+    var(--surface-3) var(--range-progress),
+    var(--surface-3) 100%
+  );
+}
 .player-range:hover::-webkit-slider-runnable-track { height: 6px; }
 .player-range::-webkit-slider-thumb {
   width: 12px;
@@ -1495,6 +1505,10 @@ h1, h2, h3, h4, h5, h6 {
 .player-range::-moz-range-track {
   height: 4px;
   border-radius: 999px;
+  background: var(--surface-3);
+}
+
+[dir="rtl"] .player-range::-moz-range-track {
   background: var(--surface-3);
 }
 .player-range:hover::-moz-range-track { height: 6px; }
