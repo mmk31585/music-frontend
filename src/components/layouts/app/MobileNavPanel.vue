@@ -3,11 +3,11 @@
     <button
       v-if="modelValue"
       type="button"
-      class="fixed inset-0 z-50 bg-bg-overlay backdrop-blur-xs lg:hidden"
+      class="fixed inset-0 z-50 bg-[#0a0b0f]/80 backdrop-blur-sm lg:hidden"
       aria-label="Close navigation menu"
       @click="emit('update:modelValue', false)"
     >
-      <div class="flex h-full w-80 max-w-[85vw] flex-col bg-surface-raised p-4" @click.stop>
+      <div class="flex h-full w-80 max-w-[85vw] flex-col bg-surface-2 border border-border-default p-4 shadow-2xl" @click.stop>
         <div class="mb-4 flex items-center justify-between">
           <RouterLink to="/" class="flex items-center gap-3" @click="emit('update:modelValue', false)">
             <div class="flex h-10 w-10 items-center justify-center rounded-2xl bg-accent text-accent-text">

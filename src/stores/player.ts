@@ -87,7 +87,7 @@ const repeatMode = ref<RepeatMode>('off')
   let playbackStopped = false
 
   // Play tracking: reports plays to backend for gamification (XP, challenges, badges)
-  let playSessionId = crypto.randomUUID()
+  const playSessionId = crypto.randomUUID()
   let lastReportedTrackId: string | null = null
   let playStartTime = 0
 

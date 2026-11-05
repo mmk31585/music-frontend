@@ -7,14 +7,6 @@
   >
     <div class="flex h-[72px] items-center justify-between px-6 md:px-8 lg:px-10">
       <div class="flex items-center gap-3">
-        <button
-          type="button"
-          aria-label="Open navigation menu"
-          class="flex h-10 w-10 items-center justify-center rounded-xl bg-surface-overlay text-primary transition hover:bg-surface-active lg:hidden"
-          @click="$emit('toggle-mobile')"
-        >
-          <Menu aria-hidden="true" class="text-sm"  />
-        </button>
         <h1 class="text-xl font-bold tracking-tight text-primary">{{ pageTitle }}</h1>
       </div>
 

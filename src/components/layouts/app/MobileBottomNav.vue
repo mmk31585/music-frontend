@@ -1,7 +1,7 @@
 <template>
   <nav
     aria-label="Main navigation"
-    class="fixed inset-x-0 bottom-0 z-40 border-t border-border-default bg-surface-raised/90 backdrop-blur-2xl lg:hidden"
+    class="fixed inset-x-0 bottom-0 z-40 border-t border-border-default bg-surface-2 shadow-lg lg:hidden"
     style="padding-bottom: max(0.5rem, env(safe-area-inset-bottom, 0.5rem))"
   >
     <div class="flex items-center justify-around px-2 pt-1">
@@ -10,11 +10,13 @@
         :key="tab.to"
         :to="tab.to"
         class="flex flex-col items-center gap-0.5 rounded-xl px-3 py-1.5 text-[10px] font-medium transition-all"
-        :class="isActive(tab.to) ? 'text-primary' : 'text-muted hover:text-secondary'"
+        :class="isActive(tab.to) ? 'text-accent font-semibold' : 'text-muted hover:text-secondary'"
       >
         <div
           class="flex h-10 w-10 items-center justify-center rounded-xl transition-all duration-200"
-          :class="isActive(tab.to) ? 'bg-accent-subtle text-accent' : 'text-muted'"
+          :class="isActive(tab.to)
+            ? 'bg-accent/10 text-accent ring-1 ring-accent/30'
+            : 'text-muted hover:text-secondary hover:bg-white/5'"
         >
           <i aria-hidden="true" :class="tab.icon" class="text-lg" />
         </div>
