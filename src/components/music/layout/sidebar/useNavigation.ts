@@ -15,6 +15,7 @@ export function useNavigation() {
         items: section.items.filter((item) => {
           if (item.permissions === 'admin' && !authStore.isAdmin) return false
           if (item.permissions === 'auth' && !authStore.isAuthenticated) return false
+          if (item.future) return false
           return true
         }),
       }))

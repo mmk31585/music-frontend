@@ -89,5 +89,13 @@
   "error.feed_load": "خطا در بارگذاری فید شما.",
   "locale.fa": "فارسی",
   "locale.en": "English",
-  "locale.switch": "تغییر زبان"
+  "locale.switch": "تغییر زبان",
+  "greeting.morning": "صبح‌تون بخیر",
+  "greeting.afternoon": "عصر بخیر",
+  "greeting.evening": "عصر بخیر",
+  "greeting.night": "شب بخیر",
+  "greeting.subtitle.morning": "شروع روز با موزیک دلخواه",
+  "greeting.subtitle.afternoon": "یک عصر موزیکال خوب",
+  "greeting.subtitle.evening": "حال و هوای شبونه",
+  "greeting.subtitle.night": "شب آرومی داشته باشی"
 }

@@ -174,7 +174,7 @@ import { useRoute } from 'vue-router'
 import { useUserAuthStore } from '@/stores'
 import { useAuth } from '@/composables/auth/useAuth'
 import { usePageMeta } from '@/composables/usePageMeta'
-import { Avatar } from '@/components/common/Avatar.vue'
+import Avatar from '@/components/common/Avatar.vue'
 
 defineProps<{ modelValue: boolean }>()
 const emit = defineEmits<{ 'update:modelValue': [value: boolean] }>()

@@ -44,7 +44,10 @@ export function useHomePage() {
   })
 
   const greeting = computed(() => {
-    const name = auth.user?.displayName || auth.user?.username || ''
+    const rawName = auth.user?.displayName || ''
+    // Never fall back to a raw username (e.g. "Admin") and never display
+    // placeholder/admin labels as a personal name.
+    const name = rawName && !/^(admin|administrator)$/i.test(rawName) ? rawName : ''
     const periodMap: Record<GreetingPeriod, string> = {
       morning: 'صبح‌تون بخیر',
       afternoon: 'عصر بخیر',

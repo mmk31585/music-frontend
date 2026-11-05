@@ -7,8 +7,8 @@
         v-if="artist.image_url"
         :src="artist.image_url"
         :alt="artist.name"
-        loading="lazy"
-        class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
+        container-class="h-full w-full"
+        img-class="object-cover transition duration-300 group-hover:scale-105"
         @error="onImgError"
       />
       <div v-else class="flex h-full items-center justify-center">
@@ -27,7 +27,7 @@
 <script setup lang="ts">
 import { User } from 'lucide-vue-next'
 import { onImgError } from '@/utils/helpers'
-import { CoverImage } from '@/components/common/CoverImage.vue'
+import CoverImage from '@/components/common/CoverImage.vue'
 import type { Artist } from '@/services/api/catalog/artists'
 
 defineProps<{

@@ -14,7 +14,7 @@
       aria-label="Seek"
       class="group relative w-1/4 h-1.5 cursor-pointer rounded-full transition-all duration-150"
       :class="isPlaying ? 'bg-white/15' : 'bg-white/10'"
-      dir="ltr"
+      :dir="dir"
       @click="onSeekClick"
       @keydown.enter="onSeekClick"
       @keydown.space.prevent="onSeekClick"
@@ -55,6 +55,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useRTL } from '@/composables/useRTL'
+import { formatTimePersian } from '@/utils/persian'
 
 interface Props {
   currentTime: number
@@ -75,8 +76,10 @@ const { dir } = useRTL()
 
 const progressStyle = computed(() => {
   if (!props.progressColor) return { width: `${props.progressPercent}%` }
+  const isRTL = dir.value === 'rtl'
   return {
     width: `${props.progressPercent}%`,
+    [isRTL ? 'margin-left' : 'margin-right']: 'auto',
     background: props.progressColor,
     boxShadow: `0 0 8px ${props.progressColor}66, 0 0 20px ${props.progressColor}33`,
     transition: 'width 100ms linear, background 0.5s ease, box-shadow 0.3s ease',
@@ -84,16 +87,16 @@ const progressStyle = computed(() => {
 })
 
 function formatTime(s: number) {
-  if (!isFinite(s)) return '0:00'
-  const m = Math.floor(s / 60)
-  const sec = Math.floor(s % 60)
-  return `${m}:${sec.toString().padStart(2, '0')}`
+  if (!isFinite(s)) return '۰:۰۰'
+  return formatTimePersian(s)
 }
 
 function onSeekClick(e: MouseEvent | KeyboardEvent) {
   const bar = e.currentTarget as HTMLElement
   const rect = bar.getBoundingClientRect()
-  const pct = (((e as MouseEvent).clientX - rect.left) / rect.width) * 100
+  const isRTL = dir.value === 'rtl'
+  const offset = isRTL ? rect.right - (e as MouseEvent).clientX : (e as MouseEvent).clientX - rect.left
+  const pct = (offset / rect.width) * 100
   emit('seek', pct)
 }
 

@@ -43,11 +43,11 @@
         :class="isCurrent ? 'text-accent' : 'text-primary'"
         @click.stop
       >
-        {{ title }}
+        <bdi>{{ title }}</bdi>
       </RouterLink>
 
       <div class="mt-0.5 truncate text-xs text-secondary">
-        {{ artistName }}
+        <bdi>{{ artistName }}</bdi>
       </div>
     </div>
 
@@ -82,7 +82,7 @@ import { usePlayer } from '@/composables/player'
 import { onImgError } from '@/utils/helpers'
 import { buildPlaybackTrack } from '@/factories/playbackTrack'
 import ContextMenu from '@/components/common/ContextMenu.vue'
-import { CoverImage } from '@/components/common/CoverImage.vue'
+import CoverImage from '@/components/common/CoverImage.vue'
 import type { ContextMenuSection } from '@/types/context-menu'
 
 interface TrackRowTrack {

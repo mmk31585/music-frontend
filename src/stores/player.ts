@@ -414,19 +414,8 @@ const repeatMode = ref<RepeatMode>('off')
           return
         }
 
-        // Exponential backoff: 1s, 2s, then skip
-        const backoffMs = Math.min(1000 * Math.pow(2, consecutiveFailures - 1), 4000)
-        if (consecutiveFailures < maxConsecutiveFailures - 1 && currentTrack.value?.streamUrl) {
-          if (import.meta.env.DEV) {
-            console.warn(`[Player] Retrying track in ${backoffMs}ms: ${currentTrack.value.title}`)
-          }
-          setTimeout(() => {
-            engine?.play(currentTrack.value!).catch(() => {})
-          }, backoffMs)
-          return
-        }
-
-        // Last retry failed — skip to the next track
+        // Skip to next track immediately — retrying a 404 (no audio file)
+        // or unavailable stream never succeeds and causes a retry loop.
         if (import.meta.env.DEV) {
           console.warn(`[Player] Skipping track due to error: ${currentTrack.value?.title ?? msg}`)
         }

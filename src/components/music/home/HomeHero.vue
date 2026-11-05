@@ -28,9 +28,10 @@
         :key="i"
         :src="item.image"
         :alt="item.title"
-        class="absolute inset-0 h-full w-full object-cover transition-opacity duration-700"
-        :class="i === activeIndex ? 'opacity-100' : 'opacity-0'"
+        container-class="absolute inset-0 h-full w-full"
+        img-class="object-cover transition-opacity duration-700"
         :style="{
+          opacity: i === activeIndex ? 1 : 0,
           filter: 'blur(40px) saturate(1.3)',
           transform: 'scale(1.1)',
         }"
@@ -90,7 +91,8 @@
             :src="currentItem.image"
             :alt="currentItem.title"
             fetchpriority="high"
-            class="h-44 w-44 rounded-2xl object-cover shadow-2xl md:h-52 md:w-52"
+            container-class="h-44 w-44 rounded-2xl shadow-2xl md:h-52 md:w-52"
+            img-class="object-cover"
             :style="{
               transform: 'rotate(-3deg)',
               boxShadow: '0 24px 64px rgba(0,0,0,0.6)',
@@ -151,7 +153,7 @@
 <script setup lang="ts">
 import { ChevronLeft, ChevronRight, Pause, Play, Plus } from 'lucide-vue-next'
 import { ref, computed, onMounted, onUnmounted } from 'vue'
-import { CoverImage } from '@/components/common/CoverImage.vue'
+import CoverImage from '@/components/common/CoverImage.vue'
 
 export interface HeroItem {
   id: string

@@ -33,7 +33,13 @@
     </div>
 
     <div v-if="mode === 'mini' && !isPiP" class="popout-mini" @dblclick="mode = 'expanded'">
-      <img v-if="coverUrl" :src="coverUrl" :alt="title" loading="lazy" class="popout-cover" @error="onImgError" />
+      <CoverImage
+        v-if="coverUrl"
+        :src="coverUrl"
+        :alt="title"
+        container-class="popout-cover"
+        img-class="object-cover"
+      />
       <div v-else class="popout-cover-placeholder">
         <Music aria-hidden="true" class=""  />
       </div>
@@ -41,13 +47,19 @@
         <span /><span /><span />
       </div>
       <div role="button" tabindex="0" class="popout-mini-overlay" @click="togglePlayPause" @keydown.enter="togglePlayPause" @keydown.space.prevent="togglePlayPause">
-        <component :is="isPlaying ? Pause : Play"<i aria-hidden="true"  class="popout-play-icon" /> />
+        <component :is="isPlaying ? Pause : Play" aria-hidden="true" class="popout-play-icon" />
       </div>
     </div>
 
     <div v-else class="popout-expanded">
       <div class="popout-track-info">
-        <img v-if="coverUrl" :src="coverUrl" :alt="title" loading="lazy" class="popout-expanded-cover" @error="onImgError" />
+        <CoverImage
+          v-if="coverUrl"
+          :src="coverUrl"
+          :alt="title"
+          container-class="popout-expanded-cover"
+          img-class="object-cover"
+        />
         <div v-else class="popout-expanded-cover-placeholder">
           <Music aria-hidden="true" class=""  />
         </div>
@@ -99,6 +111,7 @@
 
 <script setup lang="ts">
 import { ExternalLink, Maximize2, Minimize2, Music, Pause, Play, SkipBack, SkipForward, X } from 'lucide-vue-next'
+import CoverImage from '@/components/common/CoverImage.vue'
 import { computed, onBeforeUnmount, ref } from 'vue'
 import { usePlayerControls } from '@/composables/player'
 import { onImgError } from '@/utils/helpers'

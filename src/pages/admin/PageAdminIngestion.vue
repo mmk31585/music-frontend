@@ -617,24 +617,41 @@ async function uploadFile(file: File) {
         { signal: uploadAbort.signal }, // requestConfig
       )
 
-      // Phase 2: PUT file directly to S3
-      const putRes = await fetch(prepared.uploadUrl, {
-        method: 'PUT',
-        body: file,
-        headers: { 'Content-Type': file.type },
-        signal: uploadAbort.signal,
-      })
-      if (!putRes.ok) {
-        throw new Error(`S3 upload failed: ${putRes.statusText}`)
-      }
+      try {
+        // Phase 2: PUT file directly to S3
+        const putRes = await fetch(prepared.uploadUrl, {
+          method: 'PUT',
+          body: file,
+          headers: { 'Content-Type': file.type },
+          signal: uploadAbort.signal,
+        })
+        if (!putRes.ok) {
+          throw new Error(`S3 upload failed: ${putRes.statusText}`)
+        }
 
-      // Phase 3: tell backend to verify and create draft
-      result = await ingestionApi.completeUpload(
-        prepared.draftId,
-        prepared.key,
-        undefined, // config
-        { signal: uploadAbort.signal }, // requestConfig
-      )
+        // Phase 3: tell backend to verify and create draft
+        result = await ingestionApi.completeUpload(
+          prepared.draftId,
+          prepared.key,
+          undefined, // config
+          { signal: uploadAbort.signal }, // requestConfig
+        )
+      } catch (s3Err) {
+        // Direct S3 PUT blocked (e.g. CORS from Vercel). Fall back to backend
+        // multipart upload which proxies to S3 server-side (no CORS issue).
+        uploadProgress.value = 'S3 direct upload blocked, falling back to backend upload...'
+        result = await ingestionApi.uploadAudio(file, undefined, {
+          signal: uploadAbort.signal,
+          onUploadProgress(progressEvent) {
+            if (progressEvent.total) {
+              const pct = Math.round((progressEvent.loaded / progressEvent.total) * 100)
+              const mbLoaded = (progressEvent.loaded / 1024 / 1024).toFixed(1)
+              const mbTotal = (progressEvent.total / 1024 / 1024).toFixed(1)
+              uploadProgress.value = `${pct}% (${mbLoaded} MB / ${mbTotal} MB)`
+            }
+          },
+        })
+      }
     } else {
       result = await ingestionApi.uploadAudio(file, undefined, {
         signal: uploadAbort.signal,

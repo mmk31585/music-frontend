@@ -32,7 +32,13 @@
         <template v-else>
           <div v-if="currentTrack" class="flex flex-col items-center gap-2">
             <div class="h-10 w-10 overflow-hidden rounded-xl ring-1 ring-border-default">
-              <img v-if="currentTrack.coverUrl" :src="currentTrack.coverUrl" :alt="currentTrack.title" class="h-full w-full object-cover" />
+              <CoverImage
+                v-if="currentTrack.coverUrl"
+                :src="currentTrack.coverUrl"
+                :alt="currentTrack.title"
+                container-class="h-full w-full"
+                img-class="object-cover"
+              />
               <div v-else class="flex h-full w-full items-center justify-center bg-linear-to-br from-accent/30 to-accent-hover/30">
                 <Headphones :size="16" class="text-tertiary" />
               </div>
@@ -103,6 +109,7 @@
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
 import { ChevronLeft, ChevronRight, Headphones, MoreHorizontal, Music } from 'lucide-vue-next'
+import CoverImage from '@/components/common/CoverImage.vue'
 import { usePlayerStore } from '@/stores/player'
 import { usePlayerControls, useTrackLike } from '@/composables/player'
 import { useAlbumColors } from '@/composables/useAlbumColors'

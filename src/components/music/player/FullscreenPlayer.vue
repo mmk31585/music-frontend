@@ -104,8 +104,8 @@
               <div class="w-full max-w-sm text-center">
                 <div class="flex items-center justify-center gap-3">
                   <div class="min-w-0">
-                    <h2 class="text-xl lg:text-2xl font-bold truncate max-w-70" :style="{ color: palette.vibrant || '#fff' }">{{ currentTrack?.title }}</h2>
-                    <p class="text-sm lg:text-base text-secondary mt-0.5 truncate max-w-70">{{ currentTrack?.artistName }}</p>
+                    <h2 class="text-xl lg:text-2xl font-bold truncate max-w-70" :style="{ color: palette.vibrant || '#fff' }"><bdi>{{ currentTrack?.title }}</bdi></h2>
+                    <p class="text-sm lg:text-base text-secondary mt-0.5 truncate max-w-70"><bdi>{{ currentTrack?.artistName }}</bdi></p>
                   </div>
 
                 </div>
@@ -351,7 +351,13 @@
                   class="w-[min(200px,45vw)] aspect-square overflow-hidden rounded-2xl shadow-2xl transition-all duration-700"
                   :class="isPlaying ? 'scale-100 cover-glow' : 'scale-95 opacity-80'"
                 >
-                  <img v-if="currentTrack?.coverUrl" :src="currentTrack?.coverUrl" :alt="currentTrack?.title" class="h-full w-full object-cover" />
+                  <CoverImage
+                    v-if="currentTrack?.coverUrl"
+                    :src="currentTrack?.coverUrl"
+                    :alt="currentTrack?.title"
+                    container-class="h-full w-full"
+                    img-class="object-cover"
+                  />
                   <div v-else class="flex h-full w-full items-center justify-center bg-linear-to-br from-spotify/30 to-aurora-purple/30">
                     <Music aria-hidden="true" class="text-4xl text-muted"  />
                   </div>
@@ -520,6 +526,7 @@
 
 <script setup lang="ts">
 import { AlignLeft, ArrowDown, ArrowUpDown, ChevronDown, ExternalLink, Heart, List, ListPlus, Loader2, Menu, Music, Pause, Play, RefreshCw, SkipBack, SkipForward, Volume2, VolumeOff, X } from 'lucide-vue-next'
+import CoverImage from '@/components/common/CoverImage.vue'
 import { computed, nextTick, onBeforeUnmount, onMounted, onUnmounted, ref, watch } from 'vue'
 import { usePlayerControls, useTrackLike } from '@/composables/player'
 import { usePlayerStore } from '@/stores/player'
