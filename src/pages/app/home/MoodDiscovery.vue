@@ -2,7 +2,7 @@
   <section class="mt-12">
     <div class="mb-5">
       <p class="text-[10px] font-bold tracking-[0.3em] text-white/30 uppercase">Discover by mood</p>
-      <h2 class="mt-1 text-xl font-bold text-white md:text-2xl" style="letter-spacing: -0.02em">What's your mood?</h2>
+      <h2 class="mt-1 text-xl font-bold text-white md:text-2xl text-start" style="letter-spacing: -0.02em">What's your mood?</h2>
     </div>
     <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
       <button

@@ -1,7 +1,7 @@
 <template>
   <div
     ref="menuRef"
-    class="absolute top-full z-50 mt-3 w-80 overflow-hidden rounded-2xl border border-border-default bg-surface-popover shadow-2xl backdrop-blur-2xl"
+    class="absolute top-full z-50 mt-3 w-80 overflow-hidden rounded-2xl border border-border-default bg-surface-popover shadow-2xl"
     :class="[isRTL ? 'left-0 origin-top-left' : 'right-0 origin-top-right']"
     @click.stop
   >

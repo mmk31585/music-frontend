@@ -1,7 +1,7 @@
 <template>
   <nav
     aria-label="Main navigation"
-    class="fixed inset-x-0 bottom-0 z-40 border-t border-white/10 bg-surface-2/90 backdrop-blur-xl sm:backdrop-blur-lg shadow-2xl lg:hidden"
+    class="fixed inset-x-0 bottom-0 z-40 border-t border-border-default bg-surface-2 shadow-lg lg:hidden"
     style="padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0.75rem))"
   >
     <div class="flex items-center justify-around px-2 pt-2">

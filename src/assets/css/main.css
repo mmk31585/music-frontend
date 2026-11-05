@@ -719,6 +719,47 @@ h1, h2, h3, h4, h5, h6 {
 @utility text-aurora-purple { color: var(--color-aurora-purple); }
 @utility text-aurora-blue { color: var(--color-aurora-blue); }
 
+/* ── Aurora Backgrounds ── */
+/* Subtle animated gradient orbs used as page backdrop accents. Defined here so
+   every page that references aurora-bg / aurora-spot-* renders consistently
+   instead of falling back to undefined utility classes. */
+@utility aurora-bg {
+  position: relative;
+  overflow: hidden;
+}
+@utility aurora-spot-1 {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.35;
+  animation: aurora-pulse 8s ease-in-out infinite alternate;
+}
+@utility aurora-spot-2 {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.25;
+  animation: aurora-pulse 10s ease-in-out infinite alternate-reverse;
+}
+@utility aurora-flow {
+  position: absolute;
+  inset: 0;
+  opacity: 0.35;
+  background: conic-gradient(
+    from 45deg at 50% 50%,
+    transparent,
+    color-mix(in oklch, var(--color-aurora-purple) 15%, transparent),
+    transparent,
+    color-mix(in oklch, var(--color-aurora-blue) 15%, transparent),
+    transparent
+  );
+}
+
+@keyframes aurora-pulse {
+  0% { transform: scale(1) translate(0, 0); opacity: 0.35; }
+  100% { transform: scale(1.25) translate(15%, -15%); opacity: 0.55; }
+}
+
 /* ── Border Utilities ── */
 @utility border-default { border-color: var(--border-default); }
 @utility border-subtle { border-color: var(--border-subtle); }
