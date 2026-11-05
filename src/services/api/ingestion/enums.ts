@@ -1,5 +1,7 @@
 export enum IngestionApiRoutes {
   ADMIN_UPLOAD = '/admin/ingestion/upload',
+  ADMIN_UPLOAD_URL = '/admin/ingestion/upload-url',
+  ADMIN_UPLOAD_COMPLETE = '/admin/ingestion/upload-complete',
   ADMIN_DRAFTS = '/admin/ingestion/drafts',
   ADMIN_ENRICH = '/admin/ingestion/drafts/:id/enrich',
   ADMIN_SUGGESTIONS = '/admin/ingestion/drafts/:id/suggestions',

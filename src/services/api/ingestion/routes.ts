@@ -14,6 +14,7 @@ import {
   FinalizeResultSchema,
   IngestionStatsSchema,
   IngestionConfigSchema,
+  PrepareUploadResponseSchema,
   type UploadResponse,
   type DraftDetailResponse,
   type ListDraftsResponse,
@@ -24,6 +25,7 @@ import {
   type FinalizeResult,
   type IngestionStats,
   type IngestionConfig,
+  type PrepareUploadResponse,
 } from './types'
 
 export const useIngestionApi = () => {
@@ -41,6 +43,45 @@ export const useIngestionApi = () => {
         method: 'POST',
         data: formData,
         ...requestConfig,
+      },
+      {
+        schema: UploadResponseSchema,
+        silent: false,
+        ...config,
+      },
+    )
+  }
+
+  const prepareUpload = async (
+    filename: string,
+    contentType: string,
+    size: number,
+    config?: UseRequestConfig<PrepareUploadResponse>,
+  ) => {
+    return useRequest<PrepareUploadResponse>(
+      IngestionApiRoutes.ADMIN_UPLOAD_URL,
+      {
+        method: 'POST',
+        data: { filename, contentType, size },
+      },
+      {
+        schema: PrepareUploadResponseSchema,
+        silent: false,
+        ...config,
+      },
+    )
+  }
+
+  const completeUpload = async (
+    draftId: string,
+    key: string,
+    config?: UseRequestConfig<UploadResponse>,
+  ) => {
+    return useRequest<UploadResponse>(
+      IngestionApiRoutes.ADMIN_UPLOAD_COMPLETE,
+      {
+        method: 'POST',
+        data: { draftId, key },
       },
       {
         schema: UploadResponseSchema,
@@ -251,6 +292,8 @@ export const useIngestionApi = () => {
 
   return {
     uploadAudio,
+    prepareUpload,
+    completeUpload,
     listDrafts,
     getDraftDetail,
     enrichDraft,

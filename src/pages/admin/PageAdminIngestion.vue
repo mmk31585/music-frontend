@@ -601,18 +601,50 @@ async function uploadFile(file: File) {
 
   uploadAbort = new AbortController()
 
+  // Use presigned direct S3 upload for large files (>4MB) to avoid
+  // Vercel serverless body limits. Smaller files use the legacy multipart route.
+  const LARGE_FILE_THRESHOLD = 4 * 1024 * 1024 // 4 MB
+
   try {
-    const result = await ingestionApi.uploadAudio(file, undefined, {
-      signal: uploadAbort.signal,
-      onUploadProgress(progressEvent) {
-        if (progressEvent.total) {
-          const pct = Math.round((progressEvent.loaded / progressEvent.total) * 100)
-          const mbLoaded = (progressEvent.loaded / 1024 / 1024).toFixed(1)
-          const mbTotal = (progressEvent.total / 1024 / 1024).toFixed(1)
-          uploadProgress.value = `${pct}% (${mbLoaded} MB / ${mbTotal} MB)`
-        }
-      },
-    })
+    let result
+    if (file.size > LARGE_FILE_THRESHOLD) {
+      // Phase 1: get presigned PUT URL
+      const prepared = await ingestionApi.prepareUpload(
+        file.name,
+        file.type,
+        file.size,
+        { signal: uploadAbort.signal },
+      )
+
+      // Phase 2: PUT file directly to S3
+      const putRes = await fetch(prepared.uploadUrl, {
+        method: 'PUT',
+        body: file,
+        headers: { 'Content-Type': file.type },
+        signal: uploadAbort.signal,
+      })
+      if (!putRes.ok) {
+        throw new Error(`S3 upload failed: ${putRes.statusText}`)
+      }
+
+      // Phase 3: tell backend to verify and create draft
+      result = await ingestionApi.completeUpload(prepared.draftId, prepared.key, {
+        signal: uploadAbort.signal,
+      })
+    } else {
+      result = await ingestionApi.uploadAudio(file, undefined, {
+        signal: uploadAbort.signal,
+        onUploadProgress(progressEvent) {
+          if (progressEvent.total) {
+            const pct = Math.round((progressEvent.loaded / progressEvent.total) * 100)
+            const mbLoaded = (progressEvent.loaded / 1024 / 1024).toFixed(1)
+            const mbTotal = (progressEvent.total / 1024 / 1024).toFixed(1)
+            uploadProgress.value = `${pct}% (${mbLoaded} MB / ${mbTotal} MB)`
+          }
+        },
+      })
+    }
+
     uploadResult.value = result
     if (result.status === 'enriching') {
       enrichPollingStart(result.draftId)

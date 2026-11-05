@@ -265,3 +265,19 @@ export const IngestionConfigSchema = z.object({
 })
 
 export type IngestionConfig = z.infer<typeof IngestionConfigSchema>
+
+export const PrepareUploadResponseSchema = z.object({
+  draftId: z.string(),
+  key: z.string(),
+  uploadUrl: z.string().url(),
+  expiresIn: z.number(),
+})
+
+export type PrepareUploadResponse = z.infer<typeof PrepareUploadResponseSchema>
+
+export const UploadCompleteRequestSchema = z.object({
+  draftId: z.string(),
+  key: z.string(),
+})
+
+export type UploadCompleteRequest = z.infer<typeof UploadCompleteRequestSchema>
