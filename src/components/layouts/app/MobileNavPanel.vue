@@ -1,86 +1,120 @@
 <template>
-  <Transition name="fade">
+  <Transition name="slide-fade" appear>
     <button
       v-if="modelValue"
       type="button"
-      class="fixed inset-0 z-50 bg-[#0a0b0f]/80 backdrop-blur-sm lg:hidden"
+      class="fixed inset-0 z-50 bg-black/60 backdrop-blur-xl sm:backdrop-blur-lg lg:hidden"
       aria-label="Close navigation menu"
       @click="emit('update:modelValue', false)"
     >
-      <div class="flex h-full w-80 max-w-[85vw] flex-col bg-surface-2 border border-border-default p-4 shadow-2xl" @click.stop>
-        <div class="mb-4 flex items-center justify-between">
-          <RouterLink to="/" class="flex items-center gap-3" @click="emit('update:modelValue', false)">
-            <div class="flex h-10 w-10 items-center justify-center rounded-2xl bg-accent text-accent-text">
-              <Volume2 aria-hidden="true" class=""  />
+      <!-- Safe-area respecting panel -->
+      <div
+        class="fixed inset-y-0 right-0 z-50 w-80 max-w-[90vw] bg-surface-2 border-l border-border-default shadow-2xl flex flex-col"
+        style="padding-top: max(0.75rem, env(safe-area-inset-top, 0.75rem)); padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0.75rem))"
+        @click.stop
+      >
+        <div class="flex h-12 items-center justify-between px-4">
+          <RouterLink
+            to="/"
+            class="flex items-center gap-2.5"
+            @click="emit('update:modelValue', false)"
+          >
+            <div class="flex h-9 w-9 items-center justify-center rounded-xl bg-accent text-accent-text">
+              <Volume2 aria-hidden="true" class="h-5 w-5" />
             </div>
-            <span class="font-black text-primary">Music App</span>
+            <span class="font-black text-primary tracking-tight">Music App</span>
           </RouterLink>
 
           <button
             type="button"
             aria-label="Close navigation menu"
-            class="flex h-10 w-10 items-center justify-center rounded-full bg-surface-active text-primary"
+            class="flex h-9 w-9 items-center justify-center rounded-full bg-surface-active text-primary"
             @click="emit('update:modelValue', false)"
           >
-            <X aria-hidden="true" class=""  />
+            <X aria-hidden="true" class="h-5 w-5" />
           </button>
         </div>
 
-        <nav role="navigation" aria-label="Mobile navigation" class="flex-1 space-y-1 overflow-y-auto">
-          <p class="px-4 pb-1 pt-4 text-[10px] font-bold tracking-[0.2em] text-muted uppercase">
+        <nav
+          role="navigation"
+          aria-label="Mobile navigation"
+          class="flex-1 space-y-0.5 overflow-y-auto px-2 py-2"
+          style="scrollbar-width: none"
+        >
+          <!-- Browse -->
+          <p class="px-4 pb-1 pt-2 text-[10px] font-bold tracking-[0.15em] text-muted uppercase">
             Browse
           </p>
           <RouterLink
             v-for="item in browseItems"
             :key="item.to"
             :to="item.to"
-            class="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold text-secondary transition hover:bg-surface-active hover:text-primary"
-            :class="activeNavBase === item.to ? 'bg-surface-active text-primary' : ''"
+            class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium transition-colors"
+            :class="
+              activeNavBase === item.to
+                ? 'bg-accent/10 text-primary border-r-2 border-accent'
+                : 'text-secondary hover:bg-surface-active hover:text-primary'
+            "
             @click="emit('update:modelValue', false)"
           >
             <i aria-hidden="true" :class="item.icon" class="text-lg" />
             <span>{{ item.label }}</span>
           </RouterLink>
 
-          <p class="px-4 pb-1 pt-4 text-[10px] font-bold tracking-[0.2em] text-muted uppercase">
+          <!-- Library -->
+          <p class="px-4 pb-1 pt-3 text-[10px] font-bold tracking-[0.15em] text-muted uppercase">
             Library
           </p>
           <RouterLink
             v-for="item in libraryItems"
             :key="item.to"
             :to="item.to"
-            class="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold text-secondary transition hover:bg-surface-active hover:text-primary"
-            :class="activeNavBase === item.to ? 'bg-surface-active text-primary' : ''"
+            class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium transition-colors"
+            :class="
+              activeNavBase === item.to
+                ? 'bg-accent/10 text-primary border-r-2 border-accent'
+                : 'text-secondary hover:bg-surface-active hover:text-primary'
+            "
             @click="emit('update:modelValue', false)"
           >
             <i aria-hidden="true" :class="item.icon" class="text-lg" />
             <span>{{ item.label }}</span>
           </RouterLink>
 
-          <p class="px-4 pb-1 pt-4 text-[10px] font-bold tracking-[0.2em] text-muted uppercase">
+          <!-- Social -->
+          <p class="px-4 pb-1 pt-3 text-[10px] font-bold tracking-[0.15em] text-muted uppercase">
             Social
           </p>
           <RouterLink
             v-for="item in socialItems"
             :key="item.to"
             :to="item.to"
-            class="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold text-secondary transition hover:bg-surface-active hover:text-primary"
-            :class="activeNavBase === item.to ? 'bg-surface-active text-primary' : ''"
+            class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium transition-colors"
+            :class="
+              activeNavBase === item.to
+                ? 'bg-accent/10 text-primary border-r-2 border-accent'
+                : 'text-secondary hover:bg-surface-active hover:text-primary'
+            "
             @click="emit('update:modelValue', false)"
           >
             <i aria-hidden="true" :class="item.icon" class="text-lg" />
             <span>{{ item.label }}</span>
           </RouterLink>
 
-          <p class="px-4 pb-1 pt-4 text-[10px] font-bold tracking-[0.2em] text-muted uppercase">
+          <!-- More -->
+          <p class="px-4 pb-1 pt-3 text-[10px] font-bold tracking-[0.15em] text-muted uppercase">
             More
           </p>
           <RouterLink
             v-for="item in moreItems"
             :key="item.to"
             :to="item.to"
-            class="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold text-secondary transition hover:bg-surface-active hover:text-primary"
-            :class="activeNavBase === item.to ? 'bg-surface-active text-primary' : ''"
+            class="flex items-center gap-3 rounded-xl px-4 py-2.5 text-sm font-medium transition-colors"
+            :class="
+              activeNavBase === item.to
+                ? 'bg-accent/10 text-primary border-r-2 border-accent'
+                : 'text-secondary hover:bg-surface-active hover:text-primary'
+            "
             @click="emit('update:modelValue', false)"
           >
             <i aria-hidden="true" :class="item.icon" class="text-lg" />
@@ -88,24 +122,25 @@
           </RouterLink>
         </nav>
 
-        <div class="mt-auto space-y-2 border-t border-border-default pt-4">
+        <div class="mt-auto space-y-2 pt-4 px-4">
           <template v-if="store.isAuthenticated">
-            <div class="flex items-center gap-3 rounded-xl px-4 py-2">
-              <div class="flex h-9 w-9 items-center justify-center rounded-full bg-accent-subtle text-sm font-bold text-accent">
+            <!-- User profile card -->
+            <div class="flex items-center gap-3 rounded-xl px-3 py-2 bg-surface-active border border-white/5">
+              <div class="flex h-10 w-10 items-center justify-center rounded-full bg-accent/20 text-accent">
                 {{ initials }}
               </div>
               <div class="min-w-0 flex-1">
                 <p class="truncate text-sm font-bold text-primary">{{ displayName }}</p>
-                <p class="text-xs text-muted">{{ isAdmin ? 'Admin' : 'Listener' }}</p>
+                <p class="text-[10px] text-muted">{{ isAdmin ? 'Admin' : 'Listener' }}</p>
               </div>
             </div>
 
             <button
               type="button"
-              class="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold text-secondary transition hover:bg-surface-active hover:text-danger"
+              class="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold text-secondary transition-colors hover:bg-surface-active hover:text-danger"
               @click="handleLogout"
             >
-              <LogOut aria-hidden="true" class="text-lg"  />
+              <LogOut aria-hidden="true" class="h-5 w-5" />
               <span>Log out</span>
             </button>
           </template>
@@ -113,16 +148,16 @@
           <template v-else>
             <RouterLink
               to="/auth/login"
-              class="flex w-full items-center justify-center gap-2 rounded-xl bg-accent px-4 py-3 text-sm font-bold text-accent-text transition hover:bg-accent-hover"
+              class="flex w-full items-center justify-center gap-2 rounded-xl bg-accent px-4 py-3 text-sm font-bold text-accent-text transition-colors hover:bg-accent-hover"
               @click="emit('update:modelValue', false)"
             >
-              <LogIn aria-hidden="true" class=""  />
+              <LogIn aria-hidden="true" class="h-5 w-5" />
               <span>Log in</span>
             </RouterLink>
 
             <RouterLink
               to="/auth/register"
-              class="flex w-full items-center justify-center gap-2 rounded-xl border border-border-strong px-4 py-3 text-sm font-bold text-primary transition hover:bg-surface-overlay"
+              class="flex w-full items-center justify-center gap-2 rounded-xl border border-white/10 px-4 py-3 text-sm font-bold text-primary transition-colors hover:bg-white/5"
               @click="emit('update:modelValue', false)"
             >
               <span>Sign up</span>
@@ -169,12 +204,20 @@ function handleLogout() {
 </script>
 
 <style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 160ms ease;
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+  transition: all 220ms cubic-bezier(0.16, 1, 0.3, 1);
 }
-.fade-enter-from,
-.fade-leave-to {
+.slide-fade-enter-from {
   opacity: 0;
+}
+.slide-fade-enter-from .w-80 {
+  transform: translateX(100%);
+}
+.slide-fade-leave-to {
+  opacity: 0;
+}
+.slide-fade-leave-to .w-80 {
+  transform: translateX(100%);
 }
 </style>
