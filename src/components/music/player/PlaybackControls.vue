@@ -78,11 +78,15 @@
           :aria-label="playAriaLabel"
           @click="props.isPlaying ? props.togglePlayPause() : proceed()"
         >
-          <span v-if="props.isLoadingTrack || props.isBuffering" class="absolute inset-0 animate-spin-slow">
+          <span v-if="props.isLoadingTrack || props.isBuffering" class="absolute inset-0 flex items-center justify-center animate-spin-slow">
             <Loader class="h-5 w-5 text-white" aria-hidden="true" />
           </span>
-          <Pause v-else-if="props.isPlaying" class="absolute h-5 w-5 text-white" aria-hidden="true" />
-          <Play v-else class="absolute h-5 w-5 text-white ml-0.5" aria-hidden="true" />
+          <span v-else-if="props.isPlaying" class="absolute inset-0 flex items-center justify-center" aria-hidden="true">
+            <Pause class="h-5 w-5 text-white" />
+          </span>
+          <span v-else class="absolute inset-0 flex items-center justify-center" aria-hidden="true">
+            <Play class="h-5 w-5 text-white" />
+          </span>
         </button>
       </GuestPlayGate>
 
