@@ -365,7 +365,7 @@
               size="small"
               as="router-link"
               to="/ai/mood-explorer"
-              class="text-xs! px-3! py-1! text-white/30 hover:text-white"
+              class="text-xs! px-3! py-1! whitespace-nowrap text-white/30 hover:text-white"
               icon-pos="right"
             >
               Explore moods
