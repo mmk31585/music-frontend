@@ -10,12 +10,12 @@
       :disabled="loadingThisTrack"
       @click="handlePlay"
     >
-      <img
+      <CoverImage
         v-if="coverUrl"
         :src="coverUrl"
         :alt="title"
-        class="absolute inset-0 h-full w-full object-cover opacity-60 transition group-hover:opacity-35"
-        loading="lazy"
+        container-class="absolute inset-0 h-full w-full"
+        img-class="object-cover opacity-60 transition group-hover:opacity-35"
         @error="onImgError"
       />
 
@@ -82,6 +82,7 @@ import { usePlayer } from '@/composables/player'
 import { onImgError } from '@/utils/helpers'
 import { buildPlaybackTrack } from '@/factories/playbackTrack'
 import ContextMenu from '@/components/common/ContextMenu.vue'
+import { CoverImage } from '@/components/common/CoverImage.vue'
 import type { ContextMenuSection } from '@/types/context-menu'
 
 interface TrackRowTrack {

@@ -13,7 +13,7 @@
     </div>
 
     <div
-      class="flex h-screen overflow-hidden bg-transparent"
+      class="flex h-screen overflow-hidden bg-surface-1"
       :dir="rtlDir"
     >
       <MusicSidebar />

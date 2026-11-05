@@ -1,7 +1,7 @@
 <template>
   <nav
     aria-label="Main navigation"
-    class="fixed inset-x-0 bottom-0 z-40 border-t border-border-default bg-surface-1 shadow-lg lg:hidden"
+    class="fixed inset-x-0 bottom-0 z-40 border-t border-border-default surface-card shadow-lg lg:hidden"
     style="padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0.75rem))"
   >
     <div class="flex items-center justify-around px-2 pt-2">
@@ -31,11 +31,11 @@ import { useRoute } from 'vue-router'
 const route = useRoute()
 
 const tabs = [
-  { label: 'Home', icon: 'pi pi-home', to: '/' },
-  { label: 'Search', icon: 'pi pi-search', to: '/search' },
-  { label: 'Videos', icon: 'pi pi-video', to: '/videos' },
-  { label: 'Library', icon: 'pi pi-bookmark', to: '/library' },
-  { label: 'Profile', icon: 'pi pi-user', to: '/profile' },
+  { label: 'خانه', icon: 'pi pi-home', to: '/' },
+  { label: 'جستجو', icon: 'pi pi-search', to: '/search' },
+  { label: 'ویدیوها', icon: 'pi pi-video', to: '/videos' },
+  { label: 'کتابخانه', icon: 'pi pi-bookmark', to: '/library' },
+  { label: 'پروفایل', icon: 'pi pi-user', to: '/profile' },
 ]
 
 function isActive(to: string) {

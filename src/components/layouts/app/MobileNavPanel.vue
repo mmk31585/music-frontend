@@ -3,13 +3,13 @@
     <button
       v-if="modelValue"
       type="button"
-      class="fixed inset-0 z-50 bg-black/50 lg:hidden"
+      class="fixed inset-0 z-50 bg-black/60 lg:hidden"
       aria-label="Close navigation menu"
       @click="emit('update:modelValue', false)"
     >
       <!-- Safe-area respecting panel -->
       <div
-        class="fixed inset-y-0 right-0 z-50 w-80 max-w-[90vw] bg-surface-1 border-l border-border-default shadow-2xl flex flex-col"
+        class="fixed inset-y-0 right-0 z-50 w-80 max-w-[90vw] surface-sidebar border-l border-border-default shadow-2xl flex flex-col"
         style="padding-top: max(0.75rem, env(safe-area-inset-top, 0.75rem)); padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0.75rem))"
         @click.stop
       >
@@ -126,12 +126,10 @@
           <template v-if="store.isAuthenticated">
             <!-- User profile card -->
             <div class="flex items-center gap-3 rounded-xl px-3 py-2 bg-surface-2 border border-border-default">
-              <div class="flex h-10 w-10 items-center justify-center rounded-full bg-surface-3 text-primary">
-                {{ initials }}
-              </div>
+              <Avatar :src="store.user?.avatar_url" :name="displayName" size="md" />
               <div class="min-w-0 flex-1">
                 <p class="truncate text-sm font-bold text-primary">{{ displayName }}</p>
-                <p class="text-[10px] text-muted">{{ isAdmin ? 'Admin' : 'Listener' }}</p>
+                <p class="text-[10px] text-muted">{{ isAdmin ? 'مدیر' : 'گذارنده' }}</p>
               </div>
             </div>
 
@@ -141,7 +139,7 @@
               @click="handleLogout"
             >
               <LogOut aria-hidden="true" class="h-5 w-5" />
-              <span>Log out</span>
+              <span>خروج از حساب</span>
             </button>
           </template>
 
@@ -152,7 +150,7 @@
               @click="emit('update:modelValue', false)"
             >
               <LogIn aria-hidden="true" class="h-5 w-5" />
-              <span>Log in</span>
+              <span>ورود به حساب</span>
             </RouterLink>
 
             <RouterLink
@@ -160,7 +158,7 @@
               class="flex w-full items-center justify-center gap-2 rounded-xl border border-border-default px-4 py-3 text-sm font-bold text-primary transition-colors hover:bg-surface-hover"
               @click="emit('update:modelValue', false)"
             >
-              <span>Sign up</span>
+              <span>ثبت‌نام در میوز</span>
             </RouterLink>
           </template>
         </div>
@@ -176,6 +174,7 @@ import { useRoute } from 'vue-router'
 import { useUserAuthStore } from '@/stores'
 import { useAuth } from '@/composables/auth/useAuth'
 import { usePageMeta } from '@/composables/usePageMeta'
+import { Avatar } from '@/components/common/Avatar.vue'
 
 defineProps<{ modelValue: boolean }>()
 const emit = defineEmits<{ 'update:modelValue': [value: boolean] }>()
@@ -187,10 +186,10 @@ const { activeNavBase, browseItems, libraryItems, socialItems, moreItems } = use
 
 const isAdmin = computed(() => store.isAdmin)
 const displayName = computed(
-  () => store.user?.displayName || store.user?.username || store.user?.name || 'User',
+  () => store.user?.displayName || store.user?.username || store.user?.name || '',
 )
 const initials = computed(() => {
-  const name = displayName.value || '?'
+  const name = displayName.value || ''
   const words = name.split(/\s+/).filter(Boolean)
   return words.length >= 2
     ? (words[0]![0]! + words[words.length - 1]![0]!).toUpperCase()

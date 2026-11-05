@@ -3,11 +3,10 @@
     <div
       class="relative aspect-square overflow-hidden rounded-2xl bg-surface-overlay shadow-lg ring-1 ring-border-default transition group-hover:ring-accent/50"
     >
-      <img
+      <CoverImage
         v-if="album.cover_url"
         :src="album.cover_url"
         :alt="album.title"
-        loading="lazy"
         class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
         @error="onImgError"
       />
@@ -42,6 +41,7 @@
 <script setup lang="ts">
 import { Disc3, Play } from 'lucide-vue-next'
 import { onImgError } from '@/utils/helpers'
+import { CoverImage } from '@/components/common/CoverImage.vue'
 import type { Album } from '@/services/api/catalog/albums'
 
 defineProps<{

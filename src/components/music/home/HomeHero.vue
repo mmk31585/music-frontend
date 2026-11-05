@@ -23,24 +23,27 @@
     />
     <!-- Fallback blurred image background when no video -->
     <div v-else class="absolute inset-0 overflow-hidden">
-      <img
+      <CoverImage
         v-for="(item, i) in items"
         :key="i"
         :src="item.image"
+        :alt="item.title"
         class="absolute inset-0 h-full w-full object-cover transition-opacity duration-700"
         :class="i === activeIndex ? 'opacity-100' : 'opacity-0'"
-        style="filter: blur(40px) saturate(1.3); transform: scale(1.1)"
+        :style="{
+          filter: 'blur(40px) saturate(1.3)',
+          transform: 'scale(1.1)',
+        }"
         aria-hidden="true"
       />
     </div>
     <div class="absolute inset-0 bg-linear-to-l from-transparent via-black/40 to-black/80" />
 
-    <!-- Frosted card overlay -->
+    <!-- Content card overlay -->
     <div class="relative z-10 flex h-full items-center px-6 md:px-10">
       <div class="flex w-full items-center justify-between">
         <div
-          class="max-w-lg rounded-2xl border border-white/10 bg-black/30 px-8 py-8 shadow-2xl"
-          style="backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);"
+          class="max-w-lg rounded-2xl border border-white/10 bg-surface-1 px-8 py-8 shadow-2xl"
           :style="{
             opacity: slideVisible ? 1 : 0,
             transform: slideVisible ? 'translateY(0)' : 'translateY(12px)',
@@ -62,7 +65,7 @@
           <div class="mt-5 flex flex-wrap gap-3">
             <button
               type="button"
-              class="glow-green inline-flex h-12 cursor-pointer items-center gap-2 rounded-full bg-spotify px-8 text-base font-bold text-black transition-all hover:bg-spotify-hover hover:scale-105 active:scale-95 focus-visible:ring-2 focus-visible:ring-spotify focus-visible:ring-offset-2 focus-visible:outline-hidden"
+              class="inline-flex h-12 cursor-pointer items-center gap-2 rounded-full bg-accent px-8 text-base font-bold text-black transition-all hover:bg-accent-hover hover:scale-105 active:scale-95 focus-visible:ring-2 focus-visible:ring-spotify focus-visible:ring-offset-2 focus-visible:outline-hidden"
               :aria-label="'پخش ' + currentItem.title"
               @click="$emit('play', currentItem)"
             >
@@ -82,7 +85,7 @@
 
         <!-- Floating art (desktop only) -->
         <div class="hidden shrink-0 md:block">
-          <img
+          <CoverImage
             v-if="currentItem.image"
             :src="currentItem.image"
             :alt="currentItem.title"
@@ -100,7 +103,7 @@
     <!-- Arrow buttons -->
     <button
       type="button"
-      class="absolute top-1/2 right-4 z-20 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-black/60 text-white transition hover:bg-white/10 md:flex"
+      class="absolute top-1/2 right-4 z-20 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-surface-2 text-white transition hover:bg-white/10 md:flex"
       :class="showArrows ? 'opacity-100' : 'opacity-0'"
       aria-label="اسلاید قبلی"
       @click="prev"
@@ -109,7 +112,7 @@
     </button>
     <button
       type="button"
-      class="absolute top-1/2 left-4 z-20 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-black/60 text-white transition hover:bg-white/10 md:flex"
+      class="absolute top-1/2 left-4 z-20 hidden h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-surface-2 text-white transition hover:bg-white/10 md:flex"
       :class="showArrows ? 'opacity-100' : 'opacity-0'"
       aria-label="اسلاید بعدی"
       @click="next"
@@ -136,11 +139,11 @@
     <!-- Pause auto-rotate button -->
     <button
       type="button"
-      class="absolute top-4 left-4 z-20 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-black/40 text-white/60 transition hover:bg-white/10"
+      class="absolute top-4 left-4 z-20 flex h-8 w-8 cursor-pointer items-center justify-center rounded-full border border-white/10 bg-surface-2 text-white/60 transition hover:bg-white/10"
       :aria-label="autoRotating ? 'توقف چرخش خودکار' : 'شروع چرخش خودکار'"
       @click="toggleAutoRotate"
     >
-      <component :is="autoRotating ? Pause : Play"<i aria-hidden="true"  class="text-xs" /> />
+      <component :is="autoRotating ? Pause : Play" class="text-xs" />
     </button>
   </section>
 </template>
@@ -148,6 +151,7 @@
 <script setup lang="ts">
 import { ChevronLeft, ChevronRight, Pause, Play, Plus } from 'lucide-vue-next'
 import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { CoverImage } from '@/components/common/CoverImage.vue'
 
 export interface HeroItem {
   id: string
@@ -271,3 +275,22 @@ onUnmounted(() => {
   stopTimer()
 })
 </script>
+
+<style scoped>
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.slide-fade-enter-from {
+  opacity: 0;
+}
+.slide-fade-enter-from .w-80 {
+  transform: translateX(100%);
+}
+.slide-fade-leave-to {
+  opacity: 0;
+}
+.slide-fade-leave-to .w-80 {
+  transform: translateX(100%);
+}
+</style>

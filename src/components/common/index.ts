@@ -1,4 +1,6 @@
 export { default as AppLoader } from './AppLoader.vue'
+export { default as CoverImage } from './CoverImage.vue'
+export { default as Avatar } from './Avatar.vue'
 export { default as SkeletonLoader } from './SkeletonLoader.vue'
 export { default as AppLogo } from './AppLogo.vue'
 export { default as AppPageContainer } from './AppPageContainer.vue'

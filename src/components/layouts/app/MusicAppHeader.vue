@@ -14,7 +14,7 @@
         <RouterLink
           v-if="!isHome"
           to="/"
-          aria-label="Go to home"
+          aria-label="برگشت به صفحه اصلی"
           class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-secondary transition-all duration-150 hover:bg-surface-overlay hover:text-primary active:scale-90"
         >
           <ChevronLeft :size="18" />
@@ -25,7 +25,7 @@
           @click="$emit('toggle-search')"
         >
           <Search aria-hidden="true" class="text-accent text-sm transition-colors group-hover:text-accent"  />
-          <span>Search songs, artists, albums...</span>
+          <span>جستجوی mélodi، هنرمند، آلبوم...</span>
           <kbd class="ml-auto rounded-lg border border-border-default bg-surface-active px-2 py-0.5 text-[11px] font-medium text-muted">Ctrl+K</kbd>
         </button>
       </div>
@@ -33,7 +33,7 @@
       <div class="flex items-center gap-2">
         <button
           type="button"
-          aria-label="Search"
+          aria-label="جستجو"
           class="flex h-10 w-10 items-center justify-center rounded-xl bg-surface-overlay text-secondary transition hover:bg-surface-active hover:text-primary md:hidden"
           @click="$emit('toggle-search')"
         >
@@ -43,7 +43,7 @@
         <template v-if="isAuthenticated">
           <RouterLink
             to="/notifications"
-            aria-label="Notifications"
+            aria-label="اعلان‌ها"
             class="relative flex h-10 w-10 items-center justify-center rounded-xl bg-surface-overlay text-secondary transition hover:bg-surface-active hover:text-primary"
           >
             <Bell aria-hidden="true" class="text-sm"  />
@@ -52,7 +52,7 @@
               class="absolute -top-0.5 flex h-4 min-w-4 items-center justify-center rounded-full bg-accent px-1 text-[10px] font-bold text-accent-text"
               :class="isRTL ? '-left-0.5' : '-right-0.5'"
             >
-              {{ unreadCount > 99 ? '99+' : unreadCount }}
+              {{ unreadCount > 99 ? '۹۹+' : unreadCount }}
             </span>
           </RouterLink>
 
@@ -60,7 +60,7 @@
             <button
               type="button"
               ref="userButtonRef"
-              aria-label="User menu"
+              aria-label="فهرست کاربری"
               aria-haspopup="true"
               :aria-expanded="showUserMenu"
               class="flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl bg-accent text-sm font-bold text-accent-text ring-2 ring-transparent transition-all duration-200 hover:bg-accent-hover focus-visible:ring-accent/50"
@@ -94,13 +94,13 @@
             to="/auth/login"
             class="rounded-xl bg-accent px-5 py-2 text-sm font-bold text-accent-text transition hover:bg-accent-hover"
           >
-            Log in
+            ورود به سیستم
           </RouterLink>
           <RouterLink
             to="/auth/register"
             class="hidden rounded-xl border border-border-strong px-5 py-2 text-sm font-bold text-primary transition hover:bg-surface-overlay md:inline-flex"
           >
-            Sign up
+            ثبت‌نام در میوز
           </RouterLink>
         </template>
       </div>

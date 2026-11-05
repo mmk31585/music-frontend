@@ -3,7 +3,7 @@
     <div
       class="mx-auto h-36 w-36 overflow-hidden rounded-full bg-surface-overlay ring-1 ring-border-default transition group-hover:ring-accent/50"
     >
-      <img
+      <CoverImage
         v-if="artist.image_url"
         :src="artist.image_url"
         :alt="artist.name"
@@ -27,6 +27,7 @@
 <script setup lang="ts">
 import { User } from 'lucide-vue-next'
 import { onImgError } from '@/utils/helpers'
+import { CoverImage } from '@/components/common/CoverImage.vue'
 import type { Artist } from '@/services/api/catalog/artists'
 
 defineProps<{

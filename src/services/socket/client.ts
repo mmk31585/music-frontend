@@ -3,6 +3,17 @@ import { useUserAuthStore } from '@/stores/user-auth'
 
 const WS_URL = import.meta.env.VITE_WS_URL || undefined
 
+// Derive WebSocket origin from VITE_API_BASE_URL when VITE_WS_URL is not set,
+// so the WS endpoint matches the API domain (not the frontend domain) on
+// production deployments where frontend and API live on different origins.
+function wsOrigin(): string {
+  const apiBase = import.meta.env.VITE_API_BASE_URL || ''
+  const m = apiBase.match(/^https?:\/\/[^/]+/)
+  if (m) return m[0]
+  const proto = location.protocol === 'https:' ? 'wss' : 'ws'
+  return `${proto}://${location.host}`
+}
+
 type MessageHandler = (data: any) => void
 
 let socket: WebSocket | null = null
@@ -63,7 +74,7 @@ function connectInner() {
   if (!token) return
 
   try {
-    const base = WS_URL || `${location.protocol === 'https:' ? 'wss' : 'ws'}://${location.host}/api/v1/ws`
+    const base = WS_URL || `${wsOrigin()}/api/v1/ws`
     socket = new WebSocket(`${base}?token=${encodeURIComponent(token)}`)
   } catch {
     scheduleReconnect()
