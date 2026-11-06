@@ -13,7 +13,7 @@
           fallback-icon="pi pi-music"
           icon-size="0.875rem"
         />
-        <div class="absolute inset-0 rounded-xl ring-1 ring-inset ring-white/10" />
+        <div class="absolute inset-0 rounded-xl ring-1 ring-white/10 ring-inset" />
       </div>
 
       <!-- Track info -->
@@ -29,10 +29,10 @@
       <!-- Play button -->
       <button
         type="button"
-        class="inline-flex shrink-0 items-center gap-1.5 rounded-xl bg-white/10 px-3.5 py-2 text-xs font-bold text-white transition hover:bg-spotify hover:text-black"
+        class="hover:bg-spotify inline-flex shrink-0 items-center gap-1.5 rounded-xl bg-white/10 px-3.5 py-2 text-xs font-bold text-white transition hover:text-black"
         @click="$emit('play', track)"
       >
-        <Play aria-hidden="true" class="text-sm"  />
+        <Play aria-hidden="true" class="text-sm" />
         <span>پخش آهنگ</span>
       </button>
     </div>
@@ -55,10 +55,14 @@ defineEmits<{
 
 <style scoped>
 .slide-up-enter-active {
-  transition: transform 200ms ease-out, opacity 200ms ease-out;
+  transition:
+    transform 200ms ease-out,
+    opacity 200ms ease-out;
 }
 .slide-up-leave-active {
-  transition: transform 150ms ease-in, opacity 150ms ease-in;
+  transition:
+    transform 150ms ease-in,
+    opacity 150ms ease-in;
 }
 .slide-up-enter-from {
   transform: translateY(100%);

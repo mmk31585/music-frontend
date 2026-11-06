@@ -99,9 +99,7 @@ export function useContextMenuPosition(options: PositionOptions) {
       const anchorRect = anchorEl.value.getBoundingClientRect()
       const isBelow = y > anchorRect.bottom
       const isLeft = x < anchorRect.left
-      placement.value = isBelow
-        ? (isLeft ? 'bl' : 'br')
-        : (isLeft ? 'tl' : 'tr')
+      placement.value = isBelow ? (isLeft ? 'bl' : 'br') : isLeft ? 'tl' : 'tr'
     } else {
       placement.value = 'tl'
     }

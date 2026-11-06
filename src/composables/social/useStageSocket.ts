@@ -34,7 +34,7 @@ export function useStageSocket(roomId: string, currentUserId: string) {
   async function resolveUser(userId: string): Promise<{ username: string; avatar_url?: string }> {
     if (userNames.value[userId]) return userNames.value[userId]
     try {
-      const profile = await useUserApi().getPublicUserProfile(userId) as Record<string, any>
+      const profile = (await useUserApi().getPublicUserProfile(userId)) as Record<string, any>
       const username = String(profile.full_name || profile.username || userId.slice(0, 8))
       const avatar_url = profile.avatar_url as string | undefined
       userNames.value[userId] = { username, avatar_url }
@@ -51,7 +51,11 @@ export function useStageSocket(roomId: string, currentUserId: string) {
     await Promise.all(unique.map(resolveUser))
   }
 
-  function enrichState(raw: StageStateResponse, myRole: 'host' | 'speaker' | 'listener', handRaised: boolean): StageState {
+  function enrichState(
+    raw: StageStateResponse,
+    myRole: 'host' | 'speaker' | 'listener',
+    handRaised: boolean,
+  ): StageState {
     const host: StageMember & { username?: string; avatar_url?: string } = {
       ...raw.host,
       username: userNames.value[raw.host.user_id]?.username || raw.host.user_id.slice(0, 8),
@@ -106,36 +110,42 @@ export function useStageSocket(roomId: string, currentUserId: string) {
     wsClient.connect()
     wsClient.subscribe(`room:${roomId}`)
 
-    unsubHandRaised = wsClient.on('room.hand_raised', async (msg: { payload?: { user_id: string } }) => {
-      const uid = msg.payload?.user_id
-      if (uid) {
-        const info = await resolveUser(uid)
-        stageState.value?.pending_hand_raises.push({
-          id: '',
-          room_id: roomId,
-          user_id: uid,
-          status: 'pending',
-          created_at: new Date().toISOString(),
-          username: info.username,
-          avatar_url: info.avatar_url,
-        })
-        // Only show toast to host
-        if (currentUserId && stageState.value?.my_role === 'host') {
-          toast.info(`${info.username} دستش رو بالا برد`)
+    unsubHandRaised = wsClient.on(
+      'room.hand_raised',
+      async (msg: { payload?: { user_id: string } }) => {
+        const uid = msg.payload?.user_id
+        if (uid) {
+          const info = await resolveUser(uid)
+          stageState.value?.pending_hand_raises.push({
+            id: '',
+            room_id: roomId,
+            user_id: uid,
+            status: 'pending',
+            created_at: new Date().toISOString(),
+            username: info.username,
+            avatar_url: info.avatar_url,
+          })
+          // Only show toast to host
+          if (currentUserId && stageState.value?.my_role === 'host') {
+            toast.info(`${info.username} دستش رو بالا برد`)
+          }
         }
-      }
-    })
+      },
+    )
 
     unsubStageUpdated = wsClient.on('room.stage_updated', () => {
       fetchAndSet()
     })
 
-    unsubHandApproved = wsClient.on('room.hand_approved', (msg: { payload?: { user_id: string } }) => {
-      if (msg.payload?.user_id === currentUserId) {
-        toast.success('میزبان قبول کرد! می‌تونی صحبت کنی')
-      }
-      fetchAndSet()
-    })
+    unsubHandApproved = wsClient.on(
+      'room.hand_approved',
+      (msg: { payload?: { user_id: string } }) => {
+        if (msg.payload?.user_id === currentUserId) {
+          toast.success('میزبان قبول کرد! می‌تونی صحبت کنی')
+        }
+        fetchAndSet()
+      },
+    )
 
     unsubHandDenied = wsClient.on('room.hand_denied', (msg: { payload?: { user_id: string } }) => {
       if (msg.payload?.user_id === currentUserId) {
@@ -146,10 +156,22 @@ export function useStageSocket(roomId: string, currentUserId: string) {
   }
 
   function teardownSocket() {
-    if (unsubHandRaised) { unsubHandRaised(); unsubHandRaised = null }
-    if (unsubStageUpdated) { unsubStageUpdated(); unsubStageUpdated = null }
-    if (unsubHandApproved) { unsubHandApproved(); unsubHandApproved = null }
-    if (unsubHandDenied) { unsubHandDenied(); unsubHandDenied = null }
+    if (unsubHandRaised) {
+      unsubHandRaised()
+      unsubHandRaised = null
+    }
+    if (unsubStageUpdated) {
+      unsubStageUpdated()
+      unsubStageUpdated = null
+    }
+    if (unsubHandApproved) {
+      unsubHandApproved()
+      unsubHandApproved = null
+    }
+    if (unsubHandDenied) {
+      unsubHandDenied()
+      unsubHandDenied = null
+    }
     wsClient.unsubscribe(`room:${roomId}`)
   }
 

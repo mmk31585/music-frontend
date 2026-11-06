@@ -52,7 +52,10 @@
 
 /* ── Input / Number Typography ─────────────────────────────────────────────── */
 
-input, textarea, .tabular-nums, [class*="tabular"] {
+input,
+textarea,
+.tabular-nums,
+[class*='tabular'] {
   font-family: var(--font-ui);
 }
 

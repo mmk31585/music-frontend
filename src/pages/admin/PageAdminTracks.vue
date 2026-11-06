@@ -12,7 +12,7 @@
           size="small"
           severity="secondary"
           :loading="enrichingAll"
-          class="text-purple-400! rounded-xl!"
+          class="rounded-xl! text-purple-400!"
           @click="handleEnrichAll"
         />
         <Button
@@ -98,14 +98,14 @@
                 class="border-b border-white/6 text-left text-xs tracking-wider text-slate-500 uppercase"
               >
                 <th class="px-5 py-3 font-medium">
-                  <Play aria-hidden="true" class="text-xs"  />
+                  <Play aria-hidden="true" class="text-xs" />
                 </th>
                 <th class="px-5 py-3 font-medium">Title</th>
                 <th class="px-5 py-3 font-medium">Artists</th>
                 <th class="hidden px-5 py-3 font-medium lg:table-cell">Album</th>
                 <th class="hidden px-5 py-3 font-medium xl:table-cell">Genres</th>
                 <th class="px-5 py-3 text-right font-medium">
-                  <Clock aria-hidden="true" class="text-xs"  />
+                  <Clock aria-hidden="true" class="text-xs" />
                 </th>
                 <th class="px-5 py-3" />
               </tr>
@@ -113,14 +113,14 @@
 
             <tbody class="divide-y divide-white/4">
               <tr
-                v-for="(track, index) in filteredTracks"
+                v-for="track in filteredTracks"
                 :key="track.id"
                 class="group transition-colors hover:bg-white/2"
               >
                 <td class="px-5 py-3.5">
                   <button
                     type="button"
-                    class="flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-all hover:bg-spotify/20 hover:text-spotify disabled:opacity-30"
+                    class="hover:bg-spotify/20 hover:text-spotify flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-all disabled:opacity-30"
                     :disabled="isTrackLoading(track)"
                     :aria-label="'Play ' + track.title"
                     :title="isTrackPlaying(track) ? 'Now playing' : 'Play track'"
@@ -129,8 +129,8 @@
                     <Loader2
                       v-if="isTrackLoading(track)"
                       aria-hidden="true"
-                      class="text-sm animate-spin"
-                     />
+                      class="animate-spin text-sm"
+                    />
                     <i
                       v-else
                       aria-hidden="true"
@@ -152,7 +152,7 @@
                       />
 
                       <div v-else class="flex h-full w-full items-center justify-center">
-                        <Headphones aria-hidden="true" class="text-xs text-slate-700"  />
+                        <Headphones aria-hidden="true" class="text-xs text-slate-700" />
                       </div>
                     </div>
 
@@ -271,7 +271,7 @@
             />
 
             <div v-else class="flex h-full w-full items-center justify-center">
-              <Headphones aria-hidden="true" class="text-3xl text-slate-700"  />
+              <Headphones aria-hidden="true" class="text-3xl text-slate-700" />
             </div>
 
             <div class="absolute top-2 left-2 flex flex-wrap gap-1">
@@ -288,7 +288,7 @@
             >
               <button
                 type="button"
-                class="flex h-12 w-12 items-center justify-center rounded-full bg-spotify text-black shadow-xl transition-all hover:scale-110 active:scale-90 disabled:opacity-40"
+                class="bg-spotify flex h-12 w-12 items-center justify-center rounded-full text-black shadow-xl transition-all hover:scale-110 active:scale-90 disabled:opacity-40"
                 :disabled="isTrackLoading(track)"
                 aria-label="Play track"
                 @click="handlePlayTrack(track)"
@@ -296,8 +296,8 @@
                 <Loader2
                   v-if="isTrackLoading(track)"
                   aria-hidden="true"
-                  class="text-lg animate-spin"
-                 />
+                  class="animate-spin text-lg"
+                />
                 <i
                   v-else
                   aria-hidden="true"
@@ -308,7 +308,7 @@
             </div>
 
             <div
-              class="absolute right-2 top-2 flex gap-1 opacity-0 transition-opacity group-hover:opacity-100"
+              class="absolute top-2 right-2 flex gap-1 opacity-0 transition-opacity group-hover:opacity-100"
             >
               <Button
                 icon="pi pi-pencil"
@@ -427,7 +427,6 @@ import { useAdminArtists } from '@/composables/admin/useAdminArtists'
 import { useAdminAlbums } from '@/composables/admin/useAdminAlbums'
 import { useAdminGenres } from '@/composables/admin/useAdminGenres'
 import { usePlayer } from '@/composables/player'
-import { usePlayerApi } from '@/services/api/player'
 import { buildPlaybackTrack as factoryBuildPlaybackTrack } from '@/factories/playbackTrack'
 
 import type { Track } from '@/services/api/catalog/tracks'
@@ -524,7 +523,6 @@ const {
   fetchArtists,
   createArtist,
   saving: artistSaving,
-  error: artistError,
 } = useAdminArtists()
 
 const {
@@ -532,7 +530,6 @@ const {
   fetchAlbums,
   createAlbum,
   saving: albumSaving,
-  error: albumError,
 } = useAdminAlbums()
 
 const { genres, fetchGenres } = useAdminGenres()
@@ -540,7 +537,6 @@ const { genres, fetchGenres } = useAdminGenres()
 const tracksApi = useTracksApi()
 const { getTrackLyrics } = useLyricsApi()
 const player = usePlayer()
-const playerApi = usePlayerApi()
 const loadingTrackId = ref<string | null>(null)
 const searchQuery = ref('')
 const viewMode = ref<'table' | 'card'>('table')
@@ -587,7 +583,9 @@ function getTrackPlayButtonIcon(track: Track): string {
 }
 
 const artistOptions = computed(() => {
-  return normalizeCatalogOptions(adminArtistsList.value, 'artist').filter(Boolean) as CatalogOption[]
+  return normalizeCatalogOptions(adminArtistsList.value, 'artist').filter(
+    Boolean,
+  ) as CatalogOption[]
 })
 
 const albumOptions = computed(() => {
@@ -799,25 +797,23 @@ function normalizeCatalogOptions(
 ) {
   if (!Array.isArray(items)) return []
 
-  return (items ?? [])
-    .map((item) => {
-      const id = item.id ?? item.artist_id ?? item.album_id ?? item.genre_id
+  return (items ?? []).map((item) => {
+    const id = item.id ?? item.artist_id ?? item.album_id ?? item.genre_id
 
-      const name =
-        item.name ?? item.title ?? item.artist_name ?? item.album_title ?? item.genre_name
+    const name = item.name ?? item.title ?? item.artist_name ?? item.album_title ?? item.genre_name
 
-      if (id === undefined || id === null || !name) return null
+    if (id === undefined || id === null || !name) return null
 
-      const opt: CatalogOption = {
-        id: id as CatalogId,
-        name: name as string,
-        slug: (item.slug as string | undefined) ?? undefined,
-        image_url: (item.image_url as string | null | undefined) ?? null,
-        avatar_url: (item.avatar_url as string | null | undefined) ?? null,
-        cover_url: (item.cover_url as string | null | undefined) ?? null,
-      }
-      return opt
-    })
+    const opt: CatalogOption = {
+      id: id as CatalogId,
+      name: name as string,
+      slug: (item.slug as string | undefined) ?? undefined,
+      image_url: (item.image_url as string | null | undefined) ?? null,
+      avatar_url: (item.avatar_url as string | null | undefined) ?? null,
+      cover_url: (item.cover_url as string | null | undefined) ?? null,
+    }
+    return opt
+  })
 }
 
 function normalizeSearch(value: string) {
@@ -897,7 +893,9 @@ function getTrackArtistNamesByRole(track: Track, roles: string[]) {
 
   const fromCredits = Array.isArray(t.credits)
     ? t.credits
-        .filter((item: Record<string, unknown>) => normalizedRoles.includes(String(item.role ?? '').toLowerCase()))
+        .filter((item: Record<string, unknown>) =>
+          normalizedRoles.includes(String(item.role ?? '').toLowerCase()),
+        )
         .map((item: Record<string, unknown>) => {
           const artist = item.artist as Record<string, unknown> | undefined
           return String(item.name ?? item.artist_name ?? artist?.name ?? artist?.title ?? '')

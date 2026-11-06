@@ -16,12 +16,10 @@
     <template #header>
       <div class="flex items-center gap-3" lang="fa" dir="rtl">
         <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/10">
-          <Headphones aria-hidden="true" class="text-emerald-400"  />
+          <Headphones aria-hidden="true" class="text-emerald-400" />
         </div>
         <div>
-          <h3 class="text-base font-semibold text-white">
-            موجا رو کشف کن
-          </h3>
+          <h3 class="text-base font-semibold text-white">موجا رو کشف کن</h3>
           <p class="text-xs text-slate-500">
             برای ادامه شنیدن، یه حساب رایگان بساز. همین الان، همین جا.
           </p>
@@ -30,16 +28,16 @@
     </template>
 
     <div class="mt-6 flex flex-col items-center gap-4 text-center" lang="fa" dir="rtl">
-      <div class="flex flex-col gap-3 w-full">
+      <div class="flex w-full flex-col gap-3">
         <Button
           label="ثبت‌نام رایگان"
-          class="w-full! rounded-xl! bg-emerald-500! text-black! hover:bg-emerald-400! py-3! text-sm! font-bold!"
+          class="w-full! rounded-xl! bg-emerald-500! py-3! text-sm! font-bold! text-black! hover:bg-emerald-400!"
           @click="router.push('/auth/register')"
         />
         <Button
           label="ورود"
           text
-          class="w-full! rounded-xl! text-slate-400! hover:text-white! py-3! text-sm! font-bold!"
+          class="w-full! rounded-xl! py-3! text-sm! font-bold! text-slate-400! hover:text-white!"
           @click="router.push('/auth/login')"
         />
       </div>

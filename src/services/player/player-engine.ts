@@ -48,7 +48,12 @@ export class PlayerEngine {
   private listeners = new Map<EventName, Set<Listener<any>>>()
   private unsubs: (() => void)[] = []
 
-  constructor(audio?: AudioEngine, queue?: QueueManager, preload?: PreloadManager, providers?: PlayerEngineProviders) {
+  constructor(
+    audio?: AudioEngine,
+    queue?: QueueManager,
+    preload?: PreloadManager,
+    providers?: PlayerEngineProviders,
+  ) {
     this.audio = audio ?? audioEngine
     this.queue = queue ?? queueManager
     this.preload = preload ?? preloadManager
@@ -382,7 +387,9 @@ export class PlayerEngine {
         await this.playById(pick.id)
         return
       }
-    } catch { /* fall through to sequential */ }
+    } catch {
+      /* fall through to sequential */
+    }
     await this.nextSequential()
   }
 
@@ -395,7 +402,9 @@ export class PlayerEngine {
         await this.playById(pick.id)
         return
       }
-    } catch { /* fall through to sequential */ }
+    } catch {
+      /* fall through to sequential */
+    }
     await this.nextSequential()
   }
 
@@ -469,7 +478,9 @@ export class PlayerEngine {
         await this.playById(pick.id)
         return
       }
-    } catch { /* fall through */ }
+    } catch {
+      /* fall through */
+    }
     this.audio.seek(0)
   }
 
@@ -482,7 +493,9 @@ export class PlayerEngine {
         await this.playById(pick.id)
         return
       }
-    } catch { /* fall through */ }
+    } catch {
+      /* fall through */
+    }
     this.audio.seek(0)
   }
 

@@ -13,13 +13,7 @@ export interface NavItem {
   children?: NavItem[]
 }
 
-export type NavSectionId =
-  | 'discover'
-  | 'your-music'
-  | 'community'
-  | 'ai'
-  | 'creator'
-  | 'settings'
+export type NavSectionId = 'discover' | 'your-music' | 'community' | 'ai' | 'creator' | 'settings'
 
 export interface NavSection {
   id: NavSectionId

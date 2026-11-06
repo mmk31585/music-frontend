@@ -4,7 +4,6 @@ import { useSocialApi } from '@/services/api/social'
 import { useReactionsApi } from '@/services/api/reactions'
 import { useToast } from 'primevue/usetoast'
 import { translateMessage } from '@/utils/message-translations'
-import type { User } from '@/services/api/auth/types'
 import type { ActivityFeedItem } from '@/services/api/social/types'
 import type { RecommendationTrack } from '@/services/api/recommendation/types'
 
@@ -74,7 +73,12 @@ export function useUserProfile(userId?: string) {
     } catch (err: unknown) {
       error.value = err
       const msg = err instanceof Error ? err.message : 'Failed to load profile'
-      toast.add({ severity: 'error', summary: 'خطا', detail: translateMessage(msg) ?? msg, life: 5000 })
+      toast.add({
+        severity: 'error',
+        summary: 'خطا',
+        detail: translateMessage(msg) ?? msg,
+        life: 5000,
+      })
     } finally {
       loading.value = false
     }

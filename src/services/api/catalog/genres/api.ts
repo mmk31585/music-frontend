@@ -81,10 +81,7 @@ export const useGenresApi = () => {
     )
   }
 
-  const adminDeleteGenre = async (
-    id: string | number,
-    config?: UseRequestConfig<void>,
-  ) => {
+  const adminDeleteGenre = async (id: string | number, config?: UseRequestConfig<void>) => {
     return useRequest<void>(
       GenreApiRoutes.ADMIN_DELETE.replace(':genreId', String(id)),
       { method: 'DELETE' },

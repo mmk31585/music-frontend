@@ -28,14 +28,16 @@
           @error="onImgError"
         />
         <div v-else class="flex h-full items-center justify-center">
-          <Disc3 aria-hidden="true" class="text-4xl text-slate-500"  />
+          <Disc3 aria-hidden="true" class="text-4xl text-slate-500" />
         </div>
 
         <!-- Dark gradient overlay for text readability -->
-        <div class="absolute inset-0 bg-linear-to-t from-surface-base via-surface-base/60 to-transparent" />
+        <div
+          class="from-surface-base via-surface-base/60 absolute inset-0 bg-linear-to-t to-transparent"
+        />
 
         <!-- Track info overlaying cover -->
-        <div class="absolute bottom-4 left-5 right-5">
+        <div class="absolute right-5 bottom-4 left-5">
           <h2 class="text-xl font-black text-white drop-shadow-lg">{{ title }}</h2>
           <p v-if="artistName" class="mt-1 text-sm font-medium text-white/80 drop-shadow-md">
             {{ artistName }}
@@ -53,19 +55,20 @@
             class="flex items-center gap-1.5 font-medium text-white/60 transition hover:text-white"
             @click="emit('update:visible', false)"
           >
-            <Book aria-hidden="true" class="text-[10px]"  />
+            <Book aria-hidden="true" class="text-[10px]" />
             {{ albumTitle }}
           </RouterLink>
 
           <span v-if="durationSeconds" class="tabular-nums">
-            <Clock aria-hidden="true" class="mr-1 text-[10px]"  />
+            <Clock aria-hidden="true" class="mr-1 text-[10px]" />
             {{ formatDuration(durationSeconds) }}
           </span>
 
           <span
             v-if="explicit"
             class="inline-flex h-4 w-4 items-center justify-center rounded bg-white/15 text-[9px] font-bold tracking-wide text-white"
-          >E</span>
+            >E</span
+          >
 
           <span v-if="playCount && playCount > 0" class="text-white/40">
             {{ formatCount(playCount) }} plays
@@ -90,11 +93,14 @@
         <div class="flex flex-wrap gap-2">
           <button
             type="button"
-            class="glow-green inline-flex items-center gap-2 rounded-full bg-spotify px-5 py-2 text-sm font-bold text-black transition hover:bg-spotify-hover"
+            class="glow-green bg-spotify hover:bg-spotify-hover inline-flex items-center gap-2 rounded-full px-5 py-2 text-sm font-bold text-black transition"
             :class="{ 'bg-white/20! text-white! shadow-none!': isCurrentTrack }"
             @click="handlePlay"
           >
-            <component :is="isCurrentTrack && player.isPlaying.value ? Pause : Play"<i aria-hidden="true"  /> />
+            <component
+              :is="isCurrentTrack && player.isPlaying.value ? Pause : Play"
+              aria-hidden="true"
+            />
             {{ isCurrentTrack && player.isPlaying.value ? 'Pause' : 'Play' }}
           </button>
 
@@ -103,17 +109,21 @@
             class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/4 px-4 py-2 text-sm font-bold text-white/80 transition hover:border-white/30 hover:bg-white/8 hover:text-white"
             @click="addToQueue"
           >
-            <List aria-hidden="true" class="text-xs"  />
+            <List aria-hidden="true" class="text-xs" />
             Queue
           </button>
 
           <button
             type="button"
             class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/3 px-4 py-2 text-sm font-bold transition"
-            :class="liked ? 'border-spotify/30 text-spotify' : 'text-white/60 hover:bg-white/8 hover:text-white'"
+            :class="
+              liked
+                ? 'border-spotify/30 text-spotify'
+                : 'text-white/60 hover:bg-white/8 hover:text-white'
+            "
             @click="emit('toggle-like')"
           >
-            <component :is="liked ? Heart : Heart"<i aria-hidden="true"  /> />
+            <component :is="liked ? Heart : Heart" aria-hidden="true" />
             {{ liked ? 'Liked' : 'Like' }}
           </button>
 
@@ -122,7 +132,7 @@
             class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/3 px-4 py-2 text-sm font-bold text-white/60 transition hover:bg-white/8 hover:text-white"
             @click="shareTrack"
           >
-            <Share2 aria-hidden="true" class=""  />
+            <Share2 aria-hidden="true" class="" />
             Share
           </button>
         </div>
@@ -135,7 +145,7 @@
             class="flex items-center gap-1 transition hover:text-white"
             @click="emit('update:visible', false)"
           >
-            <User aria-hidden="true" class=""  />
+            <User aria-hidden="true" class="" />
             View artist
           </RouterLink>
           <RouterLink
@@ -144,7 +154,7 @@
             class="flex items-center gap-1 transition hover:text-white"
             @click="emit('update:visible', false)"
           >
-            <Book aria-hidden="true" class=""  />
+            <Book aria-hidden="true" class="" />
             View album
           </RouterLink>
         </div>
@@ -168,23 +178,26 @@ interface GenreItem {
   [key: string]: unknown
 }
 
-const props = withDefaults(defineProps<{
-  visible: boolean
-  trackId: string
-  title: string
-  artistName?: string | null
-  artistId?: string | number | null
-  albumTitle?: string | null
-  albumId?: string | number | null
-  coverUrl?: string | null
-  durationSeconds?: number | null
-  explicit?: boolean
-  playCount?: number | null
-  genres?: GenreItem[]
-  liked?: boolean
-}>(), {
-  genres: () => [],
-})
+const props = withDefaults(
+  defineProps<{
+    visible: boolean
+    trackId: string
+    title: string
+    artistName?: string | null
+    artistId?: string | number | null
+    albumTitle?: string | null
+    albumId?: string | number | null
+    coverUrl?: string | null
+    durationSeconds?: number | null
+    explicit?: boolean
+    playCount?: number | null
+    genres?: GenreItem[]
+    liked?: boolean
+  }>(),
+  {
+    genres: () => [],
+  },
+)
 
 const emit = defineEmits<{
   'update:visible': [value: boolean]

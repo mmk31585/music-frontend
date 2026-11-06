@@ -14,7 +14,7 @@
 
     <div v-else-if="items.length === 0" class="flex flex-col items-center gap-3 py-8 text-center">
       <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/5">
-        <History aria-hidden="true" class="text-xl text-white/15"  />
+        <History aria-hidden="true" class="text-xl text-white/15" />
       </div>
       <p class="text-sm text-white/25">No version history yet</p>
     </div>
@@ -35,9 +35,10 @@
             <span class="text-sm font-medium text-white/70">{{
               changeLabel(item.change_type)
             }}</span>
-            <span class="rounded-sm bg-white/5 px-1.5 py-0.5 text-[10px] font-medium text-white/30">{{
-              item.changed_by
-            }}</span>
+            <span
+              class="rounded-sm bg-white/5 px-1.5 py-0.5 text-[10px] font-medium text-white/30"
+              >{{ item.changed_by }}</span
+            >
           </div>
           <p class="mt-1 text-xs text-white/30">{{ formatDate(item.created_at) }}</p>
 
@@ -47,15 +48,17 @@
               class="text-xs text-white/30 transition-colors hover:text-white/50"
               @click="toggleExpand(idx)"
             >
-              <ChevronRight aria-hidden="true" class="mr-1 text-[10px]"
-                :class="{ 'rotate-90': expanded === idx }" />
+              <ChevronRight
+                aria-hidden="true"
+                class="mr-1 text-[10px]"
+                :class="{ 'rotate-90': expanded === idx }"
+              />
               View data
             </button>
             <pre
               v-if="expanded === idx"
               class="mt-2 overflow-x-auto rounded-lg bg-black/40 p-3 font-mono text-[11px] text-white/40"
-              >{{ formatData(item.data) }}</pre
-            >
+              >{{ formatData(item.data) }}</pre>
           </div>
         </div>
       </div>

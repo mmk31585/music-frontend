@@ -4,15 +4,15 @@
   >
     <!-- Glow effect on hover -->
     <div
-      class="pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100"
+      class="pointer-events-none absolute -top-6 -right-6 h-24 w-24 rounded-full opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100"
       :class="glowColor"
     />
 
     <div class="relative flex items-start justify-between">
       <div class="min-w-0 flex-1">
-        <p class="text-xs font-medium uppercase tracking-wider text-slate-500">{{ label }}</p>
+        <p class="text-xs font-medium tracking-wider text-slate-500 uppercase">{{ label }}</p>
 
-        <p class="mt-2 text-3xl font-bold tabular-nums text-white">
+        <p class="mt-2 text-3xl font-bold text-white tabular-nums">
           <span v-if="loading" class="inline-block h-8 w-16 animate-pulse rounded-lg bg-white/10" />
           <template v-else>{{ formattedValue }}</template>
         </p>

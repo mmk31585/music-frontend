@@ -29,10 +29,8 @@ export function useHomeFeed() {
     return false
   }
 
-  const hasData = computed(() =>
-    sections.value.length > 0 ||
-    albums.value.length > 0 ||
-    artists.value.length > 0
+  const hasData = computed(
+    () => sections.value.length > 0 || albums.value.length > 0 || artists.value.length > 0,
   )
 
   const personalized = ref<RecommendationTrack[]>([])
@@ -49,7 +47,7 @@ export function useHomeFeed() {
   const forYou = computed(() => sectionMap.value.for_you?.items ?? [])
   const fromYourArtists = computed(() => sectionMap.value.from_your_artists?.items ?? [])
   const becauseOfSections = computed(() =>
-    sections.value.filter(s => s.id.startsWith('because_of_'))
+    sections.value.filter((s) => s.id.startsWith('because_of_')),
   )
   const yourGenres = computed(() => sectionMap.value.your_genres?.items ?? [])
 
@@ -59,9 +57,7 @@ export function useHomeFeed() {
 
     try {
       const results = await Promise.allSettled([
-        auth.isAuthenticated
-          ? recsApi.getHomeFeed().catch(() => null)
-          : Promise.resolve(null),
+        auth.isAuthenticated ? recsApi.getHomeFeed().catch(() => null) : Promise.resolve(null),
         auth.isAuthenticated
           ? recsApi.getPersonalized({ limit: 10 }).catch(() => null)
           : Promise.resolve(null),
@@ -75,11 +71,12 @@ export function useHomeFeed() {
       const personalizedResult = results[1].status === 'fulfilled' ? results[1].value : null
       personalized.value = personalizedResult?.items ?? []
 
-      albums.value = results[2].status === 'fulfilled' ? results[2].value ?? [] : []
-      artists.value = results[3].status === 'fulfilled' ? results[3].value ?? [] : []
+      albums.value = results[2].status === 'fulfilled' ? (results[2].value ?? []) : []
+      artists.value = results[3].status === 'fulfilled' ? (results[3].value ?? []) : []
 
       const homeRejected = results[0].status === 'rejected' && isUnauthorized(results[0].reason)
-      const personalizedRejected = results[1].status === 'rejected' && isUnauthorized(results[1].reason)
+      const personalizedRejected =
+        results[1].status === 'rejected' && isUnauthorized(results[1].reason)
       if (homeRejected || personalizedRejected) {
         personalized.value = []
       }

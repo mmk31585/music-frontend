@@ -4,13 +4,10 @@ import { SearchApiRoutes } from './enums'
 import { SearchResultSchema, type SearchResult, type SearchParams } from './types'
 
 export const useSearchApi = () => {
-  const searchCatalog = async (
-    params: SearchParams,
-    config?: UseRequestConfig<SearchResult>,
-  ) => {
+  const searchCatalog = async (params: SearchParams, config?: UseRequestConfig<SearchResult>) => {
     const queryParams = new URLSearchParams()
     queryParams.set('q', params.query)
-    
+
     if (params.type && params.type !== 'all') {
       queryParams.set('type', params.type)
     }

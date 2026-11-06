@@ -28,7 +28,12 @@ export interface IngestionReviewContext {
   publishingError: Ref<string | null>
   rejecting: Ref<boolean>
   published: Ref<boolean>
-  publishResult: Ref<{ artistId?: string; albumId?: string; trackId?: string; audioUrl: string } | null>
+  publishResult: Ref<{
+    artistId?: string
+    albumId?: string
+    trackId?: string
+    audioUrl: string
+  } | null>
   enrichmentComplete: Ref<boolean>
 
   // Enrichment per-section state

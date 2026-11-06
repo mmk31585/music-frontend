@@ -51,7 +51,13 @@ export type Track = {
   artist_name: string | null
   album_id: string | number | null
   album_title?: string | null
-  artists?: Array<{ artist_id: string | number | null; name: string; slug?: string; role?: string; position?: number }>
+  artists?: Array<{
+    artist_id: string | number | null
+    name: string
+    slug?: string
+    role?: string
+    position?: number
+  }>
   genres: any[]
   play_count: number
   track_number: number | null
@@ -102,7 +108,12 @@ export interface TrackUploadPayload extends TrackCreatePayload {
   audioFile: File
 }
 
-export function toTrackMutationPayload(payload: Partial<Track> & { genre_ids?: Array<string | number>; artist_ids?: Array<string | number> }): TrackCreatePayload {
+export function toTrackMutationPayload(
+  payload: Partial<Track> & {
+    genre_ids?: Array<string | number>
+    artist_ids?: Array<string | number>
+  },
+): TrackCreatePayload {
   if (!payload.title) {
     throw new Error('title is required')
   }
@@ -116,12 +127,12 @@ export function toTrackMutationPayload(payload: Partial<Track> & { genre_ids?: A
     artist_id: payload.artist_id,
     artists: payload.artist_id
       ? [
-        {
-          artist_id: payload.artist_id,
-          role: 'primary',
-          position: 0,
-        },
-      ]
+          {
+            artist_id: payload.artist_id,
+            role: 'primary',
+            position: 0,
+          },
+        ]
       : [],
     artist_ids: payload.artist_ids ?? [],
     album_id: payload.album_id ?? null,

@@ -1,29 +1,34 @@
 <template>
-  <div
-    ref="containerRef"
-    class="relative h-full w-full overflow-y-auto scrollbar-none"
-  >
+  <div ref="containerRef" class="relative h-full w-full scrollbar-none overflow-y-auto">
     <!-- Empty state -->
     <div
       v-if="lines.length === 0"
       class="flex h-full flex-col items-center justify-center gap-3 px-6 text-center"
     >
       <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/3">
-        <AlignLeft aria-hidden="true" class="text-2xl text-white/12"  />
+        <AlignLeft aria-hidden="true" class="text-2xl text-white/12" />
       </div>
       <p class="text-sm font-medium text-white/20">No synced lyrics</p>
       <p class="text-xs text-white/10">Lyrics will appear here when available</p>
     </div>
 
     <!-- Scrolling lyrics list -->
-    <div v-else ref="scrollRef" class="flex min-h-full flex-col items-center justify-center py-16 md:py-20">
+    <div
+      v-else
+      ref="scrollRef"
+      class="flex min-h-full flex-col items-center justify-center py-16 md:py-20"
+    >
       <button
         v-for="(line, idx) in lines"
         :key="idx"
-        :ref="(el) => { if (el) lineRefs[idx] = el as HTMLElement }"
+        :ref="
+          (el) => {
+            if (el) lineRefs[idx] = el as HTMLElement
+          }
+        "
         type="button"
-        class="w-full max-w-2xl px-8 py-1.5 select-none text-left"
-        :class="isRtl?'text-right':'text-left'"
+        class="w-full max-w-2xl px-8 py-1.5 text-left select-none"
+        :class="isRtl ? 'text-right' : 'text-left'"
         :style="lineStyle(idx)"
         @click="emit('seek', line.timeSeconds)"
       >
@@ -56,16 +61,18 @@
               isRtl ? '-right-6' : '-left-8',
             ]"
             :style="{ color: props.activeColor || '#a855f7', opacity: 0.4 }"
-          >♪</span>
+            >♪</span
+          >
 
           <!-- Karaoke word highlight on active line -->
           <template v-if="idx === activeIdx && hasWordTimings(line)">
             <span
               v-for="(word, wIdx) in line.words"
               :key="wIdx"
-              class="transition-all duration-80 ease-linear relative"
+              class="relative transition-all duration-80 ease-linear"
               :style="wordStyle(line, wIdx)"
-            >{{ word.text }}&nbsp;</span>
+              >{{ word.text }}&nbsp;</span
+            >
           </template>
           <template v-else>
             <span class="relative transition-all duration-300">{{ line.text }}</span>
@@ -81,16 +88,19 @@ import { AlignLeft } from 'lucide-vue-next'
 import { computed, onBeforeUnmount, ref, watch } from 'vue'
 import type { ParsedLine } from '@/composables/lyrics'
 
-const props = withDefaults(defineProps<{
-  lines: ParsedLine[]
-  currentTime: number
-  duration: number
-  activeColor?: string
-  mutedColor?: string
-  language?: string
-}>(), {
-  language: 'en',
-})
+const props = withDefaults(
+  defineProps<{
+    lines: ParsedLine[]
+    currentTime: number
+    duration: number
+    activeColor?: string
+    mutedColor?: string
+    language?: string
+  }>(),
+  {
+    language: 'en',
+  },
+)
 
 const emit = defineEmits<{
   seek: [seconds: number]
@@ -204,7 +214,8 @@ function wordStyle(line: ParsedLine, wordIdx: number): Record<string, string> {
   const end = nextWord?.timeSeconds ?? line.timeSeconds + 4
 
   const isActive = t >= start && t < end
-  const progress = isActive && end > start ? Math.min(1, (t - start) / (end - start)) : (isActive ? 1 : 0)
+  const progress =
+    isActive && end > start ? Math.min(1, (t - start) / (end - start)) : isActive ? 1 : 0
 
   return {
     color: isActive ? '#fff' : 'rgba(255,255,255,0.25)',
@@ -218,7 +229,6 @@ const isRtl = computed(() => {
   const lang = props.language?.toLowerCase()
   return lang === 'fa' || lang === 'far' || lang?.startsWith('fa-') || lang?.startsWith('fa_')
 })
-
 </script>
 
 <style scoped>

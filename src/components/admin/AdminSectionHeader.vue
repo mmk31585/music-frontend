@@ -4,7 +4,7 @@
       <div class="min-w-0">
         <p
           v-if="eyebrow"
-          class="mb-1.5 text-xs font-bold uppercase tracking-[0.15em] text-emerald-400"
+          class="mb-1.5 text-xs font-bold tracking-[0.15em] text-emerald-400 uppercase"
         >
           {{ eyebrow }}
         </p>

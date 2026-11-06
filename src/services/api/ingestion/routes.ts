@@ -1,4 +1,3 @@
-import { z } from 'zod'
 import { useRequest } from '@/composables/useRequest'
 import type { AxiosRequestConfig } from 'axios'
 import type { UseRequestConfig } from '@/plugins/client/types'
@@ -7,7 +6,6 @@ import {
   DraftListItemSchema,
   UploadResponseSchema,
   DraftDetailResponseSchema,
-  ListDraftsResponseSchema,
   EnrichmentResultSchema,
   ArtistSearchResultSchema,
   AlbumSearchResultSchema,
@@ -117,10 +115,7 @@ export const useIngestionApi = () => {
     )
   }
 
-  const getDraftDetail = async (
-    id: string,
-    config?: UseRequestConfig<DraftDetailResponse>,
-  ) => {
+  const getDraftDetail = async (id: string, config?: UseRequestConfig<DraftDetailResponse>) => {
     return useRequest<DraftDetailResponse>(
       `${IngestionApiRoutes.ADMIN_DRAFTS}/${id}`,
       { method: 'GET' },
@@ -132,11 +127,7 @@ export const useIngestionApi = () => {
     )
   }
 
-  const enrichDraft = async (
-    id: string,
-    scope?: string[],
-    config?: UseRequestConfig<any>,
-  ) => {
+  const enrichDraft = async (id: string, scope?: string[], config?: UseRequestConfig<any>) => {
     const body = scope && scope.length > 0 ? { scope } : undefined
     return useRequest<any>(
       IngestionApiRoutes.ADMIN_ENRICH.replace(':id', id),
@@ -145,10 +136,7 @@ export const useIngestionApi = () => {
     )
   }
 
-  const getDraftSuggestions = async (
-    id: string,
-    config?: UseRequestConfig<EnrichmentResult>,
-  ) => {
+  const getDraftSuggestions = async (id: string, config?: UseRequestConfig<EnrichmentResult>) => {
     return useRequest<EnrichmentResult>(
       IngestionApiRoutes.ADMIN_SUGGESTIONS.replace(':id', id),
       { method: 'GET' },
@@ -184,11 +172,7 @@ export const useIngestionApi = () => {
     )
   }
 
-  const rejectDraft = async (
-    id: string,
-    reason?: string,
-    config?: UseRequestConfig<any>,
-  ) => {
+  const rejectDraft = async (id: string, reason?: string, config?: UseRequestConfig<any>) => {
     return useRequest<any>(
       `${IngestionApiRoutes.ADMIN_REJECT.replace(':id', id)}${reason ? `?reason=${encodeURIComponent(reason)}` : ''}`,
       { method: 'POST' },
@@ -196,10 +180,7 @@ export const useIngestionApi = () => {
     )
   }
 
-  const searchArtists = async (
-    q: string,
-    config?: UseRequestConfig<ArtistSearchResult[]>,
-  ) => {
+  const searchArtists = async (q: string, config?: UseRequestConfig<ArtistSearchResult[]>) => {
     return useRequest<ArtistSearchResult, true>(
       `${IngestionApiRoutes.ADMIN_ARTISTS_SEARCH}?q=${encodeURIComponent(q)}`,
       { method: 'GET' },
@@ -207,10 +188,7 @@ export const useIngestionApi = () => {
     )
   }
 
-  const searchAlbums = async (
-    q: string,
-    config?: UseRequestConfig<AlbumSearchResult[]>,
-  ) => {
+  const searchAlbums = async (q: string, config?: UseRequestConfig<AlbumSearchResult[]>) => {
     return useRequest<AlbumSearchResult, true>(
       `${IngestionApiRoutes.ADMIN_ALBUMS_SEARCH}?q=${encodeURIComponent(q)}`,
       { method: 'GET' },
@@ -218,10 +196,7 @@ export const useIngestionApi = () => {
     )
   }
 
-  const finalizeDraft = async (
-    id: string,
-    config?: UseRequestConfig<FinalizeResult>,
-  ) => {
+  const finalizeDraft = async (id: string, config?: UseRequestConfig<FinalizeResult>) => {
     return useRequest<FinalizeResult>(
       IngestionApiRoutes.ADMIN_FINALIZE.replace(':id', id),
       { method: 'POST' },
@@ -253,9 +228,7 @@ export const useIngestionApi = () => {
     )
   }
 
-  const getIngestionStats = async (
-    config?: UseRequestConfig<IngestionStats>,
-  ) => {
+  const getIngestionStats = async (config?: UseRequestConfig<IngestionStats>) => {
     return useRequest<IngestionStats>(
       IngestionApiRoutes.ADMIN_STATS,
       { method: 'GET' },
@@ -263,9 +236,7 @@ export const useIngestionApi = () => {
     )
   }
 
-  const getIngestionConfig = async (
-    config?: UseRequestConfig<IngestionConfig>,
-  ) => {
+  const getIngestionConfig = async (config?: UseRequestConfig<IngestionConfig>) => {
     return useRequest<IngestionConfig>(
       IngestionApiRoutes.ADMIN_CONFIG,
       { method: 'GET' },
@@ -273,9 +244,7 @@ export const useIngestionApi = () => {
     )
   }
 
-  const triggerCleanup = async (
-    config?: UseRequestConfig<any>,
-  ) => {
+  const triggerCleanup = async (config?: UseRequestConfig<any>) => {
     return useRequest<any>(
       IngestionApiRoutes.ADMIN_CLEANUP,
       { method: 'POST' },
@@ -283,10 +252,7 @@ export const useIngestionApi = () => {
     )
   }
 
-  const deleteDraft = async (
-    id: string,
-    config?: UseRequestConfig<void>,
-  ) => {
+  const deleteDraft = async (id: string, config?: UseRequestConfig<void>) => {
     return useRequest<void>(
       IngestionApiRoutes.ADMIN_DELETE_DRAFT.replace(':id', id),
       { method: 'DELETE' },

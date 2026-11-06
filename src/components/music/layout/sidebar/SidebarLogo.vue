@@ -1,11 +1,13 @@
 <template>
   <RouterLink to="/" class="flex items-center gap-3 px-1 py-2">
-    <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent text-accent-text">
+    <div
+      class="bg-accent text-accent-text flex h-10 w-10 shrink-0 items-center justify-center rounded-xl"
+    >
       <Music :size="20" />
     </div>
     <div class="flex flex-col">
-      <div class="text-base font-extrabold text-primary tracking-tight leading-tight">Muse</div>
-      <div class="text-[10px] font-medium tracking-wider text-muted uppercase">Music</div>
+      <div class="text-primary text-base leading-tight font-extrabold tracking-tight">Muse</div>
+      <div class="text-muted text-[10px] font-medium tracking-wider uppercase">Music</div>
     </div>
   </RouterLink>
 </template>

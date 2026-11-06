@@ -17,12 +17,16 @@ export type HistoryItem = z.infer<typeof HistoryItemSchema>
 
 export const HistoryResponseSchema = z.object({
   items: z.array(HistoryItemSchema).catch([]),
-  pagination: z.object({
-    limit: z.number().default(0),
-    offset: z.number().default(0),
-    count: z.number().default(0),
-    has_more: z.boolean().default(false),
-  }).optional().nullable().default({ limit: 0, offset: 0, count: 0, has_more: false }),
+  pagination: z
+    .object({
+      limit: z.number().default(0),
+      offset: z.number().default(0),
+      count: z.number().default(0),
+      has_more: z.boolean().default(false),
+    })
+    .optional()
+    .nullable()
+    .default({ limit: 0, offset: 0, count: 0, has_more: false }),
 })
 
 export type HistoryResponse = z.infer<typeof HistoryResponseSchema>

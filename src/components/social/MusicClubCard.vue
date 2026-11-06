@@ -1,7 +1,6 @@
 <template>
   <div
-    class="group overflow-hidden rounded-2xl bg-surface-overlay/60 ring-1 ring-border-default transition-all duration-300
-           hover:bg-surface-active/80 hover:ring-border-strong focus-within:ring-2 focus-within:ring-spotify"
+    class="group bg-surface-overlay/60 ring-border-default hover:bg-surface-active/80 hover:ring-border-strong focus-within:ring-spotify overflow-hidden rounded-2xl ring-1 transition-all duration-300 focus-within:ring-2"
     role="article"
     :aria-label="`Club: ${club.name}`"
   >
@@ -15,34 +14,39 @@
       v-else
       class="flex h-20 items-center justify-center bg-linear-to-br from-purple-500/10 to-purple-500/5"
     >
-      <Building2 aria-hidden="true" class="text-2xl text-accent/30"  />
+      <Building2 aria-hidden="true" class="text-accent/30 text-2xl" />
     </div>
 
     <div class="p-5">
       <div class="flex items-start gap-3">
         <div class="min-w-0 flex-1">
-          <h3 class="text-sm font-bold text-primary">{{ club.name }}</h3>
-          <p v-if="creatorName" class="mt-0.5 text-xs text-primary/30">{{ creatorName }}</p>
-          <p v-if="club.description" class="mt-1 line-clamp-2 text-xs text-primary/40 leading-relaxed">
+          <h3 class="text-primary text-sm font-bold">{{ club.name }}</h3>
+          <p v-if="creatorName" class="text-primary/30 mt-0.5 text-xs">{{ creatorName }}</p>
+          <p
+            v-if="club.description"
+            class="text-primary/40 mt-1 line-clamp-2 text-xs leading-relaxed"
+          >
             {{ club.description }}
           </p>
 
           <!-- Meta row -->
-          <div class="mt-3 flex items-center gap-3 text-[11px] text-primary/30">
+          <div class="text-primary/30 mt-3 flex items-center gap-3 text-[11px]">
             <span class="flex items-center gap-1">
-              <Users aria-hidden="true" class="text-[10px]"  />
+              <Users aria-hidden="true" class="text-[10px]" />
               {{ club.member_count || 0 }} / {{ club.max_members || '∞' }}
             </span>
             <span
               class="rounded-full px-2 py-0.5 text-[10px] font-medium"
-              :class="club.is_public ? 'bg-green-500/10 text-green-400' : 'bg-amber-500/10 text-amber-400'"
+              :class="
+                club.is_public ? 'bg-green-500/10 text-green-400' : 'bg-amber-500/10 text-amber-400'
+              "
             >
               {{ club.is_public ? 'Public' : 'Private' }}
             </span>
           </div>
 
           <!-- Member capacity bar -->
-          <div class="mt-2 h-1 w-full overflow-hidden rounded-full bg-surface-overlay">
+          <div class="bg-surface-overlay mt-2 h-1 w-full overflow-hidden rounded-full">
             <div
               class="h-full rounded-full bg-purple-500/40 transition-all duration-500"
               :style="{ width: `${capacityPercent}%` }"
@@ -54,7 +58,7 @@
             <div
               v-for="(avatar, i) in clubAvatars.slice(0, 5)"
               :key="i"
-              class="h-5 w-5 overflow-hidden rounded-full border-2 border-surface-base"
+              class="border-surface-base h-5 w-5 overflow-hidden rounded-full border-2"
             >
               <img :src="avatar" alt="" class="h-full w-full object-cover" />
             </div>
@@ -65,22 +69,20 @@
       <div class="mt-4 flex items-center gap-2">
         <button
           aria-label="Join club"
-          class="flex-1 rounded-lg bg-accent-subtle py-2.5 text-xs font-bold text-accent transition
-                 hover:bg-purple-500/20 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-purple-400"
+          class="bg-accent-subtle text-accent flex-1 rounded-lg py-2.5 text-xs font-bold transition hover:bg-purple-500/20 focus-visible:outline-2 focus-visible:outline-purple-400 active:scale-[0.98]"
           @click="$emit('join', club.id)"
         >
           <span class="flex items-center justify-center gap-1.5">
-            <Plus aria-hidden="true" class="text-[10px]"  />
+            <Plus aria-hidden="true" class="text-[10px]" />
             Join Club
           </span>
         </button>
         <button
           aria-label="Share club"
-          class="flex h-9 w-9 items-center justify-center rounded-lg text-primary/30 transition
-                 hover:bg-surface-overlay/60 hover:text-primary/60 focus-visible:outline-2 focus-visible:outline-accent"
+          class="text-primary/30 hover:bg-surface-overlay/60 hover:text-primary/60 focus-visible:outline-accent flex h-9 w-9 items-center justify-center rounded-lg transition focus-visible:outline-2"
           @click="$emit('share', club.id)"
         >
-          <Share2 aria-hidden="true" class="text-sm"  />
+          <Share2 aria-hidden="true" class="text-sm" />
         </button>
       </div>
     </div>

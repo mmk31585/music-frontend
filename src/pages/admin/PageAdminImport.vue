@@ -28,8 +28,10 @@
     </div>
 
     <div v-if="searching" class="mt-12 text-center">
-      <Loader2 aria-hidden="true" class="text-3xl text-slate-400 animate-spin"></Loader2>
-      <p class="mt-3 text-sm text-slate-500">Searching across Spotify, Deezer, MusicBrainz, Last.fm, and local catalog...</p>
+      <Loader2 aria-hidden="true" class="animate-spin text-3xl text-slate-400"></Loader2>
+      <p class="mt-3 text-sm text-slate-500">
+        Searching across Spotify, Deezer, MusicBrainz, Last.fm, and local catalog...
+      </p>
     </div>
 
     <div v-else-if="searchError" class="mt-6">
@@ -40,7 +42,9 @@
     <div v-if="importError && !searching && !importJobId" class="mt-6">
       <div class="rounded-xl border border-amber-500/20 bg-amber-500/5 p-5">
         <div class="flex items-start gap-3">
-          <div class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-amber-500/15">
+          <div
+            class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-amber-500/15"
+          >
             <Info aria-hidden="true" class="text-lg text-amber-400"></Info>
           </div>
           <div class="flex-1">
@@ -77,7 +81,7 @@
 
     <div v-else-if="importJobId" class="mt-6">
       <div class="rounded-xl border border-white/6 bg-white/3 p-6 text-center">
-        <Loader2 aria-hidden="true" class="text-3xl text-emerald-400 animate-spin"></Loader2>
+        <Loader2 aria-hidden="true" class="animate-spin text-3xl text-emerald-400"></Loader2>
         <p class="mt-3 text-sm font-medium text-white">Import in progress...</p>
         <p class="mt-1 text-xs text-slate-500">{{ importStage }}</p>
         <div class="mx-auto mt-4 h-2 w-full max-w-md overflow-hidden rounded-full bg-white/6">
@@ -91,10 +95,12 @@
     </div>
 
     <div v-else-if="results.length > 0" class="mt-6 space-y-3">
-      <p class="text-sm text-slate-500">{{ results.length }} result{{ results.length !== 1 ? 's' : '' }}</p>
+      <p class="text-sm text-slate-500">
+        {{ results.length }} result{{ results.length !== 1 ? 's' : '' }}
+      </p>
 
       <div
-        v-for="(r, i) in results"
+        v-for="r in results"
         :key="r.url"
         class="group flex items-center gap-4 rounded-xl border border-white/6 bg-white/3 p-4 transition hover:border-white/12"
       >
@@ -104,7 +110,10 @@
           alt=""
           class="h-16 w-16 shrink-0 rounded-lg object-cover"
         />
-        <div v-else class="flex h-16 w-16 shrink-0 items-center justify-center rounded-lg bg-white/6">
+        <div
+          v-else
+          class="flex h-16 w-16 shrink-0 items-center justify-center rounded-lg bg-white/6"
+        >
           <Music aria-hidden="true" class="text-xl text-slate-500"></Music>
         </div>
 
@@ -112,13 +121,13 @@
           <div class="flex items-center gap-2">
             <p class="truncate text-sm font-medium text-white">{{ r.title }}</p>
             <span
-              class="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium uppercase tracking-wider"
+              class="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium tracking-wider uppercase"
               :class="sourceBadge(r.source)"
-            >{{ r.source }}</span>
-            <span
-              v-if="r.score && r.score > 0"
-              class="shrink-0 text-[10px] text-slate-500"
-            >{{ (r.score * 100).toFixed(0) }}%</span>
+              >{{ r.source }}</span
+            >
+            <span v-if="r.score && r.score > 0" class="shrink-0 text-[10px] text-slate-500"
+              >{{ (r.score * 100).toFixed(0) }}%</span
+            >
           </div>
           <p class="mt-0.5 text-xs text-slate-400">{{ r.artist }}</p>
           <p class="mt-0.5 text-xs text-slate-500">
@@ -237,7 +246,10 @@ async function doImport(r: SearchResult) {
     }
   } catch (err: unknown) {
     const msg = err instanceof Error ? err.message : 'Could not import track.'
-    const isNoSourceError = /could not find.*downloadable|no downloadable source|no suitable source|unable to find.*source/i.test(msg)
+    const isNoSourceError =
+      /could not find.*downloadable|no downloadable source|no suitable source|unable to find.*source/i.test(
+        msg,
+      )
     if (isNoSourceError) {
       importError.value = msg
     } else {
@@ -266,19 +278,6 @@ function stageLabel(stage: string): string {
   return labels[stage] || stage || 'Processing...'
 }
 
-function stageIcon(stage: string): string {
-  const icons: Record<string, string> = {
-    queued: 'pi pi-clock',
-    resolving: 'pi pi-search',
-    downloading: 'pi pi-cloud-download',
-    extracting: 'pi pi-file',
-    uploading: 'pi pi-cloud-upload',
-    complete: 'pi pi-check-circle',
-    failed: 'pi pi-times-circle',
-  }
-  return icons[stage] || 'pi pi-spin pi-spinner'
-}
-
 function startProgressPolling(jobId: string) {
   progressTimer = setInterval(async () => {
     try {
@@ -302,7 +301,10 @@ function startProgressPolling(jobId: string) {
       } else if (progress.status === 'failed') {
         stopProgressPolling()
         const errorMsg = progress.error || 'Unknown error'
-        const isNoSource = /could not find.*downloadable|no downloadable source|no suitable source|unable to find.*source/i.test(errorMsg)
+        const isNoSource =
+          /could not find.*downloadable|no downloadable source|no suitable source|unable to find.*source/i.test(
+            errorMsg,
+          )
         if (isNoSource) {
           importError.value = errorMsg
           importJobId.value = ''
@@ -333,5 +335,4 @@ function stopProgressPolling() {
 onUnmounted(() => {
   stopProgressPolling()
 })
-
 </script>

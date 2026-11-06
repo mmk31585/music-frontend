@@ -66,9 +66,10 @@ export function useLoginForm() {
         apiError.value = err.message
       } else if (err && typeof err === 'object') {
         const payload = err as ApiResponseProps
-        apiError.value = (payload.data as Record<string, unknown> | undefined)?.message as string
-          || payload.message
-          || 'Login failed'
+        apiError.value =
+          ((payload.data as Record<string, unknown> | undefined)?.message as string) ||
+          payload.message ||
+          'Login failed'
       } else {
         apiError.value = 'Login failed'
       }

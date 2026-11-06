@@ -1,9 +1,9 @@
 <template>
   <div class="mx-auto w-full max-w-7xl px-4 pt-6 pb-32 md:px-6 lg:px-8">
     <section
-      class="relative overflow-hidden rounded-2xl border border-white/6 bg-surface-base p-10 text-white"
+      class="bg-surface-base relative overflow-hidden rounded-2xl border border-white/6 p-10 text-white"
     >
-      <div class="absolute -top-20 -right-20 h-60 w-60 rounded-full bg-spotify/10 blur-3xl" />
+      <div class="bg-spotify/10 absolute -top-20 -right-20 h-60 w-60 rounded-full blur-3xl" />
       <div class="relative">
         <p class="text-[10px] font-bold tracking-[0.35em] text-white/30 uppercase">Collections</p>
         <h1 class="mt-2 text-4xl font-black md:text-6xl">Playlists</h1>
@@ -18,10 +18,10 @@
         <h2 class="text-xl font-bold text-white">My Playlists</h2>
         <button
           type="button"
-          class="rounded-full bg-spotify px-6 py-3 text-sm font-bold text-black transition hover:scale-105 hover:bg-spotify-hover"
+          class="bg-spotify hover:bg-spotify-hover rounded-full px-6 py-3 text-sm font-bold text-black transition hover:scale-105"
           @click="showCreate = true"
         >
-          <Plus aria-hidden="true" class="mr-2"  />
+          <Plus aria-hidden="true" class="mr-2" />
           Create Playlist
         </button>
       </div>
@@ -37,21 +37,25 @@
         <div
           class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-white/10 text-2xl text-white"
         >
-          <List aria-hidden="true" class=""  />
+          <List aria-hidden="true" class="" />
         </div>
         <h2 class="mt-5 text-xl font-black text-white">No playlists yet</h2>
         <p class="mt-2 text-sm text-slate-400">Start by creating your first playlist.</p>
         <button
           type="button"
-          class="mt-5 rounded-full bg-spotify px-6 py-3 text-sm font-bold text-black transition hover:bg-spotify-hover"
+          class="bg-spotify hover:bg-spotify-hover mt-5 rounded-full px-6 py-3 text-sm font-bold text-black transition"
           @click="showCreate = true"
         >
-          <Plus aria-hidden="true" class="mr-2"  />
+          <Plus aria-hidden="true" class="mr-2" />
           Create Playlist
         </button>
       </div>
 
-      <div v-else class="mt-6 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4" aria-live="polite">
+      <div
+        v-else
+        class="mt-6 grid gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"
+        aria-live="polite"
+      >
         <RouterLink
           v-for="playlist in playlists"
           :key="playlist.id"
@@ -67,11 +71,15 @@
               class="h-full w-full object-cover transition duration-300 group-hover:scale-105"
             />
             <div v-else class="flex h-full items-center justify-center">
-              <List aria-hidden="true" class="text-3xl text-slate-500"  />
+              <List aria-hidden="true" class="text-3xl text-slate-500" />
             </div>
-            <div class="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 transition group-hover:opacity-100">
-              <div class="flex h-12 w-12 items-center justify-center rounded-full bg-spotify text-black shadow-xl">
-                <Play aria-hidden="true" class="text-lg"  />
+            <div
+              class="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 transition group-hover:opacity-100"
+            >
+              <div
+                class="bg-spotify flex h-12 w-12 items-center justify-center rounded-full text-black shadow-xl"
+              >
+                <Play aria-hidden="true" class="text-lg" />
               </div>
             </div>
           </div>
@@ -85,7 +93,7 @@
       v-model:visible="showCreate"
       header="Create Playlist"
       :modal="true"
-      class="w-full max-w-md rounded-2xl bg-surface-raised"
+      class="bg-surface-raised w-full max-w-md rounded-2xl"
     >
       <div class="space-y-4 p-4">
         <div>
@@ -117,7 +125,7 @@
           />
           <Button
             label="Create"
-            class="rounded-xl bg-spotify px-5 py-2 text-sm font-semibold text-black hover:bg-spotify-hover"
+            class="bg-spotify hover:bg-spotify-hover rounded-xl px-5 py-2 text-sm font-semibold text-black"
             :disabled="!newName.trim() || creating"
             @click="handleCreate"
           />
@@ -178,7 +186,12 @@ async function handleCreate() {
     }
   } catch (err) {
     const toast = useToast()
-    toast.add({ severity: 'error', summary: 'Failed to create playlist', detail: 'Please try again later.', life: 4000 })
+    toast.add({
+      severity: 'error',
+      summary: 'Failed to create playlist',
+      detail: 'Please try again later.',
+      life: 4000,
+    })
     console.error('Failed to create playlist:', err)
   } finally {
     creating.value = false

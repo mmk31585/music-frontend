@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex items-start gap-4 rounded-xl px-4 py-3 transition hover:bg-surface-hover"
+    class="hover:bg-surface-hover flex items-start gap-4 rounded-xl px-4 py-3 transition"
     :class="{ 'opacity-50': notification.isRead }"
   >
     <div
@@ -11,11 +11,11 @@
     </div>
 
     <button type="button" class="min-w-0 flex-1 text-left" @click="handleClick">
-      <p class="text-sm leading-relaxed text-primary">
+      <p class="text-primary text-sm leading-relaxed">
         <span class="font-semibold">{{ notification.title }}</span>
-        <span class="ml-1 text-secondary">{{ notification.body }}</span>
+        <span class="text-secondary ml-1">{{ notification.body }}</span>
       </p>
-      <p class="mt-0.5 text-xs text-tertiary">
+      <p class="text-tertiary mt-0.5 text-xs">
         {{ timeAgo }}
       </p>
     </button>
@@ -23,7 +23,7 @@
     <button
       v-if="!notification.isRead"
       type="button"
-      class="shrink-0 self-center rounded-full bg-surface-active px-3 py-1 text-xs font-bold text-primary transition hover:bg-surface-active"
+      class="bg-surface-active text-primary hover:bg-surface-active shrink-0 self-center rounded-full px-3 py-1 text-xs font-bold transition"
       @click.stop="handleMarkRead"
     >
       Mark read

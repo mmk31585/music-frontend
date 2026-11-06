@@ -36,16 +36,18 @@
     <template v-else-if="artist">
       <div class="flex flex-col gap-6 lg:flex-row lg:items-start">
         <div class="shrink-0">
-          <div class="relative h-40 w-40 overflow-hidden rounded-2xl bg-white/6 shadow-lg lg:h-56 lg:w-56">
+          <div
+            class="relative h-40 w-40 overflow-hidden rounded-2xl bg-white/6 shadow-lg lg:h-56 lg:w-56"
+          >
             <img
               v-if="artist.image_url"
               :src="artist.image_url"
               :alt="artist.name"
               class="h-full w-full object-cover"
-              @error="($event.target as HTMLImageElement).style.display='none'"
+              @error="($event.target as HTMLImageElement).style.display = 'none'"
             />
             <div v-else class="flex h-full w-full items-center justify-center">
-              <User aria-hidden="true" class="text-5xl text-slate-600"  />
+              <User aria-hidden="true" class="text-5xl text-slate-600" />
             </div>
           </div>
         </div>
@@ -53,7 +55,12 @@
         <div class="min-w-0 flex-1">
           <div class="flex items-center gap-3">
             <h1 class="text-2xl font-bold text-white lg:text-3xl">{{ artist.name }}</h1>
-            <BadgeCheck aria-hidden="true" v-if="artist.is_verified" class="text-emerald-400" v-tooltip.top="'Verified'"  />
+            <BadgeCheck
+              aria-hidden="true"
+              v-if="artist.is_verified"
+              class="text-emerald-400"
+              v-tooltip.top="'Verified'"
+            />
           </div>
 
           <div v-if="artist.monthly_listeners" class="mt-2 text-sm text-slate-400">
@@ -96,7 +103,10 @@
 
       <div class="mt-10">
         <h2 class="mb-4 text-lg font-semibold text-white">Albums</h2>
-        <div v-if="loadingAlbums" class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
+        <div
+          v-if="loadingAlbums"
+          class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5"
+        >
           <div v-for="i in 5" :key="i" class="space-y-3">
             <div class="aspect-square animate-pulse rounded-xl bg-white/6" />
             <div class="h-4 w-3/4 animate-pulse rounded bg-white/6" />
@@ -116,16 +126,18 @@
             class="group cursor-pointer"
             @click="router.push({ name: 'admin.album.detail', params: { id: album.id } })"
           >
-            <div class="relative aspect-square overflow-hidden rounded-xl border border-white/6 bg-white/4">
+            <div
+              class="relative aspect-square overflow-hidden rounded-xl border border-white/6 bg-white/4"
+            >
               <img
                 v-if="album.cover_url"
                 :src="album.cover_url"
                 :alt="album.title"
                 class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
-                @error="($event.target as HTMLImageElement).style.display='none'"
+                @error="($event.target as HTMLImageElement).style.display = 'none'"
               />
               <div v-else class="flex h-full w-full items-center justify-center">
-                <Image aria-hidden="true" class="text-3xl text-slate-700"  />
+                <Image aria-hidden="true" class="text-3xl text-slate-700" />
               </div>
             </div>
             <p class="mt-2 truncate text-sm font-medium text-white">{{ album.title }}</p>
@@ -154,7 +166,7 @@
           >
             <button
               type="button"
-              class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-slate-500 transition-all hover:bg-spotify/20 hover:text-spotify disabled:opacity-30"
+              class="hover:bg-spotify/20 hover:text-spotify flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-slate-500 transition-all disabled:opacity-30"
               :disabled="loadingTrackId === String(track.id)"
               :aria-label="'Play ' + track.title"
               :title="isTrackPlaying(track) ? 'Now playing' : 'Play track'"
@@ -163,14 +175,9 @@
               <Loader2
                 v-if="loadingTrackId === String(track.id)"
                 aria-hidden="true"
-                class="text-sm animate-spin"
-               />
-              <i
-                v-else
-                aria-hidden="true"
-                :class="getTrackPlayButtonIcon(track)"
-                class="text-sm"
+                class="animate-spin text-sm"
               />
+              <i v-else aria-hidden="true" :class="getTrackPlayButtonIcon(track)" class="text-sm" />
             </button>
             <span class="w-5 text-center text-xs text-slate-500">{{ i + 1 }}</span>
             <div
@@ -178,13 +185,15 @@
               @click="router.push({ name: 'admin.track.detail', params: { id: track.id } })"
             >
               <p class="truncate text-sm font-medium text-white">{{ track.title }}</p>
-              <p v-if="track.duration_seconds" class="text-xs text-slate-500">{{ formatDuration(track.duration_seconds) }}</p>
+              <p v-if="track.duration_seconds" class="text-xs text-slate-500">
+                {{ formatDuration(track.duration_seconds) }}
+              </p>
             </div>
             <ChevronRight
               aria-hidden="true"
               class="cursor-pointer text-xs text-slate-600"
               @click="router.push({ name: 'admin.track.detail', params: { id: track.id } })"
-             />
+            />
           </div>
         </div>
       </div>
@@ -314,10 +323,20 @@ async function handleEnrich() {
   enriching.value = true
   try {
     await artistsApi.adminEnrichArtist(artist.value.id)
-    toast.add({ severity: 'success', summary: 'Artist enriched', detail: 'Bio and image fetched from external sources', life: 3000 })
+    toast.add({
+      severity: 'success',
+      summary: 'Artist enriched',
+      detail: 'Bio and image fetched from external sources',
+      life: 3000,
+    })
     await loadArtist()
   } catch {
-    toast.add({ severity: 'error', summary: 'Enrich failed', detail: 'Could not enrich artist', life: 4000 })
+    toast.add({
+      severity: 'error',
+      summary: 'Enrich failed',
+      detail: 'Could not enrich artist',
+      life: 4000,
+    })
   } finally {
     enriching.value = false
   }
@@ -357,5 +376,4 @@ function formatListeners(count: number): string {
   if (count >= 1_000) return `${(count / 1_000).toFixed(1)}K`
   return String(count)
 }
-
 </script>

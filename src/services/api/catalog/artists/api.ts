@@ -1,7 +1,12 @@
 import { useRequest } from '@/composables'
 import type { UseRequestConfig } from '@/plugins/client/types'
 import { ArtistApiRoutes } from './enums'
-import { ArtistSchema, type Artist, type ArtistCreatePayload, type ArtistUpdatePayload } from './types'
+import {
+  ArtistSchema,
+  type Artist,
+  type ArtistCreatePayload,
+  type ArtistUpdatePayload,
+} from './types'
 
 export const useArtistsApi = () => {
   // ==================== PUBLIC ====================
@@ -111,10 +116,7 @@ export const useArtistsApi = () => {
     )
   }
 
-  const adminDeleteArtist = async (
-    id: string | number,
-    config?: UseRequestConfig<void>,
-  ) => {
+  const adminDeleteArtist = async (id: string | number, config?: UseRequestConfig<void>) => {
     return useRequest<void>(
       ArtistApiRoutes.ADMIN_DELETE.replace(':artistId', String(id)),
       { method: 'DELETE' },

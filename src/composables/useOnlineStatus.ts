@@ -11,8 +11,12 @@ import { ref, onMounted, onUnmounted } from 'vue'
 export function useOnlineStatus() {
   const isOnline = ref(typeof navigator !== 'undefined' ? navigator.onLine : true)
 
-  function onOnline() { isOnline.value = true }
-  function onOffline() { isOnline.value = false }
+  function onOnline() {
+    isOnline.value = true
+  }
+  function onOffline() {
+    isOnline.value = false
+  }
 
   onMounted(() => {
     window.addEventListener('online', onOnline)

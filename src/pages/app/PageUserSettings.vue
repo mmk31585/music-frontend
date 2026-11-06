@@ -7,317 +7,331 @@
 
     <template v-else>
       <div class="mb-8">
-        <p class="text-xs font-bold tracking-[0.25em] text-spotify uppercase">Settings</p>
+        <p class="text-spotify text-xs font-bold tracking-[0.25em] uppercase">Settings</p>
         <h1 class="mt-1 text-3xl font-black text-white">Account Settings</h1>
       </div>
 
       <div class="mb-8 flex gap-1 rounded-2xl border border-white/6 bg-white/3 p-1">
-      <button
-        v-for="tab in tabs"
-        :key="tab.key"
-        type="button"
-        class="flex-1 rounded-xl px-4 py-2.5 text-sm font-bold transition"
-        :class="
-          activeTab === tab.key ? 'bg-white/10 text-white' : 'text-slate-400 hover:text-white'
-        "
-        @click="activeTab = tab.key"
-      >
-        <i aria-hidden="true" :class="tab.icon" class="mr-2" />
-        {{ tab.label }}
-      </button>
-    </div>
-
-    <!-- Profile Tab -->
-    <div v-show="activeTab === 'profile'" class="space-y-6">
-      <div class="flex items-center gap-6">
-        <div class="relative shrink-0">
-          <div
-            class="flex h-20 w-20 items-center justify-center overflow-hidden rounded-full bg-white/10 text-3xl font-black text-white"
-          >
-            <img v-if="previewAvatar" :src="previewAvatar" alt="Avatar preview" class="h-full w-full object-cover" />
-            <span v-else>{{ initials }}</span>
-          </div>
-          <button
-            type="button"
-            aria-label="Edit avatar"
-            class="absolute -right-1 -bottom-1 flex h-7 w-7 items-center justify-center rounded-full border-2 border-black bg-spotify text-[10px] text-black transition hover:bg-spotify-hover"
-            @click="triggerAvatarUpload"
-          >
-            <Pencil aria-hidden="true" class=""  />
-          </button>
-          <input
-            ref="avatarInput"
-            type="file"
-            accept="image/*"
-            class="hidden"
-            @change="handleAvatar"
-          />
-        </div>
-        <div>
-          <h2 class="text-xl font-bold text-white">{{ form.displayName || 'User' }}</h2>
-          <p class="text-sm text-slate-400">@{{ form.username || 'username' }}</p>
-        </div>
-      </div>
-
-      <div class="grid gap-6 md:grid-cols-2">
-        <div>
-          <label class="mb-1.5 block text-xs font-semibold tracking-wider text-slate-400 uppercase"
-            >Display Name</label
-          >
-          <input
-            v-model="form.displayName"
-            type="text"
-            aria-label="Display name"
-            class="w-full rounded-xl border border-white/8 bg-white/4 px-4 py-2.5 text-sm text-white transition outline-hidden placeholder:text-slate-600 focus:border-spotify/50 focus:bg-white/6"
-            placeholder="Your display name"
-          />
-        </div>
-        <div>
-          <label class="mb-1.5 block text-xs font-semibold tracking-wider text-slate-400 uppercase"
-            >Username</label
-          >
-          <input
-            v-model="form.username"
-            type="text"
-            aria-label="Username"
-            class="w-full rounded-xl border border-white/8 bg-white/4 px-4 py-2.5 text-sm text-white transition outline-hidden placeholder:text-slate-600 focus:border-spotify/50 focus:bg-white/6"
-            placeholder="username"
-          />
-        </div>
-        <div class="md:col-span-2">
-          <label class="mb-1.5 block text-xs font-semibold tracking-wider text-slate-400 uppercase"
-            >Bio</label
-          >
-          <textarea
-            v-model="form.bio"
-            rows="3"
-            aria-label="Bio"
-            class="w-full resize-none rounded-xl border border-white/8 bg-white/4 px-4 py-2.5 text-sm text-white transition outline-hidden placeholder:text-slate-600 focus:border-spotify/50 focus:bg-white/6"
-            placeholder="Tell us about yourself"
-          />
-        </div>
-        <div>
-          <label class="mb-1.5 block text-xs font-semibold tracking-wider text-slate-400 uppercase"
-            >Location</label
-          >
-          <input
-            v-model="form.location"
-            type="text"
-            aria-label="Location"
-            class="w-full rounded-xl border border-white/8 bg-white/4 px-4 py-2.5 text-sm text-white transition outline-hidden placeholder:text-slate-600 focus:border-spotify/50 focus:bg-white/6"
-            placeholder="Tehran, Iran"
-          />
-        </div>
-        <div>
-          <label class="mb-1.5 block text-xs font-semibold tracking-wider text-slate-400 uppercase"
-            >Website</label
-          >
-          <input
-            v-model="form.website"
-            type="url"
-            aria-label="Website"
-            class="w-full rounded-xl border border-white/8 bg-white/4 px-4 py-2.5 text-sm text-white transition outline-hidden placeholder:text-slate-600 focus:border-spotify/50 focus:bg-white/6"
-            placeholder="https://example.com"
-          />
-        </div>
-      </div>
-
-      <div class="flex items-center gap-3 pt-2">
         <button
+          v-for="tab in tabs"
+          :key="tab.key"
           type="button"
-          :disabled="saving"
-          class="rounded-full bg-spotify px-6 py-2.5 text-sm font-bold text-black transition hover:bg-spotify-hover disabled:opacity-50"
-          @click="saveProfile"
+          class="flex-1 rounded-xl px-4 py-2.5 text-sm font-bold transition"
+          :class="
+            activeTab === tab.key ? 'bg-white/10 text-white' : 'text-slate-400 hover:text-white'
+          "
+          @click="activeTab = tab.key"
         >
-          {{ saving ? 'Saving...' : 'Save changes' }}
+          <i aria-hidden="true" :class="tab.icon" class="mr-2" />
+          {{ tab.label }}
         </button>
-        <p
-          v-if="saveMessage"
-          class="text-sm"
-          :class="saveError ? 'text-red-400' : 'text-spotify'"
-          :role="saveError ? 'alert' : undefined"
-          aria-live="polite"
-        >
-          {{ saveMessage }}
-        </p>
-      </div>
-    </div>
-
-    <!-- Account Tab -->
-    <div v-show="activeTab === 'account'" class="space-y-8">
-      <div>
-        <h3 class="mb-1 text-lg font-bold text-white">Email</h3>
-        <p class="mb-3 text-sm text-slate-400">{{ auth.user?.email }}</p>
-        <p class="text-xs text-slate-500">Email cannot be changed at this time.</p>
       </div>
 
-      <div class="rounded-2xl border border-white/6 bg-white/2 p-6">
-        <h3 class="mb-4 text-lg font-bold text-white">Change Password</h3>
-        <div class="space-y-4">
+      <!-- Profile Tab -->
+      <div v-show="activeTab === 'profile'" class="space-y-6">
+        <div class="flex items-center gap-6">
+          <div class="relative shrink-0">
+            <div
+              class="flex h-20 w-20 items-center justify-center overflow-hidden rounded-full bg-white/10 text-3xl font-black text-white"
+            >
+              <img
+                v-if="previewAvatar"
+                :src="previewAvatar"
+                alt="Avatar preview"
+                class="h-full w-full object-cover"
+              />
+              <span v-else>{{ initials }}</span>
+            </div>
+            <button
+              type="button"
+              aria-label="Edit avatar"
+              class="bg-spotify hover:bg-spotify-hover absolute -right-1 -bottom-1 flex h-7 w-7 items-center justify-center rounded-full border-2 border-black text-[10px] text-black transition"
+              @click="triggerAvatarUpload"
+            >
+              <Pencil aria-hidden="true" class="" />
+            </button>
+            <input
+              ref="avatarInput"
+              type="file"
+              accept="image/*"
+              class="hidden"
+              @change="handleAvatar"
+            />
+          </div>
+          <div>
+            <h2 class="text-xl font-bold text-white">{{ form.displayName || 'User' }}</h2>
+            <p class="text-sm text-slate-400">@{{ form.username || 'username' }}</p>
+          </div>
+        </div>
+
+        <div class="grid gap-6 md:grid-cols-2">
           <div>
             <label
               class="mb-1.5 block text-xs font-semibold tracking-wider text-slate-400 uppercase"
-              >Current Password</label
+              >Display Name</label
             >
             <input
-              v-model="passwordForm.currentPassword"
-              type="password"
-              aria-label="Current Password"
-              class="w-full rounded-xl border border-white/8 bg-white/4 px-4 py-2.5 text-sm text-white transition outline-hidden placeholder:text-slate-600 focus:border-spotify/50 focus:bg-white/6"
+              v-model="form.displayName"
+              type="text"
+              aria-label="Display name"
+              class="focus:border-spotify/50 w-full rounded-xl border border-white/8 bg-white/4 px-4 py-2.5 text-sm text-white outline-hidden transition placeholder:text-slate-600 focus:bg-white/6"
+              placeholder="Your display name"
             />
           </div>
           <div>
             <label
               class="mb-1.5 block text-xs font-semibold tracking-wider text-slate-400 uppercase"
-              >New Password</label
+              >Username</label
             >
             <input
-              v-model="passwordForm.newPassword"
-              type="password"
-              aria-label="New Password"
-              class="w-full rounded-xl border border-white/8 bg-white/4 px-4 py-2.5 text-sm text-white transition outline-hidden placeholder:text-slate-600 focus:border-spotify/50 focus:bg-white/6"
+              v-model="form.username"
+              type="text"
+              aria-label="Username"
+              class="focus:border-spotify/50 w-full rounded-xl border border-white/8 bg-white/4 px-4 py-2.5 text-sm text-white outline-hidden transition placeholder:text-slate-600 focus:bg-white/6"
+              placeholder="username"
             />
           </div>
+          <div class="md:col-span-2">
+            <label
+              class="mb-1.5 block text-xs font-semibold tracking-wider text-slate-400 uppercase"
+              >Bio</label
+            >
+            <textarea
+              v-model="form.bio"
+              rows="3"
+              aria-label="Bio"
+              class="focus:border-spotify/50 w-full resize-none rounded-xl border border-white/8 bg-white/4 px-4 py-2.5 text-sm text-white outline-hidden transition placeholder:text-slate-600 focus:bg-white/6"
+              placeholder="Tell us about yourself"
+            />
+          </div>
+          <div>
+            <label
+              class="mb-1.5 block text-xs font-semibold tracking-wider text-slate-400 uppercase"
+              >Location</label
+            >
+            <input
+              v-model="form.location"
+              type="text"
+              aria-label="Location"
+              class="focus:border-spotify/50 w-full rounded-xl border border-white/8 bg-white/4 px-4 py-2.5 text-sm text-white outline-hidden transition placeholder:text-slate-600 focus:bg-white/6"
+              placeholder="Tehran, Iran"
+            />
+          </div>
+          <div>
+            <label
+              class="mb-1.5 block text-xs font-semibold tracking-wider text-slate-400 uppercase"
+              >Website</label
+            >
+            <input
+              v-model="form.website"
+              type="url"
+              aria-label="Website"
+              class="focus:border-spotify/50 w-full rounded-xl border border-white/8 bg-white/4 px-4 py-2.5 text-sm text-white outline-hidden transition placeholder:text-slate-600 focus:bg-white/6"
+              placeholder="https://example.com"
+            />
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 pt-2">
           <button
             type="button"
-            :disabled="passwordSaving"
-            class="rounded-full bg-white/10 px-6 py-2.5 text-sm font-bold text-white transition hover:bg-white/15 disabled:opacity-50"
-            @click="savePassword"
+            :disabled="saving"
+            class="bg-spotify hover:bg-spotify-hover rounded-full px-6 py-2.5 text-sm font-bold text-black transition disabled:opacity-50"
+            @click="saveProfile"
           >
-            {{ passwordSaving ? 'Updating...' : 'Update Password' }}
+            {{ saving ? 'Saving...' : 'Save changes' }}
           </button>
           <p
-            v-if="passwordMessage"
+            v-if="saveMessage"
             class="text-sm"
-            :class="passwordError ? 'text-red-400' : 'text-spotify'"
-            :role="passwordError ? 'alert' : undefined"
+            :class="saveError ? 'text-red-400' : 'text-spotify'"
+            :role="saveError ? 'alert' : undefined"
             aria-live="polite"
           >
-            {{ passwordMessage }}
+            {{ saveMessage }}
           </p>
         </div>
       </div>
 
-      <div class="rounded-2xl border border-red-500/20 bg-red-500/3 p-6">
-        <h3 class="mb-2 text-lg font-bold text-red-400">Delete Account</h3>
-        <p class="mb-4 text-sm text-slate-400">
-          Permanently delete your account and all associated data. This action cannot be undone.
-        </p>
-        <button
-          type="button"
-          class="rounded-full border border-red-500/30 px-6 py-2.5 text-sm font-bold text-red-400 transition hover:bg-red-500/10"
-          @click="confirmDelete"
-        >
-          Delete Account
-        </button>
-      </div>
-    </div>
+      <!-- Account Tab -->
+      <div v-show="activeTab === 'account'" class="space-y-8">
+        <div>
+          <h3 class="mb-1 text-lg font-bold text-white">Email</h3>
+          <p class="mb-3 text-sm text-slate-400">{{ auth.user?.email }}</p>
+          <p class="text-xs text-slate-500">Email cannot be changed at this time.</p>
+        </div>
 
-    <!-- Preferences Tab -->
-    <div v-show="activeTab === 'preferences'" class="space-y-6">
-      <div class="rounded-2xl border border-white/6 bg-white/2 p-6">
-        <h3 class="mb-4 text-lg font-bold text-white">Display</h3>
-        <div class="space-y-4">
-          <div class="flex items-center justify-between">
+        <div class="rounded-2xl border border-white/6 bg-white/2 p-6">
+          <h3 class="mb-4 text-lg font-bold text-white">Change Password</h3>
+          <div class="space-y-4">
             <div>
-              <p class="text-sm font-medium text-white">Persian (RTL) Layout</p>
-              <p class="text-xs text-slate-500">Enable right-to-left layout for Persian language</p>
+              <label
+                class="mb-1.5 block text-xs font-semibold tracking-wider text-slate-400 uppercase"
+                >Current Password</label
+              >
+              <input
+                v-model="passwordForm.currentPassword"
+                type="password"
+                aria-label="Current Password"
+                class="focus:border-spotify/50 w-full rounded-xl border border-white/8 bg-white/4 px-4 py-2.5 text-sm text-white outline-hidden transition placeholder:text-slate-600 focus:bg-white/6"
+              />
             </div>
-            <input
-              v-model="preferences.rtl"
-              type="checkbox"
-              aria-label="Persian (RTL) Layout"
-              class="h-5 w-5 rounded border-white/20 bg-white/10 accent-accent"
-            />
-          </div>
-          <div class="flex items-center justify-between">
             <div>
-              <p class="text-sm font-medium text-white">Lyrics Autoscroll</p>
-              <p class="text-xs text-slate-500">Automatically scroll lyrics during playback</p>
+              <label
+                class="mb-1.5 block text-xs font-semibold tracking-wider text-slate-400 uppercase"
+                >New Password</label
+              >
+              <input
+                v-model="passwordForm.newPassword"
+                type="password"
+                aria-label="New Password"
+                class="focus:border-spotify/50 w-full rounded-xl border border-white/8 bg-white/4 px-4 py-2.5 text-sm text-white outline-hidden transition placeholder:text-slate-600 focus:bg-white/6"
+              />
             </div>
-            <input
-              v-model="preferences.lyricsAutoscroll"
-              type="checkbox"
-              aria-label="Lyrics Autoscroll"
-              class="h-5 w-5 rounded border-white/20 bg-white/10 accent-accent"
-            />
-          </div>
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="text-sm font-medium text-white">Explicit Content</p>
-              <p class="text-xs text-slate-500">Allow playback of explicit tracks</p>
-            </div>
-            <input
-              v-model="preferences.explicitContent"
-              type="checkbox"
-              aria-label="Explicit Content"
-              class="h-5 w-5 rounded border-white/20 bg-white/10 accent-accent"
-            />
+            <button
+              type="button"
+              :disabled="passwordSaving"
+              class="rounded-full bg-white/10 px-6 py-2.5 text-sm font-bold text-white transition hover:bg-white/15 disabled:opacity-50"
+              @click="savePassword"
+            >
+              {{ passwordSaving ? 'Updating...' : 'Update Password' }}
+            </button>
+            <p
+              v-if="passwordMessage"
+              class="text-sm"
+              :class="passwordError ? 'text-red-400' : 'text-spotify'"
+              :role="passwordError ? 'alert' : undefined"
+              aria-live="polite"
+            >
+              {{ passwordMessage }}
+            </p>
           </div>
         </div>
-      </div>
 
-      <div class="rounded-2xl border border-white/6 bg-white/2 p-6">
-        <h3 class="mb-4 text-lg font-bold text-white">Music Preferences</h3>
-        <div class="flex items-center justify-between">
-          <div>
-            <p class="text-sm font-medium text-white">Music Genres</p>
-            <p class="text-xs text-slate-500">Select your favorite genres for better recommendations</p>
-          </div>
+        <div class="rounded-2xl border border-red-500/20 bg-red-500/3 p-6">
+          <h3 class="mb-2 text-lg font-bold text-red-400">Delete Account</h3>
+          <p class="mb-4 text-sm text-slate-400">
+            Permanently delete your account and all associated data. This action cannot be undone.
+          </p>
           <button
             type="button"
-            class="rounded-full border border-white/10 bg-white/4 px-4 py-2 text-xs font-medium text-white transition hover:bg-white/8"
-            @click="router.push({ name: 'onboarding.genres' })"
+            class="rounded-full border border-red-500/30 px-6 py-2.5 text-sm font-bold text-red-400 transition hover:bg-red-500/10"
+            @click="confirmDelete"
           >
-            <Pencil aria-hidden="true" class="mr-1.5 text-[10px]"  />
-            Change
+            Delete Account
           </button>
         </div>
       </div>
 
-      <div class="rounded-2xl border border-white/6 bg-white/2 p-6">
-        <h3 class="mb-4 text-lg font-bold text-white">Notifications</h3>
-        <div class="space-y-4">
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="text-sm font-medium text-white">New Releases</p>
-              <p class="text-xs text-slate-500">
-                Get notified when followed artists release new music
-              </p>
+      <!-- Preferences Tab -->
+      <div v-show="activeTab === 'preferences'" class="space-y-6">
+        <div class="rounded-2xl border border-white/6 bg-white/2 p-6">
+          <h3 class="mb-4 text-lg font-bold text-white">Display</h3>
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm font-medium text-white">Persian (RTL) Layout</p>
+                <p class="text-xs text-slate-500">
+                  Enable right-to-left layout for Persian language
+                </p>
+              </div>
+              <input
+                v-model="preferences.rtl"
+                type="checkbox"
+                aria-label="Persian (RTL) Layout"
+                class="accent-accent h-5 w-5 rounded border-white/20 bg-white/10"
+              />
             </div>
-            <input
-              v-model="preferences.notifyReleases"
-              type="checkbox"
-              aria-label="New Releases"
-              class="h-5 w-5 rounded border-white/20 bg-white/10 accent-accent"
-            />
-          </div>
-          <div class="flex items-center justify-between">
-            <div>
-              <p class="text-sm font-medium text-white">Social Activity</p>
-              <p class="text-xs text-slate-500">Get notified about follows, shares, and likes</p>
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm font-medium text-white">Lyrics Autoscroll</p>
+                <p class="text-xs text-slate-500">Automatically scroll lyrics during playback</p>
+              </div>
+              <input
+                v-model="preferences.lyricsAutoscroll"
+                type="checkbox"
+                aria-label="Lyrics Autoscroll"
+                class="accent-accent h-5 w-5 rounded border-white/20 bg-white/10"
+              />
             </div>
-            <input
-              v-model="preferences.notifySocial"
-              type="checkbox"
-              aria-label="Social Activity"
-              class="h-5 w-5 rounded border-white/20 bg-white/10 accent-accent"
-            />
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm font-medium text-white">Explicit Content</p>
+                <p class="text-xs text-slate-500">Allow playback of explicit tracks</p>
+              </div>
+              <input
+                v-model="preferences.explicitContent"
+                type="checkbox"
+                aria-label="Explicit Content"
+                class="accent-accent h-5 w-5 rounded border-white/20 bg-white/10"
+              />
+            </div>
           </div>
         </div>
-      </div>
 
-      <button
-        type="button"
-        :disabled="prefSaving"
-        class="rounded-full bg-spotify px-6 py-2.5 text-sm font-bold text-black transition hover:bg-spotify-hover disabled:opacity-50"
-        @click="savePreferences"
-      >
-        {{ prefSaving ? 'Saving...' : 'Save Preferences' }}
-      </button>
-      <p v-if="prefMessage" class="text-sm text-spotify" aria-live="polite">{{ prefMessage }}</p>
-    </div>
-  </template>
+        <div class="rounded-2xl border border-white/6 bg-white/2 p-6">
+          <h3 class="mb-4 text-lg font-bold text-white">Music Preferences</h3>
+          <div class="flex items-center justify-between">
+            <div>
+              <p class="text-sm font-medium text-white">Music Genres</p>
+              <p class="text-xs text-slate-500">
+                Select your favorite genres for better recommendations
+              </p>
+            </div>
+            <button
+              type="button"
+              class="rounded-full border border-white/10 bg-white/4 px-4 py-2 text-xs font-medium text-white transition hover:bg-white/8"
+              @click="router.push({ name: 'onboarding.genres' })"
+            >
+              <Pencil aria-hidden="true" class="mr-1.5 text-[10px]" />
+              Change
+            </button>
+          </div>
+        </div>
+
+        <div class="rounded-2xl border border-white/6 bg-white/2 p-6">
+          <h3 class="mb-4 text-lg font-bold text-white">Notifications</h3>
+          <div class="space-y-4">
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm font-medium text-white">New Releases</p>
+                <p class="text-xs text-slate-500">
+                  Get notified when followed artists release new music
+                </p>
+              </div>
+              <input
+                v-model="preferences.notifyReleases"
+                type="checkbox"
+                aria-label="New Releases"
+                class="accent-accent h-5 w-5 rounded border-white/20 bg-white/10"
+              />
+            </div>
+            <div class="flex items-center justify-between">
+              <div>
+                <p class="text-sm font-medium text-white">Social Activity</p>
+                <p class="text-xs text-slate-500">Get notified about follows, shares, and likes</p>
+              </div>
+              <input
+                v-model="preferences.notifySocial"
+                type="checkbox"
+                aria-label="Social Activity"
+                class="accent-accent h-5 w-5 rounded border-white/20 bg-white/10"
+              />
+            </div>
+          </div>
+        </div>
+
+        <button
+          type="button"
+          :disabled="prefSaving"
+          class="bg-spotify hover:bg-spotify-hover rounded-full px-6 py-2.5 text-sm font-bold text-black transition disabled:opacity-50"
+          @click="savePreferences"
+        >
+          {{ prefSaving ? 'Saving...' : 'Save Preferences' }}
+        </button>
+        <p v-if="prefMessage" class="text-spotify text-sm" aria-live="polite">{{ prefMessage }}</p>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -376,9 +390,13 @@ const preferences = reactive({
 })
 
 // Sync RTL preference with composable
-watch(() => preferences.rtl, (val) => {
-  setRTL(val)
-}, { immediate: true })
+watch(
+  () => preferences.rtl,
+  (val) => {
+    setRTL(val)
+  },
+  { immediate: true },
+)
 
 // Sync initial value from composable to form
 if (isRTL.value) {

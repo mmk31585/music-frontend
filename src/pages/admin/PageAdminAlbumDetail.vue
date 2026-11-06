@@ -36,16 +36,18 @@
     <template v-else-if="album">
       <div class="flex flex-col gap-6 lg:flex-row lg:items-start">
         <div class="shrink-0">
-          <div class="relative aspect-square w-48 overflow-hidden rounded-2xl bg-white/6 shadow-lg lg:w-56">
+          <div
+            class="relative aspect-square w-48 overflow-hidden rounded-2xl bg-white/6 shadow-lg lg:w-56"
+          >
             <img
               v-if="album.cover_url"
               :src="album.cover_url"
               :alt="album.title"
               class="h-full w-full object-cover"
-              @error="($event.target as HTMLImageElement).style.display='none'"
+              @error="($event.target as HTMLImageElement).style.display = 'none'"
             />
             <div v-else class="flex h-full w-full items-center justify-center">
-              <Image aria-hidden="true" class="text-5xl text-slate-600"  />
+              <Image aria-hidden="true" class="text-5xl text-slate-600" />
             </div>
           </div>
         </div>
@@ -62,11 +64,11 @@
               {{ artist.name }}
             </button>
             <span v-if="album.release_date">
-              <Calendar aria-hidden="true" class="mr-1"  />
+              <Calendar aria-hidden="true" class="mr-1" />
               {{ album.release_date }}
             </span>
             <span v-if="album.track_count">
-              <Music aria-hidden="true" class="mr-1"  />
+              <Music aria-hidden="true" class="mr-1" />
               {{ album.track_count }} tracks
             </span>
           </div>
@@ -121,7 +123,7 @@
           >
             <button
               type="button"
-              class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-slate-500 transition-all hover:bg-spotify/20 hover:text-spotify disabled:opacity-30"
+              class="hover:bg-spotify/20 hover:text-spotify flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-slate-500 transition-all disabled:opacity-30"
               :disabled="loadingTrackId === String(track.id)"
               :aria-label="'Play ' + track.title"
               :title="isTrackPlaying(track) ? 'Now playing' : 'Play track'"
@@ -130,29 +132,30 @@
               <Loader2
                 v-if="loadingTrackId === String(track.id)"
                 aria-hidden="true"
-                class="text-sm animate-spin"
-               />
-              <i
-                v-else
-                aria-hidden="true"
-                :class="getTrackPlayButtonIcon(track)"
-                class="text-sm"
+                class="animate-spin text-sm"
               />
+              <i v-else aria-hidden="true" :class="getTrackPlayButtonIcon(track)" class="text-sm" />
             </button>
-            <span class="w-5 text-center text-xs text-slate-500">{{ track.track_number || i + 1 }}</span>
+            <span class="w-5 text-center text-xs text-slate-500">{{
+              track.track_number || i + 1
+            }}</span>
             <div
               class="min-w-0 flex-1 cursor-pointer"
               @click="router.push({ name: 'admin.track.detail', params: { id: track.id } })"
             >
               <p class="truncate text-sm font-medium text-white">{{ track.title }}</p>
-              <p v-if="track.artist_name" class="truncate text-xs text-slate-500">{{ track.artist_name }}</p>
+              <p v-if="track.artist_name" class="truncate text-xs text-slate-500">
+                {{ track.artist_name }}
+              </p>
             </div>
-            <span v-if="track.duration_seconds" class="text-xs text-slate-500">{{ formatDuration(track.duration_seconds) }}</span>
+            <span v-if="track.duration_seconds" class="text-xs text-slate-500">{{
+              formatDuration(track.duration_seconds)
+            }}</span>
             <ChevronRight
               aria-hidden="true"
               class="cursor-pointer text-xs text-slate-600"
               @click="router.push({ name: 'admin.track.detail', params: { id: track.id } })"
-             />
+            />
           </div>
         </div>
       </div>
@@ -246,7 +249,7 @@ function getTrackPlayButtonIcon(track: Track): string {
 }
 
 const albumTracks = computed(() =>
-  allTracks.value.filter(t => String(t.album_id) === route.params.id)
+  allTracks.value.filter((t) => String(t.album_id) === route.params.id),
 )
 
 onMounted(loadAlbum)
@@ -258,7 +261,9 @@ async function loadAlbum() {
   try {
     album.value = await albumsApi.getAlbum(id)
     const [artistData, tracksData] = await Promise.all([
-      album.value.artist_id ? artistsApi.getArtist(String(album.value.artist_id)) : Promise.resolve(null),
+      album.value.artist_id
+        ? artistsApi.getArtist(String(album.value.artist_id))
+        : Promise.resolve(null),
       tracksApi.getTracks(),
     ])
     artist.value = artistData
@@ -284,10 +289,20 @@ async function handleEnrich() {
   enriching.value = true
   try {
     await albumsApi.adminEnrichAlbum(album.value.id)
-    toast.add({ severity: 'success', summary: 'Album enriched', detail: 'Cover art fetched from external sources', life: 3000 })
+    toast.add({
+      severity: 'success',
+      summary: 'Album enriched',
+      detail: 'Cover art fetched from external sources',
+      life: 3000,
+    })
     await loadAlbum()
   } catch {
-    toast.add({ severity: 'error', summary: 'Enrich failed', detail: 'Could not fetch album cover', life: 4000 })
+    toast.add({
+      severity: 'error',
+      summary: 'Enrich failed',
+      detail: 'Could not fetch album cover',
+      life: 4000,
+    })
   } finally {
     enriching.value = false
   }
@@ -321,5 +336,4 @@ async function handleDelete() {
     deleting.value = false
   }
 }
-
 </script>

@@ -38,9 +38,7 @@ export const useLocaleStore = defineStore('locale', () => {
     document.documentElement.dir = newLocale === 'fa' ? 'rtl' : 'ltr'
 
     // Dispatch event for PrimeVue locale update (caught by main.ts listener)
-    window.dispatchEvent(
-      new CustomEvent('locale-change', { detail: { locale: newLocale } }),
-    )
+    window.dispatchEvent(new CustomEvent('locale-change', { detail: { locale: newLocale } }))
   }
 
   function toggleLocale() {

@@ -1,7 +1,7 @@
 <template>
   <span
     v-if="value !== undefined && value !== null"
-    class="inline-flex items-center justify-center rounded-full px-1.5 py-0.5 text-[10px] font-bold leading-none"
+    class="inline-flex items-center justify-center rounded-full px-1.5 py-0.5 text-[10px] leading-none font-bold"
     :class="badgeClass"
   >
     {{ displayValue }}

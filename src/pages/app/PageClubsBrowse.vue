@@ -7,7 +7,7 @@
         <p class="mt-1 text-sm text-white/40">انجمن‌های موسیقی رو کشف کن</p>
       </div>
       <button
-        class="inline-flex items-center gap-1.5 rounded-xl bg-spotify px-5 py-2.5 text-sm font-bold text-black transition hover:bg-spotify-hover"
+        class="bg-spotify hover:bg-spotify-hover inline-flex items-center gap-1.5 rounded-xl px-5 py-2.5 text-sm font-bold text-black transition"
         @click="showCreateDialog = true"
       >
         ساخت کلاب جدید
@@ -20,9 +20,11 @@
         v-for="g in genres"
         :key="g.value"
         class="rounded-full px-4 py-1.5 text-xs font-medium transition"
-        :class="selectedGenre === g.value
-          ? 'bg-white/15 text-white'
-          : 'bg-white/4 text-white/40 hover:bg-white/8 hover:text-white/60'"
+        :class="
+          selectedGenre === g.value
+            ? 'bg-white/15 text-white'
+            : 'bg-white/4 text-white/40 hover:bg-white/8 hover:text-white/60'
+        "
         @click="selectedGenre = g.value"
       >
         {{ g.label }}
@@ -31,9 +33,13 @@
 
     <SkeletonLoader v-if="loading" variant="card" class="h-48" />
 
-    <div v-else-if="!clubs.length" class="flex flex-col items-center gap-4 rounded-2xl border border-dashed border-white/6 py-20 text-center" role="status">
+    <div
+      v-else-if="!clubs.length"
+      class="flex flex-col items-center gap-4 rounded-2xl border border-dashed border-white/6 py-20 text-center"
+      role="status"
+    >
       <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/4">
-        <Building2 aria-hidden="true" class="text-2xl text-slate-500"  />
+        <Building2 aria-hidden="true" class="text-2xl text-slate-500" />
       </div>
       <p class="text-sm font-medium text-white/40">هنوز کلابی با این فیلتر وجود نداره</p>
     </div>

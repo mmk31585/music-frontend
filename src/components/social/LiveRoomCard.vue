@@ -1,20 +1,27 @@
 <template>
   <div
-    class="group rounded-2xl bg-surface-overlay/60 p-5 ring-1 ring-border-default transition-all duration-300
-           hover:bg-surface-active/80 hover:ring-border-strong focus-within:ring-2 focus-within:ring-spotify"
+    class="group bg-surface-overlay/60 ring-border-default hover:bg-surface-active/80 hover:ring-border-strong focus-within:ring-spotify rounded-2xl p-5 ring-1 transition-all duration-300 focus-within:ring-2"
     role="article"
     :aria-label="`Live room: ${room.title}`"
   >
     <div class="flex items-start justify-between gap-3">
       <div class="min-w-0 flex-1">
         <div class="flex items-center gap-2">
-          <h3 class="truncate text-sm font-bold text-primary">{{ room.title }}</h3>
-          <span class="inline-flex items-center gap-1 rounded-full bg-danger-subtle px-2 py-0.5 text-[9px] font-semibold text-danger uppercase">
-            <span class="h-1.5 w-1.5 rounded-full bg-red-500 motion-safe:animate-pulse" aria-hidden="true" />
+          <h3 class="text-primary truncate text-sm font-bold">{{ room.title }}</h3>
+          <span
+            class="bg-danger-subtle text-danger inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[9px] font-semibold uppercase"
+          >
+            <span
+              class="h-1.5 w-1.5 rounded-full bg-red-500 motion-safe:animate-pulse"
+              aria-hidden="true"
+            />
             Live
           </span>
         </div>
-        <p v-if="room.description" class="mt-1 line-clamp-2 text-xs text-primary/40 leading-relaxed">
+        <p
+          v-if="room.description"
+          class="text-primary/40 mt-1 line-clamp-2 text-xs leading-relaxed"
+        >
           {{ room.description }}
         </p>
       </div>
@@ -26,51 +33,54 @@
         <div
           v-for="(avatar, i) in roomAvatars.slice(0, 4)"
           :key="i"
-          class="h-6 w-6 overflow-hidden rounded-full border-2 border-surface-base transition group-hover:border-border-strong"
+          class="border-surface-base group-hover:border-border-strong h-6 w-6 overflow-hidden rounded-full border-2 transition"
         >
           <img :src="avatar" alt="" class="h-full w-full object-cover" />
         </div>
         <div
           v-if="(room.listener_count || 0) > 4"
-          class="flex h-6 w-6 items-center justify-center rounded-full border-2 border-surface-base bg-surface-active text-[8px] font-bold text-primary/50"
+          class="border-surface-base bg-surface-active text-primary/50 flex h-6 w-6 items-center justify-center rounded-full border-2 text-[8px] font-bold"
         >
           +{{ (room.listener_count || 0) - 4 }}
         </div>
       </div>
-      <span class="text-[10px] text-primary/30 tabular-nums">{{ room.listener_count || 0 }} listening</span>
+      <span class="text-primary/30 text-[10px] tabular-nums"
+        >{{ room.listener_count || 0 }} listening</span
+      >
     </div>
 
     <!-- Host info -->
-    <div v-if="hostName" class="mt-3 flex items-center gap-1.5 text-[10px] text-primary/30">
-      <User aria-hidden="true" class="text-[10px] shrink-0"  />
+    <div v-if="hostName" class="text-primary/30 mt-3 flex items-center gap-1.5 text-[10px]">
+      <User aria-hidden="true" class="shrink-0 text-[10px]" />
       <span class="truncate">{{ hostName }}</span>
     </div>
 
     <!-- Now playing badge -->
-    <div v-if="room.current_track_id" class="mt-1 flex items-center gap-1.5 text-[10px] text-primary/25">
-      <Music aria-hidden="true" class="text-[10px] shrink-0"  />
+    <div
+      v-if="room.current_track_id"
+      class="text-primary/25 mt-1 flex items-center gap-1.5 text-[10px]"
+    >
+      <Music aria-hidden="true" class="shrink-0 text-[10px]" />
       <span>Now playing</span>
     </div>
 
     <div class="mt-4 flex items-center gap-2">
       <button
         aria-label="Listen live"
-        class="flex-1 rounded-lg bg-danger-subtle py-2.5 text-xs font-bold text-danger transition
-               hover:bg-danger-subtle active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-red-400"
+        class="bg-danger-subtle text-danger hover:bg-danger-subtle flex-1 rounded-lg py-2.5 text-xs font-bold transition focus-visible:outline-2 focus-visible:outline-red-400 active:scale-[0.98]"
         @click="$emit('join', room.id)"
       >
         <span class="flex items-center justify-center gap-1.5">
-          <Megaphone aria-hidden="true" class="text-[10px]"  />
+          <Megaphone aria-hidden="true" class="text-[10px]" />
           Listen Live
         </span>
       </button>
       <button
         aria-label="Share room"
-        class="flex h-9 w-9 items-center justify-center rounded-lg text-primary/30 transition
-               hover:bg-surface-overlay/60 hover:text-primary/60 focus-visible:outline-2 focus-visible:outline-accent"
+        class="text-primary/30 hover:bg-surface-overlay/60 hover:text-primary/60 focus-visible:outline-accent flex h-9 w-9 items-center justify-center rounded-lg transition focus-visible:outline-2"
         @click="$emit('share', room.id)"
       >
-        <Share2 aria-hidden="true" class="text-sm"  />
+        <Share2 aria-hidden="true" class="text-sm" />
       </button>
     </div>
   </div>

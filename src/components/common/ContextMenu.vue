@@ -46,10 +46,23 @@
               </div>
               <div class="ctx-header-indicators">
                 <span v-if="header.isPlaying" class="ctx-playing-indicator" aria-label="Playing">
-                  <span class="ctx-eq-bar" /><span class="ctx-eq-bar ctx-eq-delay-1" /><span class="ctx-eq-bar ctx-eq-delay-2" />
+                  <span class="ctx-eq-bar" /><span class="ctx-eq-bar ctx-eq-delay-1" /><span
+                    class="ctx-eq-bar ctx-eq-delay-2"
+                  />
                 </span>
-                <Heart v-if="header.isLiked" class="ctx-indicator-icon" :size="14" fill="currentColor" aria-label="Liked" />
-                <Download v-if="header.isDownloaded" class="ctx-indicator-icon" :size="14" aria-label="Downloaded" />
+                <Heart
+                  v-if="header.isLiked"
+                  class="ctx-indicator-icon"
+                  :size="14"
+                  fill="currentColor"
+                  aria-label="Liked"
+                />
+                <Download
+                  v-if="header.isDownloaded"
+                  class="ctx-indicator-icon"
+                  :size="14"
+                  aria-label="Downloaded"
+                />
               </div>
             </div>
           </div>
@@ -87,19 +100,27 @@
                     class="ctx-item-icon"
                     :class="{ 'ctx-item-icon-active': action.checked }"
                     :size="18"
-                    :fill="action.checked ? (accentColor || 'currentColor') : 'none'"
+                    :fill="action.checked ? accentColor || 'currentColor' : 'none'"
                     :stroke-width="action.checked ? 0 : 1.5"
                     aria-hidden="true"
                   />
                   <!-- Label -->
                   <span class="ctx-item-label">
                     {{ action.label }}
-                    <span v-if="action.subtitle" class="ctx-item-subtitle">{{ action.subtitle }}</span>
+                    <span v-if="action.subtitle" class="ctx-item-subtitle">{{
+                      action.subtitle
+                    }}</span>
                   </span>
                   <!-- Right side: badge / shortcut -->
                   <span v-if="action.badge" class="ctx-item-badge">{{ action.badge }}</span>
                   <kbd v-if="action.shortcut" class="ctx-kbd">{{ action.shortcut }}</kbd>
-                  <Check v-if="action.checked" class="ctx-check-icon" :size="16" :stroke-width="2.5" aria-hidden="true" />
+                  <Check
+                    v-if="action.checked"
+                    class="ctx-check-icon"
+                    :size="16"
+                    :stroke-width="2.5"
+                    aria-hidden="true"
+                  />
                 </button>
               </template>
             </div>
@@ -161,10 +182,23 @@
               </div>
               <div class="ctx-header-indicators">
                 <span v-if="header.isPlaying" class="ctx-playing-indicator" aria-label="Playing">
-                  <span class="ctx-eq-bar" /><span class="ctx-eq-bar ctx-eq-delay-1" /><span class="ctx-eq-bar ctx-eq-delay-2" />
+                  <span class="ctx-eq-bar" /><span class="ctx-eq-bar ctx-eq-delay-1" /><span
+                    class="ctx-eq-bar ctx-eq-delay-2"
+                  />
                 </span>
-                <Heart v-if="header.isLiked" class="ctx-indicator-icon" :size="14" fill="currentColor" aria-label="Liked" />
-                <Download v-if="header.isDownloaded" class="ctx-indicator-icon" :size="14" aria-label="Downloaded" />
+                <Heart
+                  v-if="header.isLiked"
+                  class="ctx-indicator-icon"
+                  :size="14"
+                  fill="currentColor"
+                  aria-label="Liked"
+                />
+                <Download
+                  v-if="header.isDownloaded"
+                  class="ctx-indicator-icon"
+                  :size="14"
+                  aria-label="Downloaded"
+                />
               </div>
             </div>
           </div>
@@ -195,16 +229,24 @@
                       class="ctx-item-icon"
                       :class="{ 'ctx-item-icon-active': action.checked }"
                       :size="20"
-                      :fill="action.checked ? (accentColor || 'currentColor') : 'none'"
+                      :fill="action.checked ? accentColor || 'currentColor' : 'none'"
                       :stroke-width="action.checked ? 0 : 1.5"
                       aria-hidden="true"
                     />
                     <span class="ctx-item-label">
                       {{ action.label }}
-                      <span v-if="action.subtitle" class="ctx-item-subtitle">{{ action.subtitle }}</span>
+                      <span v-if="action.subtitle" class="ctx-item-subtitle">{{
+                        action.subtitle
+                      }}</span>
                     </span>
                     <span v-if="action.badge" class="ctx-item-badge">{{ action.badge }}</span>
-                    <Check v-if="action.checked" class="ctx-check-icon" :size="18" :stroke-width="2.5" aria-hidden="true" />
+                    <Check
+                      v-if="action.checked"
+                      class="ctx-check-icon"
+                      :size="18"
+                      :stroke-width="2.5"
+                      aria-hidden="true"
+                    />
                   </button>
                 </template>
               </div>
@@ -241,28 +283,27 @@ import {
   Check,
   type Component,
 } from 'lucide-vue-next'
-import type {
-  ContextMenuSection,
-  ContextMenuHeader,
-  ContextMenuAction,
-} from '@/types/context-menu'
+import type { ContextMenuSection, ContextMenuHeader, ContextMenuAction } from '@/types/context-menu'
 import { useContextMenuState } from '@/composables/useContextMenuState'
 import { useContextMenuPosition } from '@/composables/useContextMenuPosition'
 import { useContextMenuKeyboard } from '@/composables/useContextMenuKeyboard'
 
 // ── Props ───────────────────────────────────────────────────────
 
-const props = withDefaults(defineProps<{
-  visible: boolean
-  sections: ContextMenuSection[]
-  header?: ContextMenuHeader
-  position?: { x: number; y: number }
-  accentColor?: string
-  anchorEl?: HTMLElement | null
-  ariaLabel?: string
-}>(), {
-  ariaLabel: 'Context menu',
-})
+const props = withDefaults(
+  defineProps<{
+    visible: boolean
+    sections: ContextMenuSection[]
+    header?: ContextMenuHeader
+    position?: { x: number; y: number }
+    accentColor?: string
+    anchorEl?: HTMLElement | null
+    ariaLabel?: string
+  }>(),
+  {
+    ariaLabel: 'Context menu',
+  },
+)
 
 const emit = defineEmits<{
   'update:visible': [value: boolean]
@@ -271,7 +312,7 @@ const emit = defineEmits<{
 
 // ── State ───────────────────────────────────────────────────────
 
-const { open, close: releaseState, forceClose } = useContextMenuState()
+const { open, close: releaseState } = useContextMenuState()
 
 const menuRef = ref<HTMLElement | null>(null)
 const backdropRef = ref<HTMLElement | null>(null)
@@ -279,9 +320,7 @@ const sheetRef = ref<HTMLElement | null>(null)
 const sheetBackdropRef = ref<HTMLElement | null>(null)
 
 const isMobile = ref(false)
-const mobileQuery = typeof window !== 'undefined'
-  ? window.matchMedia('(max-width: 767px)')
-  : null
+const mobileQuery = typeof window !== 'undefined' ? window.matchMedia('(max-width: 767px)') : null
 
 function updateMobile() {
   isMobile.value = mobileQuery?.matches ?? false
@@ -320,7 +359,7 @@ function flatIndex(sectionIdx: number, itemIdx: number): number {
 
 // ── Keyboard navigation ─────────────────────────────────────────
 
-const activeMenuEl = computed(() => isMobile.value ? sheetRef.value : menuRef.value)
+const activeMenuEl = computed(() => (isMobile.value ? sheetRef.value : menuRef.value))
 
 const { focusedIndex, onKeydown } = useContextMenuKeyboard({
   items: flatItems,
@@ -432,21 +471,26 @@ function formatDuration(seconds: number): string {
 
 // ── Watch visibility ────────────────────────────────────────────
 
-watch(() => props.visible, (v) => {
-  if (v) {
-    open()
-    if (isMobile.value) {
-      // Mobile sheet doesn't need position calculation
-      return
+watch(
+  () => props.visible,
+  (v) => {
+    if (v) {
+      open()
+      if (isMobile.value) {
+        // Mobile sheet doesn't need position calculation
+        return
+      }
+      nextTick(() => {
+        recomputePosition()
+        // Focus first item
+        const first = menuRef.value?.querySelector(
+          '[role="menuitem"]:not(:disabled)',
+        ) as HTMLElement
+        first?.focus()
+      })
     }
-    nextTick(() => {
-      recomputePosition()
-      // Focus first item
-      const first = menuRef.value?.querySelector('[role="menuitem"]:not(:disabled)') as HTMLElement
-      first?.focus()
-    })
-  }
-})
+  },
+)
 
 // ── Global close listeners ──────────────────────────────────────
 
@@ -650,7 +694,9 @@ onUnmounted(() => {
   border: none;
   cursor: pointer;
   text-align: start;
-  transition: color 120ms ease, background 120ms ease;
+  transition:
+    color 120ms ease,
+    background 120ms ease;
   outline: none;
   -webkit-tap-highlight-color: transparent;
 }
@@ -697,10 +743,12 @@ onUnmounted(() => {
   border-radius: 0 2px 2px 0;
   background: var(--ctx-accent, var(--accent));
   opacity: 0;
-  transition: height 120ms ease, opacity 120ms ease;
+  transition:
+    height 120ms ease,
+    opacity 120ms ease;
 }
 
-[dir="rtl"] .ctx-item-accent {
+[dir='rtl'] .ctx-item-accent {
   left: auto;
   right: 0;
   border-radius: 2px 0 0 2px;
@@ -790,29 +838,48 @@ onUnmounted(() => {
   will-change: transform, opacity;
 }
 
-.ctx-eq-bar:nth-child(1) { height: 60%; animation-delay: 0ms; }
-.ctx-eq-bar:nth-child(2) { height: 100%; animation-delay: 150ms; }
-.ctx-eq-bar:nth-child(3) { height: 40%; animation-delay: 300ms; }
+.ctx-eq-bar:nth-child(1) {
+  height: 60%;
+  animation-delay: 0ms;
+}
+.ctx-eq-bar:nth-child(2) {
+  height: 100%;
+  animation-delay: 150ms;
+}
+.ctx-eq-bar:nth-child(3) {
+  height: 40%;
+  animation-delay: 300ms;
+}
 
 @keyframes ctx-eq {
-  from { transform: scaleY(0.45); opacity: 0.6; }
-  to { transform: scaleY(1); opacity: 1; }
+  from {
+    transform: scaleY(0.45);
+    opacity: 0.6;
+  }
+  to {
+    transform: scaleY(1);
+    opacity: 1;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .ctx-eq-bar { animation: none; }
+  .ctx-eq-bar {
+    animation: none;
+  }
 }
 
 /* ── Desktop scale transition ────────────────────────────── */
 
 .ctx-scale-enter-active {
-  transition: opacity 150ms cubic-bezier(0.16, 1, 0.3, 1),
-              transform 150ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition:
+    opacity 150ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 150ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .ctx-scale-leave-active {
-  transition: opacity 100ms ease,
-              transform 100ms ease;
+  transition:
+    opacity 100ms ease,
+    transform 100ms ease;
 }
 
 .ctx-scale-enter-from {
@@ -891,11 +958,15 @@ onUnmounted(() => {
 /* ── Sheet slide transition ──────────────────────────────── */
 
 .ctx-sheet-enter-active {
-  transition: opacity 200ms ease, transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  transition:
+    opacity 200ms ease,
+    transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .ctx-sheet-leave-active {
-  transition: opacity 150ms ease, transform 200ms ease;
+  transition:
+    opacity 150ms ease,
+    transform 200ms ease;
 }
 
 .ctx-sheet-enter-from {

@@ -39,50 +39,32 @@ export async function getStageState(roomId: string): Promise<StageStateResponse>
 }
 
 export async function raiseHand(roomId: string): Promise<void> {
-  return useRequest<void>(
-    `/social/rooms/${roomId}/stage/raise-hand`,
-    { method: 'POST' },
-  )
+  return useRequest<void>(`/social/rooms/${roomId}/stage/raise-hand`, { method: 'POST' })
 }
 
 export async function lowerHand(roomId: string): Promise<void> {
-  return useRequest<void>(
-    `/social/rooms/${roomId}/stage/lower-hand`,
-    { method: 'POST' },
-  )
+  return useRequest<void>(`/social/rooms/${roomId}/stage/lower-hand`, { method: 'POST' })
 }
 
 export async function approveHand(roomId: string, userId: string): Promise<void> {
-  return useRequest<void>(
-    `/social/rooms/${roomId}/stage/${userId}/approve`,
-    { method: 'POST' },
-  )
+  return useRequest<void>(`/social/rooms/${roomId}/stage/${userId}/approve`, { method: 'POST' })
 }
 
 export async function denyHand(roomId: string, userId: string): Promise<void> {
-  return useRequest<void>(
-    `/social/rooms/${roomId}/stage/${userId}/deny`,
-    { method: 'POST' },
-  )
+  return useRequest<void>(`/social/rooms/${roomId}/stage/${userId}/deny`, { method: 'POST' })
 }
 
 export async function removeFromStage(roomId: string, userId: string): Promise<void> {
-  return useRequest<void>(
-    `/social/rooms/${roomId}/stage/${userId}`,
-    { method: 'DELETE' },
-  )
+  return useRequest<void>(`/social/rooms/${roomId}/stage/${userId}`, { method: 'DELETE' })
 }
 
 export async function leaveStage(roomId: string): Promise<void> {
-  return useRequest<void>(
-    `/social/rooms/${roomId}/stage/leave`,
-    { method: 'POST' },
-  )
+  return useRequest<void>(`/social/rooms/${roomId}/stage/leave`, { method: 'POST' })
 }
 
 export async function toggleMute(roomId: string, userId: string, muted: boolean): Promise<void> {
-  return useRequest<void>(
-    `/social/rooms/${roomId}/stage/${userId}/mute`,
-    { method: 'POST', data: { muted } },
-  )
+  return useRequest<void>(`/social/rooms/${roomId}/stage/${userId}/mute`, {
+    method: 'POST',
+    data: { muted },
+  })
 }

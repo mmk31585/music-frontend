@@ -9,12 +9,7 @@ import {
 export type AlbumFormPayload = AlbumCreatePayload & AlbumUpdatePayload
 
 export function useAdminAlbums() {
-  const {
-    adminGetAlbums,
-    adminCreateAlbum,
-    adminUpdateAlbum,
-    adminDeleteAlbum,
-  } = useAlbumsApi()
+  const { adminGetAlbums, adminCreateAlbum, adminUpdateAlbum, adminDeleteAlbum } = useAlbumsApi()
 
   const albums = ref<Album[]>([])
   const loading = ref(false)

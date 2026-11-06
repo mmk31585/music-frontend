@@ -43,7 +43,7 @@
         <!-- Earned stamp overlay -->
         <div
           v-if="earnedBadgeMap[badge.id]"
-          class="absolute top-1.5 right-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-spotify text-[10px] text-black shadow-lg"
+          class="bg-spotify absolute top-1.5 right-1.5 flex h-5 w-5 items-center justify-center rounded-full text-[10px] text-black shadow-lg"
         >
           ✓
         </div>

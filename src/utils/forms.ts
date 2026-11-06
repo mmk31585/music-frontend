@@ -1,8 +1,4 @@
-export function buildFormData(
-  formData: FormData,
-  data: any,
-  prefix: string = ''
-) {
+export function buildFormData(formData: FormData, data: any, prefix: string = '') {
   if (data === null || data === undefined) return
 
   const isFile = (v: any) => v instanceof File || v instanceof Blob

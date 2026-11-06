@@ -4,18 +4,26 @@
  */
 const PERSIAN_NORMALIZE: Record<string, string> = {
   // Yeh variants → standard ی
-  'ي': 'ی', 'ى': 'ی', 'ێ': 'ی', 'ۍ': 'ی',
+  ي: 'ی',
+  ى: 'ی',
+  ێ: 'ی',
+  ۍ: 'ی',
   // Kaf variants → standard ک
-  'ك': 'ک', 'ڪ': 'ک', 'ګ': 'ک',
+  ك: 'ک',
+  ڪ: 'ک',
+  ګ: 'ک',
   // Heh variants → standard ه
-  'ة': 'ه', 'ۀ': 'ه',
+  ة: 'ه',
+  ۀ: 'ه',
   // Other common Persian substitutions
-  'إ': 'ا', 'أ': 'ا', 'آ': 'ا',
-  'ؤ': 'و',
-  'ئ': 'ی',
-  'ٱ': 'ا',
-  'ے': 'ی',
-  'ۓ': 'ی',
+  إ: 'ا',
+  أ: 'ا',
+  آ: 'ا',
+  ؤ: 'و',
+  ئ: 'ی',
+  ٱ: 'ا',
+  ے: 'ی',
+  ۓ: 'ی',
 }
 
 /** Normalize a Persian search query for typo-tolerant matching. */

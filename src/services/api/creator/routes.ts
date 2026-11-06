@@ -75,10 +75,7 @@ export const useCreatorApi = () => {
     )
   }
 
-  const getPayouts = async (
-    params?: { limit?: number },
-    config?: UseRequestConfig<Payout[]>,
-  ) => {
+  const getPayouts = async (params?: { limit?: number }, config?: UseRequestConfig<Payout[]>) => {
     return useRequest<Payout, true>(
       CreatorApiRoutes.PAYOUTS,
       { method: 'GET', params },

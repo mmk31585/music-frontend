@@ -2,7 +2,9 @@
   <section class="mt-12">
     <div class="mb-5">
       <p class="text-[10px] font-bold tracking-[0.3em] text-white/30 uppercase">Curated picks</p>
-      <h2 class="mt-1 text-xl font-bold text-white md:text-2xl" style="letter-spacing: -0.02em">Editorial Discoveries</h2>
+      <h2 class="mt-1 text-xl font-bold text-white md:text-2xl" style="letter-spacing: -0.02em">
+        Editorial Discoveries
+      </h2>
     </div>
     <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       <div
@@ -21,19 +23,45 @@
               loading="lazy"
             />
             <div v-else class="flex h-full items-center justify-center bg-white/5">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-8 w-8 text-white/20"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="h-8 w-8 text-white/20"
+              >
+                <path d="M9 18V5l12-2v13" />
+                <circle cx="6" cy="18" r="3" />
+                <circle cx="18" cy="16" r="3" />
+              </svg>
             </div>
           </div>
           <div class="flex flex-1 flex-col justify-center gap-2 p-4">
-            <p class="text-[10px] font-bold tracking-[0.2em] text-spotify/70 uppercase">{{ tags[i % tags.length] }}</p>
-            <p class="text-sm font-bold text-white leading-snug">{{ item.title || 'Untitled' }}</p>
+            <p class="text-spotify/70 text-[10px] font-bold tracking-[0.2em] uppercase">
+              {{ tags[i % tags.length] }}
+            </p>
+            <p class="text-sm leading-snug font-bold text-white">{{ item.title || 'Untitled' }}</p>
             <p class="text-xs text-white/40">{{ item.artist_name || 'Unknown artist' }}</p>
             <button
               type="button"
-              class="mt-1 inline-flex h-8 w-fit cursor-pointer items-center gap-1.5 rounded-full bg-spotify px-4 text-[11px] font-bold text-black transition hover:bg-spotify-hover"
+              class="bg-spotify hover:bg-spotify-hover mt-1 inline-flex h-8 w-fit cursor-pointer items-center gap-1.5 rounded-full px-4 text-[11px] font-bold text-black transition"
               @click="$emit('play', item)"
             >
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="h-3 w-3"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="h-3 w-3"
+              >
+                <polygon points="5 3 19 12 5 21 5 3" />
+              </svg>
               Listen
             </button>
           </div>
@@ -80,7 +108,5 @@ function openContextMenu(e: MouseEvent, item: RecommendationTrack) {
   menuVisible.value = true
 }
 
-const { sections, header, accentColor } = useTrackContextMenu(
-  computed(() => contextTrack.value),
-)
+const { sections, header, accentColor } = useTrackContextMenu(computed(() => contextTrack.value))
 </script>

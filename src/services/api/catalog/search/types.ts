@@ -1,5 +1,4 @@
 import { z } from 'zod'
-import { IdSchema } from '../common'
 
 /**
  * Search-specific schemas match the backend search module's camelCase DTOs.

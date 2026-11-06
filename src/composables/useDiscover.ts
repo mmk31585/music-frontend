@@ -49,7 +49,12 @@ export function useDiscover() {
     } catch (err: unknown) {
       error.value = err
       const msg = err instanceof Error ? err.message : 'Failed to load discover data'
-      toast.add({ severity: 'error', summary: 'خطا', detail: translateMessage(msg) ?? msg, life: 5000 })
+      toast.add({
+        severity: 'error',
+        summary: 'خطا',
+        detail: translateMessage(msg) ?? msg,
+        life: 5000,
+      })
     } finally {
       loading.value = false
     }

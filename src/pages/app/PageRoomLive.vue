@@ -20,20 +20,22 @@
 
     <template v-else-if="room">
       <div class="grid gap-6 lg:grid-cols-3">
-
         <!-- Main column -->
         <div class="space-y-6 lg:col-span-2">
-
           <!-- Room header -->
           <div class="rounded-2xl bg-white/4 p-6 ring-1 ring-white/7">
             <div class="flex items-start gap-4">
-              <div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-spotify/10 text-2xl">
+              <div
+                class="bg-spotify/10 flex h-16 w-16 shrink-0 items-center justify-center rounded-xl text-2xl"
+              >
                 🎤
               </div>
               <div class="min-w-0 flex-1">
                 <div class="flex items-center gap-3">
                   <h1 class="truncate text-2xl font-black text-white">{{ room.title }}</h1>
-                  <span class="flex items-center gap-1.5 rounded-full bg-red-500/10 px-3 py-1 text-xs font-semibold text-red-400">
+                  <span
+                    class="flex items-center gap-1.5 rounded-full bg-red-500/10 px-3 py-1 text-xs font-semibold text-red-400"
+                  >
                     <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-red-500" />
                     LIVE
                   </span>
@@ -52,7 +54,9 @@
           <!-- Now Playing Hero (from Phase 3) -->
           <RoomNowPlayingHero
             :now-playing="queueSocket.queueState.value?.now_playing || null"
-            :is-loading="(!queueSocket.queueState.value?.now_playing && !loading) || isTrackTransitioning"
+            :is-loading="
+              (!queueSocket.queueState.value?.now_playing && !loading) || isTrackTransitioning
+            "
             :is-playing="isPlayingTrack"
             @toggle-play="togglePlay"
           />
@@ -64,14 +68,14 @@
           >
             <div class="flex items-center justify-between gap-3">
               <div class="flex items-center gap-2 text-sm text-red-400">
-                <AlertCircle aria-hidden="true" class="text-xs"  />
+                <AlertCircle aria-hidden="true" class="text-xs" />
                 <span>{{ playerStore.error }}</span>
               </div>
               <button
                 class="inline-flex items-center gap-1 rounded-lg bg-red-500/20 px-3 py-1.5 text-xs font-semibold text-red-300 transition hover:bg-red-500/30 active:scale-95"
                 @click="retryPlayback"
               >
-                <RefreshCw aria-hidden="true" class="text-xs"  />
+                <RefreshCw aria-hidden="true" class="text-xs" />
                 Retry
               </button>
             </div>
@@ -84,7 +88,7 @@
               :disabled="!currentTrack || isTrackTransitioning"
               @click="skipTrack"
             >
-              <Forward aria-hidden="true" class="text-xs"  />
+              <Forward aria-hidden="true" class="text-xs" />
               Skip
             </button>
           </div>
@@ -97,7 +101,13 @@
                 @click="playerStore.toggleMute()"
                 aria-label="Toggle mute"
               >
-                {{ playerStore.muted || playerStore.volume === 0 ? '🔇' : playerStore.volume < 0.5 ? '🔉' : '🔊' }}
+                {{
+                  playerStore.muted || playerStore.volume === 0
+                    ? '🔇'
+                    : playerStore.volume < 0.5
+                      ? '🔉'
+                      : '🔊'
+                }}
               </button>
               <input
                 type="range"
@@ -107,7 +117,7 @@
                 :value="playerStore.volume"
                 aria-label="Volume"
                 @input="playerStore.setVolume(Number(($event.target as HTMLInputElement).value))"
-                class="h-1 w-20 cursor-pointer appearance-none rounded-full bg-white/10 accent-accent [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white"
+                class="accent-accent h-1 w-20 cursor-pointer appearance-none rounded-full bg-white/10 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white"
               />
               <span class="text-xs text-white/30">Volume</span>
             </div>
@@ -120,7 +130,7 @@
                 :value="playerStore.currentTime"
                 aria-label="Seek"
                 @input="playerStore.seek(Number(($event.target as HTMLInputElement).value))"
-                class="h-1 w-full cursor-pointer appearance-none rounded-full bg-white/10 accent-accent [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white"
+                class="accent-accent h-1 w-full cursor-pointer appearance-none rounded-full bg-white/10 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:bg-white"
               />
               <div class="mt-1 flex justify-between text-[10px] text-white/30">
                 <span>{{ formatTime(playerStore.currentTime) }}</span>
@@ -131,17 +141,22 @@
 
           <!-- Chat -->
           <div class="rounded-2xl bg-white/4 p-6 ring-1 ring-white/7">
-            <h2 class="mb-4 text-sm font-bold uppercase tracking-wider text-white/30">Chat</h2>
-            <div ref="chatContainer" class="mb-4 max-h-64 space-y-2 overflow-y-auto" aria-live="polite" role="log">
-              <div
-                v-for="(msg, i) in messages"
-                :key="i"
-                class="rounded-lg bg-white/3 px-3 py-2"
-              >
-                <span class="text-xs font-semibold text-spotify">{{ msg.userName || msg.user_id?.slice(0, 8) || 'System' }}</span>
+            <h2 class="mb-4 text-sm font-bold tracking-wider text-white/30 uppercase">Chat</h2>
+            <div
+              ref="chatContainer"
+              class="mb-4 max-h-64 space-y-2 overflow-y-auto"
+              aria-live="polite"
+              role="log"
+            >
+              <div v-for="(msg, i) in messages" :key="i" class="rounded-lg bg-white/3 px-3 py-2">
+                <span class="text-spotify text-xs font-semibold">{{
+                  msg.userName || msg.user_id?.slice(0, 8) || 'System'
+                }}</span>
                 <p class="mt-0.5 text-sm text-white/70">{{ msg.content }}</p>
               </div>
-              <p v-if="!messages.length" class="text-center text-xs text-white/20">No messages yet</p>
+              <p v-if="!messages.length" class="text-center text-xs text-white/20">
+                No messages yet
+              </p>
             </div>
             <form class="flex gap-2" @submit.prevent="sendMessage">
               <input
@@ -153,7 +168,7 @@
               />
               <button
                 type="submit"
-                class="rounded-xl bg-spotify/10 px-4 py-2.5 text-sm font-semibold text-spotify transition hover:bg-spotify/20 disabled:opacity-40"
+                class="bg-spotify/10 text-spotify hover:bg-spotify/20 rounded-xl px-4 py-2.5 text-sm font-semibold transition disabled:opacity-40"
                 :disabled="!chatInput.trim()"
               >
                 Send
@@ -164,7 +179,6 @@
 
         <!-- Sidebar -->
         <div class="space-y-6">
-
           <!-- Stage (speaker grid) -->
           <LiveRoomStage
             v-if="stageState"
@@ -212,11 +226,15 @@
                   <button
                     class="flex-1 rounded-xl bg-white/5 py-3 text-sm font-medium text-white/50 transition hover:bg-white/10"
                     @click="showLeaveConfirm = false"
-                  >Cancel</button>
+                  >
+                    Cancel
+                  </button>
                   <button
                     class="flex-1 rounded-xl bg-red-500 py-3 text-sm font-bold text-white transition hover:bg-red-600"
                     @click="handleLeave"
-                  >Leave</button>
+                  >
+                    Leave
+                  </button>
                 </div>
               </div>
             </div>
@@ -253,7 +271,14 @@ import { usePlayerStore } from '@/stores/player'
 import { useUserAuthStore } from '@/stores'
 import { wsClient } from '@/services/socket'
 import { useAppToast } from '@/composables/useAppToast'
-import { TrackPickerDialog, RoomNowPlayingHero, RoomQueueList, LiveRoomStage, RaiseHandButton, HandRaiseQueue } from '@/components/social'
+import {
+  TrackPickerDialog,
+  RoomNowPlayingHero,
+  RoomQueueList,
+  LiveRoomStage,
+  RaiseHandButton,
+  HandRaiseQueue,
+} from '@/components/social'
 import { useRoomQueueSocket } from '@/composables/social/useRoomQueueSocket'
 import { useStageSocket } from '@/composables/social/useStageSocket'
 import type { LiveRoom } from '@/services/api/social'

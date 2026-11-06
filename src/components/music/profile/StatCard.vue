@@ -1,15 +1,17 @@
 <template>
-  <div class="relative rounded-2xl bg-surface-overlay/60 ring-1 ring-border-subtle p-4 flex flex-col gap-1 transition hover:bg-surface-hover">
+  <div
+    class="bg-surface-overlay/60 ring-border-subtle hover:bg-surface-hover relative flex flex-col gap-1 rounded-2xl p-4 ring-1 transition"
+  >
     <div class="flex items-center justify-between">
       <div
-        class="w-8 h-8 rounded-lg bg-surface-active/80 flex items-center justify-center text-sm"
+        class="bg-surface-active/80 flex h-8 w-8 items-center justify-center rounded-lg text-sm"
         :style="iconStyle"
       >
         <i aria-hidden="true" :class="icon" />
       </div>
       <div
         v-if="trend !== undefined"
-        class="absolute top-3 end-3 flex items-center gap-0.5 text-[10px]"
+        class="absolute end-3 top-3 flex items-center gap-0.5 text-[10px]"
         :class="trend >= 0 ? 'text-success' : 'text-danger'"
       >
         <span>{{ trend >= 0 ? '▲' : '▼' }}</span>
@@ -22,8 +24,8 @@
     >
       {{ animatedValue }}
     </p>
-    <p v-if="sub" class="text-xs text-tertiary mt-0.5 truncate">{{ sub }}</p>
-    <p class="text-[10px] uppercase tracking-widest text-muted mt-auto pt-2">{{ label }}</p>
+    <p v-if="sub" class="text-tertiary mt-0.5 truncate text-xs">{{ sub }}</p>
+    <p class="text-muted mt-auto pt-2 text-[10px] tracking-widest uppercase">{{ label }}</p>
   </div>
 </template>
 

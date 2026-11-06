@@ -1,5 +1,7 @@
+import { beforeAll, afterAll, beforeEach } from 'vitest'
 import { config } from '@vue/test-utils'
 import { createRouter, createWebHistory } from 'vue-router'
+import { server } from '@/mocks/server'
 
 // Mock localStorage for test environment (jsdom doesn't provide it by default)
 if (typeof window !== 'undefined' && !window.localStorage) {
@@ -9,10 +11,20 @@ if (typeof window !== 'undefined' && !window.localStorage) {
     setItem: (key: string, value: string) => store.set(key, value),
     removeItem: (key: string) => store.delete(key),
     clear: () => store.clear(),
-    get length() { return store.size },
+    get length() {
+      return store.size
+    },
     key: (index: number) => [...store.keys()][index] ?? null,
   } as Storage
 }
+
+beforeAll(() => server.listen({ onUnhandledRequest: 'warn' }))
+afterAll(() => server.close())
+
+beforeEach(() => {
+  server.resetHandlers()
+  if (typeof window !== 'undefined') window.localStorage.clear()
+})
 
 const router = createRouter({
   history: createWebHistory(),

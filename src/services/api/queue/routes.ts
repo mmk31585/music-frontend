@@ -4,12 +4,10 @@ import { QueueApiRoutes } from './enums'
 import {
   QueueResponseSchema,
   AddTrackResponseSchema,
-  QueueItemSchema,
   type QueueResponse,
   type AddTrackResponse,
   type AddTrackPayload,
   type ReorderQueuePayload,
-  type QueueItem,
 } from './types'
 
 export const useQueueApi = () => {

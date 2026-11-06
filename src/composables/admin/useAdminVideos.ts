@@ -3,12 +3,7 @@ import { useVideoApi } from '@/services/api/video'
 import type { VideoItem } from '@/services/api/video/types'
 
 export function useAdminVideos() {
-  const {
-    adminGetVideos,
-    adminUpdateVideo,
-    adminDeleteVideo,
-    adminApproveVideo,
-  } = useVideoApi()
+  const { adminGetVideos, adminUpdateVideo, adminDeleteVideo, adminApproveVideo } = useVideoApi()
 
   const videos = ref<VideoItem[]>([])
   const loading = ref(false)
@@ -66,9 +61,7 @@ export function useAdminVideos() {
 
     try {
       const updated = await adminUpdateVideo(id, payload)
-      videos.value = videos.value.map((v) =>
-        String(v.id) === String(id) ? updated : v,
-      )
+      videos.value = videos.value.map((v) => (String(v.id) === String(id) ? updated : v))
       return updated
     } catch (err) {
       error.value = err
@@ -99,9 +92,7 @@ export function useAdminVideos() {
 
     try {
       const updated = await adminApproveVideo(id)
-      videos.value = videos.value.map((v) =>
-        String(v.id) === String(id) ? updated : v,
-      )
+      videos.value = videos.value.map((v) => (String(v.id) === String(id) ? updated : v))
       return updated
     } catch (err) {
       error.value = err

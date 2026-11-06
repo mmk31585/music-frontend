@@ -12,6 +12,6 @@ export enum PlaylistApiRoutes {
   REMOVE_TRACK = '/playlists/:playlistId/tracks/:trackId',
   REORDER_TRACKS = '/playlists/:playlistId/tracks/reorder',
   SET_COLLABORATIVE = '/playlists/:playlistId/collaborative',
-   
+
   LIST_COLLABORATORS = '/playlists/:playlistId/collaborators',
 }

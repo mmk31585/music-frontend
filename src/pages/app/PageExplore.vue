@@ -1,14 +1,16 @@
 <template>
-  <div class="mx-auto w-full max-w-7xl px-4 pb-36 pt-6 md:px-6 lg:px-8">
+  <div class="mx-auto w-full max-w-7xl px-4 pt-6 pb-36 md:px-6 lg:px-8">
     <!-- Header -->
     <div class="mb-6">
       <div class="flex items-center gap-3">
-        <div class="flex h-10 w-10 items-center justify-center rounded-2xl bg-spotify/10">
-          <Compass aria-hidden="true" class="text-spotify"  />
+        <div class="bg-spotify/10 flex h-10 w-10 items-center justify-center rounded-2xl">
+          <Compass aria-hidden="true" class="text-spotify" />
         </div>
         <div>
           <h1 class="text-2xl font-black text-white sm:text-3xl">Explore</h1>
-          <p class="mt-0.5 text-sm text-white/40">Official MVs &amp; fan edits from the community</p>
+          <p class="mt-0.5 text-sm text-white/40">
+            Official MVs &amp; fan edits from the community
+          </p>
         </div>
       </div>
     </div>
@@ -20,9 +22,11 @@
         :key="filter.key"
         type="button"
         class="rounded-full px-4 py-2 text-sm font-bold transition-all duration-200"
-        :class="activeFilter === filter.key
-          ? 'bg-spotify text-black shadow-lg shadow-spotify/20'
-          : 'bg-white/5 text-white/60 hover:bg-white/10 hover:text-white'"
+        :class="
+          activeFilter === filter.key
+            ? 'bg-spotify shadow-spotify/20 text-black shadow-lg'
+            : 'bg-white/5 text-white/60 hover:bg-white/10 hover:text-white'
+        "
         @click="activeFilter = filter.key"
       >
         {{ filter.label }}
@@ -53,26 +57,26 @@
         class="explore-card"
         :style="{ '--i': index }"
       >
-        <VideoCard
-          :video="video"
-          @open="openPlayer(index)"
-        />
+        <VideoCard :video="video" @open="openPlayer(index)" />
       </div>
     </div>
 
     <!-- Empty state -->
-    <div
-      v-else
-      class="flex flex-col items-center justify-center py-24"
-    >
+    <div v-else class="flex flex-col items-center justify-center py-24">
       <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-white/5">
-        <Video aria-hidden="true" class="text-2xl text-slate-500"  />
+        <Video aria-hidden="true" class="text-2xl text-slate-500" />
       </div>
       <p class="mt-4 text-sm font-medium text-white/60">
-        {{ activeFilter === 'all' ? 'No videos yet' : `No ${activeFilter === 'official_mv' ? 'official MVs' : 'fan edits'} found` }}
+        {{
+          activeFilter === 'all'
+            ? 'No videos yet'
+            : `No ${activeFilter === 'official_mv' ? 'official MVs' : 'fan edits'} found`
+        }}
       </p>
       <p v-if="activeFilter !== 'all'" class="mt-1 text-xs text-white/30">
-        <button class="text-spotify hover:underline" @click="activeFilter = 'all'">Show all videos</button>
+        <button class="text-spotify hover:underline" @click="activeFilter = 'all'">
+          Show all videos
+        </button>
       </p>
     </div>
 
@@ -83,7 +87,7 @@
       class="flex items-center justify-center py-8"
     >
       <div v-if="loadingMore" class="flex items-center gap-3 text-sm text-white/40">
-        <Loader2 aria-hidden="true" class="animate-spin"  />
+        <Loader2 aria-hidden="true" class="animate-spin" />
         <span>Loading more...</span>
       </div>
       <div v-else class="flex items-center gap-2 text-xs text-white/20">

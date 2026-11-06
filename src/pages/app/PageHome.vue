@@ -9,11 +9,15 @@
     <div
       v-if="pulling || refreshing"
       class="flex justify-center"
-      :style="{ height: `${pullDistance || (refreshing ? 40 : 0)}px`, overflow: 'hidden', transition: refreshing ? 'height 0.3s ease' : 'none' }"
+      :style="{
+        height: `${pullDistance || (refreshing ? 40 : 0)}px`,
+        overflow: 'hidden',
+        transition: refreshing ? 'height 0.3s ease' : 'none',
+      }"
     >
       <div
         v-if="refreshing"
-        class="mt-3 h-5 w-5 animate-spin rounded-full border-2 border-spotify border-t-transparent"
+        class="border-spotify mt-3 h-5 w-5 animate-spin rounded-full border-2 border-t-transparent"
       />
       <div
         v-else
@@ -29,7 +33,20 @@
 
     <template v-else-if="error">
       <div class="flex flex-col items-center justify-center gap-4 py-20">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-12 w-12 text-white/20"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="h-12 w-12 text-white/20"
+        >
+          <circle cx="12" cy="12" r="10" />
+          <line x1="12" y1="8" x2="12" y2="12" />
+          <line x1="12" y1="16" x2="12.01" y2="16" />
+        </svg>
         <p class="text-white/50">Could not load content</p>
         <button
           type="button"
@@ -81,21 +98,11 @@
         @play="handlePlay"
       />
 
-      <EditorialDiscover
-        v-if="forYou.length"
-        :items="forYou.slice(0, 6)"
-        @play="handlePlay"
-      />
+      <EditorialDiscover v-if="forYou.length" :items="forYou.slice(0, 6)" @play="handlePlay" />
 
-      <PersianHighlights
-        v-if="albums.length"
-        :items="albums.slice(0, 8)"
-      />
+      <PersianHighlights v-if="albums.length" :items="albums.slice(0, 8)" />
 
-      <CommunityActivity
-        v-if="auth.isAuthenticated"
-        :items="[]"
-      />
+      <CommunityActivity v-if="auth.isAuthenticated" :items="[]" />
 
       <!-- Spacer for player bar -->
       <div class="h-24" />
@@ -125,8 +132,6 @@ const {
   greeting,
   greetingPeriod,
   greetingSubtitle,
-  heroItems,
-  fallbackHeroItems,
   resumeItems,
   trendingChart,
   spotlights,
@@ -135,13 +140,9 @@ const {
   albums,
   loading,
   error,
-  isCurrentlyPlaying,
   handlePlay,
-  getScoreBadge,
   fetchHomeFeed,
-  player,
   auth,
-  remainingPlays,
   popular,
 } = useHomePage()
 

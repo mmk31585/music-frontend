@@ -3,8 +3,10 @@
     <!-- ── Dynamic Hero ── -->
     <div class="relative overflow-hidden rounded-2xl p-8 md:p-10">
       <div class="pointer-events-none absolute inset-0" aria-hidden="true">
-        <div class="absolute -top-40 -right-40 h-125 w-125 rounded-full bg-spotify/8 blur-3xl" />
-        <div class="absolute -bottom-20 -left-20 h-75 w-75 rounded-full bg-aurora-purple/6 blur-3xl" />
+        <div class="bg-spotify/8 absolute -top-40 -right-40 h-125 w-125 rounded-full blur-3xl" />
+        <div
+          class="bg-aurora-purple/6 absolute -bottom-20 -left-20 h-75 w-75 rounded-full blur-3xl"
+        />
         <div class="absolute inset-0 bg-linear-to-br from-black/40 via-transparent to-black/60" />
       </div>
 
@@ -30,20 +32,20 @@
               class="h-full w-full object-cover"
             />
             <div v-else class="flex h-full w-full items-center justify-center bg-white/5">
-              <Music aria-hidden="true" class="text-sm text-white/30"  />
+              <Music aria-hidden="true" class="text-sm text-white/30" />
             </div>
           </div>
-          <div class="min-w-0 max-w-45">
+          <div class="max-w-45 min-w-0">
             <p class="truncate text-xs font-medium text-white">{{ currentTrack.title }}</p>
             <p class="truncate text-[10px] text-white/40">Now Playing</p>
           </div>
           <button
             aria-label="Start a listening party with this track"
-            class="rounded-full bg-spotify px-4 py-2 text-[11px] font-bold text-black transition hover:bg-spotify-hover hover:scale-105 active:scale-95 focus-visible:outline-2 focus-visible:outline-white"
+            class="bg-spotify hover:bg-spotify-hover rounded-full px-4 py-2 text-[11px] font-bold text-black transition hover:scale-105 focus-visible:outline-2 focus-visible:outline-white active:scale-95"
             @click="startPartyFromTrack"
           >
             <span class="flex items-center gap-1.5">
-              <Users aria-hidden="true" class="text-[10px]"  />
+              <Users aria-hidden="true" class="text-[10px]" />
               Party
             </span>
           </button>
@@ -55,13 +57,13 @@
     <template v-if="loading">
       <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
         <div v-for="i in 3" :key="i" class="rounded-2xl bg-white/4 p-5 ring-1 ring-white/6">
-          <div class="h-4 w-20 rounded-full bg-white/5 animate-pulse mb-4" />
-          <div class="h-24 rounded-xl bg-white/5 animate-pulse mb-3" />
-          <div class="h-8 w-full rounded-lg bg-white/5 animate-pulse" />
+          <div class="mb-4 h-4 w-20 animate-pulse rounded-full bg-white/5" />
+          <div class="mb-3 h-24 animate-pulse rounded-xl bg-white/5" />
+          <div class="h-8 w-full animate-pulse rounded-lg bg-white/5" />
         </div>
       </div>
       <div class="space-y-2">
-        <div v-for="i in 4" :key="i" class="h-14 rounded-xl bg-white/5 animate-pulse" />
+        <div v-for="i in 4" :key="i" class="h-14 animate-pulse rounded-xl bg-white/5" />
       </div>
     </template>
 
@@ -70,49 +72,57 @@
       <!-- ── Bento Grid: Live Now / Trending Parties / Your Clubs ── -->
       <div class="grid grid-cols-1 gap-4 md:grid-cols-3">
         <!-- Live Now -->
-        <div class="rounded-2xl bg-white/6 p-5 ring-1 ring-white/10 transition hover:bg-white/8 group">
-          <div class="flex items-center gap-2 mb-3">
+        <div
+          class="group rounded-2xl bg-white/6 p-5 ring-1 ring-white/10 transition hover:bg-white/8"
+        >
+          <div class="mb-3 flex items-center gap-2">
             <span class="flex h-2 w-2 rounded-full bg-red-500 motion-safe:animate-pulse" />
-            <span class="text-[10px] font-bold tracking-wider text-red-400 uppercase">Live Now</span>
+            <span class="text-[10px] font-bold tracking-wider text-red-400 uppercase"
+              >Live Now</span
+            >
           </div>
 
           <!-- Waveform stub -->
-          <div class="flex items-end gap-0.5 h-12 mb-3" aria-hidden="true">
+          <div class="mb-3 flex h-12 items-end gap-0.5" aria-hidden="true">
             <div
-              v-for="i in 16" :key="i"
-              class="w-1.5 rounded-full bg-spotify/60"
+              v-for="i in 16"
+              :key="i"
+              class="bg-spotify/60 w-1.5 rounded-full"
               :style="{ height: `${12 + Math.random() * 36}px`, animationDelay: `${i * 100}ms` }"
             />
           </div>
 
           <template v-if="featuredRoom">
             <h3 class="text-lg font-bold text-white">{{ featuredRoom.title }}</h3>
-            <p class="mt-1 text-xs text-white/40 line-clamp-2">{{ featuredRoom.description }}</p>
+            <p class="mt-1 line-clamp-2 text-xs text-white/40">{{ featuredRoom.description }}</p>
             <div class="mt-3 flex items-center gap-2">
               <div class="flex -space-x-2" aria-label="Listeners">
                 <div
-                  v-for="i in Math.min(5, featuredRoom.listener_count || 0)" :key="i"
-                  class="h-7 w-7 overflow-hidden rounded-full border-2 border-surface-base bg-white/10"
+                  v-for="i in Math.min(5, featuredRoom.listener_count || 0)"
+                  :key="i"
+                  class="border-surface-base h-7 w-7 overflow-hidden rounded-full border-2 bg-white/10"
                 />
                 <div
                   v-if="(featuredRoom.listener_count || 0) > 5"
-                  class="flex h-7 w-7 items-center justify-center rounded-full border-2 border-surface-base bg-white/10 text-[9px] font-bold text-white/60"
+                  class="border-surface-base flex h-7 w-7 items-center justify-center rounded-full border-2 bg-white/10 text-[9px] font-bold text-white/60"
                 >
                   +{{ (featuredRoom.listener_count || 0) - 5 }}
                 </div>
               </div>
-              <span class="text-[11px] text-white/40 tabular-nums">{{ featuredRoom.listener_count || 0 }} listening</span>
+              <span class="text-[11px] text-white/40 tabular-nums"
+                >{{ featuredRoom.listener_count || 0 }} listening</span
+              >
             </div>
             <button
               aria-label="Join live room"
-              class="mt-4 w-full rounded-xl bg-red-500/10 py-2.5 text-xs font-bold text-red-400 transition hover:bg-red-500/20 active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-red-400"
+              class="mt-4 w-full rounded-xl bg-red-500/10 py-2.5 text-xs font-bold text-red-400 transition hover:bg-red-500/20 focus-visible:outline-2 focus-visible:outline-red-400 active:scale-[0.98]"
               @click="handleJoinRoom(featuredRoom.id)"
             >
               Listen Live
             </button>
           </template>
           <div v-else class="flex flex-col items-center gap-3 py-6 text-center">
-            <Megaphone aria-hidden="true" class="text-xl text-white/20"  />
+            <Megaphone aria-hidden="true" class="text-xl text-white/20" />
             <p class="text-xs text-white/30">No live rooms right now</p>
             <button
               class="rounded-full bg-red-500/10 px-4 py-1.5 text-[10px] font-semibold text-red-400 transition hover:bg-red-500/20"
@@ -125,11 +135,11 @@
 
         <!-- Trending Parties -->
         <div class="rounded-2xl bg-white/6 p-5 ring-1 ring-white/10">
-          <div class="flex items-center justify-between mb-3">
+          <div class="mb-3 flex items-center justify-between">
             <h3 class="text-sm font-bold text-white">Trending Parties</h3>
             <button
               v-if="parties.length > 3"
-              class="text-[10px] text-white/30 hover:text-white/60 transition"
+              class="text-[10px] text-white/30 transition hover:text-white/60"
               @click="activeTab = 'parties'"
             >
               See All
@@ -137,28 +147,37 @@
           </div>
           <div v-if="parties.length" class="space-y-2">
             <div
-              v-for="party in parties.slice(0, 3)" :key="party.id"
-              class="flex items-center gap-3 rounded-xl p-2 transition hover:bg-white/4 cursor-pointer"
+              v-for="party in parties.slice(0, 3)"
+              :key="party.id"
+              class="flex cursor-pointer items-center gap-3 rounded-xl p-2 transition hover:bg-white/4"
               @click="handleJoinParty(party.id)"
             >
               <div class="h-8 w-8 shrink-0 overflow-hidden rounded-lg bg-white/10">
-                <div v-if="(party as any).currentTrackCover" class="h-full w-full bg-cover bg-center" :style="{ backgroundImage: `url(${(party as any).currentTrackCover})` }" />
+                <div
+                  v-if="(party as any).currentTrackCover"
+                  class="h-full w-full bg-cover bg-center"
+                  :style="{ backgroundImage: `url(${(party as any).currentTrackCover})` }"
+                />
                 <div v-else class="flex h-full items-center justify-center">
-                  <Music aria-hidden="true" class="text-xs text-white/30"  />
+                  <Music aria-hidden="true" class="text-xs text-white/30" />
                 </div>
               </div>
               <div class="min-w-0 flex-1">
                 <p class="truncate text-xs font-medium text-white">{{ party.title }}</p>
-                <p class="text-[10px] text-white/30">{{ party.participant_count || 0 }} listening</p>
+                <p class="text-[10px] text-white/30">
+                  {{ party.participant_count || 0 }} listening
+                </p>
               </div>
-              <span class="flex h-2 w-2 rounded-full bg-spotify motion-safe:animate-pulse shrink-0" />
+              <span
+                class="bg-spotify flex h-2 w-2 shrink-0 rounded-full motion-safe:animate-pulse"
+              />
             </div>
           </div>
           <div v-else class="flex flex-col items-center gap-3 py-8 text-center">
-            <Users aria-hidden="true" class="text-xl text-white/20"  />
+            <Users aria-hidden="true" class="text-xl text-white/20" />
             <p class="text-xs text-white/30">No active parties</p>
             <button
-              class="rounded-full bg-spotify/10 px-4 py-1.5 text-[10px] font-semibold text-spotify transition hover:bg-spotify/20"
+              class="bg-spotify/10 text-spotify hover:bg-spotify/20 rounded-full px-4 py-1.5 text-[10px] font-semibold transition"
               @click="openCreateWizard('party')"
             >
               Start One
@@ -168,11 +187,11 @@
 
         <!-- Your Clubs -->
         <div class="rounded-2xl bg-white/6 p-5 ring-1 ring-white/10">
-          <div class="flex items-center justify-between mb-3">
+          <div class="mb-3 flex items-center justify-between">
             <h3 class="text-sm font-bold text-white">Your Clubs</h3>
             <button
               v-if="clubs.length > 3"
-              class="text-[10px] text-white/30 hover:text-white/60 transition"
+              class="text-[10px] text-white/30 transition hover:text-white/60"
               @click="activeTab = 'clubs'"
             >
               See All
@@ -180,32 +199,35 @@
           </div>
           <div v-if="myClubs.length" class="space-y-2">
             <div
-              v-for="club in myClubs.slice(0, 3)" :key="club.id"
-              class="flex items-center gap-3 rounded-xl p-2 transition hover:bg-white/4 cursor-pointer"
+              v-for="club in myClubs.slice(0, 3)"
+              :key="club.id"
+              class="flex cursor-pointer items-center gap-3 rounded-xl p-2 transition hover:bg-white/4"
               @click="router.push(`/social/clubs/${club.id}`)"
             >
               <div
                 class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-purple-500/10"
               >
-                <Building2 aria-hidden="true" class="text-xs text-purple-400"  />
+                <Building2 aria-hidden="true" class="text-xs text-purple-400" />
               </div>
               <div class="min-w-0 flex-1">
                 <p class="truncate text-xs font-medium text-white">{{ club.name }}</p>
                 <p class="flex items-center gap-1 text-[10px] text-white/30">
-                  <Users aria-hidden="true" class="text-[8px]"  />
+                  <Users aria-hidden="true" class="text-[8px]" />
                   {{ club.member_count || 0 }} / {{ club.max_members || '∞' }}
                 </p>
               </div>
-              <div class="h-1 w-12 overflow-hidden rounded-full bg-white/5 shrink-0">
+              <div class="h-1 w-12 shrink-0 overflow-hidden rounded-full bg-white/5">
                 <div
                   class="h-full rounded-full bg-purple-500/40"
-                  :style="{ width: `${Math.min(100, ((club.member_count || 0) / (club.max_members || 1)) * 100)}%` }"
+                  :style="{
+                    width: `${Math.min(100, ((club.member_count || 0) / (club.max_members || 1)) * 100)}%`,
+                  }"
                 />
               </div>
             </div>
           </div>
           <div v-else class="flex flex-col items-center gap-3 py-8 text-center">
-            <Building2 aria-hidden="true" class="text-xl text-white/20"  />
+            <Building2 aria-hidden="true" class="text-xl text-white/20" />
             <p class="text-xs text-white/30">No clubs yet</p>
             <button
               class="rounded-full bg-purple-500/10 px-4 py-1.5 text-[10px] font-semibold text-purple-400 transition hover:bg-purple-500/20"
@@ -218,11 +240,18 @@
       </div>
 
       <!-- ── Activity River ── -->
-      <div class="rounded-2xl bg-white/6 p-5 ring-1 ring-white/10" role="feed" aria-label="Live activity feed">
-        <div class="flex items-center justify-between mb-4">
+      <div
+        class="rounded-2xl bg-white/6 p-5 ring-1 ring-white/10"
+        role="feed"
+        aria-label="Live activity feed"
+      >
+        <div class="mb-4 flex items-center justify-between">
           <h3 class="text-sm font-bold text-white">Activity</h3>
           <span class="flex items-center gap-1.5 text-[10px] text-white/30">
-            <span class="h-1.5 w-1.5 rounded-full bg-spotify motion-safe:animate-pulse" aria-hidden="true" />
+            <span
+              class="bg-spotify h-1.5 w-1.5 rounded-full motion-safe:animate-pulse"
+              aria-hidden="true"
+            />
             Live
           </span>
         </div>
@@ -235,7 +264,7 @@
           />
         </div>
         <div v-else class="flex flex-col items-center gap-3 py-10 text-center">
-          <Clock aria-hidden="true" class="text-2xl text-white/10"  />
+          <Clock aria-hidden="true" class="text-2xl text-white/10" />
           <p class="text-xs text-white/30">No activity yet — be the first!</p>
         </div>
         <button
@@ -249,7 +278,7 @@
 
       <!-- ── Discussions ── -->
       <div class="rounded-2xl bg-white/6 p-5 ring-1 ring-white/10">
-        <h3 class="text-sm font-bold text-white mb-4">Discussions</h3>
+        <h3 class="mb-4 text-sm font-bold text-white">Discussions</h3>
         <DiscussionThread
           :discussions="discussions"
           :user-names="userNames"
@@ -276,16 +305,12 @@ import { Building2, Clock, Megaphone, Music, Users } from 'lucide-vue-next'
 import { ref, computed, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAppToast } from '@/composables/useAppToast'
-import { SkeletonLoader } from '@/components/common'
 import { useSocialApi } from '@/services/api/social'
 import { usePlayerApi } from '@/services/api/player'
 import { useUserApi } from '@/services/api/users'
 import { useUserAuthStore } from '@/stores'
 import { usePlayerStore } from '@/stores/player'
 import type { ListeningParty, LiveRoom, MusicClub, Discussion } from '@/services/api/social'
-import ListeningPartyCard from '@/components/social/ListeningPartyCard.vue'
-import LiveRoomCard from '@/components/social/LiveRoomCard.vue'
-import MusicClubCard from '@/components/social/MusicClubCard.vue'
 import DiscussionThread from '@/components/social/DiscussionThread.vue'
 import CreateWizard from '@/components/social/CreateWizard.vue'
 import ActivityItem from '@/components/music/ActivityItem.vue'
@@ -337,13 +362,6 @@ const visibleActivities = computed(() => {
   return activities.value.slice(0, 5)
 })
 
-const tabs = [
-  { key: 'parties', label: 'Listening Parties' },
-  { key: 'rooms', label: 'Live Rooms' },
-  { key: 'clubs', label: 'Music Clubs' },
-  { key: 'discussions', label: 'Discussions' },
-]
-
 // ── Data fetching ──
 
 async function fetchUserName(userId: string) {
@@ -380,7 +398,8 @@ async function loadData() {
   const rawParties = partiesRes.status === 'fulfilled' ? partiesRes.value : null
   const rawRooms = roomsRes.status === 'fulfilled' ? roomsRes.value : null
   const rawClubs = clubsRes.status === 'fulfilled' ? clubsRes.value : null
-  const rawActivities = activitiesRes.status === 'fulfilled' ? (activitiesRes.value as any)?.items || [] : []
+  const rawActivities =
+    activitiesRes.status === 'fulfilled' ? (activitiesRes.value as any)?.items || [] : []
 
   parties.value = Array.isArray(rawParties) ? rawParties.filter(Boolean) : []
   rooms.value = Array.isArray(rawRooms) ? rawRooms.filter(Boolean) : []
@@ -460,16 +479,6 @@ async function handleJoinRoom(id: string) {
   }
 }
 
-async function handleJoinClub(id: string) {
-  try {
-    await api.joinClub(id)
-    toast.success('Joined club!')
-    router.push(`/social/clubs/${id}`)
-  } catch (err: any) {
-    toast.apiError(err, 'Failed to join club')
-  }
-}
-
 async function handleCreateDiscussion(content: string, parentId?: string) {
   discussionPosting.value = true
   try {
@@ -487,7 +496,7 @@ async function handleCreateDiscussion(content: string, parentId?: string) {
   }
 }
 
-function handleReplyDiscussion(discussionId: string) {
+function handleReplyDiscussion(_discussionId: string) {
   // opens reply input — DiscussionThread handles it internally
 }
 

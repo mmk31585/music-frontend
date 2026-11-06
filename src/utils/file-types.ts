@@ -9,16 +9,7 @@ const TEXT_EXT = ['txt', 'md', 'log', 'json', 'xml', 'yml', 'yaml']
 const ZIP_EXT = ['zip', 'rar', '7z', 'tar', 'gz', 'bz2']
 
 export type ResolvedMediaType =
-  | 'image'
-  | 'video'
-  | 'sound'
-  | 'pdf'
-  | 'excel'
-  | 'power-point'
-  | 'word'
-  | 'text'
-  | 'zip'
-  | 'other'
+  'image' | 'video' | 'sound' | 'pdf' | 'excel' | 'power-point' | 'word' | 'text' | 'zip' | 'other'
 
 export function resolveMediaType(ext?: string): ResolvedMediaType {
   if (!ext) return 'other'

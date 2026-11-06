@@ -7,7 +7,10 @@
     >
       <template #actions>
         <Button
-          v-if="!enriching && (draftDetail?.status === 'pending' || draftDetail?.status === 'enrichment_failed')"
+          v-if="
+            !enriching &&
+            (draftDetail?.status === 'pending' || draftDetail?.status === 'enrichment_failed')
+          "
           label="Enrich Now"
           icon="pi pi-magic"
           severity="warn"
@@ -33,7 +36,7 @@
     </AdminSectionHeader>
 
     <div v-if="loading" class="py-20 text-center">
-      <Loader2 aria-hidden="true" class="text-3xl text-slate-400 animate-spin"></Loader2>
+      <Loader2 aria-hidden="true" class="animate-spin text-3xl text-slate-400"></Loader2>
       <p class="mt-4 text-slate-500">Loading draft...</p>
     </div>
 
@@ -51,7 +54,10 @@
 
     <template v-else>
       <!-- Extracted metadata summary -->
-      <div v-if="extractedTitle || extractedArtist || extractedAlbum" class="mb-6 flex flex-wrap items-center gap-x-5 gap-y-1 rounded-lg border border-white/6 bg-white/3 px-4 py-2.5">
+      <div
+        v-if="extractedTitle || extractedArtist || extractedAlbum"
+        class="mb-6 flex flex-wrap items-center gap-x-5 gap-y-1 rounded-lg border border-white/6 bg-white/3 px-4 py-2.5"
+      >
         <div v-if="extractedTitle" class="flex items-center gap-1.5 text-xs">
           <Music aria-hidden="true" class="text-slate-500"></Music>
           <span class="text-slate-500">Title:</span>
@@ -71,11 +77,7 @@
 
       <div class="mb-8">
         <div class="flex items-center gap-2">
-          <div
-            v-for="(s, i) in steps"
-            :key="i"
-            class="flex items-center"
-          >
+          <div v-for="(s, i) in steps" :key="i" class="flex items-center">
             <div
               class="flex cursor-pointer items-center gap-2 rounded-full px-3 py-1.5 text-xs font-medium transition-colors"
               :class="stepperClass(i)"
@@ -90,32 +92,54 @@
               </span>
               {{ s.label }}
             </div>
-            <ChevronRight aria-hidden="true" v-if="i < steps.length - 1" class="mx-2 text-xs text-slate-500"></ChevronRight>
+            <ChevronRight
+              aria-hidden="true"
+              v-if="i < steps.length - 1"
+              class="mx-2 text-xs text-slate-500"
+            ></ChevronRight>
           </div>
         </div>
       </div>
 
       <div v-if="enriching" class="mb-8">
         <Message severity="info" :closable="false">
-          <Loader2 aria-hidden="true" class="mr-2 animate-spin"></Loader2>Enrichment in progress — covers, bio, and suggestions will appear once complete.
+          <Loader2 aria-hidden="true" class="mr-2 animate-spin"></Loader2>Enrichment in progress —
+          covers, bio, and suggestions will appear once complete.
         </Message>
       </div>
 
       <div v-if="enrichmentComplete" class="mb-8">
         <Message severity="success" :closable="true" @close="enrichmentComplete = false">
-          <CheckCircle aria-hidden="true" class="mr-2"></CheckCircle>Enrichment complete. Found data from
+          <CheckCircle aria-hidden="true" class="mr-2"></CheckCircle>Enrichment complete. Found data
+          from
           <template v-if="enrichment?.spotify"> Spotify,</template>
           <template v-if="enrichment?.lastfm"> Last.fm,</template>
           <template v-if="enrichment?.musicbrainz"> MusicBrainz,</template>
           <template v-if="enrichment?.ml"> ML service,</template>
-          <template v-if="!enrichment?.spotify && !enrichment?.lastfm && !enrichment?.musicbrainz && !enrichment?.ml"> no external sources</template>
+          <template
+            v-if="
+              !enrichment?.spotify &&
+              !enrichment?.lastfm &&
+              !enrichment?.musicbrainz &&
+              !enrichment?.ml
+            "
+          >
+            no external sources</template
+          >
           and applied to empty fields. Click any image or "Apply" button to use specific results.
         </Message>
       </div>
 
-      <div v-if="!enriching && (draftDetail?.status === 'pending' || draftDetail?.status === 'enrichment_failed')" class="mb-8">
+      <div
+        v-if="
+          !enriching &&
+          (draftDetail?.status === 'pending' || draftDetail?.status === 'enrichment_failed')
+        "
+        class="mb-8"
+      >
         <Message severity="warn" :closable="false">
-          <AlertTriangle aria-hidden="true" class="mr-2"></AlertTriangle>No enrichment data yet. Click "Enrich Now" above or fill in the fields manually.
+          <AlertTriangle aria-hidden="true" class="mr-2"></AlertTriangle>No enrichment data yet.
+          Click "Enrich Now" above or fill in the fields manually.
         </Message>
       </div>
 
@@ -184,7 +208,16 @@
 </template>
 
 <script setup lang="ts">
-import { AlertTriangle, Book, Check, CheckCircle, ChevronRight, Loader2, Music, User } from 'lucide-vue-next'
+import {
+  AlertTriangle,
+  Book,
+  Check,
+  CheckCircle,
+  ChevronRight,
+  Loader2,
+  Music,
+  User,
+} from 'lucide-vue-next'
 import { ref, reactive, computed, onMounted, onUnmounted, watch } from 'vue'
 import { useRoute, useRouter, onBeforeRouteLeave } from 'vue-router'
 import AdminSectionHeader from '@/components/admin/AdminSectionHeader.vue'
@@ -249,13 +282,28 @@ const finalMetadata = reactive<SaveFinalMetadataRequest>({
   artists: [
     { action: 'create', name: '', bio: '', imageUrl: '', country: '', musicbrainzMbid: '' },
   ],
-  album: { action: 'create', title: '', releaseYear: undefined, genre: '', coverUrl: '', musicbrainzReleaseId: '' },
-  track: { title: '', trackNumber: undefined, durationSeconds: 0, genre: '', lyrics: '', explicit: false, spotifyPreviewUrl: '', coverUrl: '',
+  album: {
+    action: 'create',
+    title: '',
+    releaseYear: undefined,
+    genre: '',
+    coverUrl: '',
+    musicbrainzReleaseId: '',
+  },
+  track: {
+    title: '',
+    trackNumber: undefined,
+    durationSeconds: 0,
+    genre: '',
+    lyrics: '',
+    explicit: false,
+    spotifyPreviewUrl: '',
+    coverUrl: '',
   },
 })
 
 const trackAudioUrl = computed(() => {
-  return draftDetail.value?.assets?.find(a => a.assetType === 'audio')?.url || null
+  return draftDetail.value?.assets?.find((a) => a.assetType === 'audio')?.url || null
 })
 
 const lyricsType = computed(() => {
@@ -272,19 +320,27 @@ const steps = [
 const hasUnsavedChanges = ref(false)
 
 const embeddedCover = computed(() => {
-  return draftDetail.value?.assets?.find(a => a.assetType === 'cover' || a.assetType === 'track_cover')?.url || null
+  return (
+    draftDetail.value?.assets?.find((a) => a.assetType === 'cover' || a.assetType === 'track_cover')
+      ?.url || null
+  )
 })
 
 const artistImageAsset = computed(() => {
-  return draftDetail.value?.assets?.find(a => a.assetType === 'artist_image')?.url || null
+  return draftDetail.value?.assets?.find((a) => a.assetType === 'artist_image')?.url || null
 })
 
 const albumCoverAsset = computed(() => {
-  return draftDetail.value?.assets?.find(a => a.assetType === 'album_cover')?.url || null
+  return draftDetail.value?.assets?.find((a) => a.assetType === 'album_cover')?.url || null
 })
 
 const suggestedAlbumCover = computed(() => {
-  return enrichment.value?.spotify?.albumCoverUrl || enrichment.value?.lastfm?.albumCoverUrl || enrichment.value?.ml?.albumCoverUrl || null
+  return (
+    enrichment.value?.spotify?.albumCoverUrl ||
+    enrichment.value?.lastfm?.albumCoverUrl ||
+    enrichment.value?.ml?.albumCoverUrl ||
+    null
+  )
 })
 
 const suggestedLastfmAlbumCover = computed(() => {
@@ -322,16 +378,26 @@ const isValid = computed(() => {
 })
 
 function findSuggestion(field: string): EnrichedSuggestion | undefined {
-  return enrichment.value?.suggestions?.find(s => s.field === field)
+  return enrichment.value?.suggestions?.find((s) => s.field === field)
 }
 
 function sourceLabel(source: string): string {
-  const map: Record<string, string> = { file: 'Embedded', musicbrainz: 'MB', lastfm: 'Last.fm', spotify: 'Spotify' }
+  const map: Record<string, string> = {
+    file: 'Embedded',
+    musicbrainz: 'MB',
+    lastfm: 'Last.fm',
+    spotify: 'Spotify',
+  }
   return map[source] || source
 }
 
 function sourceSeverity(source: string) {
-  const map: Record<string, string> = { file: 'info', musicbrainz: 'warn', lastfm: 'help', spotify: 'success' }
+  const map: Record<string, string> = {
+    file: 'info',
+    musicbrainz: 'warn',
+    lastfm: 'help',
+    spotify: 'success',
+  }
   return map[source] || undefined
 }
 
@@ -414,7 +480,10 @@ function parseFeatArtists(rawArtist: string): string[] {
   if (parts.length > 1) {
     // Split the feat part further by ",", "&", "and"
     const featPart = parts.slice(1).join(', ')
-    const featArtists = featPart.split(/\s*[,&]\s*|\s+and\s+/i).map(s => s.trim()).filter(Boolean)
+    const featArtists = featPart
+      .split(/\s*[,&]\s*|\s+and\s+/i)
+      .map((s) => s.trim())
+      .filter(Boolean)
     result.push(...featArtists)
   }
   return result
@@ -532,7 +601,12 @@ function pollEnrichment() {
       enrichingArtist.value = false
       enrichingAlbum.value = false
       enrichingTrack.value = false
-      toast.add({ severity: 'warn', summary: 'Timed out', detail: 'Enrichment is taking longer than expected. The data may still appear.', life: 5000 })
+      toast.add({
+        severity: 'warn',
+        summary: 'Timed out',
+        detail: 'Enrichment is taking longer than expected. The data may still appear.',
+        life: 5000,
+      })
     },
   })
 }
@@ -565,7 +639,13 @@ function applyEnrichmentToEmptyFields() {
   const artist = finalMetadata.artists[0]
   if (artist) {
     if (!artist.bio) artist.bio = lfm?.artistBio || sugMap.get('artist_bio') || ''
-    if (!artist.imageUrl) artist.imageUrl = spot?.artistImageUrl || lfm?.artistImageUrl || ml?.artistImageUrl || sugMap.get('artist_image_url') || ''
+    if (!artist.imageUrl)
+      artist.imageUrl =
+        spot?.artistImageUrl ||
+        lfm?.artistImageUrl ||
+        ml?.artistImageUrl ||
+        sugMap.get('artist_image_url') ||
+        ''
     if (!artist.musicbrainzMbid && mb?.artistMbid) artist.musicbrainzMbid = mb.artistMbid
   }
   if (!finalMetadata.album.musicbrainzReleaseId && mb?.albumMbid) {
@@ -622,7 +702,7 @@ function prefillForm(detail: DraftDetailResponse) {
   const rawArtist = tags?.artist || sugMap.get('artist') || ''
   const parsedArtists = parseFeatArtists(rawArtist)
 
-  finalMetadata.artists = parsedArtists.map((name, i) => ({
+  finalMetadata.artists = parsedArtists.map((name) => ({
     action: 'create' as const,
     name,
     bio: '',
@@ -634,12 +714,19 @@ function prefillForm(detail: DraftDetailResponse) {
   // Apply enrichment to primary artist (index 0)
   if (finalMetadata.artists[0]) {
     finalMetadata.artists[0].bio = lfm?.artistBio || sugMap.get('artist_bio') || ''
-    finalMetadata.artists[0].imageUrl = artistImageAsset.value || spot?.artistImageUrl || lfm?.artistImageUrl || ml?.artistImageUrl || sugMap.get('artist_image_url') || ''
+    finalMetadata.artists[0].imageUrl =
+      artistImageAsset.value ||
+      spot?.artistImageUrl ||
+      lfm?.artistImageUrl ||
+      ml?.artistImageUrl ||
+      sugMap.get('artist_image_url') ||
+      ''
     if (mb?.artistMbid) finalMetadata.artists[0].musicbrainzMbid = mb.artistMbid
   }
 
   // Apply imageUrl to featured artists from enrichment if available
-  const featImage = sugMap.get('artist_image_url') || spot?.artistImageUrl || lfm?.artistImageUrl || ''
+  const featImage =
+    sugMap.get('artist_image_url') || spot?.artistImageUrl || lfm?.artistImageUrl || ''
   for (let i = 1; i < finalMetadata.artists.length; i++) {
     if (!finalMetadata.artists[i]!.imageUrl) {
       finalMetadata.artists[i]!.imageUrl = featImage
@@ -648,9 +735,17 @@ function prefillForm(detail: DraftDetailResponse) {
 
   // ── Album ──
   finalMetadata.album.title = tags?.album || sugMap.get('album') || ''
-  finalMetadata.album.releaseYear = (sugMap.get('year') || tags?.year || undefined) as number | undefined
+  finalMetadata.album.releaseYear = (sugMap.get('year') || tags?.year || undefined) as
+    number | undefined
   finalMetadata.album.genre = sugMap.get('genre') || tags?.genre || ''
-  finalMetadata.album.coverUrl = albumCoverAsset.value || spot?.albumCoverUrl || lfm?.albumCoverUrl || ml?.albumCoverUrl || sugMap.get('album_cover_url') || sugMap.get('album_cover_url_lastfm') || ''
+  finalMetadata.album.coverUrl =
+    albumCoverAsset.value ||
+    spot?.albumCoverUrl ||
+    lfm?.albumCoverUrl ||
+    ml?.albumCoverUrl ||
+    sugMap.get('album_cover_url') ||
+    sugMap.get('album_cover_url_lastfm') ||
+    ''
   if (mb?.albumMbid) finalMetadata.album.musicbrainzReleaseId = mb.albumMbid
 
   // ── Track ──
@@ -661,7 +756,8 @@ function prefillForm(detail: DraftDetailResponse) {
   finalMetadata.track.lyrics = ml?.lyrics || sugMap.get('lyrics') || tags?.lyrics || ''
   finalMetadata.track.explicit = false
   finalMetadata.track.spotifyPreviewUrl = spot?.previewUrl || ''
-  finalMetadata.track.coverUrl = embeddedCover.value || spot?.albumCoverUrl || lfm?.albumCoverUrl || ml?.albumCoverUrl || ''
+  finalMetadata.track.coverUrl =
+    embeddedCover.value || spot?.albumCoverUrl || lfm?.albumCoverUrl || ml?.albumCoverUrl || ''
 }
 
 function goBack() {
@@ -683,10 +779,20 @@ async function uploadArtistImage(e: Event, index: number = 0) {
         artist.imageUrl = res.url
       }
       hasUnsavedChanges.value = true
-      toast.add({ severity: 'success', summary: 'Image uploaded', detail: 'Artist image uploaded successfully.', life: 3000 })
+      toast.add({
+        severity: 'success',
+        summary: 'Image uploaded',
+        detail: 'Artist image uploaded successfully.',
+        life: 3000,
+      })
     }
   } catch (err) {
-    toast.add({ severity: 'error', summary: 'Upload failed', detail: err instanceof Error ? err.message : 'Failed to upload image.', life: 5000 })
+    toast.add({
+      severity: 'error',
+      summary: 'Upload failed',
+      detail: err instanceof Error ? err.message : 'Failed to upload image.',
+      life: 5000,
+    })
   }
   target.value = ''
 }
@@ -700,10 +806,20 @@ async function uploadAlbumCover(e: Event) {
     if (res?.url) {
       finalMetadata.album.coverUrl = res.url
       hasUnsavedChanges.value = true
-      toast.add({ severity: 'success', summary: 'Cover uploaded', detail: 'Album cover uploaded successfully.', life: 3000 })
+      toast.add({
+        severity: 'success',
+        summary: 'Cover uploaded',
+        detail: 'Album cover uploaded successfully.',
+        life: 3000,
+      })
     }
   } catch (err) {
-    toast.add({ severity: 'error', summary: 'Upload failed', detail: err instanceof Error ? err.message : 'Failed to upload image.', life: 5000 })
+    toast.add({
+      severity: 'error',
+      summary: 'Upload failed',
+      detail: err instanceof Error ? err.message : 'Failed to upload image.',
+      life: 5000,
+    })
   }
   target.value = ''
 }
@@ -721,7 +837,12 @@ async function publish() {
     publishResult.value = result
     hasUnsavedChanges.value = false
     published.value = true
-    toast.add({ severity: 'success', summary: 'Draft published', detail: 'The draft has been published to the catalog.', life: 5000 })
+    toast.add({
+      severity: 'success',
+      summary: 'Draft published',
+      detail: 'The draft has been published to the catalog.',
+      life: 5000,
+    })
   } catch (err) {
     publishingError.value = err instanceof Error ? err.message : 'Failed to publish draft.'
   } finally {
@@ -739,7 +860,12 @@ async function rejectDraft(reason: string) {
     await ingestionApi.rejectDraft(draftId, reason)
     hasUnsavedChanges.value = false
     rejectDialogVisible.value = false
-    toast.add({ severity: 'info', summary: 'Draft rejected', detail: 'The draft has been rejected.', life: 4000 })
+    toast.add({
+      severity: 'info',
+      summary: 'Draft rejected',
+      detail: 'The draft has been rejected.',
+      life: 4000,
+    })
     setTimeout(() => router.push({ name: 'admin.ingestion' }), 1500)
   } catch (err) {
     console.error('Reject draft failed:', err)
@@ -839,12 +965,14 @@ function handleKeydown(e: KeyboardEvent) {
 
 watch(
   () => ({
-    artists: finalMetadata.artists.map(a => ({ ...a })),
+    artists: finalMetadata.artists.map((a) => ({ ...a })),
     album: { ...finalMetadata.album },
     track: { ...finalMetadata.track },
   }),
-  () => { hasUnsavedChanges.value = true },
-  { deep: true }
+  () => {
+    hasUnsavedChanges.value = true
+  },
+  { deep: true },
 )
 
 onMounted(() => {

@@ -24,11 +24,21 @@ function onToggleLyrics() {
 
 // Wire global keyboard shortcuts to actual player actions
 useKeyboardShortcuts({
-  onToggleFullscreen: () => { fullscreenOpen.value = !fullscreenOpen.value },
-  onToggleQueue: () => { showQueue.value = !showQueue.value },
-  onToggleLyrics: () => { onToggleLyrics() },
-  onToggleShortcuts: () => { showShortcuts.value = !showShortcuts.value },
-  onToggleMobileSheet: () => { mobileSheetOpen.value = !mobileSheetOpen.value },
+  onToggleFullscreen: () => {
+    fullscreenOpen.value = !fullscreenOpen.value
+  },
+  onToggleQueue: () => {
+    showQueue.value = !showQueue.value
+  },
+  onToggleLyrics: () => {
+    onToggleLyrics()
+  },
+  onToggleShortcuts: () => {
+    showShortcuts.value = !showShortcuts.value
+  },
+  onToggleMobileSheet: () => {
+    mobileSheetOpen.value = !mobileSheetOpen.value
+  },
 })
 </script>
 
@@ -46,9 +56,6 @@ useKeyboardShortcuts({
   />
   <ExpandedPlayer v-else v-model:visible="fullscreenOpen" />
   <QueuePanel v-model:visible="showQueue" />
-  <MobileBottomSheet
-    v-model:visible="mobileSheetOpen"
-    @open-fullscreen="fullscreenOpen = true"
-  />
+  <MobileBottomSheet v-model:visible="mobileSheetOpen" @open-fullscreen="fullscreenOpen = true" />
   <KeyboardShortcuts v-model:visible="showShortcuts" />
 </template>

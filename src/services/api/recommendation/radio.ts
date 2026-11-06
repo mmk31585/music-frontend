@@ -50,15 +50,8 @@ export const useRadioApi = () => {
     )
   }
 
-  const endRadio = async (
-    sessionId: string,
-    config?: UseRequestConfig<any>,
-  ): Promise<void> => {
-    await useRequest(
-      `/radio/${sessionId}/end`,
-      { method: 'POST' },
-      { silent: true, ...config },
-    )
+  const endRadio = async (sessionId: string, config?: UseRequestConfig<any>): Promise<void> => {
+    await useRequest(`/radio/${sessionId}/end`, { method: 'POST' }, { silent: true, ...config })
   }
 
   return {

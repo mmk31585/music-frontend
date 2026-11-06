@@ -24,16 +24,18 @@
 </template>
 
 <script setup lang="ts">
-
 const visible = defineModel<boolean>('visible', { default: false })
 
-withDefaults(defineProps<{
-  loading?: boolean
-  width?: string
-  maxWidth?: string
-}>(), {
-  loading: false,
-  width: '520px',
-  maxWidth: '',
-})
+withDefaults(
+  defineProps<{
+    loading?: boolean
+    width?: string
+    maxWidth?: string
+  }>(),
+  {
+    loading: false,
+    width: '520px',
+    maxWidth: '',
+  },
+)
 </script>

@@ -10,7 +10,7 @@
           to="/admin/media"
           class="inline-flex items-center gap-2 rounded-xl bg-emerald-500 px-4 py-2 text-sm font-semibold text-black transition-colors hover:bg-emerald-400"
         >
-          <Upload aria-hidden="true" class="text-xs"  />
+          <Upload aria-hidden="true" class="text-xs" />
           Upload media
         </RouterLink>
       </template>
@@ -21,7 +21,7 @@
       class="mb-6 rounded-2xl border border-red-500/20 bg-red-500/10 px-5 py-4 text-sm text-red-300"
     >
       <div class="flex items-start gap-3">
-        <AlertTriangle aria-hidden="true" class="mt-0.5 text-xs"  />
+        <AlertTriangle aria-hidden="true" class="mt-0.5 text-xs" />
         <div>
           <p class="font-semibold">Dashboard data could not be fully loaded.</p>
           <p class="mt-1 text-xs text-red-300/80">
@@ -103,7 +103,7 @@
         to="/admin/ingestion"
         class="flex items-center justify-center gap-2 rounded-2xl border border-white/6 bg-white/2 px-5 py-8 transition-colors hover:bg-white/4"
       >
-        <ArrowRight aria-hidden="true" class="text-sm text-emerald-400"  />
+        <ArrowRight aria-hidden="true" class="text-sm text-emerald-400" />
         <span class="text-sm font-medium text-white">Go to Ingestion</span>
       </RouterLink>
     </section>
@@ -120,7 +120,7 @@
         <div class="flex items-center justify-between border-b border-white/6 px-5 py-4">
           <div class="flex items-center gap-3">
             <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-500/10">
-              <PlayCircle aria-hidden="true" class="text-xs text-emerald-400"  />
+              <PlayCircle aria-hidden="true" class="text-xs text-emerald-400" />
             </div>
 
             <div>
@@ -149,7 +149,7 @@
         </div>
 
         <div v-else-if="recentTracks.length === 0" class="py-12 text-center">
-          <PlayCircle aria-hidden="true" class="text-2xl text-slate-700"  />
+          <PlayCircle aria-hidden="true" class="text-2xl text-slate-700" />
           <p class="mt-2 text-sm text-slate-500">No tracks yet</p>
         </div>
 
@@ -161,7 +161,7 @@
           >
             <button
               type="button"
-              class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-slate-500 transition-all hover:bg-spotify/20 hover:text-spotify disabled:opacity-30"
+              class="hover:bg-spotify/20 hover:text-spotify flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-slate-500 transition-all disabled:opacity-30"
               :disabled="loadingTrackId === String(track.id)"
               :aria-label="'Play ' + track.title"
               :title="isTrackPlaying(track) ? 'Now playing' : 'Play track'"
@@ -170,14 +170,9 @@
               <Loader2
                 v-if="loadingTrackId === String(track.id)"
                 aria-hidden="true"
-                class="text-sm animate-spin"
-               />
-              <i
-                v-else
-                aria-hidden="true"
-                :class="getTrackPlayButtonIcon(track)"
-                class="text-sm"
+                class="animate-spin text-sm"
               />
+              <i v-else aria-hidden="true" :class="getTrackPlayButtonIcon(track)" class="text-sm" />
             </button>
 
             <span class="w-5 text-center text-xs text-slate-600 tabular-nums">
@@ -194,7 +189,7 @@
               />
 
               <div v-else class="flex h-full w-full items-center justify-center">
-                <Music aria-hidden="true" class="text-xs text-slate-700"  />
+                <Music aria-hidden="true" class="text-xs text-slate-700" />
               </div>
             </div>
 
@@ -222,7 +217,7 @@
           <div class="border-b border-white/6 px-5 py-4">
             <div class="flex items-center gap-3">
               <div class="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-500/10">
-                <Info aria-hidden="true" class="text-xs text-blue-400"  />
+                <Info aria-hidden="true" class="text-xs text-blue-400" />
               </div>
 
               <h2 class="text-base font-semibold text-white">Getting started</h2>
@@ -235,12 +230,10 @@
                 <div
                   class="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-xs font-semibold"
                   :class="
-                    tip.done
-                      ? 'bg-emerald-500/10 text-emerald-400'
-                      : 'bg-white/6 text-slate-500'
+                    tip.done ? 'bg-emerald-500/10 text-emerald-400' : 'bg-white/6 text-slate-500'
                   "
                 >
-                  <Check aria-hidden="true" v-if="tip.done" class="text-[10px]"  />
+                  <Check aria-hidden="true" v-if="tip.done" class="text-[10px]" />
                   <span v-else>{{ i + 1 }}</span>
                 </div>
 
@@ -266,8 +259,11 @@
                 class="flex h-8 w-8 items-center justify-center rounded-lg"
                 :class="error ? 'bg-red-500/10' : 'bg-emerald-500/10'"
               >
-                <Server aria-hidden="true" class="text-xs"
-                  :class="error ? 'text-red-400' : 'text-emerald-400'" />
+                <Server
+                  aria-hidden="true"
+                  class="text-xs"
+                  :class="error ? 'text-red-400' : 'text-emerald-400'"
+                />
               </div>
 
               <h2 class="text-base font-semibold text-white">System</h2>
@@ -302,7 +298,17 @@
 </template>
 
 <script setup lang="ts">
-import { AlertTriangle, ArrowRight, Check, Info, Loader2, Music, PlayCircle, Server, Upload } from 'lucide-vue-next'
+import {
+  AlertTriangle,
+  ArrowRight,
+  Check,
+  Info,
+  Loader2,
+  Music,
+  PlayCircle,
+  Server,
+  Upload,
+} from 'lucide-vue-next'
 import { computed, onMounted, ref } from 'vue'
 import AdminSectionHeader from '@/components/admin/AdminSectionHeader.vue'
 import AdminStatCard from '@/components/admin/AdminStatCard.vue'
@@ -315,7 +321,7 @@ import { buildPlaybackTrack } from '@/factories/playbackTrack'
 import { client } from '@/composables/useRequest'
 import { formatDuration } from '@/utils/format'
 
-const { adminGetTracks, getTracks } = useTracksApi()
+const { adminGetTracks } = useTracksApi()
 const ingestionApi = useIngestionApi()
 
 const loading = ref(false)
@@ -343,7 +349,12 @@ function getTrackPlayButtonIcon(track: Track): string {
 
 const tracks = ref<Track[]>([])
 const ingestionStats = ref<IngestionStats | null>(null)
-const stats = ref<{ track_count: number; artist_count: number; album_count: number; genre_count: number } | null>(null)
+const stats = ref<{
+  track_count: number
+  artist_count: number
+  album_count: number
+  genre_count: number
+} | null>(null)
 
 const trackCount = computed(() => stats.value?.track_count ?? tracks.value.length)
 const artistCount = computed(() => stats.value?.artist_count ?? 0)
@@ -390,7 +401,7 @@ function toArray<T>(value: unknown): T[] {
     'data' in value &&
     Array.isArray((value as Record<string, unknown>).data)
   ) {
-    return ((value as Record<string, unknown>).data as T[])
+    return (value as Record<string, unknown>).data as T[]
   }
 
   if (
@@ -399,7 +410,7 @@ function toArray<T>(value: unknown): T[] {
     'items' in value &&
     Array.isArray((value as Record<string, unknown>).items)
   ) {
-    return ((value as Record<string, unknown>).items as T[])
+    return (value as Record<string, unknown>).items as T[]
   }
 
   return []
@@ -419,7 +430,7 @@ async function fetchDashboard(): Promise<void> {
 
   try {
     const [statsResult, tracksResult, ingestionResult] = await Promise.allSettled([
-      client.get('/admin/dashboard/stats').then(r => r.data.data),
+      client.get('/admin/dashboard/stats').then((r) => r.data.data),
       adminGetTracks(),
       ingestionApi.getIngestionStats(),
     ])
@@ -427,7 +438,10 @@ async function fetchDashboard(): Promise<void> {
     if (statsResult.status === 'fulfilled' && statsResult.value) {
       stats.value = statsResult.value
     } else {
-      console.error('Failed to fetch dashboard stats:', statsResult.status === 'rejected' ? statsResult.reason : 'no data')
+      console.error(
+        'Failed to fetch dashboard stats:',
+        statsResult.status === 'rejected' ? statsResult.reason : 'no data',
+      )
     }
 
     if (tracksResult.status === 'fulfilled') {

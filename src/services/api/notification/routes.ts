@@ -69,7 +69,10 @@ export const useNotificationApi = () => {
 }
 
 // Legacy standalone functions — prefer useNotificationApi
-export async function getNotificationsLegacy(limit = 20, offset = 0): Promise<ListNotificationsResponse> {
+export async function getNotificationsLegacy(
+  limit = 20,
+  offset = 0,
+): Promise<ListNotificationsResponse> {
   const params = new URLSearchParams({ limit: String(limit), offset: String(offset) })
   const res = await fetch(`/api/v1/notifications?${params}`, { credentials: 'include' })
   if (!res.ok) throw new Error('Failed to fetch notifications')

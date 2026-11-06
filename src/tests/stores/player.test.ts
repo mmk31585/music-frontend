@@ -32,7 +32,9 @@ vi.mock('@/services/player', () => {
     off: vi.fn(),
   }
   return {
-    PlayerEngine: vi.fn(function () { return mockEngine }),
+    PlayerEngine: vi.fn(function () {
+      return mockEngine
+    }),
     ShuffleMode: { Off: 'off', Queue: 'queue', Catalog: 'catalog', Similar: 'similar' },
     RepeatMode: { Off: 'off', One: 'one', All: 'all' },
   }
@@ -190,6 +192,8 @@ describe('usePlayerStore', () => {
   it('playTrack sets error when track fails', async () => {
     const store = usePlayerStore()
     const { PlayerEngine } = await import('@/services/player')
+    // Prime the engine instance used by the store (initialize runs inside playTrack)
+    await store.playTrack(mockTrack as any)
     const mockEngine = (PlayerEngine as any).mock.results[0].value
     mockEngine.play.mockRejectedValueOnce(new Error('Playback failed'))
 

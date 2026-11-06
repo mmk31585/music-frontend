@@ -94,12 +94,11 @@
     />
 
     <!-- Table -->
-    <div
-      v-else
-      class="overflow-hidden rounded-2xl border border-white/6 bg-white/2"
-    >
+    <div v-else class="overflow-hidden rounded-2xl border border-white/6 bg-white/2">
       <!-- Table header (desktop) -->
-      <div class="hidden border-b border-white/6 px-5 py-2.5 text-[11px] font-semibold tracking-wider text-slate-500 uppercase md:grid md:grid-cols-[48px_1fr_80px_100px_100px_80px_80px_100px]">
+      <div
+        class="hidden border-b border-white/6 px-5 py-2.5 text-[11px] font-semibold tracking-wider text-slate-500 uppercase md:grid md:grid-cols-[48px_1fr_80px_100px_100px_80px_80px_100px]"
+      >
         <span />
         <span>Title</span>
         <span>Type</span>
@@ -131,9 +130,9 @@
                 :alt="v.title"
                 class="h-full w-full object-cover"
                 loading="lazy"
-                @error="($event.target as HTMLImageElement).style.display='none'"
+                @error="($event.target as HTMLImageElement).style.display = 'none'"
               />
-              <PlayCircle v-else aria-hidden="true" class="text-xs text-slate-500"  />
+              <PlayCircle v-else aria-hidden="true" class="text-xs text-slate-500" />
             </button>
           </div>
 
@@ -152,20 +151,32 @@
                   :alt="v.title"
                   class="h-full w-full object-cover"
                   loading="lazy"
-                  @error="($event.target as HTMLImageElement).style.display='none'"
+                  @error="($event.target as HTMLImageElement).style.display = 'none'"
                 />
-<PlayCircle v-else aria-hidden="true" class="text-base text-slate-500"  />
+                <PlayCircle v-else aria-hidden="true" class="text-base text-slate-500" />
               </button>
               <div class="min-w-0 flex-1">
                 <p class="truncate font-semibold text-white">{{ v.title }}</p>
                 <div class="mt-1 flex flex-wrap items-center gap-2">
-                  <span class="rounded-full px-2 py-0.5 text-[10px] font-bold" :class="v.type === 'official_mv' ? 'bg-spotify/15 text-spotify' : 'bg-blue-500/15 text-blue-400'">
+                  <span
+                    class="rounded-full px-2 py-0.5 text-[10px] font-bold"
+                    :class="
+                      v.type === 'official_mv'
+                        ? 'bg-spotify/15 text-spotify'
+                        : 'bg-blue-500/15 text-blue-400'
+                    "
+                  >
                     {{ v.type === 'official_mv' ? 'MV' : 'Edit' }}
                   </span>
-                  <span class="rounded-full px-2 py-0.5 text-[10px] font-bold" :class="statusClass(v.status)">
+                  <span
+                    class="rounded-full px-2 py-0.5 text-[10px] font-bold"
+                    :class="statusClass(v.status)"
+                  >
                     {{ v.status || '—' }}
                   </span>
-                  <span class="text-[11px] text-slate-500">{{ formatCount(v.view_count) }} views</span>
+                  <span class="text-[11px] text-slate-500"
+                    >{{ formatCount(v.view_count) }} views</span
+                  >
                 </div>
                 <div class="mt-1 flex items-center gap-3 text-[11px] text-slate-500">
                   <span :class="v.is_approved ? 'text-emerald-400' : 'text-slate-600'">
@@ -184,12 +195,22 @@
             <p class="truncate font-medium text-white">{{ v.title }}</p>
           </div>
           <div class="hidden md:block">
-            <span class="rounded-full px-2 py-0.5 text-[10px] font-bold" :class="v.type === 'official_mv' ? 'bg-spotify/15 text-spotify' : 'bg-blue-500/15 text-blue-400'">
+            <span
+              class="rounded-full px-2 py-0.5 text-[10px] font-bold"
+              :class="
+                v.type === 'official_mv'
+                  ? 'bg-spotify/15 text-spotify'
+                  : 'bg-blue-500/15 text-blue-400'
+              "
+            >
               {{ v.type === 'official_mv' ? 'MV' : 'Edit' }}
             </span>
           </div>
           <div class="hidden md:block">
-            <span class="rounded-full px-2 py-0.5 text-[10px] font-bold" :class="statusClass(v.status)">
+            <span
+              class="rounded-full px-2 py-0.5 text-[10px] font-bold"
+              :class="statusClass(v.status)"
+            >
               {{ v.status || '—' }}
             </span>
           </div>
@@ -198,18 +219,28 @@
             <button
               type="button"
               class="inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-bold transition"
-              :class="v.is_approved
-                ? 'bg-emerald-500/15 text-emerald-400 hover:bg-emerald-500/25'
-                : 'bg-slate-500/10 text-slate-500 hover:bg-slate-500/20'"
+              :class="
+                v.is_approved
+                  ? 'bg-emerald-500/15 text-emerald-400 hover:bg-emerald-500/25'
+                  : 'bg-slate-500/10 text-slate-500 hover:bg-slate-500/20'
+              "
               :disabled="saving"
               @click="handleToggleApprove(v)"
             >
-              <component :is="v.is_approved ? CheckCircle : Clock" aria-hidden="true"<i  class="text-[10px]" /> />
+              <component
+                :is="v.is_approved ? CheckCircle : Clock"
+                aria-hidden="true"
+                class="text-[10px]"
+              />
               {{ v.is_approved ? 'Approved' : 'Approve' }}
             </button>
           </div>
-          <div class="hidden text-slate-400 tabular-nums md:block">{{ formatCount(v.view_count) }}</div>
-          <div class="hidden text-slate-400 tabular-nums md:block">{{ formatCount(v.like_count) }}</div>
+          <div class="hidden text-slate-400 tabular-nums md:block">
+            {{ formatCount(v.view_count) }}
+          </div>
+          <div class="hidden text-slate-400 tabular-nums md:block">
+            {{ formatCount(v.like_count) }}
+          </div>
 
           <!-- Actions -->
           <div class="flex items-center justify-end gap-2">
@@ -289,7 +320,9 @@
     >
       <div v-if="editingVideo" class="space-y-4">
         <div class="flex items-center gap-3">
-          <div class="flex h-16 w-11 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-white/6">
+          <div
+            class="flex h-16 w-11 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-white/6"
+          >
             <img
               v-if="editingVideo.thumbnail_url || editingVideo.thumbnail_path"
               :src="(editingVideo.thumbnail_url || editingVideo.thumbnail_path) ?? undefined"
@@ -297,11 +330,13 @@
               class="h-full w-full object-cover"
               loading="lazy"
             />
-            <PlayCircle v-else aria-hidden="true" class="text-base text-slate-500"  />
+            <PlayCircle v-else aria-hidden="true" class="text-base text-slate-500" />
           </div>
           <div class="min-w-0">
             <p class="truncate font-semibold text-white">{{ editingVideo.title }}</p>
-            <p class="text-xs text-slate-500">{{ editingVideo.type === 'official_mv' ? 'Official MV' : 'Fan Edit' }}</p>
+            <p class="text-xs text-slate-500">
+              {{ editingVideo.type === 'official_mv' ? 'Official MV' : 'Fan Edit' }}
+            </p>
           </div>
         </div>
 
@@ -387,7 +422,11 @@
     <AdminDeleteConfirm
       v-model:visible="deleteDialogVisible"
       title="Delete Video"
-      :description="deleteTarget ? `Are you sure you want to delete «${deleteTarget.title}»? This cannot be undone.` : ''"
+      :description="
+        deleteTarget
+          ? `Are you sure you want to delete «${deleteTarget.title}»? This cannot be undone.`
+          : ''
+      "
       :loading="deleting"
       @confirm="handleDelete"
       @cancel="deleteDialogVisible = false"
@@ -410,7 +449,10 @@
           </div>
         </div>
       </div>
-      <div v-else-if="commentItems.length === 0" class="flex flex-col items-center py-12 text-center">
+      <div
+        v-else-if="commentItems.length === 0"
+        class="flex flex-col items-center py-12 text-center"
+      >
         <MessageCircle aria-hidden="true" class="mb-3 block text-3xl text-slate-600" />
         <p class="text-sm text-slate-500">No comments on this video.</p>
       </div>
@@ -423,7 +465,9 @@
           <!-- Header -->
           <div class="flex items-start justify-between gap-2">
             <div class="flex items-center gap-2">
-              <div class="flex h-7 w-7 items-center justify-center rounded-full bg-white/6 text-[10px] font-bold text-slate-500">
+              <div
+                class="flex h-7 w-7 items-center justify-center rounded-full bg-white/6 text-[10px] font-bold text-slate-500"
+              >
                 {{ cm.author_name.charAt(0).toUpperCase() }}
               </div>
               <div>
@@ -437,7 +481,7 @@
                 text
                 rounded
                 size="small"
-                class="text-slate-500! hover:text-white! w-7! h-7!"
+                class="h-7! w-7! text-slate-500! hover:text-white!"
                 v-tooltip.top="'Edit'"
                 @click="startEditComment(cm)"
               />
@@ -446,7 +490,7 @@
                 text
                 rounded
                 size="small"
-                class="text-red-400/50! hover:text-red-400! w-7! h-7!"
+                class="h-7! w-7! text-red-400/50! hover:text-red-400!"
                 v-tooltip.top="'Delete'"
                 :loading="deletingCommentId === cm.id"
                 @click="handleDeleteComment(cm.id)"
@@ -466,21 +510,23 @@
                 label="Cancel"
                 text
                 size="small"
-                class="text-slate-400! text-xs!"
+                class="text-xs! text-slate-400!"
                 @click="editingCommentId = null"
               />
               <Button
                 label="Save"
                 icon="pi pi-check"
                 size="small"
-                class="rounded-lg! bg-emerald-500! px-3! text-black! hover:bg-emerald-400! text-xs!"
+                class="rounded-lg! bg-emerald-500! px-3! text-xs! text-black! hover:bg-emerald-400!"
                 :loading="savingComment"
                 :disabled="!editingCommentContent.trim()"
                 @click="handleSaveComment(cm.id)"
               />
             </div>
           </div>
-          <p v-else class="mt-1.5 text-sm leading-relaxed text-white/60 break-words">{{ cm.content }}</p>
+          <p v-else class="mt-1.5 text-sm leading-relaxed break-words text-white/60">
+            {{ cm.content }}
+          </p>
         </div>
       </div>
     </Dialog>
@@ -703,10 +749,14 @@ function timeAgo(dateStr: string): string {
 // ── Helpers ──
 function statusClass(status?: string): string {
   switch (status) {
-    case 'ready': return 'bg-emerald-500/15 text-emerald-400'
-    case 'processing': return 'bg-yellow-500/15 text-yellow-400'
-    case 'failed': return 'bg-red-500/15 text-red-400'
-    default: return 'bg-slate-500/10 text-slate-500'
+    case 'ready':
+      return 'bg-emerald-500/15 text-emerald-400'
+    case 'processing':
+      return 'bg-yellow-500/15 text-yellow-400'
+    case 'failed':
+      return 'bg-red-500/15 text-red-400'
+    default:
+      return 'bg-slate-500/10 text-slate-500'
   }
 }
 

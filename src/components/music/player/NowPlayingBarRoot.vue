@@ -6,7 +6,7 @@
       ref="barRef"
       role="contentinfo"
       aria-label="Music player"
-      class="fixed inset-x-0 bottom-0 z-50 hidden md:block select-none"
+      class="fixed inset-x-0 bottom-0 z-50 hidden select-none md:block"
     >
       <div
         class="relative flex flex-col overflow-visible transition-all duration-300 ease-out"
@@ -15,11 +15,7 @@
       >
         <!-- Background with album art blur -->
         <div class="pointer-events-none absolute inset-0 overflow-hidden rounded-[inherit]">
-          <div
-            v-if="coverUrl"
-            class="absolute inset-0 scale-110"
-            aria-hidden="true"
-          >
+          <div v-if="coverUrl" class="absolute inset-0 scale-110" aria-hidden="true">
             <img
               :src="coverUrl"
               alt=""
@@ -28,15 +24,17 @@
               style="filter: blur(60px) saturate(1.5)"
             />
           </div>
-          <div class="pointer-events-none absolute inset-0 bg-linear-to-t from-black/80 via-black/50 to-transparent" />
+          <div
+            class="pointer-events-none absolute inset-0 bg-linear-to-t from-black/80 via-black/50 to-transparent"
+          />
         </div>
 
         <!-- ── MINI COLLAPSED BAR ── -->
         <div class="relative z-10 h-0.5 bg-white/5">
           <div class="h-full rounded-full transition-[width] duration-100" :style="progressStyle" />
         </div>
-        
-        <div v-if="collapsed" class="relative z-10 flex items-center gap-3 px-4 h-14">
+
+        <div v-if="collapsed" class="relative z-10 flex h-14 items-center gap-3 px-4">
           <button
             type="button"
             aria-label="Open fullscreen player"
@@ -51,7 +49,10 @@
                 class="h-full w-full object-cover"
                 loading="lazy"
               />
-              <div v-else class="flex h-full w-full items-center justify-center bg-linear-to-br from-spotify/30 to-aurora-purple/30">
+              <div
+                v-else
+                class="from-spotify/30 to-aurora-purple/30 flex h-full w-full items-center justify-center bg-linear-to-br"
+              >
                 <Music class="h-5 w-5 text-slate-500" aria-hidden="true" />
               </div>
             </div>
@@ -63,29 +64,33 @@
             class="min-w-0 flex-1 text-left"
             @click="$emit('toggle-fullscreen')"
           >
-            <p class="truncate text-sm font-bold text-white leading-tight">{{ title }}</p>
-            <p class="truncate text-xs text-white/60 leading-tight">{{ artistName }}</p>
+            <p class="truncate text-sm leading-tight font-bold text-white">{{ title }}</p>
+            <p class="truncate text-xs leading-tight text-white/60">{{ artistName }}</p>
           </button>
 
           <div class="flex items-center gap-2">
             <GuestPlayGate action="play" @proceed="togglePlayPause" #default="{ proceed }">
               <button
                 type="button"
-                class="flex h-9 w-9 items-center justify-center rounded-full shadow-lg disabled:opacity-40 hover:scale-110 active:scale-90 transition-all duration-200"
+                class="flex h-9 w-9 items-center justify-center rounded-full shadow-lg transition-all duration-200 hover:scale-110 active:scale-90 disabled:opacity-40"
                 :style="{ background: progressColor }"
                 :disabled="!currentTrack || isLoadingTrack"
                 :aria-label="playAriaLabel"
                 @click="isPlaying ? togglePlayPause() : proceed()"
               >
-                <Loader v-if="isLoadingTrack || isBuffering" class="h-4 w-4 animate-spin-slow text-white" aria-hidden="true" />
+                <Loader
+                  v-if="isLoadingTrack || isBuffering"
+                  class="animate-spin-slow h-4 w-4 text-white"
+                  aria-hidden="true"
+                />
                 <Pause v-else-if="isPlaying" class="h-4 w-4 text-white" aria-hidden="true" />
-                <Play v-else class="h-4 w-4 text-white ml-0.5" aria-hidden="true" />
+                <Play v-else class="ml-0.5 h-4 w-4 text-white" aria-hidden="true" />
               </button>
             </GuestPlayGate>
 
             <button
               type="button"
-              class="flex h-8 w-8 items-center justify-center rounded-full text-white/40 hover:text-white hover:bg-white/10 transition-all duration-200"
+              class="flex h-8 w-8 items-center justify-center rounded-full text-white/40 transition-all duration-200 hover:bg-white/10 hover:text-white"
               :aria-label="collapsed ? 'Expand player' : 'Collapse player'"
               @click="toggleCollapsed"
             >
@@ -95,7 +100,7 @@
           </div>
         </div>
 
-<!-- ── FULL EXPANDED BAR ── -->
+        <!-- ── FULL EXPANDED BAR ── -->
         <Transition name="expand">
           <div v-if="!collapsed" class="overflow-hidden">
             <div class="relative z-10 flex items-center gap-4 px-6 pt-2">
@@ -116,15 +121,15 @@
               />
               <div
                 v-if="radio.isRadioActive.value && radio.radioSeedLabel.value"
-                class="flex items-center gap-1.5 rounded-full bg-accent/15 px-2 py-0.5 text-[10px] text-accent mt-1"
+                class="bg-accent/15 text-accent mt-1 flex items-center gap-1.5 rounded-full px-2 py-0.5 text-[10px]"
               >
-                <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
-                <span class="font-semibold uppercase tracking-wider">Radio</span>
+                <span class="bg-accent h-1.5 w-1.5 animate-pulse rounded-full" />
+                <span class="font-semibold tracking-wider uppercase">Radio</span>
                 <span class="text-accent/60">· {{ radio.radioSeedLabel.value }}</span>
               </div>
 
               <!-- Playback Controls - Center Section (50%, flex-1) -->
-              <div class="flex-1 flex justify-center">
+              <div class="flex flex-1 justify-center">
                 <PlaybackControls
                   :current-track="currentTrack"
                   :is-playing="isPlaying"
@@ -160,7 +165,7 @@
 
                 <button
                   type="button"
-                  class="flex h-9 w-9 items-center justify-center rounded-full text-white/40 hover:text-white hover:bg-white/10 active:scale-95 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-spotify/60 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-base"
+                  class="focus-visible:ring-spotify/60 focus-visible:ring-offset-surface-base flex h-9 w-9 items-center justify-center rounded-full text-white/40 transition-all duration-200 hover:bg-white/10 hover:text-white focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-95"
                   :disabled="!currentTrack"
                   aria-label="Toggle lyrics"
                   @click="$emit('toggle-lyrics')"
@@ -171,12 +176,18 @@
                 <button
                   v-if="currentTrack"
                   type="button"
-                  class="flex h-9 w-9 items-center justify-center rounded-full transition-all duration-200 active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-spotify/60 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-base"
-                  :class="radio.isRadioActive.value
-                    ? 'text-accent bg-accent/10 hover:bg-accent/20'
-                    : 'text-white/40 hover:text-white hover:bg-white/10'"
+                  class="focus-visible:ring-spotify/60 focus-visible:ring-offset-surface-base flex h-9 w-9 items-center justify-center rounded-full transition-all duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-95"
+                  :class="
+                    radio.isRadioActive.value
+                      ? 'text-accent bg-accent/10 hover:bg-accent/20'
+                      : 'text-white/40 hover:bg-white/10 hover:text-white'
+                  "
                   :aria-label="radio.isRadioActive.value ? 'رادیو فعال است' : 'شروع رادیو'"
-                  :title="radio.isRadioActive.value && radio.radioSeedLabel.value ? 'رادیو در حال پخش · ' + radio.radioSeedLabel.value : 'شروع رادیو از این آهنگ'"
+                  :title="
+                    radio.isRadioActive.value && radio.radioSeedLabel.value
+                      ? 'رادیو در حال پخش · ' + radio.radioSeedLabel.value
+                      : 'شروع رادیو از این آهنگ'
+                  "
                   @click="handleRadioClick"
                 >
                   <Radio aria-hidden="true" class="h-4 w-4" />
@@ -195,7 +206,7 @@
 
                 <button
                   type="button"
-                  class="flex h-9 w-9 items-center justify-center rounded-full text-white/40 hover:text-white hover:bg-white/10 active:scale-95 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-spotify/60 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-base"
+                  class="focus-visible:ring-spotify/60 focus-visible:ring-offset-surface-base flex h-9 w-9 items-center justify-center rounded-full text-white/40 transition-all duration-200 hover:bg-white/10 hover:text-white focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-95"
                   :disabled="!currentTrack"
                   aria-label="Fullscreen"
                   @click="$emit('toggle-fullscreen')"
@@ -205,7 +216,7 @@
 
                 <button
                   type="button"
-                  class="flex h-9 w-9 items-center justify-center rounded-full text-white/40 hover:text-white hover:bg-white/10 active:scale-95 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-spotify/60 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-base"
+                  class="focus-visible:ring-spotify/60 focus-visible:ring-offset-surface-base flex h-9 w-9 items-center justify-center rounded-full text-white/40 transition-all duration-200 hover:bg-white/10 hover:text-white focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-95"
                   :aria-label="collapsed ? 'Expand player' : 'Collapse player'"
                   @click="toggleCollapsed"
                 >
@@ -216,7 +227,7 @@
                 <div class="relative">
                   <button
                     type="button"
-                    class="flex h-9 w-9 items-center justify-center rounded-full text-white/40 hover:text-white hover:bg-white/10 active:scale-95 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-spotify/60 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-base"
+                    class="focus-visible:ring-spotify/60 focus-visible:ring-offset-surface-base flex h-9 w-9 items-center justify-center rounded-full text-white/40 transition-all duration-200 hover:bg-white/10 hover:text-white focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-95"
                     :disabled="!currentTrack"
                     aria-label="More options"
                     @click.stop="showOverflow = !showOverflow"
@@ -276,9 +287,29 @@
 </template>
 
 <script setup lang="ts">
-import { computed, inject, nextTick, onBeforeUnmount, onMounted, onUnmounted, ref, watch } from 'vue'
+import {
+  computed,
+  inject,
+  nextTick,
+  onMounted,
+  onUnmounted,
+  ref,
+  watch,
+} from 'vue'
 import { useRouter } from 'vue-router'
-import { AlertCircle, Ban, ChevronDown, ChevronUp, Clock, Copy, Disc3, Download, Expand, FileText, Flag, Globe, Info, Loader, Monitor, MoreHorizontal, Music, Pause, Play, PlusCircle, Radio, Repeat, RotateCcw, Settings2, Share2, Shuffle, SkipForward, Sparkles, Star, UserRound } from 'lucide-vue-next'
+import {
+  AlertCircle,
+  ChevronDown,
+  ChevronUp,
+  Expand,
+  FileText,
+  Loader,
+  MoreHorizontal,
+  Music,
+  Pause,
+  Play,
+  Radio,
+} from 'lucide-vue-next'
 import { useRadio } from '@/composables/recommendation/useRadio'
 import { usePlayerControls, useTrackLike } from '@/composables/player'
 import { usePlayerStore } from '@/stores/player'
@@ -299,7 +330,8 @@ import type { PlaybackTrack } from '@/services/api/player'
 const toast = useAppToast()
 const router = useRouter()
 
-const emit = defineEmits<{
+ 
+const _emit = defineEmits<{
   'toggle-queue': []
   'toggle-fullscreen': []
   'toggle-lyrics': []
@@ -313,35 +345,26 @@ const showAddToPlaylist = ref(false)
 const collapsed = ref(localStorage.getItem('player-bar-collapsed') === 'true')
 const showShuffleMenu = ref(false)
 const shuffleBtnRef = ref<HTMLElement | null>(null)
-const shuffleMenuRef = ref<HTMLElement | null>(null)
 const shuffleItemRefs = ref<HTMLElement[]>([])
 const showRepeatMenu = ref(false)
 const repeatBtnRef = ref<HTMLElement | null>(null)
-const repeatMenuRef = ref<HTMLElement | null>(null)
 const repeatItemRefs = ref<HTMLElement[]>([])
 const showQueuePreview = ref(false)
 const queueBtnRef = ref<HTMLElement | null>(null)
 
 // Menu focus management
 watch(showShuffleMenu, async (v) => {
-  if (v) { await nextTick(); shuffleItemRefs.value[0]?.focus() }
+  if (v) {
+    await nextTick()
+    shuffleItemRefs.value[0]?.focus()
+  }
 })
 watch(showRepeatMenu, async (v) => {
-  if (v) { await nextTick(); repeatItemRefs.value[0]?.focus() }
+  if (v) {
+    await nextTick()
+    repeatItemRefs.value[0]?.focus()
+  }
 })
-
-const shuffleModes = [
-  { value: 'off' as const, label: 'Off', icon: Ban },
-  { value: 'queue' as const, label: 'Shuffle Queue', icon: Shuffle },
-  { value: 'catalog' as const, label: 'Random Catalog', icon: Globe },
-  { value: 'similar' as const, label: 'Similar Tracks', icon: Star },
-]
-
-const repeatModes = [
-  { value: 'off' as const, label: 'No Repeat', icon: RotateCcw },
-  { value: 'all' as const, label: 'Repeat All', icon: Repeat },
-  { value: 'one' as const, label: 'Repeat One', icon: RotateCcw },
-]
 
 function setShuffleMode(mode: 'off' | 'queue' | 'catalog' | 'similar') {
   pc.setShuffleMode(mode)
@@ -371,9 +394,7 @@ const {
   hasPrevious,
   shuffleMode,
   repeatMode,
-  volumeIcon,
   progressPercent,
-  seekPercent,
   playNext,
   playPrevious,
 } = pc
@@ -449,16 +470,6 @@ function toggleCollapsed() {
   window.dispatchEvent(new CustomEvent('playerbar-collapse', { detail: collapsed.value }))
 }
 
-function playNextTrack() {
-  playNext()
-  showQueuePreview.value = false
-}
-
-function openFullQueue() {
-  showQueuePreview.value = false
-  emit('toggle-queue')
-}
-
 function handleTogglePiP() {
   pip.toggle().catch(() => {
     // PiP not supported or user denied — silently fail
@@ -469,16 +480,10 @@ function handleTogglePiP() {
 
 const overflowAnchorEl = ref<HTMLElement | null>(null)
 
-const {
-  sleepTimerMinutes,
-  crossfadeDuration,
-  audioQuality,
-  setSleepTimer,
-  clearSleepTimer,
-} = pc
+const { sleepTimerMinutes, crossfadeDuration, audioQuality, setSleepTimer, clearSleepTimer } = pc
 
 const qualityOptions = ['auto', 'low', 'medium', 'high', 'lossless'] as const
-type AudioQuality = typeof qualityOptions[number]
+type AudioQuality = (typeof qualityOptions)[number]
 
 const qualityLabel = computed(() => {
   const q = audioQuality.value
@@ -497,9 +502,18 @@ function cycleQuality() {
 
 function cycleSleepTimer() {
   const current = sleepTimerMinutes.value
-  if (current === 0) { setSleepTimer(15); return }
-  if (current === 15) { setSleepTimer(30); return }
-  if (current === 30) { setSleepTimer(60); return }
+  if (current === 0) {
+    setSleepTimer(15)
+    return
+  }
+  if (current === 15) {
+    setSleepTimer(30)
+    return
+  }
+  if (current === 30) {
+    setSleepTimer(60)
+    return
+  }
   clearSleepTimer()
 }
 
@@ -512,21 +526,36 @@ const sleepLabel = computed(() => {
 function cycleCrossfade() {
   const current = crossfadeDuration.value
   const store = usePlayerStore()
-  if (current === 0) { store.setCrossfadeDuration(3); return }
-  if (current === 3) { store.setCrossfadeDuration(5); return }
-  if (current === 5) { store.setCrossfadeDuration(8); return }
-  if (current === 8) { store.setCrossfadeDuration(12); return }
+  if (current === 0) {
+    store.setCrossfadeDuration(3)
+    return
+  }
+  if (current === 3) {
+    store.setCrossfadeDuration(5)
+    return
+  }
+  if (current === 5) {
+    store.setCrossfadeDuration(8)
+    return
+  }
+  if (current === 8) {
+    store.setCrossfadeDuration(12)
+    return
+  }
   store.setCrossfadeDuration(0)
 }
 
 function copyTrackLink() {
   if (!currentTrack.value) return
   const url = `${window.location.origin}/track/${currentTrack.value.id}`
-  navigator.clipboard?.writeText(url).then(() => {
-    toast.success('Track link copied to clipboard')
-  }).catch(() => {
-    toast.error('Could not copy link')
-  })
+  navigator.clipboard
+    ?.writeText(url)
+    .then(() => {
+      toast.success('Track link copied to clipboard')
+    })
+    .catch(() => {
+      toast.error('Could not copy link')
+    })
   showOverflow.value = false
 }
 
@@ -602,7 +631,9 @@ const overflowSections = computed<ContextMenuSection[]>(() => {
           label: 'Add to Playlist',
           icon: 'PlusCircle',
           shortcut: 'A',
-          action: () => { showAddToPlaylist.value = true },
+          action: () => {
+            showAddToPlaylist.value = true
+          },
         },
       ],
     },
@@ -663,7 +694,9 @@ const overflowSections = computed<ContextMenuSection[]>(() => {
           icon: 'Download',
           hidden: true, // premium check
           separator: true,
-          action: () => { showOverflow.value = false },
+          action: () => {
+            showOverflow.value = false
+          },
         },
         {
           id: 'track-info',
@@ -702,20 +735,7 @@ const overflowHeader = computed<ContextMenuHeader | undefined>(() => {
 })
 
 function onVolume(val: number | number[]) {
-  pc.setVolume(typeof val === 'number' ? val : val[0] ?? 0)
-}
-
-function seekRelative(seconds: number) {
-  const newTime = Math.max(0, Math.min(duration.value, currentTime.value + seconds))
-  const pct = duration.value > 0 ? (newTime / duration.value) * 100 : 0
-  seekPercent(pct)
-}
-
-function formatTime(s: number) {
-  if (!isFinite(s)) return '0:00'
-  const m = Math.floor(s / 60)
-  const sec = Math.floor(s % 60)
-  return `${m}:${sec.toString().padStart(2, '0')}`
+  pc.setVolume(typeof val === 'number' ? val : (val[0] ?? 0))
 }
 
 // Close popup menus on outside click
@@ -765,10 +785,14 @@ function handleRadioClick() {
 }
 
 .expand-enter-active {
-  transition: opacity 300ms ease, transform 300ms ease;
+  transition:
+    opacity 300ms ease,
+    transform 300ms ease;
 }
 .expand-leave-active {
-  transition: opacity 200ms ease, transform 200ms ease;
+  transition:
+    opacity 200ms ease,
+    transform 200ms ease;
 }
 .expand-enter-from {
   opacity: 0;
@@ -783,20 +807,29 @@ function handleRadioClick() {
   animation: spin-slow 1.5s linear infinite;
 }
 @keyframes spin-slow {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .bar-slide-enter-active,
   .bar-slide-leave-active,
   .expand-enter-active,
-  .expand-leave-active { transition: none; }
+  .expand-leave-active {
+    transition: none;
+  }
   .bar-slide-enter-from,
   .bar-slide-leave-to,
   .expand-enter-from,
   .expand-leave-to,
   .expand-enter-to,
-  .expand-leave-from { opacity: 1; transform: none; }
-  .animate-spin-slow { animation: none; }
+  .expand-leave-from {
+    opacity: 1;
+    transform: none;
+  }
+  .animate-spin-slow {
+    animation: none;
+  }
 }
 </style>

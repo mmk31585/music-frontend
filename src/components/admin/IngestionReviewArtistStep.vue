@@ -19,7 +19,7 @@
         size="small"
         outlined
         @click="ctx.fetchSection('artist')"
-      />
+       aria-label="Fetch Artist Data" />
       <p class="mt-1.5 text-[11px] text-slate-500">
         Load artist data from the track's embedded metadata (ID3 tags).
       </p>
@@ -287,7 +287,7 @@
                 severity="success"
                 outlined
                 @click="artist.musicbrainzMbid = ctx.enrichment.value!.musicbrainz!.artistMbid; ctx.hasUnsavedChanges.value = true"
-              />
+               aria-label="Apply" />
               <CheckCircle aria-hidden="true" v-else class="text-green-400" />
             </div>
           </div>
@@ -304,7 +304,7 @@
         size="small"
         outlined
         @click="ctx.addFeaturedArtist"
-      />
+       aria-label="Add Featured Artist" />
       <p class="mt-1.5 text-[11px] text-slate-500">
         Add featured artists for collaborations (feat., ft., &amp;).
       </p>

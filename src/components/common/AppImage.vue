@@ -6,7 +6,12 @@
     class="flex items-center justify-center bg-white/5"
     :class="[containerClass, containerStyle]"
   >
-    <Music aria-hidden="true" :class="fallbackIcon" class="text-slate-500" :style="{ fontSize: iconSize }" />
+    <Music
+      aria-hidden="true"
+      :class="fallbackIcon"
+      class="text-slate-500"
+      :style="{ fontSize: iconSize }"
+    />
   </div>
   <img
     v-else

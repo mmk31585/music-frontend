@@ -21,7 +21,7 @@
     <!-- User rank (shown when user is not in top entries) -->
     <div
       v-if="userRank && !userInEntries"
-      class="mb-6 rounded-2xl border border-spotify/20 bg-spotify/5 px-5 py-4"
+      class="border-spotify/20 bg-spotify/5 mb-6 rounded-2xl border px-5 py-4"
     >
       <p class="text-sm text-white/60">Your Rank</p>
       <p class="text-3xl font-black text-white">#{{ userRank }}</p>
@@ -36,16 +36,14 @@
     >
       <RouterLink
         to="/search"
-        class="mt-3 inline-block rounded-full bg-spotify px-5 py-2 text-sm font-bold text-black transition hover:bg-spotify-hover"
+        class="bg-spotify hover:bg-spotify-hover mt-3 inline-block rounded-full px-5 py-2 text-sm font-bold text-black transition"
       >
         Discover Artists
       </RouterLink>
     </AppEmptyState>
 
     <template v-else-if="!props.entries.length">
-      <div class="py-8 text-center text-sm text-white/30">
-        No rankings available yet.
-      </div>
+      <div class="py-8 text-center text-sm text-white/30">No rankings available yet.</div>
     </template>
 
     <div v-else class="space-y-2">
@@ -124,9 +122,12 @@ const userInEntries = computed(() => {
   return props.entries.some((e) => e.user_id === props.userId)
 })
 
-watch(() => props.type, (val) => {
-  if (val) activeTab.value = val
-})
+watch(
+  () => props.type,
+  (val) => {
+    if (val) activeTab.value = val
+  },
+)
 
 watch(activeTab, (tab) => {
   props.onTypeChange?.(tab)

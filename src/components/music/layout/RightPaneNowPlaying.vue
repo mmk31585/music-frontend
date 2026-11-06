@@ -1,5 +1,7 @@
 <template>
-  <div class="group relative overflow-hidden rounded-2xl bg-surface-overlay/50 transition-all duration-200 hover:bg-surface-active/80">
+  <div
+    class="group bg-surface-overlay/50 hover:bg-surface-active/80 relative overflow-hidden rounded-2xl transition-all duration-200"
+  >
     <div
       v-if="albumCover"
       class="pointer-events-none absolute inset-0 scale-110"
@@ -17,7 +19,7 @@
       <div class="flex items-start gap-4">
         <div class="relative shrink-0">
           <div
-            class="h-24 w-24 overflow-hidden rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] ring-1 ring-border-default transition-all duration-500"
+            class="ring-border-default h-24 w-24 overflow-hidden rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] ring-1 transition-all duration-500"
             :class="isPlaying ? 'scale-100' : 'scale-95 opacity-80'"
           >
             <img
@@ -27,42 +29,42 @@
               class="h-full w-full object-cover"
               loading="lazy"
             />
-            <div v-else class="flex h-full w-full items-center justify-center bg-linear-to-br from-primary/30 to-accent/30">
+            <div
+              v-else
+              class="from-primary/30 to-accent/30 flex h-full w-full items-center justify-center bg-linear-to-br"
+            >
               <Headphones :size="22" class="text-tertiary" />
             </div>
           </div>
           <div
             v-if="isPlaying"
-            class="absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-primary shadow-lg"
+            class="bg-primary absolute -right-1 -bottom-1 flex h-6 w-6 items-center justify-center rounded-full shadow-lg"
           >
             <Music :size="10" class="text-black" />
           </div>
         </div>
 
         <div class="min-w-0 flex-1 pt-1">
-          <p class="truncate text-base font-bold text-primary leading-tight">{{ track.title }}</p>
-          <p class="mt-0.5 truncate text-sm text-secondary">{{ track.artistName }}</p>
-          <p v-if="track.albumTitle" class="mt-0.5 truncate text-xs text-tertiary">{{ track.albumTitle }}</p>
+          <p class="text-primary truncate text-base leading-tight font-bold">{{ track.title }}</p>
+          <p class="text-secondary mt-0.5 truncate text-sm">{{ track.artistName }}</p>
+          <p v-if="track.albumTitle" class="text-tertiary mt-0.5 truncate text-xs">
+            {{ track.albumTitle }}
+          </p>
 
           <div class="mt-3 flex items-center gap-1">
             <button
               type="button"
               aria-label="Like"
-              class="flex h-8 w-8 items-center justify-center rounded-full text-secondary transition-all duration-150 hover:bg-surface-active hover:text-primary active:scale-90"
+              class="text-secondary hover:bg-surface-active hover:text-primary flex h-8 w-8 items-center justify-center rounded-full transition-all duration-150 active:scale-90"
               @click="$emit('toggle-like')"
             >
-              <Heart
-                v-if="liked"
-                :size="14"
-                class="text-accent"
-                fill="currentColor"
-              />
+              <Heart v-if="liked" :size="14" class="text-accent" fill="currentColor" />
               <Heart v-else :size="14" />
             </button>
             <button
               type="button"
               aria-label="Fullscreen"
-              class="flex h-8 w-8 items-center justify-center rounded-full text-secondary transition-all duration-150 hover:bg-surface-active hover:text-primary active:scale-90"
+              class="text-secondary hover:bg-surface-active hover:text-primary flex h-8 w-8 items-center justify-center rounded-full transition-all duration-150 active:scale-90"
               @click="$emit('toggle-fullscreen')"
             >
               <Maximize2 :size="14" />
@@ -92,12 +94,22 @@
           />
           <div
             class="relative h-full rounded-full transition-all duration-100"
-            :style="{ width: `${progressPercent}%`, background: accentColor || 'var(--color-primary)', boxShadow: accentColor ? `0 0 6px ${accentColor}44, 0 0 12px ${accentColor}22` : undefined }"
+            :style="{
+              width: `${progressPercent}%`,
+              background: accentColor || 'var(--color-primary)',
+              boxShadow: accentColor
+                ? `0 0 6px ${accentColor}44, 0 0 12px ${accentColor}22`
+                : undefined,
+            }"
           />
         </div>
         <div class="mt-1.5 flex items-center justify-between">
-          <span class="text-[10px] font-mono tabular-nums text-tertiary">{{ formatTime(currentTime) }}</span>
-          <span class="text-[10px] font-mono tabular-nums text-tertiary">{{ formatTime(duration) }}</span>
+          <span class="text-tertiary font-mono text-[10px] tabular-nums">{{
+            formatTime(currentTime)
+          }}</span>
+          <span class="text-tertiary font-mono text-[10px] tabular-nums">{{
+            formatTime(duration)
+          }}</span>
         </div>
       </div>
 
@@ -106,7 +118,11 @@
           type="button"
           aria-label="Shuffle"
           class="flex h-9 w-9 items-center justify-center rounded-full transition-all duration-150 active:scale-90"
-          :class="shuffleMode !== 'off' ? 'text-accent' : 'text-secondary hover:bg-surface-active hover:text-primary'"
+          :class="
+            shuffleMode !== 'off'
+              ? 'text-accent'
+              : 'text-secondary hover:bg-surface-active hover:text-primary'
+          "
           @click="$emit('toggle-shuffle')"
         >
           <Shuffle :size="16" />
@@ -114,7 +130,7 @@
         <button
           type="button"
           aria-label="Previous track"
-          class="flex h-9 w-9 items-center justify-center rounded-full text-secondary transition-all duration-150 hover:bg-surface-active hover:text-primary active:scale-90 disabled:opacity-30"
+          class="text-secondary hover:bg-surface-active hover:text-primary flex h-9 w-9 items-center justify-center rounded-full transition-all duration-150 active:scale-90 disabled:opacity-30"
           :disabled="!hasPrevious"
           @click="$emit('prev')"
         >
@@ -123,7 +139,7 @@
         <button
           type="button"
           aria-label="Play or pause"
-          class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-black shadow-lg transition-all duration-150 hover:bg-primary/90 active:scale-90 disabled:opacity-40"
+          class="bg-primary hover:bg-primary/90 flex h-10 w-10 items-center justify-center rounded-full text-black shadow-lg transition-all duration-150 active:scale-90 disabled:opacity-40"
           :disabled="!track"
           @click="$emit('toggle-play')"
         >
@@ -134,7 +150,7 @@
         <button
           type="button"
           aria-label="Next track"
-          class="flex h-9 w-9 items-center justify-center rounded-full text-secondary transition-all duration-150 hover:bg-surface-active hover:text-primary active:scale-90 disabled:opacity-30"
+          class="text-secondary hover:bg-surface-active hover:text-primary flex h-9 w-9 items-center justify-center rounded-full transition-all duration-150 active:scale-90 disabled:opacity-30"
           :disabled="!hasNext"
           @click="$emit('next')"
         >
@@ -144,7 +160,11 @@
           type="button"
           aria-label="Repeat"
           class="flex h-9 w-9 items-center justify-center rounded-full transition-all duration-150 active:scale-90"
-          :class="repeatMode !== 'off' ? 'text-accent' : 'text-secondary hover:bg-surface-active hover:text-primary'"
+          :class="
+            repeatMode !== 'off'
+              ? 'text-accent'
+              : 'text-secondary hover:bg-surface-active hover:text-primary'
+          "
           @click="$emit('toggle-repeat')"
         >
           <Repeat :size="16" />
@@ -155,7 +175,19 @@
 </template>
 
 <script setup lang="ts">
-import { Headphones, Heart, Loader2, Maximize2, Music, Pause, Play, Repeat, Shuffle, SkipBack, SkipForward } from 'lucide-vue-next'
+import {
+  Headphones,
+  Heart,
+  Loader2,
+  Maximize2,
+  Music,
+  Pause,
+  Play,
+  Repeat,
+  Shuffle,
+  SkipBack,
+  SkipForward,
+} from 'lucide-vue-next'
 import type { PlaybackTrack } from '@/services/api/player/types'
 
 defineProps<{
@@ -181,15 +213,18 @@ const emit = defineEmits<{
   'toggle-play': []
   'toggle-shuffle': []
   'toggle-repeat': []
-  'prev': []
-  'next': []
-  'seek': [percent: number]
+  prev: []
+  next: []
+  seek: [percent: number]
 }>()
 
 function onSeek(e: MouseEvent | KeyboardEvent) {
   const bar = e.currentTarget as HTMLElement
   const rect = bar.getBoundingClientRect()
-  const pct = Math.max(0, Math.min(100, ((e as MouseEvent).clientX - rect.left) / rect.width * 100))
+  const pct = Math.max(
+    0,
+    Math.min(100, (((e as MouseEvent).clientX - rect.left) / rect.width) * 100),
+  )
   emit('seek', pct)
 }
 

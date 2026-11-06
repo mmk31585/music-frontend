@@ -7,7 +7,8 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/maintenance',
     name: 'maintenance',
-    component: () => import(/* webpackChunkName: "error-maintenance" */ '@/pages/errors/PageMaintenance.vue'),
+    component: () =>
+      import(/* webpackChunkName: "error-maintenance" */ '@/pages/errors/PageMaintenance.vue'),
     meta: {
       title: 'Under Maintenance',
       layout: 'layout-empty',
@@ -21,7 +22,10 @@ const routes: RouteRecordRaw[] = [
       {
         path: 'genres',
         name: 'onboarding.genres',
-        component: () => import(/* webpackChunkName: "onboarding-genres" */ '@/pages/onboarding/PageGenreOnboarding.vue'),
+        component: () =>
+          import(
+            /* webpackChunkName: "onboarding-genres" */ '@/pages/onboarding/PageGenreOnboarding.vue'
+          ),
         meta: { title: 'Genre Onboarding', requiresAuth: true },
       },
     ],
@@ -31,7 +35,8 @@ const routes: RouteRecordRaw[] = [
   {
     path: '/:pathMatch(.*)*',
     name: 'not-found',
-    component: () => import(/* webpackChunkName: "error-not-found" */ '@/pages/errors/PageNotFound.vue'),
+    component: () =>
+      import(/* webpackChunkName: "error-not-found" */ '@/pages/errors/PageNotFound.vue'),
     meta: {
       title: 'Page Not Found',
       layout: 'layout-app',

@@ -127,7 +127,7 @@ export function useTrackContextMenu(
 
   // ── album colors for dynamic accent ───────────────────────────
 
-  const coverUrl = computed(() => trackRef.value ? resolveCoverUrl(trackRef.value) : null)
+  const coverUrl = computed(() => (trackRef.value ? resolveCoverUrl(trackRef.value) : null))
   const { palette } = useAlbumColors(coverUrl)
 
   // ── individual actions ────────────────────────────────────────
@@ -188,11 +188,14 @@ export function useTrackContextMenu(
     const t = trackRef.value
     if (!t) return
     const url = `${window.location.origin}/track/${t.id}`
-    navigator.clipboard?.writeText(url).then(() => {
-      toast.success(`"${resolveTitle(t)}" link copied to clipboard`)
-    }).catch(() => {
-      toast.error('Could not copy link')
-    })
+    navigator.clipboard
+      ?.writeText(url)
+      .then(() => {
+        toast.success(`"${resolveTitle(t)}" link copied to clipboard`)
+      })
+      .catch(() => {
+        toast.error('Could not copy link')
+      })
   }
 
   function shareTrack() {
@@ -273,9 +276,11 @@ export function useTrackContextMenu(
             label: 'Add to Playlist',
             icon: 'PlusCircle',
             separator: true,
-            action: options?.openAddToPlaylist ?? (() => {
-              toast.info('Playlist picker coming soon')
-            }),
+            action:
+              options?.openAddToPlaylist ??
+              (() => {
+                toast.info('Playlist picker coming soon')
+              }),
           },
         ],
       },
@@ -292,20 +297,24 @@ export function useTrackContextMenu(
             action: goToTrack,
           },
           ...(hasArtist
-            ? [{
-                id: 'go-to-artist',
-                label: 'Go to Artist',
-                icon: 'UserRound',
-                action: goToArtist,
-              }]
+            ? [
+                {
+                  id: 'go-to-artist',
+                  label: 'Go to Artist',
+                  icon: 'UserRound',
+                  action: goToArtist,
+                },
+              ]
             : []),
           ...(hasAlbum
-            ? [{
-                id: 'go-to-album',
-                label: 'Go to Album',
-                icon: 'Disc3',
-                action: goToAlbum,
-              }]
+            ? [
+                {
+                  id: 'go-to-album',
+                  label: 'Go to Album',
+                  icon: 'Disc3',
+                  action: goToAlbum,
+                },
+              ]
             : []),
         ],
       },
@@ -364,8 +373,7 @@ export function useTrackContextMenu(
     if (!t) return undefined
 
     const trackId = String(t.id)
-    const isPlaying = player.currentTrack.value?.id === trackId
-      && player.isPlaying.value
+    const isPlaying = player.currentTrack.value?.id === trackId && player.isPlaying.value
 
     return {
       coverUrl: resolveCoverUrl(t) ?? undefined,

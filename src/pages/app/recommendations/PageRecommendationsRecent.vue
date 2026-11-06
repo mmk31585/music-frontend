@@ -1,7 +1,7 @@
 <template>
   <div class="mx-auto w-full max-w-7xl px-4 pt-6 pb-32 md:px-6 lg:px-8">
     <section
-      class="rounded-2xl bg-linear-to-br from-sky-400 via-blue-800 to-surface-base p-8 text-white"
+      class="to-surface-base rounded-2xl bg-linear-to-br from-sky-400 via-blue-800 p-8 text-white"
     >
       <p class="text-sm font-bold tracking-[0.35em] text-white/70 uppercase">Fresh</p>
       <h1 class="mt-3 text-4xl font-black md:text-6xl">Recently Added</h1>
@@ -20,7 +20,7 @@
         <div
           class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-white/10 text-2xl text-white"
         >
-          <Clock aria-hidden="true" class=""  />
+          <Clock aria-hidden="true" class="" />
         </div>
         <h2 class="mt-5 text-xl font-black text-white">No recent tracks</h2>
         <p class="mt-2 text-sm text-slate-400">New tracks will appear here as they are added.</p>
@@ -40,7 +40,7 @@
           <div
             class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-sky-400/20 text-lg text-sky-300"
           >
-            <Clock aria-hidden="true" class=""  />
+            <Clock aria-hidden="true" class="" />
           </div>
 
           <div class="min-w-0 flex-1">

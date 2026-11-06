@@ -20,7 +20,17 @@ export const useImportApi = () => {
     )
   }
 
-  const importTrack = async (track: SearchResult | { title: string; artist: string; source?: string; duration?: number; external_ids?: Record<string, string> }) => {
+  const importTrack = async (
+    track:
+      | SearchResult
+      | {
+          title: string
+          artist: string
+          source?: string
+          duration?: number
+          external_ids?: Record<string, string>
+        },
+  ) => {
     const data: Record<string, string | number | Record<string, string>> = {}
     if ('url' in track && track.url) {
       data.url = track.url

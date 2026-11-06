@@ -118,7 +118,12 @@ export const useSocialApi = () => {
     )
   }
 
-  const updatePartyStatus = async (id: string, status: string, trackId?: string, config?: UseRequestConfig<void>) => {
+  const updatePartyStatus = async (
+    id: string,
+    status: string,
+    trackId?: string,
+    config?: UseRequestConfig<void>,
+  ) => {
     return useRequest<void>(
       SocialApiRoutes.PARTY_STATUS.replace(':id', id),
       { method: 'PUT', data: trackId ? { status, track_id: trackId } : { status } },
@@ -413,7 +418,10 @@ export const useSocialApi = () => {
     config?: UseRequestConfig<void>,
   ) => {
     return useRequest<void>(
-      SocialApiRoutes.CLUB_DISCUSSION_REPLY_DELETE.replace(':id', discussionId).replace(':replyId', replyId),
+      SocialApiRoutes.CLUB_DISCUSSION_REPLY_DELETE.replace(':id', discussionId).replace(
+        ':replyId',
+        replyId,
+      ),
       { method: 'DELETE' },
       config,
     )

@@ -2,7 +2,12 @@ import { useRequest } from '@/composables/useRequest'
 import { apiReplaceParams } from '@/utils/api-replace-params'
 import type { UseRequestConfig } from '@/plugins/client/types'
 import { HistoryApiRoutes } from './enums'
-import { HistoryItemSchema, HistoryResponseSchema, type HistoryItem, type HistoryResponse } from './types'
+import {
+  HistoryItemSchema,
+  HistoryResponseSchema,
+  type HistoryItem,
+  type HistoryResponse,
+} from './types'
 
 export interface RecordPlayPayload {
   track_id: string
@@ -17,10 +22,7 @@ export const useHistoryApi = () => {
    * Record that the user played a track. Triggers gamification (XP, challenges, badges).
    * Backend: POST /history/record → ListeningHistoryItem
    */
-  const recordPlay = async (
-    payload: RecordPlayPayload,
-    config?: UseRequestConfig<HistoryItem>,
-  ) => {
+  const recordPlay = async (payload: RecordPlayPayload, config?: UseRequestConfig<HistoryItem>) => {
     return useRequest<HistoryItem>(
       HistoryApiRoutes.RECORD,
       {
@@ -62,10 +64,9 @@ export const useHistoryApi = () => {
    * Backend: DELETE /history/:id → 204
    */
   const deleteHistoryItem = async (id: string) => {
-    return useRequest<void>(
-      apiReplaceParams(HistoryApiRoutes.DELETE_ITEM, { id }),
-      { method: 'DELETE' },
-    )
+    return useRequest<void>(apiReplaceParams(HistoryApiRoutes.DELETE_ITEM, { id }), {
+      method: 'DELETE',
+    })
   }
 
   /**
@@ -73,10 +74,7 @@ export const useHistoryApi = () => {
    * Backend: DELETE /history → 204
    */
   const clearAllHistory = async () => {
-    return useRequest<void>(
-      HistoryApiRoutes.CLEAR_ALL,
-      { method: 'DELETE' },
-    )
+    return useRequest<void>(HistoryApiRoutes.CLEAR_ALL, { method: 'DELETE' })
   }
 
   return {

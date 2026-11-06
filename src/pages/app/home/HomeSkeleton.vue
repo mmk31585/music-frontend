@@ -14,7 +14,11 @@
       <div class="h-4 w-28 animate-pulse rounded bg-white/[4%]" />
       <div class="h-6 w-40 animate-pulse rounded bg-white/[4%]" />
       <div class="grid grid-cols-5 gap-3">
-        <div v-for="i in 5" :key="i" class="aspect-square animate-pulse rounded-2xl bg-white/[3%]" />
+        <div
+          v-for="i in 5"
+          :key="i"
+          class="aspect-square animate-pulse rounded-2xl bg-white/[3%]"
+        />
       </div>
     </div>
 

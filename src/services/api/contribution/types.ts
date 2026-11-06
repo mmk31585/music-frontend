@@ -1,10 +1,5 @@
 export type ContributionType =
-  | 'lyrics'
-  | 'translation'
-  | 'credits'
-  | 'metadata'
-  | 'album_art'
-  | 'bio'
+  'lyrics' | 'translation' | 'credits' | 'metadata' | 'album_art' | 'bio'
 export type TargetType = 'track' | 'album' | 'artist'
 export type ContributionStatus = 'pending' | 'approved' | 'rejected' | 'needs_review'
 export type ReviewAction = 'approve' | 'reject'

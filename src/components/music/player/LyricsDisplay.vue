@@ -13,12 +13,12 @@
       v-else-if="error"
       class="flex flex-col items-center gap-3 rounded-2xl border border-white/6 bg-white/3 px-6 py-12 text-center"
     >
-      <AlignLeft aria-hidden="true" class="text-2xl text-slate-500"  />
+      <AlignLeft aria-hidden="true" class="text-2xl text-slate-500" />
       <p class="text-sm text-slate-400">No lyrics available</p>
       <button
         v-if="onAddLyrics"
         type="button"
-        class="text-xs font-medium text-spotify underline underline-offset-2 transition hover:text-spotify-hover"
+        class="text-spotify hover:text-spotify-hover text-xs font-medium underline underline-offset-2 transition"
         @click="onAddLyrics"
       >
         Add lyrics
@@ -48,7 +48,7 @@
       v-else
       class="flex flex-col items-center gap-3 rounded-2xl border border-white/6 bg-white/3 px-6 py-12 text-center"
     >
-      <AlignLeft aria-hidden="true" class="text-2xl text-slate-500"  />
+      <AlignLeft aria-hidden="true" class="text-2xl text-slate-500" />
       <p class="text-sm text-slate-400">No lyrics available</p>
     </div>
   </div>

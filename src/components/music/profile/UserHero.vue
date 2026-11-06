@@ -1,18 +1,17 @@
 <template>
   <div class="relative h-80 w-full overflow-hidden">
     <!-- Background aurora gradient -->
-    <div
-      class="pointer-events-none absolute inset-0"
-      aria-hidden="true"
-      :style="auroraStyle"
-    />
+    <div class="pointer-events-none absolute inset-0" aria-hidden="true" :style="auroraStyle" />
     <!-- Noise texture overlay -->
     <div
-      class="pointer-events-none absolute inset-0 opacity-[0.03] noise-overlay"
+      class="noise-overlay pointer-events-none absolute inset-0 opacity-[0.03]"
       aria-hidden="true"
     />
     <!-- Bottom fade -->
-    <div class="pointer-events-none absolute inset-0 bg-gradient-to-t from-[var(--bg-base)] via-[var(--bg-base)]/60 to-transparent" aria-hidden="true" />
+    <div
+      class="pointer-events-none absolute inset-0 bg-gradient-to-t from-[var(--bg-base)] via-[var(--bg-base)]/60 to-transparent"
+      aria-hidden="true"
+    />
 
     <!-- Content -->
     <div class="absolute inset-0 flex flex-col justify-end px-6 pb-6">
@@ -26,7 +25,7 @@
             <!-- Pulsing ring when playing -->
             <div
               v-if="musicStatus?.playing"
-              class="absolute -inset-2 rounded-full ring-2 ring-primary/60 motion-safe:animate-pulse-ring"
+              class="ring-primary/60 motion-safe:animate-pulse-ring absolute -inset-2 rounded-full ring-2"
               aria-hidden="true"
             />
             <img
@@ -39,15 +38,17 @@
             />
             <div
               v-else
-              class="flex h-full w-full items-center justify-center bg-gradient-to-br from-primary/30 to-accent/30"
+              class="from-primary/30 to-accent/30 flex h-full w-full items-center justify-center bg-gradient-to-br"
             >
-              <span class="text-hero font-black text-primary">{{ displayName.charAt(0).toUpperCase() }}</span>
+              <span class="text-hero text-primary font-black">{{
+                displayName.charAt(0).toUpperCase()
+              }}</span>
             </div>
           </div>
           <!-- Creator badge -->
           <div
             v-if="isCreator"
-            class="absolute -bottom-0.5 -right-0.5 flex h-6 w-6 items-center justify-center rounded-full bg-primary text-[10px] text-black ring-2 ring-[var(--bg-base)]"
+            class="bg-primary absolute -right-0.5 -bottom-0.5 flex h-6 w-6 items-center justify-center rounded-full text-[10px] text-black ring-2 ring-[var(--bg-base)]"
             aria-label="Creator"
           >
             &#x2B50;
@@ -55,10 +56,10 @@
         </div>
 
         <!-- Info block -->
-        <div class="flex flex-1 flex-col gap-3 min-w-0">
+        <div class="flex min-w-0 flex-1 flex-col gap-3">
           <!-- Name + handle -->
           <div>
-            <h1 class="text-hero font-black text-primary leading-none">{{ displayName }}</h1>
+            <h1 class="text-hero text-primary leading-none font-black">{{ displayName }}</h1>
             <p v-if="handle" class="text-caption text-tertiary mt-1">@{{ handle }}</p>
           </div>
 
@@ -74,25 +75,21 @@
 
           <!-- Stats row -->
           <div class="flex items-center gap-3 text-sm">
-            <button
-              class="inline-flex items-center gap-1"
-              @click="$emit('show-followers')"
-            >
-              <span class="font-bold text-primary tabular-nums">{{ formatNumber(followerCount) }}</span>
+            <button class="inline-flex items-center gap-1" @click="$emit('show-followers')">
+              <span class="text-primary font-bold tabular-nums">{{
+                formatNumber(followerCount)
+              }}</span>
               <span class="text-caption text-tertiary">دنبال‌کننده</span>
             </button>
             <span class="text-muted">&middot;</span>
-            <button
-              class="inline-flex items-center gap-1"
-              @click="$emit('show-following')"
-            >
-              <span class="font-bold text-primary tabular-nums">{{ formatNumber(followingCount) }}</span>
+            <button class="inline-flex items-center gap-1" @click="$emit('show-following')">
+              <span class="text-primary font-bold tabular-nums">{{
+                formatNumber(followingCount)
+              }}</span>
               <span class="text-caption text-tertiary">دنبال‌شونده</span>
             </button>
             <span v-if="joinDate" class="text-muted">&middot;</span>
-            <span v-if="joinDate" class="text-caption text-muted">
-              از {{ formatJoinDate }}
-            </span>
+            <span v-if="joinDate" class="text-caption text-muted"> از {{ formatJoinDate }} </span>
           </div>
 
           <!-- Action buttons -->
@@ -100,13 +97,13 @@
             <!-- Own profile: Edit + Share -->
             <template v-if="isOwnProfile">
               <button
-                class="rounded-full bg-surface-active px-5 py-2 text-sm font-medium text-primary transition hover:bg-surface-active/80"
+                class="bg-surface-active text-primary hover:bg-surface-active/80 rounded-full px-5 py-2 text-sm font-medium transition"
                 @click="$emit('edit-profile')"
               >
                 ویرایش پروفایل
               </button>
               <button
-                class="rounded-full bg-surface-overlay border border-border-default px-4 py-2 text-sm text-secondary transition hover:text-primary"
+                class="bg-surface-overlay border-border-default text-secondary hover:text-primary rounded-full border px-4 py-2 text-sm transition"
                 @click="$emit('share')"
               >
                 اشتراک‌گذاری
@@ -119,8 +116,8 @@
                 :class="[
                   'rounded-full px-5 py-2 text-sm font-bold transition',
                   isFollowing
-                    ? 'border border-border-strong text-secondary hover:border-danger/40 hover:text-danger'
-                    : 'bg-primary text-black hover:bg-primary-hover',
+                    ? 'border-border-strong text-secondary hover:border-danger/40 hover:text-danger border'
+                    : 'bg-primary hover:bg-primary-hover text-black',
                 ]"
                 @click="$emit('toggle-follow')"
               >
@@ -128,13 +125,13 @@
               </button>
               <button
                 v-if="musicStatus?.playing && musicStatus?.currentTrack"
-                class="rounded-full bg-surface-active/80 border border-border-default px-4 py-2 text-sm text-secondary transition hover:bg-surface-active"
+                class="bg-surface-active/80 border-border-default text-secondary hover:bg-surface-active rounded-full border px-4 py-2 text-sm transition"
                 @click="$emit('listen-along', musicStatus.currentTrack!.id)"
               >
                 گوش بده
               </button>
               <button
-                class="rounded-full bg-surface-overlay border border-border-default px-4 py-2 text-sm text-secondary transition hover:text-primary"
+                class="bg-surface-overlay border-border-default text-secondary hover:text-primary rounded-full border px-4 py-2 text-sm transition"
                 @click="$emit('share')"
               >
                 اشتراک‌گذاری
@@ -179,7 +176,7 @@ defineEmits<{
   'toggle-follow': []
   'show-followers': []
   'show-following': []
-  'share': []
+  share: []
   'edit-profile': []
   'listen-along': [trackId: string]
 }>()
@@ -223,8 +220,13 @@ function formatNumber(n: number) {
 }
 
 @keyframes pulse-ring {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
 }
 .motion-safe\:animate-pulse-ring {
   animation: pulse-ring 2s ease-in-out infinite;

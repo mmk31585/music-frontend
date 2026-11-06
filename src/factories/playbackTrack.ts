@@ -51,32 +51,15 @@ export interface PlaybackTrackInput {
 export function buildPlaybackTrack(input: PlaybackTrackInput): PlaybackTrack {
   const id = String(input.id)
 
-  const streamUrl =
-    input.streamUrl ||
-    input.audio_url ||
-    getTrackStreamUrl(id)
+  const streamUrl = input.streamUrl || input.audio_url || getTrackStreamUrl(id)
 
   return {
     id,
     title: input.title ?? 'Unknown Track',
-    artistName:
-      input.artistName ||
-      input.artist_name ||
-      input.artist ||
-      'Unknown artist',
-    albumTitle:
-      input.albumTitle ||
-      input.album_title ||
-      null,
-    coverUrl:
-      input.coverUrl ||
-      input.cover_url ||
-      null,
-    durationSeconds:
-      input.durationSeconds ??
-      input.duration_seconds ??
-      input.duration ??
-      null,
+    artistName: input.artistName || input.artist_name || input.artist || 'Unknown artist',
+    albumTitle: input.albumTitle || input.album_title || null,
+    coverUrl: input.coverUrl || input.cover_url || null,
+    durationSeconds: input.durationSeconds ?? input.duration_seconds ?? input.duration ?? null,
     streamUrl,
   }
 }

@@ -1,8 +1,5 @@
 <template>
-  <div
-    ref="container"
-    class="visualizer-container relative h-full w-full overflow-hidden"
-  >
+  <div ref="container" class="visualizer-container relative h-full w-full overflow-hidden">
     <canvas
       ref="canvas"
       class="h-full w-full"
@@ -31,7 +28,8 @@ import { computed, onBeforeUnmount, onMounted, ref, watch } from 'vue'
 import { audioEngine } from '@/services/player/audio-engine'
 import { detectPerformanceTier } from '@/utils/performance'
 
-export type VisualizerMode = 'spectrum' | 'waveform' | 'circular' | 'radialBars' | 'particle' | 'fluid'
+export type VisualizerMode =
+  'spectrum' | 'waveform' | 'circular' | 'radialBars' | 'particle' | 'fluid'
 
 const props = withDefaults(
   defineProps<{
@@ -83,7 +81,9 @@ const prefersReducedMotion = ref(window.matchMedia('(prefers-reduced-motion: red
 // React to mid-session preference changes (WCAG 2.2: 1.4.4 Resize text)
 if (typeof window !== 'undefined') {
   const mq = window.matchMedia('(prefers-reduced-motion: reduce)')
-  const handler = (e: MediaQueryListEvent) => { prefersReducedMotion.value = e.matches }
+  const handler = (e: MediaQueryListEvent) => {
+    prefersReducedMotion.value = e.matches
+  }
   mq.addEventListener('change', handler)
   onBeforeUnmount(() => mq.removeEventListener('change', handler))
 }
@@ -269,7 +269,7 @@ function drawSpectrum() {
   for (let i = 0; i < bars; i++) {
     if (useAudio) {
       const freqIdx = Math.floor((i / bars) * freqData.length!)
-      values[i] = freqData![freqIdx]! / 255 * props.sensitivity
+      values[i] = (freqData![freqIdx]! / 255) * props.sensitivity
     } else {
       const bar = simulatedBars[i]
       if (!bar) continue
@@ -359,7 +359,7 @@ function drawWaveform() {
   for (let i = 0; i < points; i++) {
     if (useAudio) {
       const idx = Math.floor((i / points) * waveData.length!)
-      values[i] = (waveData![idx]! - 128) / 128 * props.sensitivity
+      values[i] = ((waveData![idx]! - 128) / 128) * props.sensitivity
     } else {
       const bar = simulatedBars[i % simulatedBars.length]
       if (!bar) continue
@@ -431,7 +431,7 @@ function drawCircular() {
     let val: number
     if (useAudio) {
       const freqIdx = Math.floor((i / bars) * freqData.length!)
-      val = freqData![freqIdx]! / 255 * props.sensitivity
+      val = (freqData![freqIdx]! / 255) * props.sensitivity
     } else {
       const bar = simulatedBars[i]
       if (!bar) continue
@@ -461,11 +461,12 @@ function drawCircular() {
     ctx.lineWidth = Math.max(2, barLen * 0.06)
     ctx.lineCap = 'round'
 
-    const c = val > 0.6
-      ? hexToRgba(colors.value.primary, val)
-      : val > 0.35
-        ? hexToRgba(colors.value.secondary, val * 0.8)
-        : hexToRgba(colors.value.tertiary, val * 0.6)
+    const c =
+      val > 0.6
+        ? hexToRgba(colors.value.primary, val)
+        : val > 0.35
+          ? hexToRgba(colors.value.secondary, val * 0.8)
+          : hexToRgba(colors.value.tertiary, val * 0.6)
     ctx.strokeStyle = c
     ctx.stroke()
 
@@ -520,7 +521,7 @@ function drawRadialBars() {
     let val: number
     if (useAudio) {
       const freqIdx = Math.floor((i / bars) * freqData.length!)
-      val = freqData![freqIdx]! / 255 * props.sensitivity
+      val = (freqData![freqIdx]! / 255) * props.sensitivity
     } else {
       const bar = simulatedBars[i]
       if (!bar) continue
@@ -541,7 +542,7 @@ function drawRadialBars() {
     const val = radialSmooth[i] || 0
     const angle = (i / bars) * Math.PI * 2 - Math.PI / 2
     const barLen = val * maxRadius * 0.9
-    const barW = (2 * Math.PI * maxRadius) / bars * 0.8
+    const barW = ((2 * Math.PI * maxRadius) / bars) * 0.8
     const x1 = cx + Math.cos(angle) * (maxRadius - barLen)
     const y1 = cy + Math.sin(angle) * (maxRadius - barLen)
     const x2 = cx + Math.cos(angle) * maxRadius
@@ -585,7 +586,13 @@ function drawRadialBars() {
     ctx.beginPath()
     ctx.arc(cx, cy, maxRadius * 0.15, 0, Math.PI * 2)
     ctx.clip()
-    ctx.drawImage(img, cx - maxRadius * 0.15, cy - maxRadius * 0.15, maxRadius * 0.3, maxRadius * 0.3)
+    ctx.drawImage(
+      img,
+      cx - maxRadius * 0.15,
+      cy - maxRadius * 0.15,
+      maxRadius * 0.3,
+      maxRadius * 0.3,
+    )
     ctx.restore()
   }
 }
@@ -703,9 +710,10 @@ function drawFluid(_time: number, dt: number) {
       cell.density += (newDensity - cell.density) * 0.05 * dtFactor
 
       const alpha = Math.max(0.02, cell.density * 0.5)
-      const cellColor = normalizedFreq > 0.5
-        ? hexToRgba(colors.value.primary, alpha)
-        : hexToRgba(colors.value.secondary, alpha * 0.7)
+      const cellColor =
+        normalizedFreq > 0.5
+          ? hexToRgba(colors.value.primary, alpha)
+          : hexToRgba(colors.value.secondary, alpha * 0.7)
       ctx.fillStyle = cellColor
       ctx.fillRect(x * cellW, y * cellH, cellW + 1, cellH + 1)
     }
@@ -734,7 +742,8 @@ function loop(time: number) {
   lastTime = time
   frameCount++
 
-  const render = renderers[isLowTier || prefersReducedMotion.value ? 'spectrum' : effectiveMode.value]
+  const render =
+    renderers[isLowTier || prefersReducedMotion.value ? 'spectrum' : effectiveMode.value]
   render?.(time, dt)
 
   if (props.isPlaying) {

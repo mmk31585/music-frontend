@@ -14,18 +14,28 @@
         <!-- User Profile -->
         <div class="flex flex-1 items-center gap-4">
           <div class="relative">
-            <div class="h-16 w-16 rounded-full bg-gradient-to-br from-spotify to-spotify/60 p-0.5">
-              <div class="h-full w-full rounded-full bg-surface-overlay flex items-center justify-center">
-                <span class="text-xl font-bold text-white">{{ profile?.username?.charAt(0) || 'U' }}</span>
+            <div class="from-spotify to-spotify/60 h-16 w-16 rounded-full bg-gradient-to-br p-0.5">
+              <div
+                class="bg-surface-overlay flex h-full w-full items-center justify-center rounded-full"
+              >
+                <span class="text-xl font-bold text-white">{{
+                  profile?.username?.charAt(0) || 'U'
+                }}</span>
               </div>
             </div>
-            <div class="absolute -right-1 -bottom-1 flex h-5 w-5 items-center justify-center rounded-full bg-green-500 ring-2 ring-[var(--surface-2)]">
+            <div
+              class="absolute -right-1 -bottom-1 flex h-5 w-5 items-center justify-center rounded-full bg-green-500 ring-2 ring-[var(--surface-2)]"
+            >
               <span class="text-xs">✓</span>
             </div>
           </div>
           <div class="min-w-0 flex-1">
-            <h2 class="truncate text-lg font-bold text-white">{{ profile?.username || 'Guest' }}</h2>
-            <p class="text-sm text-white/40">Level {{ profile?.level || 1 }} • Rank #{{ profile?.rank || '—' }}</p>
+            <h2 class="truncate text-lg font-bold text-white">
+              {{ profile?.username || 'Guest' }}
+            </h2>
+            <p class="text-sm text-white/40">
+              Level {{ profile?.level || 1 }} • Rank #{{ profile?.rank || '—' }}
+            </p>
           </div>
         </div>
 
@@ -33,18 +43,22 @@
         <div class="grid flex-1 grid-cols-3 gap-4 text-center md:grid-cols-3">
           <!-- XP -->
           <div class="rounded-lg bg-white/5 p-3 transition-all hover:bg-white/10">
-            <div class="text-xs uppercase tracking-wider text-white/40">XP</div>
-            <div class="mt-1 text-lg font-bold text-white">{{ formatXP(profile?.total_xp ?? 0) }}</div>
+            <div class="text-xs tracking-wider text-white/40 uppercase">XP</div>
+            <div class="mt-1 text-lg font-bold text-white">
+              {{ formatXP(profile?.total_xp ?? 0) }}
+            </div>
           </div>
           <!-- Badges -->
           <div class="rounded-lg bg-white/5 p-3 transition-all hover:bg-white/10">
-            <div class="text-xs uppercase tracking-wider text-white/40">Badges</div>
+            <div class="text-xs tracking-wider text-white/40 uppercase">Badges</div>
             <div class="mt-1 text-lg font-bold text-white">{{ profile?.badges?.length || 0 }}</div>
           </div>
           <!-- Challenges -->
           <div class="rounded-lg bg-white/5 p-3 transition-all hover:bg-white/10">
-            <div class="text-xs uppercase tracking-wider text-white/40">Challenges</div>
-            <div class="mt-1 text-lg font-bold text-white">{{ completedChallenges }}/{{ profile?.challenges?.length || 0 }}</div>
+            <div class="text-xs tracking-wider text-white/40 uppercase">Challenges</div>
+            <div class="mt-1 text-lg font-bold text-white">
+              {{ completedChallenges }}/{{ profile?.challenges?.length || 0 }}
+            </div>
           </div>
         </div>
       </div>
@@ -71,7 +85,7 @@
     </div>
 
     <KeepAlive>
-      <component :is="activeComponent" v-bind="(activeProps as any)" :key="activeTab" />
+      <component :is="activeComponent" v-bind="activeProps as any" :key="activeTab" />
     </KeepAlive>
 
     <!-- Loading state -->
@@ -106,8 +120,8 @@ const badgesData = ref<BadgesResponse>({ all: [], mine: [] })
 const challengesData = ref<ChallengesResponse>({ challenges: [], progress: [], earned_xp: 0 })
 const leaderboardData = ref<LeaderboardEntry[]>([])
 
-const completedChallenges = computed(() =>
-  challengesData.value.progress.filter((p) => p.is_completed).length,
+const completedChallenges = computed(
+  () => challengesData.value.progress.filter((p) => p.is_completed).length,
 )
 
 function formatXP(xp: number): string {
@@ -125,10 +139,14 @@ const activeTab = ref('badges')
 
 const activeComponent = computed(() => {
   switch (activeTab.value) {
-    case 'badges': return GamificationBadges
-    case 'challenges': return GamificationChallenges
-    case 'leaderboard': return GamificationLeaderboard
-    default: return GamificationBadges
+    case 'badges':
+      return GamificationBadges
+    case 'challenges':
+      return GamificationChallenges
+    case 'leaderboard':
+      return GamificationLeaderboard
+    default:
+      return GamificationBadges
   }
 })
 
@@ -148,9 +166,19 @@ const activeProps = computed(() => {
     case 'badges':
       return { allBadges: badgesData.value.all ?? [], userBadges: badgesData.value.mine ?? [] }
     case 'challenges':
-      return { challenges: challengesData.value.challenges, progress: challengesData.value.progress, earnedXP: challengesData.value.earned_xp }
+      return {
+        challenges: challengesData.value.challenges,
+        progress: challengesData.value.progress,
+        earnedXP: challengesData.value.earned_xp,
+      }
     case 'leaderboard':
-      return { entries: leaderboardData.value, type: leaderboardType.value, userRank: profile.value?.rank, userId: profile.value?.user_id, onTypeChange: onLeaderboardTypeChange }
+      return {
+        entries: leaderboardData.value,
+        type: leaderboardType.value,
+        userRank: profile.value?.rank,
+        userId: profile.value?.user_id,
+        onTypeChange: onLeaderboardTypeChange,
+      }
     default:
       return {}
   }

@@ -9,12 +9,7 @@ import {
 export type GenreFormPayload = GenreCreatePayload & GenreUpdatePayload
 
 export function useAdminGenres() {
-  const {
-    adminGetGenres,
-    adminCreateGenre,
-    adminUpdateGenre,
-    adminDeleteGenre,
-  } = useGenresApi()
+  const { adminGetGenres, adminCreateGenre, adminUpdateGenre, adminDeleteGenre } = useGenresApi()
 
   const genres = ref<Genre[]>([])
   const loading = ref(false)

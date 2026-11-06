@@ -45,7 +45,10 @@ export const useAIApi = () => {
     )
   }
 
-  const generateEmbedding = async (payload: EmbeddingPayload, config?: UseRequestConfig<EmbeddingResponse[]>) => {
+  const generateEmbedding = async (
+    payload: EmbeddingPayload,
+    config?: UseRequestConfig<EmbeddingResponse[]>,
+  ) => {
     return useRequest<EmbeddingResponse[]>(
       AIApiRoutes.GENERATE_EMBEDDING,
       { method: 'POST', data: payload },

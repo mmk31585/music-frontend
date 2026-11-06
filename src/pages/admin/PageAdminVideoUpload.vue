@@ -8,11 +8,7 @@
 
     <!-- Step progress indicator -->
     <div class="mb-8 flex items-center gap-2">
-      <div
-        v-for="(step, i) in steps"
-        :key="i"
-        class="flex items-center gap-2"
-      >
+      <div v-for="(step, i) in steps" :key="i" class="flex items-center gap-2">
         <div
           class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold transition-all duration-300"
           :class="stepClass(i)"
@@ -26,8 +22,11 @@
         >
           {{ step.label }}
         </span>
-        <ChevronLeft aria-hidden="true" v-if="i < steps.length - 1"
-          class="text-[10px] text-white/8" />
+        <ChevronLeft
+          aria-hidden="true"
+          v-if="i < steps.length - 1"
+          class="text-[10px] text-white/8"
+        />
       </div>
     </div>
 
@@ -35,30 +34,34 @@
     <section class="mb-8">
       <h3 class="mb-3 text-sm font-semibold text-white/80">Select Track</h3>
       <div class="relative">
-        <Search aria-hidden="true" class="absolute right-3 top-1/2 -translate-y-1/2 text-sm text-slate-500" />
+        <Search
+          aria-hidden="true"
+          class="absolute top-1/2 right-3 -translate-y-1/2 text-sm text-slate-500"
+        />
         <InputText
           v-model="searchQuery"
           placeholder="Search tracks by title or artist..."
           class="h-11! w-full! rounded-xl! border-white/8! bg-white/3! pr-10! text-sm! text-white! placeholder:text-slate-600!"
           @input="onSearchInput"
         />
-        <Loader2 aria-hidden="true" v-if="searching"
-          class="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-slate-500 animate-spin" />
+        <Loader2
+          aria-hidden="true"
+          v-if="searching"
+          class="absolute top-1/2 left-3 -translate-y-1/2 animate-spin text-xs text-slate-500"
+        />
       </div>
 
-      <TransitionGroup
-        name="track-list"
-        tag="div"
-        class="mt-3 space-y-1"
-      >
+      <TransitionGroup name="track-list" tag="div" class="mt-3 space-y-1">
         <button
           v-for="track in searchResults"
           :key="String(track.id)"
           type="button"
           class="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-right transition"
-          :class="selectedTrack?.id === track.id
-            ? 'bg-spotify/10 ring-1 ring-spotify/30'
-            : 'hover:bg-white/6'"
+          :class="
+            selectedTrack?.id === track.id
+              ? 'bg-spotify/10 ring-spotify/30 ring-1'
+              : 'hover:bg-white/6'
+          "
           @click="selectTrack(track)"
         >
           <div class="h-10 w-10 shrink-0 overflow-hidden rounded-lg bg-white/10">
@@ -74,10 +77,15 @@
           </div>
           <div class="min-w-0 flex-1 text-right">
             <p class="truncate text-sm font-medium text-white">{{ track.title }}</p>
-            <p class="mt-0.5 truncate text-xs text-white/40">{{ track.artist_name || 'Unknown artist' }}</p>
+            <p class="mt-0.5 truncate text-xs text-white/40">
+              {{ track.artist_name || 'Unknown artist' }}
+            </p>
           </div>
-          <CheckCircle aria-hidden="true" v-if="selectedTrack?.id === track.id"
-            class="text-spotify text-lg" />
+          <CheckCircle
+            aria-hidden="true"
+            v-if="selectedTrack?.id === track.id"
+            class="text-spotify text-lg"
+          />
         </button>
 
         <div
@@ -103,7 +111,7 @@
             controls
             preload="metadata"
             class="w-full rounded-lg"
-            style="height: 40px;"
+            style="height: 40px"
           >
             Your browser does not support the audio element.
           </audio>
@@ -125,19 +133,19 @@
       >
         <div
           class="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl transition-all duration-300"
-          :class="uploadedFile
-            ? 'bg-spotify/20'
-            : dragOver
-              ? 'bg-spotify/10 scale-110'
-              : 'bg-white/5'"
+          :class="
+            uploadedFile ? 'bg-spotify/20' : dragOver ? 'bg-spotify/10 scale-110' : 'bg-white/5'
+          "
         >
           <i
             class="text-2xl transition-all duration-300"
-            :class="uploadedFile
-              ? 'pi pi-check-circle text-spotify'
-              : dragOver
-                ? 'pi pi-arrow-down text-spotify'
-                : 'pi pi-cloud-upload text-slate-400'"
+            :class="
+              uploadedFile
+                ? 'pi pi-check-circle text-spotify'
+                : dragOver
+                  ? 'pi pi-arrow-down text-spotify'
+                  : 'pi pi-cloud-upload text-slate-400'
+            "
           />
         </div>
         <template v-if="!uploadedFile">
@@ -166,11 +174,11 @@
         <div v-if="uploading" class="mt-4">
           <div class="mb-1.5 flex items-center justify-between text-xs">
             <span class="text-white/60">Uploading to server...</span>
-            <span class="tabular-nums text-white/80">{{ uploadProgress }}%</span>
+            <span class="text-white/80 tabular-nums">{{ uploadProgress }}%</span>
           </div>
           <div class="h-2 overflow-hidden rounded-full bg-white/6">
             <div
-              class="h-full rounded-full bg-spotify transition-all duration-300"
+              class="bg-spotify h-full rounded-full transition-all duration-300"
               :style="{ width: uploadProgress + '%' }"
             />
           </div>
@@ -226,23 +234,26 @@
               input-class="rounded-xl! border-white/8! bg-white/3! text-white! w-full!"
               placeholder="0"
             />
-            <p class="mt-1 text-[10px] text-slate-500">
-              Trim track audio early from the end
-            </p>
+            <p class="mt-1 text-[10px] text-slate-500">Trim track audio early from the end</p>
           </div>
         </div>
       </Transition>
 
-      <div class="mb-4 flex items-start gap-2 rounded-xl bg-blue-500/5 px-4 py-3 text-sm text-white/50">
+      <div
+        class="mb-4 flex items-start gap-2 rounded-xl bg-blue-500/5 px-4 py-3 text-sm text-white/50"
+      >
         <Info aria-hidden="true" class="mt-0.5 shrink-0 text-xs text-blue-400" />
-        <span>The video will be processed (audio replaced with the selected track) and published as an Official MV.</span>
+        <span
+          >The video will be processed (audio replaced with the selected track) and published as an
+          Official MV.</span
+        >
       </div>
 
       <div class="flex flex-wrap items-center gap-3">
         <Button
           label="Upload Official MV"
           icon="pi pi-cloud-upload"
-          class="rounded-xl! bg-spotify! px-6! text-black! hover:bg-spotify/90!"
+          class="bg-spotify! hover:bg-spotify/90! rounded-xl! px-6! text-black!"
           :disabled="!!selectedTrack || !!uploadedFileUrl || submitting"
           :loading="submitting"
           @click="submitMV"
@@ -271,14 +282,18 @@
       <div
         v-if="statusMessage"
         class="rounded-2xl border p-4 text-sm"
-        :class="statusError
-          ? 'border-red-500/20 bg-red-500/10 text-red-400'
-          : 'border-emerald-500/20 bg-emerald-500/10 text-emerald-400'"
+        :class="
+          statusError
+            ? 'border-red-500/20 bg-red-500/10 text-red-400'
+            : 'border-emerald-500/20 bg-emerald-500/10 text-emerald-400'
+        "
       >
         <div class="flex items-center gap-2">
-          <component :is="statusError ? CircleAlert : CheckCircle" aria-hidden="true"<i
+          <component
+            :is="statusError ? CircleAlert : CheckCircle"
+            aria-hidden="true"
             class="text-base"
-            
+          />
           /> />
           <span>{{ statusMessage }}</span>
         </div>
@@ -291,8 +306,8 @@
         v-if="submittedVideoId && !statusError"
         class="mt-4 overflow-hidden rounded-2xl border border-white/8 bg-white/3"
       >
-        <div class="flex items-center gap-3 bg-spotify/5 p-4">
-          <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-spotify/10">
+        <div class="bg-spotify/5 flex items-center gap-3 p-4">
+          <div class="bg-spotify/10 flex h-10 w-10 items-center justify-center rounded-xl">
             <Loader2 aria-hidden="true" class="text-spotify animate-spin" />
           </div>
           <div>
@@ -302,7 +317,8 @@
         </div>
         <div class="border-t border-white/6 px-4 py-3">
           <p class="text-xs text-slate-500">
-            The audio from your selected track will be mixed into the video. Processing happens in the background — you can navigate away and come back later.
+            The audio from your selected track will be mixed into the video. Processing happens in
+            the background — you can navigate away and come back later.
           </p>
         </div>
       </div>
@@ -311,7 +327,17 @@
 </template>
 
 <script setup lang="ts">
-import { Check, CheckCircle, ChevronLeft, CircleAlert, Headphones, Info, Loader2, Music, Search } from 'lucide-vue-next'
+import {
+  Check,
+  CheckCircle,
+  ChevronLeft,
+  CircleAlert,
+  Headphones,
+  Info,
+  Loader2,
+  Music,
+  Search,
+} from 'lucide-vue-next'
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useToast } from 'primevue/usetoast'
@@ -438,18 +464,15 @@ async function uploadToMedia(file: File) {
     const formData = new FormData()
     formData.append('video', file)
 
-    const result = await useRequest<{ url: string; mediaId: string }>(
-      '/admin/media/upload',
-      {
-        method: 'POST',
-        data: formData,
-        onUploadProgress: (e) => {
-          if (e.total) {
-            uploadProgress.value = Math.round((e.loaded / e.total) * 100)
-          }
-        },
-      } satisfies AxiosRequestConfig,
-    )
+    const result = await useRequest<{ url: string; mediaId: string }>('/admin/media/upload', {
+      method: 'POST',
+      data: formData,
+      onUploadProgress: (e) => {
+        if (e.total) {
+          uploadProgress.value = Math.round((e.loaded / e.total) * 100)
+        }
+      },
+    } satisfies AxiosRequestConfig)
     uploadedFileUrl.value = result.url
     toast.add({ severity: 'success', summary: 'Video uploaded', life: 3000 })
   } catch (err: unknown) {
@@ -473,18 +496,15 @@ async function submitMV() {
   statusMessage.value = ''
   statusError.value = false
   try {
-    const result = await useRequest<{ id: string }>(
-      `/admin/tracks/${selectedTrack.value.id}/mv`,
-      {
-        method: 'POST',
-        data: {
-          raw_video_url: uploadedFileUrl.value,
-          title: `${selectedTrack.value.title} - Official Music Video`,
-          track_start_ms: trackStartMs.value,
-          track_end_ms: trackEndMs.value,
-        },
+    const result = await useRequest<{ id: string }>(`/admin/tracks/${selectedTrack.value.id}/mv`, {
+      method: 'POST',
+      data: {
+        raw_video_url: uploadedFileUrl.value,
+        title: `${selectedTrack.value.title} - Official Music Video`,
+        track_start_ms: trackStartMs.value,
+        track_end_ms: trackEndMs.value,
       },
-    )
+    })
     submittedVideoId.value = result.id
     statusMessage.value = 'MV submitted for processing!'
     toast.add({ severity: 'success', summary: 'MV uploaded successfully', life: 4000 })

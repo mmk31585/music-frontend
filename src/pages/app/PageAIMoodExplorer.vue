@@ -26,7 +26,7 @@
             <span
               class="inline-flex items-center gap-1.5 rounded-full border border-spotify/20 bg-spotify/10 px-3 py-1 text-[10px] font-bold tracking-[0.2em] text-spotify uppercase"
             >
-              <Sparkles class="text-[10px]"<i aria-hidden="true"  /> />
+              <Sparkles class="text-[10px]" aria-hidden="true" />
               AI-Powered
             </span>
           </div>

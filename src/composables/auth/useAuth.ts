@@ -13,12 +13,16 @@ export function useAuth() {
   const api = useAuthApi()
   const player = usePlayerStore()
 
-  async function login(email: string, password: string, options?: { suppressToast?: boolean; rememberMe?: boolean }) {
+  async function login(
+    email: string,
+    password: string,
+    options?: { suppressToast?: boolean; rememberMe?: boolean },
+  ) {
     try {
-      await store.login({ email, password }, { rememberMe: options?.rememberMe })
+      await store.login({ email, password })
 
       // Use ?redirect= query param if present, otherwise go to home
-      const redirect = route.query.redirect as string | undefined
+      const redirect = route.query?.redirect as string | undefined
       if (redirect && redirect.startsWith('/')) {
         await router.push(redirect)
       } else {
@@ -41,7 +45,7 @@ export function useAuth() {
           msg = 'Too many attempts. Please try again later.'
         } else {
           msg =
-            axiosErr?.message as string ??
+            (axiosErr?.message as string) ??
             (error instanceof Error ? error.message : 'Please try again')
         }
         toast.add({
@@ -80,7 +84,7 @@ export function useAuth() {
       })
     } catch (error) {
       const msg =
-        (error as Record<string, unknown>)?.message as string ??
+        ((error as Record<string, unknown>)?.message as string) ??
         (error instanceof Error ? error.message : 'Please try again')
       toast.add({
         severity: 'error',

@@ -119,7 +119,10 @@ export function createRequestWrapper(client: AxiosInstance, hooks: RequestHooks 
       if (status === ResponseStatuses.HTTP_FORBIDDEN) {
         resetAuthStore()
         clearAuthToken()
-        const currentPath = typeof window !== 'undefined' ? window.location.pathname + window.location.search : undefined
+        const currentPath =
+          typeof window !== 'undefined'
+            ? window.location.pathname + window.location.search
+            : undefined
         await redirectToLogin(currentPath)
 
         return Promise.reject(error)
@@ -161,7 +164,10 @@ export function createRequestWrapper(client: AxiosInstance, hooks: RequestHooks 
 
           resetAuthStore()
           clearAuthToken()
-          const currentPath = typeof window !== 'undefined' ? window.location.pathname + window.location.search : undefined
+          const currentPath =
+            typeof window !== 'undefined'
+              ? window.location.pathname + window.location.search
+              : undefined
           await redirectToLogin(currentPath)
 
           return Promise.reject(refreshError)
@@ -283,61 +289,66 @@ export function createRequestWrapper(client: AxiosInstance, hooks: RequestHooks 
               // Fall through: resolve with the error payload as-is,
               // without Zod validation.
             } else {
-            const schema = resultConfig.schema as z.ZodTypeAny
-            const data = payload.data
+              const schema = resultConfig.schema as z.ZodTypeAny
+              const data = payload.data
 
-            // detect if response is paginated
-            const paginated = isPaginatedResponse(data)
+              // detect if response is paginated
+              const paginated = isPaginatedResponse(data)
 
-            if (paginated) {
-              const effectiveSchema = z.array(schema).min(allowEmptyArray ? 0 : 1)
-              const validation = effectiveSchema.safeParse(data.items)
+              if (paginated) {
+                const effectiveSchema = z.array(schema).min(allowEmptyArray ? 0 : 1)
+                const validation = effectiveSchema.safeParse(data.items)
 
-              if (!validation.success) {
-                const msg = invalidZodSchema(onAnyError, onError, silent, validation)
-                reject({ message: msg })
-                return
-              }
+                if (!validation.success) {
+                  const msg = invalidZodSchema(onAnyError, onError, silent, validation)
+                  reject({ message: msg })
+                  return
+                }
 
-              // Extract meta from either explicit meta field or flattened pagination fields,
-              // then spread it alongside items for caller convenience.
-              // Supports:
-              //   - page-based pagination: { total, page, limit|page_size }
-              //   - total_count variant: { total_count, limit, offset } (social/follow)
-              //   - offset-based pagination: { count, limit, offset, has_more }
-              let meta: Record<string, unknown>
-              if (data.meta) {
-                meta = data.meta as unknown as Record<string, unknown>
-              } else if (typeof data.total === 'number') {
-                meta = { total: data.total, page: data.page, limit: data.limit ?? data.page_size }
-              } else if (typeof data.total_count === 'number') {
-                meta = { total_count: data.total_count, limit: data.limit, offset: data.offset }
-              } else if (typeof data.count === 'number') {
-                meta = { count: data.count, limit: data.limit, offset: data.offset, has_more: data.has_more }
+                // Extract meta from either explicit meta field or flattened pagination fields,
+                // then spread it alongside items for caller convenience.
+                // Supports:
+                //   - page-based pagination: { total, page, limit|page_size }
+                //   - total_count variant: { total_count, limit, offset } (social/follow)
+                //   - offset-based pagination: { count, limit, offset, has_more }
+                let meta: Record<string, unknown>
+                if (data.meta) {
+                  meta = data.meta as unknown as Record<string, unknown>
+                } else if (typeof data.total === 'number') {
+                  meta = { total: data.total, page: data.page, limit: data.limit ?? data.page_size }
+                } else if (typeof data.total_count === 'number') {
+                  meta = { total_count: data.total_count, limit: data.limit, offset: data.offset }
+                } else if (typeof data.count === 'number') {
+                  meta = {
+                    count: data.count,
+                    limit: data.limit,
+                    offset: data.offset,
+                    has_more: data.has_more,
+                  }
+                } else {
+                  meta = {}
+                }
+
+                payload.data = {
+                  ...meta,
+                  items: validation.data,
+                } as DataType
               } else {
-                meta = {}
+                const isArray = Array.isArray(data)
+                const effectiveSchema = isArray
+                  ? z.array(schema).min(allowEmptyArray ? 0 : 1)
+                  : schema
+                const validation = effectiveSchema.safeParse(payload.data)
+
+                if (!validation.success) {
+                  const msg = invalidZodSchema(onAnyError, onError, silent, validation)
+                  reject({ message: msg })
+                  return
+                }
+
+                // If it succeeded, replace `payload.data` with the parsed value
+                payload.data = validation.data as DataType
               }
-
-              payload.data = {
-                ...meta,
-                items: validation.data,
-              } as DataType
-            } else {
-              const isArray = Array.isArray(data)
-              const effectiveSchema = isArray
-                ? z.array(schema).min(allowEmptyArray ? 0 : 1)
-                : schema
-              const validation = effectiveSchema.safeParse(payload.data)
-
-              if (!validation.success) {
-                const msg = invalidZodSchema(onAnyError, onError, silent, validation)
-                reject({ message: msg })
-                return
-              }
-
-              // If it succeeded, replace `payload.data` with the parsed value
-              payload.data = validation.data as DataType
-            }
             } // end else (raw.success !== false)
           }
 
@@ -386,7 +397,9 @@ export function createRequestWrapper(client: AxiosInstance, hooks: RequestHooks 
             type: errRaw?.type,
             // Same safety as the success path: only use fallback when the
             // error response genuinely has no `data` key of its own.
-            data: Object.prototype.hasOwnProperty.call(errRaw, 'data') ? (errRaw.data ?? {}) : errRaw,
+            data: Object.prototype.hasOwnProperty.call(errRaw, 'data')
+              ? (errRaw.data ?? {})
+              : errRaw,
             message: errRaw?.message ?? errResp?.statusText ?? error?.message ?? 'خطای ناشناخته',
             run_time: errRaw?.run_time,
           }
@@ -410,7 +423,7 @@ export function createRequestWrapper(client: AxiosInstance, hooks: RequestHooks 
 
               if (!silent) {
                 const translated = errPayload.message
-                  ? (translateMessage(errPayload.message) || errPayload.message)
+                  ? translateMessage(errPayload.message) || errPayload.message
                   : 'خطا در ارتباط با سرور و دریافت اطلاعات!'
                 const severity = errPayload.type ?? 'error'
                 if (toast?.[severity]) toast[severity]!(translated)

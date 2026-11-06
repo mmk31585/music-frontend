@@ -1,14 +1,19 @@
 <template>
   <div v-if="items.length > 0">
     <div class="flex items-center justify-between px-1 py-3">
-      <h3 class="flex items-center gap-2 text-[11px] font-bold tracking-[0.15em] text-tertiary uppercase">
+      <h3
+        class="text-tertiary flex items-center gap-2 text-[11px] font-bold tracking-[0.15em] uppercase"
+      >
         <List :size="12" />
         Up Next
-        <span class="flex h-4 min-w-4 items-center justify-center rounded-full bg-surface-active px-1.5 text-[9px] font-bold text-secondary">{{ items.length }}</span>
+        <span
+          class="bg-surface-active text-secondary flex h-4 min-w-4 items-center justify-center rounded-full px-1.5 text-[9px] font-bold"
+          >{{ items.length }}</span
+        >
       </h3>
       <button
         type="button"
-        class="text-[10px] font-bold text-tertiary transition-all duration-150 hover:text-primary"
+        class="text-tertiary hover:text-primary text-[10px] font-bold transition-all duration-150"
         @click="$emit('clear')"
       >
         Clear
@@ -20,11 +25,11 @@
         v-for="(track, idx) in visibleItems"
         :key="track.id"
         type="button"
-        class="flex w-full items-center gap-3 rounded-xl px-3 py-2 text-left transition-all duration-150 hover:bg-surface-hover active:scale-[0.99]"
+        class="hover:bg-surface-hover flex w-full items-center gap-3 rounded-xl px-3 py-2 text-left transition-all duration-150 active:scale-[0.99]"
         @click="$emit('play', idx)"
         @contextmenu.prevent="openContextMenu($event, track)"
       >
-        <div class="relative h-9 w-9 shrink-0 overflow-hidden rounded-lg bg-surface-active">
+        <div class="bg-surface-active relative h-9 w-9 shrink-0 overflow-hidden rounded-lg">
           <img
             v-if="track.coverUrl"
             :src="track.coverUrl"
@@ -38,17 +43,19 @@
           </div>
         </div>
         <div class="min-w-0 flex-1">
-          <p class="truncate text-sm font-medium text-primary">{{ track.title }}</p>
-          <p class="truncate text-xs text-tertiary">{{ track.artistName }}</p>
+          <p class="text-primary truncate text-sm font-medium">{{ track.title }}</p>
+          <p class="text-tertiary truncate text-xs">{{ track.artistName }}</p>
         </div>
-        <span class="shrink-0 text-[10px] font-mono tabular-nums text-tertiary">{{ formatTime(track.durationSeconds) }}</span>
+        <span class="text-tertiary shrink-0 font-mono text-[10px] tabular-nums">{{
+          formatTime(track.durationSeconds)
+        }}</span>
       </button>
     </div>
 
     <button
       v-if="items.length > maxVisible"
       type="button"
-      class="mt-1 flex w-full items-center justify-center gap-1.5 rounded-xl px-3 py-2 text-[11px] font-bold text-tertiary transition-all duration-150 hover:bg-surface-hover hover:text-primary"
+      class="text-tertiary hover:bg-surface-hover hover:text-primary mt-1 flex w-full items-center justify-center gap-1.5 rounded-xl px-3 py-2 text-[11px] font-bold transition-all duration-150"
       @click="showAll = !showAll"
     >
       <ChevronUp v-if="showAll" :size="12" />
@@ -111,7 +118,5 @@ function openContextMenu(e: MouseEvent, track: PlaybackTrack) {
   menuVisible.value = true
 }
 
-const { sections, header, accentColor } = useTrackContextMenu(
-  computed(() => contextTrack.value),
-)
+const { sections, header, accentColor } = useTrackContextMenu(computed(() => contextTrack.value))
 </script>
