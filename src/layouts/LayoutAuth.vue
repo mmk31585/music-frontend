@@ -1,5 +1,8 @@
 <template>
   <div class="min-h-screen bg-surface-raised" :dir="dir">
+    <!-- Skip link for keyboard users -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
     <!-- Offline banner -->
     <div
       v-if="!isOnline"
@@ -11,9 +14,11 @@
       <span>You are offline. Some features may be unavailable.</span>
     </div>
 
-    <ErrorBoundary>
-      <router-view />
-    </ErrorBoundary>
+    <main id="main-content">
+      <ErrorBoundary>
+        <router-view />
+      </ErrorBoundary>
+    </main>
   </div>
 </template>
 
