@@ -108,7 +108,7 @@
           role="alert"
         >
           <AlertCircle aria-hidden="true" class="mt-0.5 shrink-0 text-red-400" />
-          <span>{{ apiError }}</span>
+          <span>{{ apiError }} Please check your credentials and try again.</span>
         </div>
       </Transition>
 
