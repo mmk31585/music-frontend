@@ -92,7 +92,7 @@
                 icon="pi pi-eye"
                 rounded
                 size="small"
-                class="h-8! w-8! bg-surface-active! text-primary!! hover:bg-surface-hover!"
+                class="h-8! w-8! bg-surface-active! text-primary! hover:bg-surface-hover!"
                 @click="router.push({ name: 'admin.album.detail', params: { id: album.id } })"
               />
               <Button
@@ -108,7 +108,7 @@
                 icon="pi pi-pencil"
                 rounded
                 size="small"
-                class="h-8! w-8! bg-surface-active! text-primary!! hover:bg-surface-hover!"
+                class="h-8! w-8! bg-surface-active! text-primary! hover:bg-surface-hover!"
                 @click="openEdit(album)"
               />
               <Button
@@ -251,7 +251,6 @@ async function handleDelete() {
   }
 }
 </script>
-</script>
 <style scoped>
 @media (prefers-reduced-motion: reduce) {
   .animate-pulse {
@@ -262,7 +261,6 @@ async function handleDelete() {
   }
 }
 
-<style scoped>
 @media (prefers-reduced-motion: reduce) {
   .animate-pulse {
     animation: none !important;
@@ -271,6 +269,4 @@ async function handleDelete() {
     animation: none !important;
   }
 }
-</script>
-
-<style scoped>
+</style>

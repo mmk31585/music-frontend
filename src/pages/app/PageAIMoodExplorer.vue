@@ -7,7 +7,7 @@
         :class="moodBgClass"
       />
       <div
-        class="absolute -top-1/3 -end-1/4 h-125 w-125 rounded-full opacity-30 transition-transform duration-1000"
+        class="absolute -top-1/3 -inset-e-1/4 h-125 w-125 rounded-full opacity-30 transition-transform duration-1000"
         :class="moodSpotClass"
       />
       <div
@@ -219,7 +219,7 @@
             >
               <Heart aria-hidden="true" class="text-2xl text-spotify"  />
             </div>
-            <h3 class="text-lg font-bold text-white">What's your mood?</h3>
+            <h3 dir="ltr" class="text-lg font-bold text-white">What's your mood</h3>
             <p class="max-w-xs text-sm text-white/40">
               Choose a mood above and AI will find tracks that match the feeling.
             </p>

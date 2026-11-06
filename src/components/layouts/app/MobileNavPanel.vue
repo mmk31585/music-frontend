@@ -126,7 +126,7 @@
           <template v-if="store.isAuthenticated">
             <!-- User profile card -->
             <div class="flex items-center gap-3 rounded-xl px-3 py-2 bg-surface-2 border border-border-default">
-              <Avatar :src="store.user?.avatar_url" :name="displayName" size="md" />
+              <Avatar :src="store.user?.avatarUrl" :name="displayName" size="md" />
               <div class="min-w-0 flex-1">
                 <p class="truncate text-sm font-bold text-primary">{{ displayName }}</p>
                 <p class="text-[10px] text-muted">{{ isAdmin ? 'مدیر' : 'گذارنده' }}</p>
@@ -188,7 +188,7 @@ const isAdmin = computed(() => store.isAdmin)
 const displayName = computed(
   () => store.user?.displayName || store.user?.username || store.user?.name || '',
 )
-const initials = computed(() => {
+const _initials = computed(() => {
   const name = displayName.value || ''
   const words = name.split(/\s+/).filter(Boolean)
   return words.length >= 2

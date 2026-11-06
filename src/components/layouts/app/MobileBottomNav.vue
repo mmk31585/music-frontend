@@ -1,22 +1,22 @@
 <template>
   <nav
     aria-label="Main navigation"
-    class="fixed inset-x-0 bottom-0 z-40 border-t border-border-default surface-card shadow-lg lg:hidden"
+    class="fixed inset-x-0 bottom-0 z-40  bg-gray-950 shadow-lg lg:hidden"
     style="padding-bottom: max(0.75rem, env(safe-area-inset-bottom, 0.75rem))"
   >
-    <div class="flex items-center justify-around px-2 pt-2">
+    <div class="flex items-center justify-around px-1 pt-2">
       <RouterLink
         v-for="tab in tabs"
         :key="tab.to"
         :to="tab.to"
-        class="flex flex-col items-center gap-0.5 rounded-xl px-2.5 py-1.5 text-[10px] font-medium transition-colors duration-200"
+        class="flex flex-col items-center  rounded-xl px-2 py-0.5 text-[10px] font-medium transition-colors duration-200"
         :class="
           isActive(tab.to)
-            ? 'bg-accent/15 text-accent ring-1 ring-accent/20'
+            ? 'bg-accent/20 text-accent ring-1 ring-accent/5'
             : 'text-muted hover:bg-surface-hover hover:text-secondary'
         "
       >
-        <div class="flex h-10 w-10 items-center justify-center rounded-xl transition-transform duration-200">
+        <div class="flex size-8 items-center justify-center rounded-xl transition-transform duration-200">
           <i aria-hidden="true" :class="tab.icon" class="text-lg" />
         </div>
         <span>{{ tab.label }}</span>

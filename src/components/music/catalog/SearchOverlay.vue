@@ -3,12 +3,12 @@
     <Transition name="search-fade">
       <div
         v-if="visible"
-        class="fixed inset-0 z-100 flex items-start justify-center bg-bg-overlay pt-16 md:pt-24"
+        class="fixed inset-0 z-100 flex items-start justify-center  pt-16 md:pt-24"
         @click.self="close"
       >
         <div
           ref="panelRef"
-          class="mx-4 w-full max-w-2xl overflow-hidden rounded-2xl bg-linear-to-b from-surface-overlay to-surface-raised shadow-2xl ring-1 ring-border-default"
+          class="mx-4 w-full max-w-2xl overflow-hidden rounded-2xl bg-surface-900 shadow-2xl ring-1 ring-border-default"
         >
           <!-- Search input -->
           <div class="relative flex items-center border-b border-border-default px-4">
@@ -19,7 +19,7 @@
               type="text"
               placeholder="Search tracks, artists, albums, playlists..."
               aria-label="Search tracks, artists, albums, playlists"
-              class="flex-1 bg-transparent px-3 py-4 text-sm text-primary outline-hidden placeholder:text-muted focus-visible:ring-2 focus-visible:ring-accent/50"
+              class="flex-1 bg-transparent px-3 py-4 text-sm text-primary outline-hidden placeholder:text-muted"
               @keydown="onKeydown"
               @input="onInput"
             />
@@ -115,7 +115,7 @@
           <div v-if="query && !searching" class="max-h-[60vh] overflow-y-auto p-2" aria-live="polite">
             <div v-if="noResults" class="flex flex-col items-center gap-4 p-12 text-center">
               <div class="flex h-16 w-16 items-center justify-center rounded-2xl bg-surface-overlay">
-                <Search class="text-3xl text-muted"<i aria-hidden="true"  /> />
+                <Search class="text-3xl text-muted" /> 
               </div>
               <p class="text-sm text-secondary">
                 No results for "<span class="font-medium text-primary">{{ query }}</span
@@ -123,8 +123,7 @@
               </p>
               <p class="text-xs text-tertiary">Try a different search term</p>
             </div>
-
-            <template v-else>
+            <div v-else>
               <!-- Top Result (first track) -->
               <div v-if="results.tracks?.length" class="mb-4 px-2">
                 <p class="mb-2 text-xs font-bold tracking-wider text-secondary uppercase">
@@ -145,7 +144,7 @@
                       @error="onImgError"
                     />
                     <span v-else class="flex h-full items-center justify-center">
-                      <Music class="text-lg text-tertiary"<i aria-hidden="true"  /> />
+                      <Music class="text-lg text-tertiary"/>
                     </span>
                   </span>
                   <span class="block min-w-0 flex-1">
@@ -159,7 +158,7 @@
                   <span
                     class="spring flex h-12 w-12 items-center justify-center rounded-full bg-accent/0 text-primary opacity-0 transition-transform group-hover:bg-accent group-hover:text-accent-text group-hover:opacity-100"
                   >
-                    <Play class="text-lg"<i aria-hidden="true"  /> />
+                    <Play class="text-lg" />
                   </span>
                 </button>
               </div>
@@ -341,8 +340,8 @@
                   </RouterLink>
                 </div>
               </div>
-            </template>
           </div>
+        </div>
         </div>
       </div>
     </Transition>
@@ -350,7 +349,7 @@
 </template>
 
 <script setup lang="ts">
-import { ChevronLeft, Disc3, History, List, Loader2, Music, Play, RefreshCw, Search, User, X } from 'lucide-vue-next'
+import { ChevronLeft, Disc3, History, List, Loader2, Music, Play, _RefreshCw, Search, User, X } from 'lucide-vue-next'
 import { ref, watch, onMounted, onUnmounted, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 import { useSearchApi, type SearchResult } from '@/services/api/catalog/search'

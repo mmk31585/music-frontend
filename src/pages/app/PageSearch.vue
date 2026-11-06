@@ -1,16 +1,5 @@
 <template>
   <div class="relative mx-auto w-full max-w-7xl px-4 pb-36 pt-6 md:px-6 lg:px-8">
-    <!-- Aurora gradient background -->
-    <div class="relative overflow-none pointer-events-none fixed inset-0" aria-hidden="true">
-      <div class="absolute -top-40 -left-40 rounded-full bg-purple-600/15" />
-      <div class="absolute -top-60 -right-40 rounded-full bg-blue-500/10" />
-      <div
-        class="absolute top-20 left-1/3 rounded-full bg-violet-500/10"
-        style="animation-delay: -8s; width: 350px; height: 350px"
-      />
-      <div class="absolute inset-0 opacity-30" />
-    </div>
-
     <div class="relative z-10">
     <!-- ─────────────────────── Search Header ─────────────────────── -->
     <div class="mb-6">
@@ -25,11 +14,8 @@
     <!-- ─────────────────────── Search Bar ─────────────────────── -->
     <div class="relative mb-6">
       <IconField
-        class="spring w-full rounded-full shadow-md transition-transform duration-300 focus-within:ring-4 focus-within:ring-spotify/15"
+        class="spring w-full rounded-full shadow-md transition-transform duration-300"
       >
-        <InputIcon class="text-white/40 text-base">
-          <Search aria-hidden="true" class=""  />
-        </InputIcon>
         <InputText
           ref="inputRef"
           v-model="query"
@@ -487,7 +473,7 @@
 </template>
 
 <script setup lang="ts">
-import { Book, ChevronLeft, Disc3, History, Music, Play, PlayCircle, Search, User, Users, X } from 'lucide-vue-next'
+import { Book, ChevronLeft, Disc3, History, Music, Play, PlayCircle,  User, Users, X } from 'lucide-vue-next'
 import { computed, onMounted, ref, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useSearchApi } from '@/services/api/catalog/search'
@@ -736,7 +722,7 @@ function playHistoryItem(item: TrackCardItem) {
 function playAllSearchResults() {
   const tracks = filteredResults.value.tracks
   if (!tracks.length) return
-  const queue = tracks.map((t: any) =>
+  const queue = tracks.map((t: SearchResult['tracks'][0]) =>
     buildPlaybackTrack({
       id: String(t.id),
       title: t.title || undefined,

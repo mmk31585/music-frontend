@@ -111,7 +111,7 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, computed } from 'vue'
 import { useRoute } from 'vue-router'
-import { Bell, ChevronLeft, Menu, Search } from 'lucide-vue-next'
+import { Bell, ChevronLeft,  Search } from 'lucide-vue-next'
 import { useRTL } from '@/composables'
 import { useUserAuthStore } from '@/stores'
 import ProfileMenu from './ProfileMenu.vue'

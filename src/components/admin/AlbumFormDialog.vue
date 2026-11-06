@@ -461,6 +461,8 @@ async function handleEnrich() {
   }
 }
 
+</script>
+
 <style scoped>
 @media (prefers-reduced-motion: reduce) {
   .animate-pulse {
@@ -471,5 +473,3 @@ async function handleEnrich() {
   }
 }
 </style>
-
-</script>
