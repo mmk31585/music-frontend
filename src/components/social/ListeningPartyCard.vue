@@ -1,6 +1,6 @@
 <template>
   <div
-    class="group focus-within:ring-spotify rounded-2xl bg-white/6 p-5 ring-1 ring-white/10 transition-all duration-300 focus-within:ring-2 hover:bg-white/8 hover:ring-white/15"
+    class="group focus-within:ring-spotify rounded-2xl bg-white/6 p-5 ring-1 ring-white/10 transition-transform duration-300 focus-within:ring-2 hover:bg-white/8 hover:ring-white/15"
     role="article"
     :aria-label="`Party: ${party.title}`"
   >

@@ -1,13 +1,13 @@
 <template>
   <aside
-    class="hidden h-screen shrink-0 border-e border-border-subtle bg-surface-raised/40 xl:flex xl:flex-col transition-all duration-300 ease-out-expo z-30"
+    class="hidden h-screen shrink-0 border-e border-border-subtle bg-surface-raised/40 xl:flex xl:flex-col transition-transform duration-300 ease-out-expo z-30"
     :class="collapsed ? 'w-14 items-center' : 'w-88'"
   >
     <div class="flex h-full flex-col overflow-hidden" :class="collapsed ? 'items-center' : ''">
       <div class="flex shrink-0 items-center px-5 py-4" :class="collapsed ? 'flex-col gap-4' : 'gap-3 border-b border-border-subtle w-full'">
         <button
           type="button"
-          class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition-all duration-150 hover:bg-surface-active active:scale-90"
+          class="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg transition-transform duration-150 hover:bg-surface-active active:scale-90"
           :class="currentTrack ? 'bg-accent-subtle' : 'bg-surface-overlay'"
           :title="collapsed ? 'Show now playing panel' : 'Hide now playing panel'"
           @click="toggleCollapsed"
@@ -91,7 +91,7 @@
           <div class="flex items-center justify-center pt-2">
             <button
               type="button"
-              class="flex items-center gap-2 rounded-xl px-4 py-2 text-[11px] font-bold text-tertiary transition-all duration-150 hover:bg-surface-hover hover:text-primary active:scale-95"
+              class="flex items-center gap-2 rounded-xl px-4 py-2 text-[11px] font-bold text-tertiary transition-transform duration-150 hover:bg-surface-hover hover:text-primary active:scale-95"
               @click="$emit('toggle-queue-overlay')"
             >
               <MoreHorizontal :size="12" />

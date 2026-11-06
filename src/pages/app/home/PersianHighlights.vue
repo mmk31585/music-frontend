@@ -11,7 +11,7 @@
         :to="`/album/${item.id}`"
         class="group w-40 shrink-0 space-y-2"
       >
-        <div class="relative aspect-square overflow-hidden rounded-xl bg-white/6 ring-1 ring-white/10 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:ring-rose-500/30">
+        <div class="relative aspect-square overflow-hidden rounded-xl bg-white/6 ring-1 ring-white/10 transition-transform duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:ring-rose-500/30">
           <img
             v-if="item.cover_url"
             :src="item.cover_url"

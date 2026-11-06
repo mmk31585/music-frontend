@@ -363,8 +363,7 @@ onBeforeUnmount(() => {
   color: rgba(255, 255, 255, 0.5);
   font-size: 10px;
   cursor: pointer;
-  transition: all 0.15s;
-  backdrop-filter: blur(4px);
+  transition: opacity 0.15s, transform 0.15s;
 }
 .popout-btn:hover {
   background: rgba(255, 255, 255, 0.2);
@@ -541,7 +540,7 @@ onBeforeUnmount(() => {
   color: rgba(255, 255, 255, 0.4);
   font-size: 12px;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: opacity 0.15s, transform 0.15s;
 }
 .popout-ctrl-btn:hover {
   color: #fff;
@@ -562,7 +561,7 @@ onBeforeUnmount(() => {
   color: #fff;
   font-size: 14px;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: opacity 0.15s, transform 0.15s;
   box-shadow: 0 0 16px rgba(0, 0, 0, 0.3);
 }
 .popout-play-btn:hover {

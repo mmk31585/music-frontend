@@ -1,10 +1,10 @@
 <template>
   <div
-    class="group relative overflow-hidden rounded-2xl border border-white/6 bg-white/3 p-5 transition-all duration-300 hover:border-white/10 hover:bg-white/5"
+    class="group relative overflow-hidden rounded-2xl border border-white/6 bg-white/3 p-5 transition-transform duration-300 hover:border-white/10 hover:bg-white/5"
   >
     <!-- Glow effect on hover -->
     <div
-      class="pointer-events-none absolute -top-6 -right-6 h-24 w-24 rounded-full opacity-0 blur-2xl transition-opacity duration-500 group-hover:opacity-100"
+      class="pointer-events-none absolute -top-6 -right-6 h-24 w-24 rounded-full opacity-0 transition-opacity duration-500 group-hover:opacity-100"
       :class="glowColor"
     />
 
@@ -79,4 +79,16 @@ const colorMap = {
 const glowColor = computed(() => colorMap[props.color].glow)
 const iconBgClass = computed(() => colorMap[props.color].iconBg)
 const iconColorClass = computed(() => colorMap[props.color].iconColor)
+
 </script>
+
+<style scoped>
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse {
+    animation: none !important;
+  }
+  .animate-spin {
+    animation: none !important;
+  }
+}
+</style>

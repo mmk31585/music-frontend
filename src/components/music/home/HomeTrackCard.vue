@@ -7,7 +7,7 @@
     @contextmenu.prevent="openMenu"
   >
     <div
-      class="relative aspect-square overflow-hidden rounded-xl bg-surface-overlay ring-1 ring-border-default transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:ring-accent/40"
+      class="relative aspect-square overflow-hidden rounded-xl bg-surface-overlay ring-1 ring-border-default transition: transform 150ms ease, box-shadow 150ms ease hover:-translate-y-0.5 hover:shadow-lg hover:ring-accent/40"
       :style="{ borderRadius: radius + 'px' }"
     >
       <img
@@ -136,5 +136,11 @@ function openMenu(e: MouseEvent) {
 @keyframes eqBeat {
   from { transform: scaleY(0.4); opacity: 0.5; }
   to   { transform: scaleY(1);   opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .equalizer-bar-small {
+    animation: none !important;
+  }
 }
 </style>

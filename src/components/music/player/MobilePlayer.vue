@@ -10,14 +10,14 @@
     >
       <button
         type="button"
-        class="relative mx-3 flex w-[calc(100%-1.5rem)] items-center gap-3 overflow-hidden rounded-2xl text-left shadow-2xl transition-all duration-500 active:scale-[0.98]"
+        class="relative mx-3 flex w-[calc(100%-1.5rem)] items-center gap-3 overflow-hidden rounded-2xl text-left shadow-2xl transition-transform duration-500 active:scale-[0.98]"
         :style="barBackgroundStyle"
         @click="$emit('open-fullscreen')"
       >
         <!-- Artwork background with blur -->
         <div
           v-if="coverUrl"
-          class="absolute inset-0 scale-110 bg-cover bg-center blur-2xl opacity-[0.25] transition-all duration-700"
+          class="absolute inset-0 scale-110 bg-cover bg-center opacity-[0.15] transition-transform duration-700"
           :style="{ backgroundImage: `url(${coverUrl})` }"
           aria-hidden="true"
         />
@@ -120,19 +120,13 @@ const playAriaLabel = computed(() => {
 })
 
 const barBackgroundStyle = computed(() => {
-  const baseBlur = 'blur(24px)'
-  const baseBackdrop = 'blur(24px)'
   if (props.coverUrl) {
     return {
-      background: 'var(--glass-bg-strong)',
-      backdropFilter: baseBackdrop,
-      WebkitBackdropFilter: baseBlur,
+      background: 'linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.6), rgba(0,0,0,0.8))',
     }
   }
   return {
-    background: 'var(--glass-bg-strong)',
-    backdropFilter: baseBackdrop,
-    WebkitBackdropFilter: baseBlur,
+    background: 'linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.6), rgba(0,0,0,0.8))',
   }
 })
 </script>

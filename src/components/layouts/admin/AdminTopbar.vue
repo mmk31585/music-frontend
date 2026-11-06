@@ -12,7 +12,7 @@
         </button>
 
         <button
-          class="hidden h-9 w-9 items-center justify-center rounded-lg text-tertiary transition-all hover:bg-surface-active hover:text-primary active:scale-95 lg:flex"
+          class="hidden h-9 w-9 items-center justify-center rounded-lg text-tertiary transition-transform hover:bg-surface-active hover:text-primary active:scale-95 lg:flex"
           :title="collapsed ? 'Expand sidebar' : 'Collapse sidebar'"
           @click="$emit('toggleCollapse')"
         >

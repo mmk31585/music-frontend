@@ -3,7 +3,7 @@
     <button
       ref="queueBtnRef"
       type="button"
-      class="relative flex h-9 w-9 items-center justify-center rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-spotify/60 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-base"
+      class="relative flex h-9 w-9 items-center justify-center rounded-full transition-transform duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-spotify/60 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-base"
       :class="upcomingCount > 0
         ? 'text-primary hover:bg-surface-active active:scale-95'
         : 'text-tertiary hover:text-primary hover:bg-surface-active active:scale-95'"
@@ -66,7 +66,7 @@
             <Shuffle v-if="shuffleMode !== 'off'" class="h-3 w-3 text-aurora-purple ml-auto" aria-hidden="true" title="Shuffle is on — next track from shuffle order" />
           </div>
           <div
-            class="group flex items-center gap-2.5 rounded-xl px-2.5 py-2 transition-all duration-200 cursor-pointer ring-1 ring-border-subtle bg-surface-overlay hover:bg-surface-active"
+            class="group flex items-center gap-2.5 rounded-xl px-2.5 py-2 transition-transform duration-200 cursor-pointer ring-1 ring-border-subtle bg-surface-overlay hover:bg-surface-active"
             @click="playNextTrack"
           >
             <div class="relative h-10 w-10 shrink-0 overflow-hidden rounded-lg bg-surface-active shadow-sm ring-1 ring-border-subtle">
@@ -80,8 +80,8 @@
               <div v-else class="flex h-full items-center justify-center">
                 <Music class="h-4 w-4 text-muted" aria-hidden="true" />
               </div>
-              <div class="absolute inset-0 flex items-center justify-center bg-bg-overlay/0 transition-all duration-200 group-hover:bg-bg-overlay/30">
-                <Play class="h-5 w-5 text-primary opacity-0 transition-all duration-200 group-hover:opacity-100 drop-shadow-lg" aria-hidden="true" />
+              <div class="absolute inset-0 flex items-center justify-center bg-bg-overlay/0 transition-transform duration-200 group-hover:bg-bg-overlay/30">
+                <Play class="h-5 w-5 text-primary opacity-0 transition-transform duration-200 group-hover:opacity-100 drop-shadow-lg" aria-hidden="true" />
               </div>
             </div>
             <div class="min-w-0 flex-1">
@@ -104,7 +104,7 @@
             <span class="text-[8px] text-aurora-purple/60 font-normal">— random track</span>
           </div>
           <div
-            class="flex items-center gap-2.5 rounded-xl px-2.5 py-2 transition-all duration-200 cursor-pointer ring-1 ring-border-subtle bg-surface-overlay hover:bg-surface-active group"
+            class="flex items-center gap-2.5 rounded-xl px-2.5 py-2 transition-transform duration-200 cursor-pointer ring-1 ring-border-subtle bg-surface-overlay hover:bg-surface-active group"
             @click="playNextTrack"
           >
             <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-aurora-purple/10 ring-1 ring-aurora-purple/20">
@@ -125,7 +125,7 @@
         <!-- View full queue -->
         <button
           type="button"
-          class="flex w-full items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-xs font-medium text-tertiary transition-all hover:bg-surface-overlay hover:text-secondary"
+          class="flex w-full items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-xs font-medium text-tertiary transition-transform hover:bg-surface-overlay hover:text-secondary"
           @click="openFullQueue"
         >
           {{ $t('player.view_full_queue') }}
@@ -248,6 +248,12 @@ function formatTime(s: number) {
   100% {
     transform: scaleY(1);
     opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-equalizer {
+    animation: none !important;
   }
 }
 </style>

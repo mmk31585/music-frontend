@@ -7,7 +7,7 @@
         <button
           v-for="tab in tabs"
           :key="tab.key"
-          class="rounded-md px-3 py-1 text-xs font-medium transition-all duration-200"
+          class="rounded-md px-3 py-1 text-xs font-medium transition-transform duration-200"
           :class="
             activeTab === tab.key ? 'bg-spotify text-black' : 'text-white/40 hover:text-white/60'
           "
@@ -50,7 +50,7 @@
       <div
         v-for="entry in props.entries"
         :key="entry.user_id"
-        class="group flex items-center gap-3 rounded-xl px-4 py-3 transition-all duration-200"
+        class="group flex items-center gap-3 rounded-xl px-4 py-3 transition-transform duration-200"
         :class="entry.rank <= 3 ? 'bg-white/5' : 'hover:bg-white/3'"
       >
         <!-- Rank -->

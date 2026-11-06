@@ -11,7 +11,7 @@
     <Card class="mb-8 overflow-hidden">
       <template #content>
         <div
-          class="relative flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed p-10 transition-all"
+          class="relative flex cursor-pointer flex-col items-center justify-center rounded-xl border-2 border-dashed p-10 transition-transform"
           :class="isDragOver
             ? 'border-emerald-500/50 bg-emerald-500/10 scale-[1.02]'
             : 'border-white/10 hover:border-emerald-500/30 hover:bg-white/3'"

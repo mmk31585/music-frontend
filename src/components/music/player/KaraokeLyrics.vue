@@ -32,7 +32,7 @@
           :key="idx"
           ref="lineRefs"
           type="button"
-          class="w-full px-4 py-3 text-center text-lg leading-relaxed transition-all duration-500 ease-out md:text-xl"
+          class="w-full px-4 py-3 text-center text-lg leading-relaxed transition-transform duration-500 ease-out md:text-xl"
           :class="{
             'scale-105 font-bold text-white drop-shadow-[0_0_20px_rgba(255,255,255,0.15)]':
               idx === activeLineIdx,
@@ -45,7 +45,7 @@
             <span
               v-for="(word, wIdx) in line.words"
               :key="wIdx"
-              class="transition-all duration-[50ms] ease-linear"
+              class="transition-transform duration-[50ms] ease-linear"
               :class="
                 isWordActive(line, wIdx)
                   ? 'text-spotify drop-shadow-[0_0_12px_rgba(29,185,84,0.6)]'
@@ -57,7 +57,7 @@
           </template>
           <template v-else>
             <span
-              class="transition-all duration-300"
+              class="transition-transform duration-300"
               :class="
                 line.isActive ? 'text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.1)]' : ''
               "

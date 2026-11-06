@@ -11,7 +11,7 @@
         <img
           :src="ctx.embeddedCover.value"
           alt="Embedded"
-          class="h-32 w-32 cursor-pointer rounded-lg object-cover shadow-md ring-2 transition-all"
+          class="h-32 w-32 cursor-pointer rounded-lg object-cover shadow-md ring-2 transition-transform"
           :class="
             ctx.finalMetadata.album.coverUrl === ctx.embeddedCover.value
               ? 'ring-green-500'
@@ -27,7 +27,7 @@
         <img
           :src="ctx.suggestedAlbumCover.value"
           alt="Spotify"
-          class="h-32 w-32 cursor-pointer rounded-lg object-cover shadow-md ring-2 transition-all"
+          class="h-32 w-32 cursor-pointer rounded-lg object-cover shadow-md ring-2 transition-transform"
           :class="
             ctx.finalMetadata.album.coverUrl === ctx.suggestedAlbumCover.value
               ? 'ring-green-500'
@@ -43,7 +43,7 @@
         <img
           :src="ctx.suggestedLastfmAlbumCover.value"
           alt="Last.fm"
-          class="h-32 w-32 cursor-pointer rounded-lg object-cover shadow-md ring-2 transition-all"
+          class="h-32 w-32 cursor-pointer rounded-lg object-cover shadow-md ring-2 transition-transform"
           :class="
             ctx.finalMetadata.album.coverUrl === ctx.suggestedLastfmAlbumCover.value
               ? 'ring-green-500'
@@ -59,7 +59,7 @@
         <img
           :src="ctx.enrichment.value.ml.albumCoverUrl"
           alt="ML"
-          class="h-32 w-32 cursor-pointer rounded-lg object-cover shadow-md ring-2 transition-all"
+          class="h-32 w-32 cursor-pointer rounded-lg object-cover shadow-md ring-2 transition-transform"
           :class="
             ctx.finalMetadata.album.coverUrl === ctx.enrichment.value.ml.albumCoverUrl
               ? 'ring-green-500'

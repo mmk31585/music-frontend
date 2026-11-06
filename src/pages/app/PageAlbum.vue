@@ -41,7 +41,7 @@
     <template v-else-if="album">
       <!-- Ambient gradient background from cover art -->
       <div
-        class="pointer-events-none fixed inset-0 transition-all duration-1000"
+        class="pointer-events-none fixed inset-0 transition-transform duration-1000"
         :style="ambientBg"
         aria-hidden="true"
       />
@@ -59,7 +59,7 @@
           <!-- Cover art with physical-object treatment -->
           <div class="group relative shrink-0">
             <div
-              class="relative h-75 w-75 overflow-hidden rounded-2xl bg-white/6 shadow-2xl ring-1 ring-white/10 transition-all duration-500 group-hover:shadow-xl group-hover:-rotate-1 group-hover:scale-[1.02]"
+              class="relative h-75 w-75 overflow-hidden rounded-2xl bg-white/6 shadow-2xl ring-1 ring-white/10 transition-transform duration-500 group-hover:shadow-xl group-hover:-rotate-1 group-hover:scale-[1.02]"
               :style="coverGlowStyle"
             >
               <img
@@ -182,7 +182,7 @@
               :key="String(track.id)"
               role="button"
               tabindex="0"
-              class="group flex cursor-pointer items-center gap-4 rounded-2xl px-4 py-3 transition-all duration-200 hover:bg-white/4"
+              class="group flex cursor-pointer items-center gap-4 rounded-2xl px-4 py-3 transition-transform duration-200 hover:bg-white/4"
               :class="isCurrentTrack(track) ? 'bg-white/6 ring-1 ring-inset ring-spotify/15' : ''"
               @click="playTrack(track, Number(index))"
               @contextmenu.prevent="openContextMenu($event, track)"
@@ -319,7 +319,7 @@
               class="group block"
             >
               <div
-                class="relative mb-3 aspect-square overflow-hidden rounded-2xl bg-white/6 shadow-lg ring-1 ring-white/10 transition-all duration-300 group-hover:shadow-lg group-hover:-translate-y-1 group-hover:ring-spotify/30"
+                class="relative mb-3 aspect-square overflow-hidden rounded-2xl bg-white/6 shadow-lg ring-1 ring-white/10 transition-transform duration-300 group-hover:shadow-lg group-hover:-translate-y-1 group-hover:ring-spotify/30"
               >
                 <img
                   v-if="ra.cover_url"

@@ -1,6 +1,6 @@
 <template>
   <aside
-    class="border-border-default bg-surface-raised fixed start-0 top-0 z-40 flex h-screen flex-col border-e transition-all duration-300 lg:static lg:h-screen"
+    class="border-border-default bg-surface-raised fixed start-0 top-0 z-40 flex h-screen flex-col border-e transition-transform duration-300 lg:static lg:h-screen"
     :class="collapsed ? 'w-17' : 'w-72'"
   >
     <div

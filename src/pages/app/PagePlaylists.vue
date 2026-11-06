@@ -3,7 +3,7 @@
     <section
       class="bg-surface-base relative overflow-hidden rounded-2xl border border-white/6 p-10 text-white"
     >
-      <div class="bg-spotify/10 absolute -top-20 -right-20 h-60 w-60 rounded-full blur-3xl" />
+      <div class="bg-spotify/10 absolute -top-20 -right-20 h-60 w-60 rounded-full" />
       <div class="relative">
         <p class="text-[10px] font-bold tracking-[0.35em] text-white/30 uppercase">Collections</p>
         <h1 class="mt-2 text-4xl font-black md:text-6xl">Playlists</h1>

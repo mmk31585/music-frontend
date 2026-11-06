@@ -10,7 +10,7 @@
       <div
         v-for="badge in allBadges"
         :key="badge.id"
-        class="group relative flex flex-col items-center rounded-xl p-4 text-center transition-all duration-300"
+        class="group relative flex flex-col items-center rounded-xl p-4 text-center transition-transform duration-300"
         :class="earnedBadgeMap[badge.id] ? 'bg-white/5' : 'bg-white/2 opacity-40 saturate-0'"
       >
         <!-- Badge icon -->

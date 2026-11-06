@@ -694,45 +694,26 @@ h1, h2, h3, h4, h5, h6 {
 @utility text-aurora-purple { color: var(--color-aurora-purple); }
 @utility text-aurora-blue { color: var(--color-aurora-blue); }
 
-/* ── Aurora Backgrounds ── */
-/* Subtle animated gradient orbs used as page backdrop accents. Defined here so
-   every page that references aurora-bg / aurora-spot-* renders consistently
-   instead of falling back to undefined utility classes. */
-@utility aurora-bg {
+@utility border-default { border-color: var(--border-default); }
+@utility border-subtle { border-color: var(--border-subtle); }
+@utility border-strong { border-color: var(--border-strong); }
+@utility border-accent { border-color: var(--border-accent); }
+
+/* ── Solid Decorative Accents ── */
+/* Replaces glassy aurora orbs with flat, non-blurred solid color blobs */
+@utility accent-glow {
   position: relative;
   overflow: hidden;
 }
-@utility aurora-spot-1 {
+@utility accent-glow-lg {
   position: absolute;
   border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.35;
-  animation: aurora-pulse 8s ease-in-out infinite alternate;
+  opacity: 0.15;
 }
-@utility aurora-spot-2 {
+@utility accent-glow-sm {
   position: absolute;
   border-radius: 50%;
-  filter: blur(100px);
-  opacity: 0.25;
-  animation: aurora-pulse 10s ease-in-out infinite alternate-reverse;
-}
-@utility aurora-flow {
-  position: absolute;
-  inset: 0;
-  opacity: 0.35;
-  background: conic-gradient(
-    from 45deg at 50% 50%,
-    transparent,
-    color-mix(in oklch, var(--color-aurora-purple) 15%, transparent),
-    transparent,
-    color-mix(in oklch, var(--color-aurora-blue) 15%, transparent),
-    transparent
-  );
-}
-
-@keyframes aurora-pulse {
-  0% { transform: scale(1) translate(0, 0); opacity: 0.35; }
-  100% { transform: scale(1.25) translate(15%, -15%); opacity: 0.55; }
+  opacity: 0.1;
 }
 
 /* ── Border Utilities ── */
@@ -1006,8 +987,6 @@ h1, h2, h3, h4, h5, h6 {
 .p-dialog-mask {
   background: var(--bg-overlay);
   animation: muse-dialog-fade-in 200ms var(--ease-out);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
 }
 
 /* ── Toast ── */
@@ -1019,8 +998,6 @@ h1, h2, h3, h4, h5, h6 {
   border: 1px solid var(--border-default);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-elevated);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
   color: var(--text-primary);
   padding: 0.875rem 1rem;
 }
@@ -1033,8 +1010,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 .p-drawer-mask {
   background: var(--bg-overlay);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
 }
 
 /* ── Popover / OverlayPanel ── */

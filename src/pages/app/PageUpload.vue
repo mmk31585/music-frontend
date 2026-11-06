@@ -141,7 +141,7 @@ onMounted(async () => {
         </div>
         <div class="h-2 overflow-hidden rounded-full bg-white/8">
           <div
-            class="h-full rounded-full transition-all duration-500"
+            class="h-full rounded-full transition-transform duration-500"
             :class="
               slotPercent >= 80 ? 'bg-amber-500' : slotPercent >= 50 ? 'bg-spotify' : 'bg-blue-500'
             "

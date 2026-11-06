@@ -1,17 +1,17 @@
 <template>
   <div class="relative mx-auto min-h-screen w-full pb-36">
     <!-- ── Ambient Mood Background ── -->
-    <div class="pointer-events-none fixed inset-0 transition-all duration-1000" aria-hidden="true">
+    <div class="pointer-events-none fixed inset-0 transition-transform duration-1000" aria-hidden="true">
       <div
         class="absolute inset-0 transition-opacity duration-1000"
         :class="moodBgClass"
       />
       <div
-        class="absolute -top-1/3 -end-1/4 h-125 w-125 rounded-full opacity-30 blur-[150px] transition-all duration-1000"
+        class="absolute -top-1/3 -end-1/4 h-125 w-125 rounded-full opacity-30 transition-transform duration-1000"
         :class="moodSpotClass"
       />
       <div
-        class="absolute -bottom-1/3 -start-1/4 h-100 w-100 rounded-full opacity-20 blur-[120px] transition-all duration-1000"
+        class="absolute -bottom-1/3 -start-1/4 h-100 w-100 rounded-full opacity-20 transition-transform duration-1000"
         :class="moodSpotClass2"
       />
     </div>
@@ -44,7 +44,7 @@
             v-for="mood in moodOptions"
             :key="mood.value"
             type="button"
-            class="group relative overflow-hidden rounded-2xl border p-5 text-center transition-all duration-500"
+            class="group relative overflow-hidden rounded-2xl border p-5 text-center transition-transform duration-500"
             :class="[
               selectedMood === mood.value
                 ? moodSelectedBorder(mood.value)
@@ -60,13 +60,13 @@
             <!-- Selected glow -->
             <div
               v-if="selectedMood === mood.value"
-              class="pointer-events-none absolute inset-0 opacity-20 blur-2xl transition-opacity duration-500"
+              class="pointer-events-none absolute inset-0 opacity-20 transition-opacity duration-500"
               :class="moodGlowClass(mood.value)"
             />
 
             <div class="relative">
               <div
-                class="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-xl text-xl transition-all duration-500"
+                class="mx-auto mb-3 flex h-14 w-14 items-center justify-center rounded-xl text-xl transition-transform duration-500"
                 :class="
                   selectedMood === mood.value
                     ? moodIconActiveBg(mood.value)
@@ -178,7 +178,7 @@
               <div v-if="track.mood" class="hidden items-center gap-1.5 sm:flex">
                 <div class="flex h-1.5 w-14 overflow-hidden rounded-full bg-white/10">
                   <div
-                    class="h-full rounded-full transition-all duration-500"
+                    class="h-full rounded-full transition-transform duration-500"
                     :class="getEnergyBarColor((track.mood as Record<string, unknown>).energy as number || 0)"
                     :style="{ width: `${Math.min(((track.mood as Record<string, unknown>).energy as number || 0) * 100, 100)}%` }"
                   />

@@ -10,7 +10,7 @@
       </div>
       <router-link
         to="/upload"
-        class="spring shrink-0 rounded-xl bg-spotify/10 px-4 py-2.5 text-sm font-medium text-spotify transition-all hover:bg-spotify/20"
+        class="spring shrink-0 rounded-xl bg-spotify/10 px-4 py-2.5 text-sm font-medium text-spotify transition-transform hover:bg-spotify/20"
       >
         <Upload aria-hidden="true" class="mr-1.5 inline text-xs" />
         Upload Music
@@ -66,7 +66,7 @@
         v-for="tab in tabs"
         :key="tab.key"
         type="button"
-        class="spring flex-1 rounded-lg px-4 py-2 text-sm font-medium transition-all"
+        class="spring flex-1 rounded-lg px-4 py-2 text-sm font-medium transition-transform"
         :class="
           activeTab === tab.key
             ? 'bg-white/10 text-white shadow-xs'
@@ -110,7 +110,7 @@
         <div
           v-for="c in myContributions"
           :key="c.id"
-          class="contribution-card surface-card spring rounded-2xl p-5 transition-all hover:bg-white/6"
+          class="contribution-card surface-card spring rounded-2xl p-5 transition-transform hover:bg-white/6"
         >
           <div class="flex items-start justify-between gap-4">
             <div class="min-w-0 flex-1">
@@ -146,7 +146,7 @@
             <div class="flex shrink-0 items-center gap-2">
               <button
                 type="button"
-                class="spring flex h-8 w-8 items-center justify-center rounded-full text-white/30 transition-all hover:bg-white/10 hover:text-white/60"
+                class="spring flex h-8 w-8 items-center justify-center rounded-full text-white/30 transition-transform hover:bg-white/10 hover:text-white/60"
                 @click="viewHistory(c)"
                 aria-label="View history"
               >
@@ -169,7 +169,7 @@
           <button
             type="button"
             :disabled="myMeta.page <= 1"
-            class="spring rounded-lg bg-white/5 px-4 py-2 text-xs font-medium text-white/50 transition-all hover:bg-white/10 disabled:opacity-30"
+            class="spring rounded-lg bg-white/5 px-4 py-2 text-xs font-medium text-white/50 transition-transform hover:bg-white/10 disabled:opacity-30"
             @click="loadMyContributions(myMeta.page - 1)"
           >
             Previous
@@ -180,7 +180,7 @@
           <button
             type="button"
             :disabled="myMeta.page * myMeta.page_size >= myMeta.total"
-            class="spring rounded-lg bg-white/5 px-4 py-2 text-xs font-medium text-white/50 transition-all hover:bg-white/10 disabled:opacity-30"
+            class="spring rounded-lg bg-white/5 px-4 py-2 text-xs font-medium text-white/50 transition-transform hover:bg-white/10 disabled:opacity-30"
             @click="loadMyContributions(myMeta.page + 1)"
           >
             Next
@@ -249,7 +249,7 @@
             <button
               type="button"
               :disabled="reviewingId === c.id"
-              class="spring rounded-lg bg-spotify/10 px-4 py-2 text-xs font-medium text-spotify transition-all hover:bg-spotify/20 disabled:opacity-40"
+              class="spring rounded-lg bg-spotify/10 px-4 py-2 text-xs font-medium text-spotify transition-transform hover:bg-spotify/20 disabled:opacity-40"
               @click="reviewContribution(c.id, 'approve')"
             >
               <Loader2 class="mr-1" aria-hidden="true" v-if="reviewingId === c.id" />
@@ -258,7 +258,7 @@
             <button
               type="button"
               :disabled="reviewingId === c.id"
-              class="spring rounded-lg bg-red-500/10 px-4 py-2 text-xs font-medium text-red-400 transition-all hover:bg-red-500/20 disabled:opacity-40"
+              class="spring rounded-lg bg-red-500/10 px-4 py-2 text-xs font-medium text-red-400 transition-transform hover:bg-red-500/20 disabled:opacity-40"
               @click="reviewContribution(c.id, 'reject')"
             >
               <Loader2 class="mr-1" aria-hidden="true" v-if="reviewingId === c.id" />

@@ -2,7 +2,7 @@
   <div :key="String(route.params.id)" class="relative mx-auto min-h-screen pb-36">
     <!-- Ambient background derived from cover art -->
     <div
-      class="pointer-events-none fixed inset-0 transition-all duration-1000"
+      class="pointer-events-none fixed inset-0 transition-transform duration-1000"
       :style="ambientBg"
       aria-hidden="true"
     />
@@ -63,7 +63,7 @@
           <!-- Left: Cover Art -->
           <div class="group shrink-0">
             <div
-              class="relative h-75 w-75 overflow-hidden rounded-2xl bg-white/6 shadow-2xl ring-1 ring-white/10 transition-all duration-500 md:h-85 md:w-85"
+              class="relative h-75 w-75 overflow-hidden rounded-2xl bg-white/6 shadow-2xl ring-1 ring-white/10 transition-transform duration-500 md:h-85 md:w-85"
               :style="coverGlowStyle"
             >
               <img
@@ -191,7 +191,7 @@
               <button
                 type="button"
                 aria-label="Toggle play"
-                class="relative flex h-14 w-14 items-center justify-center rounded-full bg-white text-black shadow-2xl transition-all hover:scale-105 hover:bg-spotify hover:text-white active:scale-95 md:h-16 md:w-16"
+                class="relative flex h-14 w-14 items-center justify-center rounded-full bg-white text-black shadow-2xl transition-transform hover:scale-105 hover:bg-spotify hover:text-white active:scale-95 md:h-16 md:w-16"
                 @click="togglePlay"
               >
                 <component :is="isPlaying ? Pause : Play" aria-hidden="true"<i
@@ -272,7 +272,7 @@
 
               <button
                 type="button"
-                class="inline-flex items-center gap-2 rounded-full border border-border-default px-5 py-2.5 text-sm font-medium text-secondary transition-all hover:border-accent hover:text-accent"
+                class="inline-flex items-center gap-2 rounded-full border border-border-default px-5 py-2.5 text-sm font-medium text-secondary transition-transform hover:border-accent hover:text-accent"
                 @click="handleStartRadio"
               >
                 <Radio aria-hidden="true" class="text-base" />
@@ -397,7 +397,7 @@
               :key="String(v.id)"
               role="button"
               tabindex="0"
-              class="group w-[45vw] shrink-0 snap-start cursor-pointer overflow-hidden rounded-xl bg-white/5 transition-all duration-150 hover:bg-white/8 hover:shadow-lg hover:shadow-black/20 sm:w-auto sm:shrink"
+              class="group w-[45vw] shrink-0 snap-start cursor-pointer overflow-hidden rounded-xl bg-white/5 transition-transform duration-150 hover:bg-white/8 hover:shadow-lg hover:shadow-black/20 sm:w-auto sm:shrink"
               @click="openVideo(v)"
               @keydown.enter="openVideo(v)"
               @keydown.space.prevent="openVideo(v)"
@@ -587,13 +587,13 @@
             <div
               v-for="(st, index) in similarTracks"
               :key="st.id"
-              class="group grid grid-cols-[48px_1fr_auto] items-center gap-4 rounded-xl px-3 py-2.5 transition-all duration-200 hover:bg-white/8"
+              class="group grid grid-cols-[48px_1fr_auto] items-center gap-4 rounded-xl px-3 py-2.5 transition-transform duration-200 hover:bg-white/8"
             >
               <!-- Play button -->
               <button
                 type="button"
                 aria-label="Play track"
-                class="relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl bg-white/10 text-white transition-all duration-200 hover:scale-105 hover:bg-spotify hover:text-black"
+                class="relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl bg-white/10 text-white transition-transform duration-200 hover:scale-105 hover:bg-spotify hover:text-black"
                 :class="{ 'bg-spotify text-black': isCurrentSimilarTrack(st) }"
                 @click="playSimilar(st, index)"
               >
@@ -858,6 +858,11 @@ onMounted(() => {
 .now-playing-bar {
   animation: now-playing 1s ease-in-out infinite alternate;
 }
+@media (prefers-reduced-motion: reduce) {
+  .now-playing-bar {
+    animation: none !important;
+  }
+}
 @keyframes now-playing {
   0% { transform: scaleY(0.3); opacity: 0.5; }
   100% { transform: scaleY(1); opacity: 1; }
@@ -866,6 +871,11 @@ onMounted(() => {
 /* ── Visualizer bars ── */
 .visualizer-bar {
   animation: viz-pulse 1.2s ease-in-out infinite alternate;
+}
+@media (prefers-reduced-motion: reduce) {
+  .visualizer-bar {
+    animation: none !important;
+  }
 }
 .visualizer-bar:nth-child(even) {
   animation-delay: 0.1s;
@@ -886,6 +896,11 @@ onMounted(() => {
   background: currentColor;
   animation: similar-equalizer 850ms ease-in-out infinite alternate;
   will-change: transform, opacity;
+}
+@media (prefers-reduced-motion: reduce) {
+  .similar-eq-bar {
+    animation: none !important;
+  }
 }
 .animation-delay-150 {
   animation-delay: 150ms;

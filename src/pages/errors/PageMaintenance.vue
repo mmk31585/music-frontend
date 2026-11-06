@@ -3,10 +3,10 @@
     <!-- Aurora background effect -->
     <div class="pointer-events-none fixed inset-0 overflow-hidden" aria-hidden="true">
       <div
-        class="aurora-spot absolute -top-40 left-1/2 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-amber-500/5 blur-[120px]"
+        class="absolute -top-40 left-1/2 h-[500px] w-[500px] -translate-x-1/2 rounded-full bg-amber-500/5"
       />
       <div
-        class="aurora-spot absolute right-0 -bottom-40 h-[400px] w-[400px] rounded-full bg-orange-500/5 blur-[100px]"
+        class="absolute right-0 -bottom-40 h-[400px] w-[400px] rounded-full bg-orange-500/5"
       />
     </div>
 

@@ -251,3 +251,26 @@ async function handleDelete() {
   }
 }
 </script>
+</script>
+<style scoped>
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse {
+    animation: none !important;
+  }
+  .animate-spin {
+    animation: none !important;
+  }
+}
+
+<style scoped>
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse {
+    animation: none !important;
+  }
+  .animate-spin {
+    animation: none !important;
+  }
+}
+</script>
+
+<style scoped>

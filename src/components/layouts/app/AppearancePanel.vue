@@ -9,7 +9,7 @@
           type="button"
           :aria-label="t.label"
           :class="[
-            'flex flex-1 items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-xs font-medium transition-all duration-200',
+            'flex flex-1 items-center justify-center gap-1.5 rounded-lg px-3 py-2 text-xs font-medium transition-transform duration-200',
             theme.state.mode === t.value
               ? 'bg-surface-active text-primary shadow-sm'
               : 'text-tertiary hover:text-secondary',
@@ -34,7 +34,7 @@
           :aria-label="color"
           :title="color"
           :class="[
-            'ring-border-default h-7 w-7 rounded-full ring-1 transition-all duration-200 hover:scale-110 focus-visible:outline-2 focus-visible:outline-offset-2',
+            'ring-border-default h-7 w-7 rounded-full ring-1 transition-transform duration-200 hover:scale-110 focus-visible:outline-2 focus-visible:outline-offset-2',
             theme.state.primary === color ? 'ring-primary scale-110 ring-2' : '',
           ]"
           :style="{ backgroundColor: theme.primaryPalettes[color][500] }"
@@ -51,7 +51,7 @@
           :key="s"
           type="button"
           :class="[
-            'flex items-center gap-2 rounded-xl px-3 py-2.5 text-xs font-medium transition-all duration-200',
+            'flex items-center gap-2 rounded-xl px-3 py-2.5 text-xs font-medium transition-transform duration-200',
             theme.state.surface === s
               ? 'bg-surface-active text-primary ring-border-strong ring-1'
               : 'bg-surface-hover text-tertiary hover:bg-surface-active hover:text-secondary',

@@ -55,7 +55,7 @@
           <div
             v-for="genre in genres"
             :key="genre.id"
-            class="group flex items-center gap-2 rounded-full border border-white/8 bg-white/3 py-1.5 pr-2 pl-4 transition-all hover:border-emerald-500/20 hover:bg-emerald-500/5"
+            class="group flex items-center gap-2 rounded-full border border-white/8 bg-white/3 py-1.5 pr-2 pl-4 transition-transform hover:border-emerald-500/20 hover:bg-emerald-500/5"
           >
             <span class="text-sm text-slate-300 group-hover:text-white">{{ genre.name }}</span>
 
@@ -220,4 +220,16 @@ async function handleDelete() {
     toast.add({ severity: 'error', summary: 'Delete failed', life: 3000 })
   }
 }
+
 </script>
+
+<style scoped>
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse {
+    animation: none !important;
+  }
+  .animate-spin {
+    animation: none !important;
+  }
+}
+</style>

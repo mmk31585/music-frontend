@@ -32,10 +32,10 @@ const currentTrack = toRef(pc.currentTrack)
 
 <style scoped>
 .float-up-enter-active {
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.3s cubic-bezier(0.34, 1, 0.22, 1), color 0.3s cubic-bezier(0.34, 1, 0.22, 1);
 }
 .float-up-leave-active {
-  transition: all 0.2s ease-in;
+  transition: transform 0.2s ease-in, opacity 0.2s ease-in;
 }
 .float-up-enter-from {
   opacity: 0;

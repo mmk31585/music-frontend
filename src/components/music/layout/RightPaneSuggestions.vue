@@ -11,7 +11,7 @@
       <div
         v-for="track in items"
         :key="track.id"
-        class="group/track flex w-full items-center gap-3 rounded-xl px-3 py-2 transition-all duration-150 hover:bg-white/[0.04]"
+        class="group/track flex w-full items-center gap-3 rounded-xl px-3 py-2 transition-transform duration-150 hover:bg-white/[0.04]"
         @contextmenu.prevent="openContextMenu($event, track)"
       >
         <div class="h-9 w-9 shrink-0 overflow-hidden rounded-lg bg-white/10">
@@ -34,7 +34,7 @@
         <button
           type="button"
           aria-label="Play suggestion"
-          class="hover:text-primary flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-slate-500 opacity-0 transition-all duration-150 group-hover/track:opacity-100 hover:bg-white/10 active:scale-90"
+          class="hover:text-primary flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-slate-500 opacity-0 transition-transform duration-150 group-hover/track:opacity-100 hover:bg-white/10 active:scale-90"
           @click="$emit('play', track.id)"
         >
           <Play :size="12" />

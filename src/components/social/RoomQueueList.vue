@@ -33,7 +33,7 @@
       <div
         v-for="candidate in candidates"
         :key="candidate.id"
-        class="group hover:ring-border-default flex items-center gap-3 rounded-xl px-3 py-2.5 ring-1 ring-transparent transition-all"
+        class="group hover:ring-border-default flex items-center gap-3 rounded-xl px-3 py-2.5 ring-1 ring-transparent transition-transform"
       >
         <div class="bg-surface-active relative h-12 w-12 shrink-0 overflow-hidden rounded-lg">
           <img
@@ -115,11 +115,11 @@ function toggleVote(candidate: QueueCandidate) {
 }
 
 .queue-promote-leave-active {
-  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1), color 200ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .queue-promote-enter-active {
-  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1), color 200ms cubic-bezier(0.4, 0, 0.2, 1);
   transition-delay: 100ms;
 }
 

@@ -3,7 +3,7 @@
     <span
       v-for="i in 3"
       :key="i"
-      class="bg-spotify w-[3px] rounded-full transition-all"
+      class="bg-spotify w-[3px] rounded-full transition-transform"
       :class="[`eq-bar-${i}`, isPlaying ? 'is-playing' : 'is-paused']"
     />
   </div>

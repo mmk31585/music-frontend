@@ -1,6 +1,6 @@
 <template>
   <div
-    class="group bg-surface-overlay/60 ring-border-default hover:bg-surface-active/80 hover:ring-border-strong focus-within:ring-spotify rounded-2xl p-5 ring-1 transition-all duration-300 focus-within:ring-2"
+    class="group bg-surface-overlay/60 ring-border-default hover:bg-surface-active/80 hover:ring-border-strong focus-within:ring-spotify rounded-2xl p-5 ring-1 transition-transform duration-300 focus-within:ring-2"
     role="article"
     :aria-label="`Live room: ${room.title}`"
   >

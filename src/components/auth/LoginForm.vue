@@ -119,7 +119,7 @@
         icon="pi pi-arrow-right"
         icon-pos="right"
         :loading="loading"
-        class="auth-btn w-full border-0 bg-spotify text-black font-semibold hover:bg-spotify-hover transition-all duration-200"
+        class="auth-btn w-full border-0 bg-spotify text-black font-semibold hover:bg-spotify-hover transition: background-color 150ms ease, box-shadow 150ms ease"
       />
 
       <!-- Divider -->
@@ -135,7 +135,7 @@
       <!-- Guest link -->
       <RouterLink
         to="/"
-        class="flex items-center justify-center gap-2 rounded-xl border border-white/8 px-4 py-2.5 text-sm text-white/50 transition-all duration-200 hover:border-white/20 hover:text-white/80 hover:bg-white/3"
+        class="flex items-center justify-center gap-2 rounded-xl border border-white/8 px-4 py-2.5 text-sm text-white/50 transition: border-color 150ms ease, color 150ms ease, background-color 150ms ease hover:border-white/20 hover:text-white/80 hover:bg-white/3"
       >
         <User aria-hidden="true" class="text-xs" />
         Continue as guest
@@ -183,7 +183,7 @@ const { form, errors, apiError, loading, rememberMe, validateField, onSubmit } =
   padding-top: 10px !important;
   padding-bottom: 10px !important;
   font-size: 0.875rem !important;
-  transition: all 0.2s ease !important;
+  transition: background-color 150ms ease, border-color 150ms ease !important;
 }
 
 :deep(.auth-input:focus) {
@@ -253,7 +253,7 @@ const { form, errors, apiError, loading, rememberMe, validateField, onSubmit } =
 
 .fade-slide-enter-active,
 .fade-slide-leave-active {
-  transition: all 0.2s ease;
+  transition: opacity 150ms ease, transform 150ms ease;
 }
 
 .fade-slide-enter-from,

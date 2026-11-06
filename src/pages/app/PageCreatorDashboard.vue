@@ -66,7 +66,7 @@
         <button
           v-for="tab in tabs"
           :key="tab.key"
-          class="flex-1 rounded-lg py-2.5 text-sm font-medium transition-all duration-200"
+          class="flex-1 rounded-lg py-2.5 text-sm font-medium transition-transform duration-200"
           :class="
             activeTab === tab.key
               ? 'bg-white/10 text-white shadow-lg'
@@ -120,7 +120,7 @@
                 }}</span>
                 <div class="h-6 flex-1 overflow-hidden rounded-full bg-white/6">
                   <div
-                    class="from-spotify to-spotify-hover h-full rounded-full bg-linear-to-r transition-all duration-500"
+                    class="from-spotify to-spotify-hover h-full rounded-full bg-linear-to-r transition-transform duration-500"
                     :style="{ width: barWidth(Number(day.plays)) + '%' }"
                   />
                 </div>
@@ -222,7 +222,7 @@
                 <span class="w-32 shrink-0 text-xs text-slate-400">{{ item.label }}</span>
                 <div class="h-6 flex-1 overflow-hidden rounded-full bg-white/6">
                   <div
-                    class="h-full rounded-full transition-all duration-500"
+                    class="h-full rounded-full transition-transform duration-500"
                     :class="item.color"
                     :style="{ width: revenuePercent(item.value) + '%' }"
                   />

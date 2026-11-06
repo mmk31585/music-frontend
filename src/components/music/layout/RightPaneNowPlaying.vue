@@ -1,6 +1,6 @@
 <template>
   <div
-    class="group bg-surface-overlay/50 hover:bg-surface-active/80 relative overflow-hidden rounded-2xl transition-all duration-200"
+    class="group bg-surface-overlay/50 hover:bg-surface-active/80 relative overflow-hidden rounded-2xl transition-transform duration-200"
   >
     <div
       v-if="albumCover"
@@ -19,7 +19,7 @@
       <div class="flex items-start gap-4">
         <div class="relative shrink-0">
           <div
-            class="ring-border-default h-24 w-24 overflow-hidden rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] ring-1 transition-all duration-500"
+            class="ring-border-default h-24 w-24 overflow-hidden rounded-2xl shadow-[0_8px_32px_rgba(0,0,0,0.5)] ring-1 transition-transform duration-500"
             :class="isPlaying ? 'scale-100' : 'scale-95 opacity-80'"
           >
             <img
@@ -55,7 +55,7 @@
             <button
               type="button"
               aria-label="Like"
-              class="text-secondary hover:bg-surface-active hover:text-primary flex h-8 w-8 items-center justify-center rounded-full transition-all duration-150 active:scale-90"
+              class="text-secondary hover:bg-surface-active hover:text-primary flex h-8 w-8 items-center justify-center rounded-full transition-transform duration-150 active:scale-90"
               @click="$emit('toggle-like')"
             >
               <Heart v-if="liked" :size="14" class="text-accent" fill="currentColor" />
@@ -64,7 +64,7 @@
             <button
               type="button"
               aria-label="Fullscreen"
-              class="text-secondary hover:bg-surface-active hover:text-primary flex h-8 w-8 items-center justify-center rounded-full transition-all duration-150 active:scale-90"
+              class="text-secondary hover:bg-surface-active hover:text-primary flex h-8 w-8 items-center justify-center rounded-full transition-transform duration-150 active:scale-90"
               @click="$emit('toggle-fullscreen')"
             >
               <Maximize2 :size="14" />
@@ -81,7 +81,7 @@
           :aria-valuemax="1"
           :aria-valuenow="progressPercent / 100"
           aria-label="Seek"
-          class="group/progress relative h-1 cursor-pointer rounded-full transition-all duration-150 hover:h-1.5"
+          class="group/progress relative h-1 cursor-pointer rounded-full transition-transform duration-150 hover:h-1.5"
           :class="isPlaying ? 'bg-surface-active' : 'bg-surface-overlay'"
           @click="onSeek"
           @keydown.enter="onSeek"
@@ -89,11 +89,11 @@
         >
           <div
             v-if="isPlaying && accentColor"
-            class="absolute inset-0 rounded-full opacity-20 blur-xs transition-opacity"
+            class="absolute inset-0 rounded-full opacity-20 transition-opacity"
             :style="{ background: accentColor }"
           />
           <div
-            class="relative h-full rounded-full transition-all duration-100"
+            class="relative h-full rounded-full transition-transform duration-100"
             :style="{
               width: `${progressPercent}%`,
               background: accentColor || 'var(--color-primary)',
@@ -117,7 +117,7 @@
         <button
           type="button"
           aria-label="Shuffle"
-          class="flex h-9 w-9 items-center justify-center rounded-full transition-all duration-150 active:scale-90"
+          class="flex h-9 w-9 items-center justify-center rounded-full transition-transform duration-150 active:scale-90"
           :class="
             shuffleMode !== 'off'
               ? 'text-accent'
@@ -130,7 +130,7 @@
         <button
           type="button"
           aria-label="Previous track"
-          class="text-secondary hover:bg-surface-active hover:text-primary flex h-9 w-9 items-center justify-center rounded-full transition-all duration-150 active:scale-90 disabled:opacity-30"
+          class="text-secondary hover:bg-surface-active hover:text-primary flex h-9 w-9 items-center justify-center rounded-full transition-transform duration-150 active:scale-90 disabled:opacity-30"
           :disabled="!hasPrevious"
           @click="$emit('prev')"
         >
@@ -139,7 +139,7 @@
         <button
           type="button"
           aria-label="Play or pause"
-          class="bg-primary hover:bg-primary/90 flex h-10 w-10 items-center justify-center rounded-full text-black shadow-lg transition-all duration-150 active:scale-90 disabled:opacity-40"
+          class="bg-primary hover:bg-primary/90 flex h-10 w-10 items-center justify-center rounded-full text-black shadow-lg transition-transform duration-150 active:scale-90 disabled:opacity-40"
           :disabled="!track"
           @click="$emit('toggle-play')"
         >
@@ -150,7 +150,7 @@
         <button
           type="button"
           aria-label="Next track"
-          class="text-secondary hover:bg-surface-active hover:text-primary flex h-9 w-9 items-center justify-center rounded-full transition-all duration-150 active:scale-90 disabled:opacity-30"
+          class="text-secondary hover:bg-surface-active hover:text-primary flex h-9 w-9 items-center justify-center rounded-full transition-transform duration-150 active:scale-90 disabled:opacity-30"
           :disabled="!hasNext"
           @click="$emit('next')"
         >
@@ -159,7 +159,7 @@
         <button
           type="button"
           aria-label="Repeat"
-          class="flex h-9 w-9 items-center justify-center rounded-full transition-all duration-150 active:scale-90"
+          class="flex h-9 w-9 items-center justify-center rounded-full transition-transform duration-150 active:scale-90"
           :class="
             repeatMode !== 'off'
               ? 'text-accent'

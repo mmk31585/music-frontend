@@ -134,7 +134,7 @@
         <div class="flex flex-col items-center gap-1">
           <button
             type="button"
-            class="like-btn flex h-11 w-11 items-center justify-center rounded-full text-lg surface-card transition-all duration-150"
+            class="like-btn flex h-11 w-11 items-center justify-center rounded-full text-lg surface-card transition-transform duration-150"
             :class="isLiked ? 'bg-spotify/20 text-spotify' : 'bg-white/10 text-white hover:bg-white/20'"
             :style="{ transform: `scale(${likeScale})` }"
             @click.stop="toggleLike"

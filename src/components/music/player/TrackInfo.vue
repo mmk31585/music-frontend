@@ -7,7 +7,7 @@
       @click="$emit('open-fullscreen')"
     >
       <div
-        class="ring-border-default ease-out-expo overflow-hidden rounded-[18px] shadow-[0_16px_32px_rgba(0,0,0,0.5)] ring-1 transition-all duration-700"
+        class="ring-border-default ease-out-expo overflow-hidden rounded-[18px] shadow-[0_16px_32px_rgba(0,0,0,0.5)] ring-1 transition-transform duration-700"
         :class="[isPlaying ? 'scale-100' : 'scale-95 opacity-80']"
         :style="artworkStyle"
       >
@@ -61,7 +61,7 @@
         <button
           v-else-if="artistId"
           type="button"
-          class="flex shrink-0 items-center justify-center transition-all hover:scale-110 active:scale-90"
+          class="flex shrink-0 items-center justify-center transition-transform hover:scale-110 active:scale-90"
           :class="liked ? 'text-aurora-pink' : 'text-primary/30 hover:text-primary/60'"
           :aria-label="liked ? 'Unlike' : 'Like'"
           @click.stop="$emit('toggle-like')"
@@ -74,7 +74,7 @@
         </button>
         <button
           type="button"
-          class="text-primary/30 hover:text-primary/60 flex shrink-0 items-center justify-center transition-all hover:scale-110 active:scale-90"
+          class="text-primary/30 hover:text-primary/60 flex shrink-0 items-center justify-center transition-transform hover:scale-110 active:scale-90"
           aria-label="Add to playlist"
           @click.stop="$emit('add-to-playlist')"
         >

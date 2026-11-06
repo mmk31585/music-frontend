@@ -161,7 +161,7 @@
           >
             <button
               type="button"
-              class="hover:bg-spotify/20 hover:text-spotify flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-slate-500 transition-all disabled:opacity-30"
+              class="hover:bg-spotify/20 hover:text-spotify flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-slate-500 transition-transform disabled:opacity-30"
               :disabled="loadingTrackId === String(track.id)"
               :aria-label="'Play ' + track.title"
               :title="isTrackPlaying(track) ? 'Now playing' : 'Play track'"

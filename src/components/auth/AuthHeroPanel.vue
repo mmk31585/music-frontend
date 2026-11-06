@@ -2,10 +2,10 @@
   <div
     class="relative hidden min-h-screen overflow-hidden bg-surface-900 p-10 text-primary lg:flex lg:flex-col lg:justify-between"
   >
-    <!-- Aurora orbs -->
-    <div class="aurora-orb absolute -top-24 -right-20 h-80 w-80 rounded-full bg-accent opacity-20 blur-[100px]" />
-    <div class="aurora-orb absolute top-1/3 -left-10 h-64 w-64 rounded-full bg-accent opacity-15 blur-[80px]" style="animation-delay: 2.5s" />
-    <div class="aurora-orb absolute -bottom-16 right-1/4 h-72 w-72 rounded-full bg-accent opacity-15 blur-[90px]" style="animation-delay: 5s" />
+    <!-- Solid decorative accents -->
+    <div class="absolute -top-24 -right-20 h-80 w-80 rounded-full bg-accent/10" />
+    <div class="absolute top-1/3 -left-10 h-64 w-64 rounded-full bg-accent/5" style="animation-delay: 2.5s" />
+    <div class="absolute -bottom-16 right-1/4 h-72 w-72 rounded-full bg-accent/5" style="animation-delay: 5s" />
 
     <!-- Equalizer bars -->
     <div class="absolute right-10 top-1/4 z-10 flex items-end gap-0.75 opacity-40">
@@ -53,9 +53,6 @@
   background-clip: text;
 }
 
-.aurora-orb {
-  animation: aurora-pulse 6s ease-in-out infinite alternate;
-}
 
 @keyframes aurora-pulse {
   0%   { transform: scale(1); opacity: 0.4; }
@@ -67,6 +64,12 @@
   animation: eq-bounce 0.8s ease-in-out infinite alternate;
   animation-delay: calc(var(--i, 0) * 0.05s);
   height: calc(8px + (var(--bar-height, 20) * 1px));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .equalizer-bar {
+    animation: none !important;
+  }
 }
 
 .equalizer-bar:nth-child(1)  { --bar-height: 12; --i: 0; }

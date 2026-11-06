@@ -7,7 +7,7 @@
         <button
           ref="shuffleBtnRef"
           type="button"
-          class="relative flex h-9 w-9 items-center justify-center rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-spotify/60 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-base"
+          class="relative flex h-9 w-9 items-center justify-center rounded-full transition-transform duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-spotify/60 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-base"
           :class="[
             props.shuffleMode !== 'off'
               ? 'text-aurora-purple hover:bg-aurora-purple/15 active:scale-95'
@@ -35,7 +35,6 @@
             role="menu"
             aria-label="Select shuffle mode"
             class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-60 min-w-[150px] rounded-xl border border-white/10 bg-surface-raised p-1.5 shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
-            style="backdrop-filter: blur(24px);"
             @keydown="onMenuKeydown($event, 'shuffle')"
           >
             <button
@@ -60,7 +59,7 @@
       <!-- Previous -->
       <button
         type="button"
-        class="flex h-9 w-9 items-center justify-center rounded-full text-white/50 hover:text-white disabled:opacity-25 hover:bg-white/10 active:scale-95 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-spotify/60 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-base"
+        class="flex h-9 w-9 items-center justify-center rounded-full text-white/50 hover:text-white disabled:opacity-25 hover:bg-white/10 active:scale-95 transition-transform duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-spotify/60 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-base"
         :disabled="!props.hasPrevious"
         aria-label="Previous track"
         @click="props.playPrevious"
@@ -72,7 +71,7 @@
       <GuestPlayGate action="play" #default="{ proceed }">
         <button
           type="button"
-          class="relative flex h-11 w-11 items-center justify-center rounded-full shadow-xl disabled:opacity-40 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-spotify/60 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-base"
+          class="relative flex h-11 w-11 items-center justify-center rounded-full shadow-xl disabled:opacity-40 transition-transform duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-spotify/60 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-base"
           :style="{ background: props.progressColor }"
           :disabled="!props.currentTrack || props.isLoadingTrack"
           :aria-label="playAriaLabel"
@@ -93,7 +92,7 @@
       <!-- Next -->
       <button
         type="button"
-        class="flex h-9 w-9 items-center justify-center rounded-full text-white/50 hover:text-white disabled:opacity-25 hover:bg-white/10 active:scale-95 transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-spotify/60 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-base"
+        class="flex h-9 w-9 items-center justify-center rounded-full text-white/50 hover:text-white disabled:opacity-25 hover:bg-white/10 active:scale-95 transition-transform duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-spotify/60 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-base"
         :disabled="!props.hasNext"
         aria-label="Next track"
         @click="props.playNext"
@@ -106,7 +105,7 @@
         <button
           ref="repeatBtnRef"
           type="button"
-          class="relative flex h-9 w-9 items-center justify-center rounded-full transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-spotify/60 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-base"
+          class="relative flex h-9 w-9 items-center justify-center rounded-full transition-transform duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-spotify/60 focus-visible:ring-offset-2 focus-visible:ring-offset-surface-base"
           :class="[
             props.repeatMode !== 'off'
               ? 'text-aurora-pink hover:bg-aurora-pink/15 active:scale-95'
@@ -134,7 +133,6 @@
             role="menu"
             aria-label="Select repeat mode"
             class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 z-60 min-w-[130px] rounded-xl border border-white/10 bg-surface-raised p-1.5 shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
-            style="backdrop-filter: blur(24px);"
             @keydown="onMenuKeydown($event, 'repeat')"
           >
             <button
@@ -167,7 +165,7 @@
         :aria-valuemax="props.duration"
         :aria-valuenow="props.currentTime"
         aria-label="Seek"
-        class="group relative h-1.5 flex-1 cursor-pointer rounded-full transition-all duration-150"
+        class="group relative h-1.5 flex-1 cursor-pointer rounded-full transition-transform duration-150"
         :class="props.isPlaying ? 'bg-white/15' : 'bg-white/10'"
         dir="ltr"
         @click="onSeekClick"
@@ -181,7 +179,7 @@
       <!-- Base track glow when playing -->
       <div
       v-if="props.isPlaying && props.progressColor"
-      class="absolute inset-0 rounded-full opacity-20 blur-xs transition-opacity duration-500"
+      class="absolute inset-0 rounded-full opacity-20 transition-opacity duration-500"
       :style="{ background: props.progressColor }"
       />
       
@@ -194,7 +192,7 @@
         
         <!-- Thumb dot - only visible on hover/focus/drag -->
         <div
-        class="absolute top-1/2 -translate-y-1/2 size-4 rounded-full shadow-xl opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 scale-0 group-hover:scale-100 group-focus-visible:scale-100 transition-all duration-300 ease-spring"
+        class="absolute top-1/2 -translate-y-1/2 size-4 rounded-full shadow-xl opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 scale-0 group-hover:scale-100 group-focus-visible:scale-100 transition-transform duration-300 ease-spring"
         :style="{
           left: `calc(${props.progressPercent}% - 8px)`,
           background: props.progressColor || 'var(--p-500)',

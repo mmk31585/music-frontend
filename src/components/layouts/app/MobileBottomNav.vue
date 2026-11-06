@@ -16,7 +16,7 @@
             : 'text-muted hover:bg-surface-hover hover:text-secondary'
         "
       >
-        <div class="flex h-10 w-10 items-center justify-center rounded-xl transition-all duration-200">
+        <div class="flex h-10 w-10 items-center justify-center rounded-xl transition-transform duration-200">
           <i aria-hidden="true" :class="tab.icon" class="text-lg" />
         </div>
         <span>{{ tab.label }}</span>

@@ -1,9 +1,9 @@
 <template>
   <div class="relative mx-auto min-h-screen w-full pb-36">
     <!-- ── Ambient purple/green aurora ── -->
-    <div class="aurora-bg pointer-events-none fixed inset-0" aria-hidden="true">
-      <div class="aurora-spot-1" />
-      <div class="aurora-spot-2" />
+    <div class="relative overflow-none pointer-events-none fixed inset-0" aria-hidden="true">
+      <div class="absolute rounded-full" />
+      <div class="absolute rounded-full" />
     </div>
 
     <div class="relative z-10 px-4 pt-8 md:px-6 lg:px-8">
@@ -56,7 +56,7 @@
                     v-for="mood in moodOptions"
                     :key="mood.value"
                     type="button"
-                    class="group relative flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-all duration-300"
+                    class="group relative flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-transform duration-300"
                     :class="
                       selectedMood === mood.value
                         ? 'border-spotify/40 bg-spotify/15 text-white'
@@ -78,7 +78,7 @@
                     v-for="activity in activityOptions"
                     :key="activity.value"
                     type="button"
-                    class="group relative flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-all duration-300"
+                    class="group relative flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-transform duration-300"
                     :class="
                       selectedActivity === activity.value
                         ? 'border-aurora-purple/40 bg-aurora-purple/15 text-white'
@@ -194,10 +194,10 @@
               >
                 <div class="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
                   <div
-                    class="absolute -top-1/3 -left-1/4 h-64 w-64 rounded-full bg-spotify/10 blur-[100px]"
+                    class="absolute -top-1/3 -left-1/4 h-64 w-64 rounded-full bg-spotify/10"
                   />
                   <div
-                    class="absolute -bottom-1/3 -right-1/4 h-64 w-64 rounded-full bg-aurora-purple/10 blur-[100px]"
+                    class="absolute -bottom-1/3 -right-1/4 h-64 w-64 rounded-full bg-aurora-purple/10"
                   />
                 </div>
 

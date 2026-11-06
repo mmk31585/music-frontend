@@ -1,14 +1,14 @@
 <template>
   <div class="relative mx-auto w-full max-w-7xl px-4 pb-36 pt-6 md:px-6 lg:px-8">
     <!-- Aurora gradient background -->
-    <div class="aurora-bg pointer-events-none fixed inset-0" aria-hidden="true">
-      <div class="aurora-spot-1 -top-40 -left-40 bg-purple-600/15" />
-      <div class="aurora-spot-2 -top-60 -right-40 bg-blue-500/10" />
+    <div class="relative overflow-none pointer-events-none fixed inset-0" aria-hidden="true">
+      <div class="absolute -top-40 -left-40 rounded-full bg-purple-600/15" />
+      <div class="absolute -top-60 -right-40 rounded-full bg-blue-500/10" />
       <div
-        class="aurora-spot-1 top-20 left-1/3 bg-violet-500/10"
+        class="absolute top-20 left-1/3 rounded-full bg-violet-500/10"
         style="animation-delay: -8s; width: 350px; height: 350px"
       />
-      <div class="aurora-flow absolute inset-0 opacity-30" />
+      <div class="absolute inset-0 opacity-30" />
     </div>
 
     <div class="relative z-10">
@@ -25,7 +25,7 @@
     <!-- ─────────────────────── Search Bar ─────────────────────── -->
     <div class="relative mb-6">
       <IconField
-        class="spring w-full rounded-full shadow-md transition-all duration-300 focus-within:ring-4 focus-within:ring-spotify/15"
+        class="spring w-full rounded-full shadow-md transition-transform duration-300 focus-within:ring-4 focus-within:ring-spotify/15"
       >
         <InputIcon class="text-white/40 text-base">
           <Search aria-hidden="true" class=""  />
@@ -105,7 +105,7 @@
       <button
         v-for="tab in tabs"
         :key="tab.value"
-        class="spring rounded-full px-4 py-1.5 text-xs font-bold transition-all"
+        class="spring rounded-full px-4 py-1.5 text-xs font-bold transition-transform"
         :class="searchType === tab.value
           ? 'bg-white text-black shadow-md'
           : 'border border-white/8 bg-white/4 text-white/50 hover:border-white/20 hover:text-white'"
@@ -206,9 +206,9 @@
               v-for="artist in filteredResults.artists"
               :key="artist.id"
               :to="`/artist/${artist.id}`"
-              class="group spring rounded-2xl border border-white/6 bg-white/2 p-4 text-center transition-all hover:border-white/12 hover:bg-white/5 active:scale-[0.97]"
+              class="group spring rounded-2xl border border-white/6 bg-white/2 p-4 text-center transition-transform hover:border-white/12 hover:bg-white/5 active:scale-[0.97]"
             >
-              <div class="mx-auto h-20 w-20 overflow-hidden rounded-full bg-white/6 ring-1 ring-white/10 transition-all duration-300 group-hover:ring-spotify/50">
+              <div class="mx-auto h-20 w-20 overflow-hidden rounded-full bg-white/6 ring-1 ring-white/10 transition-transform duration-300 group-hover:ring-spotify/50">
                 <img
                   v-if="artist.imageUrl"
                   :src="artist.imageUrl"
@@ -242,7 +242,7 @@
               :to="`/album/${album.id}`"
               class="group active:scale-[0.98]"
             >
-              <div class="spring relative aspect-square overflow-hidden rounded-2xl bg-white/4 ring-1 ring-white/10 transition-all group-hover:shadow-lg group-hover:ring-spotify/50">
+              <div class="spring relative aspect-square overflow-hidden rounded-2xl bg-white/4 ring-1 ring-white/10 transition-transform group-hover:shadow-lg group-hover:ring-spotify/50">
                 <img
                   v-if="album.coverUrl"
                   :src="album.coverUrl"
@@ -379,7 +379,7 @@
               v-for="mood in moods"
               :key="mood.value"
               :to="`/ai/mood-explorer?mood=${mood.value}`"
-              class="group spring flex flex-col items-center gap-2 rounded-2xl border border-white/6 bg-white/2 px-3 py-4 text-center transition-all duration-300 hover:-translate-y-1 hover:border-white/15 hover:bg-white/6 active:scale-[0.95]"
+              class="group spring flex flex-col items-center gap-2 rounded-2xl border border-white/6 bg-white/2 px-3 py-4 text-center transition-transform duration-300 hover:-translate-y-1 hover:border-white/15 hover:bg-white/6 active:scale-[0.95]"
             >
               <div
                 class="flex h-10 w-10 items-center justify-center rounded-xl text-lg transition duration-300 group-hover:scale-110"
@@ -405,7 +405,7 @@
               v-for="(track, idx) in popular.slice(0, 4)"
               :key="track.id"
               type="button"
-              class="group spring flex w-full items-center gap-4 rounded-2xl border border-white/6 bg-white/2 px-4 py-3 transition-all hover:border-white/12 hover:bg-white/6 active:scale-[0.99]"
+              class="group spring flex w-full items-center gap-4 rounded-2xl border border-white/6 bg-white/2 px-4 py-3 transition-transform hover:border-white/12 hover:bg-white/6 active:scale-[0.99]"
               @click="playTrack(track)"
             >
               <div class="flex w-8 items-center justify-center">
@@ -449,10 +449,10 @@
               v-for="genre in genreWorlds"
               :key="genre.name"
               :to="`/search?genre=${encodeURIComponent(genre.name)}`"
-              class="group spring relative flex h-28 items-end overflow-hidden rounded-2xl p-5 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg active:scale-[1.01]"
+              class="group spring relative flex h-28 items-end overflow-hidden rounded-2xl p-5 transition-transform duration-300 hover:scale-[1.02] hover:shadow-lg active:scale-[1.01]"
               :style="{ background: genre.gradient }"
             >
-              <div class="absolute top-3 right-3 text-2xl opacity-40 transition-all group-hover:scale-125 group-hover:opacity-70">
+              <div class="absolute top-3 right-3 text-2xl opacity-40 transition-transform group-hover:scale-125 group-hover:opacity-70">
                 {{ genre.icon }}
               </div>
               <p class="relative z-10 text-base font-bold text-white drop-shadow-xl">

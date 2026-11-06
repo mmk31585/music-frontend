@@ -7,7 +7,7 @@
         v-for="action in actions"
         :key="action.to"
         :to="action.to"
-        class="group flex items-center gap-3 rounded-xl border border-white/6 bg-white/2 px-4 py-3.5 transition-all duration-200 hover:border-emerald-500/20 hover:bg-emerald-500/5"
+        class="group flex items-center gap-3 rounded-xl border border-white/6 bg-white/2 px-4 py-3.5 transition-transform duration-200 hover:border-emerald-500/20 hover:bg-emerald-500/5"
       >
         <div
           class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white/5 transition-colors group-hover:bg-emerald-500/10"

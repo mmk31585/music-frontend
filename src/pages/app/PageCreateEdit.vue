@@ -20,7 +20,7 @@
         :aria-selected="currentStep === s.step"
       >
         <div
-          class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold transition-all duration-300"
+          class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold transition-transform duration-300"
           :class="stepClass(i)"
         >
           <Check v-if="isStepComplete(i)" aria-hidden="true" class="text-xs"  />
@@ -223,7 +223,7 @@
           <!-- Upload progress bar -->
           <div v-if="uploadProgress > 0 && uploadProgress < 100" class="h-1.5 w-full overflow-hidden rounded-full bg-white/8">
             <div
-              class="h-full rounded-full bg-spotify transition-all duration-500 ease-out"
+              class="h-full rounded-full bg-spotify transition-transform duration-500 ease-out"
               :style="{ width: uploadProgress + '%' }"
             />
           </div>
@@ -795,10 +795,10 @@ function goToProfile() {
 <style scoped>
 /* Track list transitions */
 .track-list-enter-active {
-  transition: all 0.25s ease-out;
+  transition: opacity 0.25s ease-out, background-color 0.25s ease-out;
 }
 .track-list-leave-active {
-  transition: all 0.2s ease-in;
+  transition: opacity 0.2s ease-in, background-color 0.2s ease-in;
 }
 .track-list-enter-from {
   opacity: 0;

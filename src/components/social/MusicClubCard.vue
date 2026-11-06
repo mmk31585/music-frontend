@@ -1,6 +1,6 @@
 <template>
   <div
-    class="group bg-surface-overlay/60 ring-border-default hover:bg-surface-active/80 hover:ring-border-strong focus-within:ring-spotify overflow-hidden rounded-2xl ring-1 transition-all duration-300 focus-within:ring-2"
+    class="group bg-surface-overlay/60 ring-border-default hover:bg-surface-active/80 hover:ring-border-strong focus-within:ring-spotify overflow-hidden rounded-2xl ring-1 transition-transform duration-300 focus-within:ring-2"
     role="article"
     :aria-label="`Club: ${club.name}`"
   >
@@ -48,7 +48,7 @@
           <!-- Member capacity bar -->
           <div class="bg-surface-overlay mt-2 h-1 w-full overflow-hidden rounded-full">
             <div
-              class="h-full rounded-full bg-purple-500/40 transition-all duration-500"
+              class="h-full rounded-full bg-purple-500/40 transition-transform duration-500"
               :style="{ width: `${capacityPercent}%` }"
             />
           </div>

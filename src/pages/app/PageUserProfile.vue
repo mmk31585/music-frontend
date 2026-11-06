@@ -114,7 +114,7 @@
             <div
               v-for="track in likedTracks" :key="track.id || track.track_id"
               class="group relative overflow-hidden rounded-2xl bg-white/4 ring-1 ring-white/6
-                     transition-all duration-300 hover:ring-spotify/30 hover:bg-white/6
+                     transition-transform duration-300 hover:ring-spotify/30 hover:bg-white/6
                      focus-within:ring-spotify"
               @contextmenu.prevent="openContextMenu($event, track)"
             >
@@ -281,7 +281,7 @@
               v-for="f in followers"
               :key="f.follower_id"
               :to="`/profile/${f.follower_id}`"
-              class="flex flex-col items-center gap-3 rounded-2xl bg-white/4 p-5 ring-1 ring-white/6 transition-all duration-200 hover:bg-white/8 hover:ring-white/12 focus-visible:outline-2 focus-visible:outline-accent"
+              class="flex flex-col items-center gap-3 rounded-2xl bg-white/4 p-5 ring-1 ring-white/6 transition-transform duration-200 hover:bg-white/8 hover:ring-white/12 focus-visible:outline-2 focus-visible:outline-accent"
             >
               <div class="h-16 w-16 overflow-hidden rounded-full ring-2 ring-white/10">
                 <img
@@ -317,7 +317,7 @@
               v-for="f in following"
               :key="f.followed_id"
               :to="`/profile/${f.followed_id}`"
-              class="flex flex-col items-center gap-3 rounded-2xl bg-white/4 p-5 ring-1 ring-white/6 transition-all duration-200 hover:bg-white/8 hover:ring-white/12 focus-visible:outline-2 focus-visible:outline-accent"
+              class="flex flex-col items-center gap-3 rounded-2xl bg-white/4 p-5 ring-1 ring-white/6 transition-transform duration-200 hover:bg-white/8 hover:ring-white/12 focus-visible:outline-2 focus-visible:outline-accent"
             >
               <div class="h-16 w-16 overflow-hidden rounded-full ring-2 ring-white/10">
                 <img

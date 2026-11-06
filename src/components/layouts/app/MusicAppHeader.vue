@@ -2,7 +2,7 @@
   <header
     ref="headerRef"
     role="banner"
-    class="sticky top-0 z-30 border-b border-border-default bg-surface-1 transition-all duration-300"
+    class="sticky top-0 z-30 border-b border-border-default bg-surface-1 transition-transform duration-300"
     :class="[isScrolled ? 'bg-surface-elevated shadow-lg' : 'bg-transparent']"
   >
     <div class="flex h-[72px] items-center justify-between px-6 md:px-8 lg:px-10">
@@ -15,13 +15,13 @@
           v-if="!isHome"
           to="/"
           aria-label="برگشت به صفحه اصلی"
-          class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-secondary transition-all duration-150 hover:bg-surface-overlay hover:text-primary active:scale-90"
+          class="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl text-secondary transition-transform duration-150 hover:bg-surface-overlay hover:text-primary active:scale-90"
         >
           <ChevronLeft :size="18" />
         </RouterLink>
         <button
           type="button"
-          class="group flex w-full max-w-md items-center gap-3 rounded-xl border border-border-default bg-surface-overlay px-4 py-2.5 text-sm text-muted transition-all duration-200 hover:border-border-strong hover:bg-surface-active hover:text-secondary focus-visible:border-accent focus-visible:outline-none"
+          class="group flex w-full max-w-md items-center gap-3 rounded-xl border border-border-default bg-surface-overlay px-4 py-2.5 text-sm text-muted transition-transform duration-200 hover:border-border-strong hover:bg-surface-active hover:text-secondary focus-visible:border-accent focus-visible:outline-none"
           @click="$emit('toggle-search')"
         >
           <Search aria-hidden="true" class="text-accent text-sm transition-colors group-hover:text-accent"  />
@@ -63,7 +63,7 @@
               aria-label="فهرست کاربری"
               aria-haspopup="true"
               :aria-expanded="showUserMenu"
-              class="flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl bg-accent text-sm font-bold text-accent-text ring-2 ring-transparent transition-all duration-200 hover:bg-accent-hover focus-visible:ring-accent/50"
+              class="flex h-9 w-9 items-center justify-center overflow-hidden rounded-xl bg-accent text-sm font-bold text-accent-text ring-2 ring-transparent transition-transform duration-200 hover:bg-accent-hover focus-visible:ring-accent/50"
               :class="{ 'ring-accent/40': showUserMenu }"
               @click="showUserMenu = !showUserMenu"
             >

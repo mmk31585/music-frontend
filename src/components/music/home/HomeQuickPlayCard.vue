@@ -1,7 +1,7 @@
 <template>
   <button
     type="button"
-    class="group focus-visible:ring-spotify relative flex h-16 w-full cursor-pointer items-center gap-3 overflow-hidden rounded-xl border border-white/6 bg-white/4 p-2 text-right transition-all duration-200 hover:bg-white/8 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden"
+    class="group focus-visible:ring-spotify relative flex h-16 w-full cursor-pointer items-center gap-3 overflow-hidden rounded-xl border border-white/6 bg-white/4 p-2 text-right transition-transform duration-200 hover:bg-white/8 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-hidden"
     :class="{ 'border-l-[3px] border-l-[var(--accent)]': isPlaying }"
     :style="{ transitionDelay: `${delay}ms` }"
     @click="$emit('play', item)"
@@ -27,7 +27,7 @@
       </p>
     </div>
     <div
-      class="bg-spotify flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-black opacity-0 transition-all duration-200 group-hover:opacity-100"
+      class="bg-spotify flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-black opacity-0 transition-transform duration-200 group-hover:opacity-100"
     >
       <Play aria-hidden="true" class="text-sm" />
     </div>

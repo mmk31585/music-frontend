@@ -1,6 +1,6 @@
 <template>
   <div
-    class="group surface-card rounded-2xl p-5 transition-all duration-300 hover:-translate-y-0.5"
+    class="group surface-card rounded-2xl p-5 transition-transform duration-300 hover:-translate-y-0.5"
   >
     <div class="flex items-center justify-between">
       <div>

@@ -1,12 +1,12 @@
 <template>
   <div
-    class="relative overflow-hidden rounded-2xl bg-surface-overlay p-4 ring-1 ring-border-default transition-all duration-300"
+    class="relative overflow-hidden rounded-2xl bg-surface-overlay p-4 ring-1 ring-border-default transition-transform duration-300"
     :class="musicStatus?.playing ? 'ring-spotify/20' : ''"
   >
     <!-- Ambient glow when playing -->
     <div
       v-if="musicStatus?.playing"
-      class="pointer-events-none absolute -inset-4 bg-accent/5 blur-3xl motion-safe:animate-pulse"
+      class="pointer-events-none absolute -inset-4 bg-accent/5 motion-safe:animate-pulse"
       aria-hidden="true"
       style="animation-duration: 3s;"
     />
@@ -62,7 +62,7 @@
       <button
         v-if="musicStatus?.playing && !isOwnProfile"
         aria-label="Listen along"
-        class="shrink-0 rounded-full bg-accent px-4 py-2 text-xs font-bold text-black transition-all duration-200 hover:bg-accent-hover hover:scale-105 active:scale-95 focus-visible:outline-2 focus-visible:outline-primary"
+        class="shrink-0 rounded-full bg-accent px-4 py-2 text-xs font-bold text-black transition-transform duration-200 hover:bg-accent-hover hover:scale-105 active:scale-95 focus-visible:outline-2 focus-visible:outline-primary"
         @click="$emit('listenAlong', currentTrackInfo!.id)"
       >
         Listen

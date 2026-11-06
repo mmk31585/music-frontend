@@ -58,7 +58,7 @@
           icon="pi pi-send"
           icon-pos="right"
           :loading="loading"
-          class="auth-btn w-full border-0 bg-spotify text-black font-semibold hover:bg-spotify-hover transition-all duration-200"
+          class="auth-btn w-full border-0 bg-spotify text-black font-semibold hover:bg-spotify-hover transition-transform duration-200"
         />
       </form>
 
@@ -127,7 +127,7 @@ async function onSubmit() {
   padding-top: 10px !important;
   padding-bottom: 10px !important;
   font-size: 0.875rem !important;
-  transition: all 0.2s ease !important;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 :deep(.auth-input:focus) {
@@ -155,7 +155,7 @@ async function onSubmit() {
 
 .fade-slide-enter-active,
 .fade-slide-leave-active {
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .fade-slide-enter-from,

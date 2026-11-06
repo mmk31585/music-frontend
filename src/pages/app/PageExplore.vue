@@ -21,7 +21,7 @@
         v-for="filter in filters"
         :key="filter.key"
         type="button"
-        class="rounded-full px-4 py-2 text-sm font-bold transition-all duration-200"
+        class="rounded-full px-4 py-2 text-sm font-bold transition-transform duration-200"
         :class="
           activeFilter === filter.key
             ? 'bg-spotify shadow-spotify/20 text-black shadow-lg'

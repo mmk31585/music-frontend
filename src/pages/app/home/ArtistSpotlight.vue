@@ -11,7 +11,7 @@
         v-for="artist in artists"
         :key="artist.id"
         :to="`/artist/${artist.id}`"
-        class="group relative overflow-hidden rounded-2xl border border-white/[4%] bg-white/[1%] p-5 transition-all hover:-translate-y-1 hover:border-white/[10%] hover:bg-white/[4%]"
+        class="group relative overflow-hidden rounded-2xl border border-white/[4%] bg-white/[1%] p-5 transition-transform hover:-translate-y-1 hover:border-white/[10%] hover:bg-white/[4%]"
       >
         <div class="flex flex-col items-center gap-4 text-center">
           <div

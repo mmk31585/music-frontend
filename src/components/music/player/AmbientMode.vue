@@ -16,7 +16,7 @@
             :src="coverUrl"
             alt=""
             loading="lazy"
-            class="h-full w-full object-cover opacity-70 blur-3xl"
+            class="h-full w-full object-cover opacity-70"
           />
           <div
             v-else
@@ -38,13 +38,13 @@
           <div class="flex items-center justify-between px-5 pt-5 pb-3">
             <button
               type="button"
-              class="spring flex h-10 w-10 items-center justify-center rounded-full text-secondary transition-all hover:bg-surface-active hover:text-primary"
+              class="spring flex h-10 w-10 items-center justify-center rounded-full text-secondary transition-transform hover:bg-surface-active hover:text-primary"
               aria-label="Close"
               @click="close"
             >
               <ChevronDown aria-hidden="true" class="text-lg"  />
             </button>
-            <div class="glass flex items-center gap-2 rounded-full px-4 py-2 text-xs text-secondary">
+            <div class="flex items-center gap-2 rounded-full px-4 py-2 text-xs text-secondary bg-surface-3 border border-border-default">
               <span
                 class="flex h-2 w-2 rounded-full bg-accent"
                 :class="{ 'glow-spread': isPlaying }"
@@ -99,7 +99,7 @@
             <div class="flex items-center gap-6">
               <button
                 type="button"
-                class="spring relative flex h-10 w-10 items-center justify-center rounded-full text-tertiary transition-all hover:bg-surface-active hover:text-primary"
+                class="spring relative flex h-10 w-10 items-center justify-center rounded-full text-tertiary transition-transform hover:bg-surface-active hover:text-primary"
                 :class="{ 'text-accent!': shuffleMode !== 'off' }"
                 :disabled="!currentTrack"
                 aria-label="Shuffle"
@@ -114,7 +114,7 @@
 
               <button
                 type="button"
-                class="spring flex h-12 w-12 items-center justify-center rounded-full text-secondary transition-all hover:bg-surface-active hover:text-primary disabled:opacity-20"
+                class="spring flex h-12 w-12 items-center justify-center rounded-full text-secondary transition-transform hover:bg-surface-active hover:text-primary disabled:opacity-20"
                 :disabled="!hasPrevious"
                 aria-label="Previous track"
                 @click="playPrevious"
@@ -124,7 +124,7 @@
 
               <button
                 type="button"
-                class="glow-green spring relative flex h-16 w-16 items-center justify-center rounded-full bg-surface-active text-black shadow-2xl transition-all hover:scale-105 hover:bg-accent hover:text-primary disabled:opacity-40"
+                class="glow-green spring relative flex h-16 w-16 items-center justify-center rounded-full bg-surface-active text-black shadow-2xl transition-transform hover:scale-105 hover:bg-accent hover:text-primary disabled:opacity-40"
                 :class="{ 'bg-accent! text-primary!': isPlaying }"
                 :disabled="!currentTrack || isLoadingTrack"
                 :aria-label="isLoadingTrack || isBuffering ? 'Loading' : isPlaying ? 'Pause' : 'Play'"
@@ -144,7 +144,7 @@
 
               <button
                 type="button"
-                class="spring flex h-12 w-12 items-center justify-center rounded-full text-secondary transition-all hover:bg-surface-active hover:text-primary disabled:opacity-20"
+                class="spring flex h-12 w-12 items-center justify-center rounded-full text-secondary transition-transform hover:bg-surface-active hover:text-primary disabled:opacity-20"
                 :disabled="!hasNext"
                 aria-label="Next track"
                 @click="playNext"
@@ -154,7 +154,7 @@
 
               <button
                 type="button"
-                class="spring relative flex h-10 w-10 items-center justify-center rounded-full text-tertiary transition-all hover:bg-surface-active hover:text-primary"
+                class="spring relative flex h-10 w-10 items-center justify-center rounded-full text-tertiary transition-transform hover:bg-surface-active hover:text-primary"
                 :class="{ 'text-accent!': repeatMode !== 'off' }"
                 :disabled="!currentTrack"
                 aria-label="Repeat"
@@ -382,6 +382,6 @@ onBeforeUnmount(() => {
   transform: scale(1.05);
 }
 .spring {
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: opacity 0.3s cubic-bezier(0.34, 1, 0.22, 1), transform 0.3s cubic-bezier(0.34, 1, 0.22, 1);
 }
 </style>

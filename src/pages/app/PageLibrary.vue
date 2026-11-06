@@ -1,9 +1,9 @@
 <template>
   <div class="relative mx-auto min-h-screen w-full pb-36">
     <!-- ── Ambient Aurora ── -->
-    <div class="aurora-bg pointer-events-none fixed inset-0" aria-hidden="true">
-      <div class="aurora-spot-1" />
-      <div class="aurora-spot-2" />
+    <div class="relative overflow-none pointer-events-none fixed inset-0" aria-hidden="true">
+      <div class="absolute rounded-full" />
+      <div class="absolute rounded-full" />
     </div>
 
     <div class="relative z-10 px-4 pt-8 md:px-6 lg:px-8">
@@ -15,8 +15,8 @@
           class="relative overflow-hidden rounded-3xl border border-white/6 bg-linear-to-br from-spotify/10 via-surface-overlay to-black/60 p-8 md:p-12"
         >
           <div class="pointer-events-none absolute inset-0 overflow-hidden rounded-3xl">
-            <div class="absolute -top-1/2 -right-1/4 h-80 w-80 rounded-full bg-spotify/8 blur-[120px]" />
-            <div class="absolute -bottom-1/2 -left-1/4 h-64 w-64 rounded-full bg-aurora-purple/8 blur-[100px]" />
+            <div class="absolute -top-1/2 -right-1/4 h-80 w-80 rounded-full bg-spotify/8" />
+            <div class="absolute -bottom-1/2 -left-1/4 h-64 w-64 rounded-full bg-aurora-purple/8" />
           </div>
           <div class="relative">
             <p class="text-[10px] font-bold tracking-[0.35em] text-white/30 uppercase">Your collection</p>
@@ -53,7 +53,7 @@
               role="tab"
               :aria-selected="activeTab === tab.id"
               type="button"
-              class="group relative flex shrink-0 items-center gap-2 rounded-full border px-5 py-2.5 text-xs font-bold transition-all duration-300"
+              class="group relative flex shrink-0 items-center gap-2 rounded-full border px-5 py-2.5 text-xs font-bold transition-transform duration-300"
               :class="
                 activeTab === tab.id
                   ? 'border-spotify/40 bg-spotify/15 text-white shadow-lg shadow-spotify/5'
@@ -171,7 +171,7 @@
                 :to="`/album/${album.album_id}`"
                 class="group"
               >
-                <div class="relative mb-3 aspect-square overflow-hidden rounded-2xl bg-white/5 shadow-lg ring-1 ring-white/6 transition-all duration-300 group-hover:scale-[1.02] group-hover:ring-spotify/30">
+                <div class="relative mb-3 aspect-square overflow-hidden rounded-2xl bg-white/5 shadow-lg ring-1 ring-white/6 transition-transform duration-300 group-hover:scale-[1.02] group-hover:ring-spotify/30">
                   <img
                     v-if="album.cover_url"
                     :src="album.cover_url"
@@ -237,7 +237,7 @@
                 :to="`/artist/${artist.artist_id}`"
                 class="group relative block text-center"
               >
-                <div class="relative mx-auto mb-3 h-36 w-36 overflow-hidden rounded-full bg-white/4 ring-1 ring-white/6 transition-all duration-300 group-hover:ring-spotify/30">
+                <div class="relative mx-auto mb-3 h-36 w-36 overflow-hidden rounded-full bg-white/4 ring-1 ring-white/6 transition-transform duration-300 group-hover:ring-spotify/30">
                   <img
                     v-if="artist.cover_url"
                     :src="artist.cover_url"
@@ -303,7 +303,7 @@
                 v-for="playlist in playlists"
                 :key="playlist.id"
                 :to="`/playlist/${playlist.id}`"
-                class="group rounded-2xl border border-white/6 bg-white/2 p-4 transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/6 hover:border-white/12"
+                class="group rounded-2xl border border-white/6 bg-white/2 p-4 transition-transform duration-300 hover:-translate-y-0.5 hover:bg-white/6 hover:border-white/12"
               >
                 <div class="relative mb-3 aspect-square overflow-hidden rounded-xl bg-white/5 ring-1 ring-white/6">
                   <img

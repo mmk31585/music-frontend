@@ -64,8 +64,7 @@ defineEmits<{
 
 <style scoped>
 .surface-card {
-  background: rgba(18,18,18,0.8);
-  backdrop-filter: blur(28px);
+  background: var(--surface-3);
 }
 
 @keyframes eq-bar {

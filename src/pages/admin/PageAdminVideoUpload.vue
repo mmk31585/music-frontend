@@ -10,7 +10,7 @@
     <div class="mb-8 flex items-center gap-2">
       <div v-for="(step, i) in steps" :key="i" class="flex items-center gap-2">
         <div
-          class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold transition-all duration-300"
+          class="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-xs font-bold transition-transform duration-300"
           :class="stepClass(i)"
         >
           <Check aria-hidden="true" v-if="stepComplete(i)" class="text-xs" />
@@ -124,7 +124,7 @@
       <h3 class="mb-3 text-sm font-semibold text-white/80">Upload Video</h3>
 
       <div
-        class="flex cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed px-6 py-12 transition-all duration-200"
+        class="flex cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed px-6 py-12 transition-transform duration-200"
         :class="dropZoneClass"
         @click="triggerFileInput"
         @dragover.prevent="dragOver = true"
@@ -132,13 +132,13 @@
         @drop.prevent="onFileDrop"
       >
         <div
-          class="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl transition-all duration-300"
+          class="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl transition-transform duration-300"
           :class="
             uploadedFile ? 'bg-spotify/20' : dragOver ? 'bg-spotify/10 scale-110' : 'bg-white/5'
           "
         >
           <i
-            class="text-2xl transition-all duration-300"
+            class="text-2xl transition-transform duration-300"
             :class="
               uploadedFile
                 ? 'pi pi-check-circle text-spotify'
@@ -178,7 +178,7 @@
           </div>
           <div class="h-2 overflow-hidden rounded-full bg-white/6">
             <div
-              class="bg-spotify h-full rounded-full transition-all duration-300"
+              class="bg-spotify h-full rounded-full transition-transform duration-300"
               :style="{ width: uploadProgress + '%' }"
             />
           </div>
@@ -531,10 +531,10 @@ function goToTracks() {
 <style scoped>
 /* Track list transitions */
 .track-list-enter-active {
-  transition: all 0.25s ease-out;
+  transition: opacity 0.25s ease-out, transform 0.25s ease-out;
 }
 .track-list-leave-active {
-  transition: all 0.2s ease-in;
+  transition: opacity 0.2s ease-in, transform 0.2s ease-in;
 }
 .track-list-enter-from {
   opacity: 0;
@@ -547,10 +547,10 @@ function goToTracks() {
 
 /* Fade + slide transitions */
 .fade-slide-enter-active {
-  transition: all 0.3s ease-out;
+  transition: opacity 0.3s ease-out, transform 0.3s ease-out;
 }
 .fade-slide-leave-active {
-  transition: all 0.2s ease-in;
+  transition: opacity 0.2s ease-in, transform 0.2s ease-in;
 }
 .fade-slide-enter-from {
   opacity: 0;

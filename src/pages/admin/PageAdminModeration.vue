@@ -25,7 +25,7 @@
       <button
         v-for="tab in tabs"
         :key="tab.key"
-        class="flex items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium transition-all duration-200"
+        class="flex items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium transition-transform duration-200"
         :class="
           activeTab === tab.key
             ? 'bg-white/10 text-white shadow-lg'
@@ -404,7 +404,7 @@
                 <span class="w-32 shrink-0 truncate text-xs text-slate-400">{{ reason }}</span>
                 <div class="h-5 flex-1 overflow-hidden rounded-full bg-white/6">
                   <div
-                    class="h-full rounded-full bg-linear-to-r from-red-400 to-amber-400 transition-all duration-500"
+                    class="h-full rounded-full bg-linear-to-r from-red-400 to-amber-400 transition-transform duration-500"
                     :style="{ width: reasonPercent(count) + '%' }"
                   />
                 </div>
@@ -425,7 +425,7 @@
                 <span class="w-24 shrink-0 text-xs text-slate-400">{{ tt }}</span>
                 <div class="h-5 flex-1 overflow-hidden rounded-full bg-white/6">
                   <div
-                    class="h-full rounded-full bg-linear-to-r from-blue-400 to-purple-400 transition-all duration-500"
+                    class="h-full rounded-full bg-linear-to-r from-blue-400 to-purple-400 transition-transform duration-500"
                     :style="{ width: reasonPercent(count) + '%' }"
                   />
                 </div>

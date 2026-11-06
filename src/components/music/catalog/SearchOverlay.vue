@@ -59,7 +59,7 @@
                   v-for="term in recentSearches"
                   :key="term"
                   type="button"
-                  class="spring flex items-center gap-2 rounded-full bg-surface-active px-4 py-2 text-sm text-primary transition-all hover:scale-105 hover:bg-surface-hover"
+                  class="spring flex items-center gap-2 rounded-full bg-surface-active px-4 py-2 text-sm text-primary transition-transform hover:scale-105 hover:bg-surface-hover"
                   @click="query = term; doSearch()"
                 >
                   <History aria-hidden="true" class="text-xs text-tertiary"  />
@@ -77,7 +77,7 @@
                   v-for="suggestion in suggestions"
                   :key="suggestion"
                   type="button"
-                  class="spring rounded-full bg-surface-overlay px-4 py-2 text-sm text-secondary transition-all hover:scale-105 hover:bg-surface-active hover:text-primary"
+                  class="spring rounded-full bg-surface-overlay px-4 py-2 text-sm text-secondary transition-transform hover:scale-105 hover:bg-surface-active hover:text-primary"
                   @click="query = suggestion; doSearch()"
                 >
                   {{ suggestion }}
@@ -132,7 +132,7 @@
                 </p>
                 <button
                   type="button"
-                  class="group spring flex w-full items-center gap-4 rounded-xl bg-surface-hover/60 p-3 text-left transition-all hover:bg-surface-active"
+                  class="group spring flex w-full items-center gap-4 rounded-xl bg-surface-hover/60 p-3 text-left transition-transform hover:bg-surface-active"
     @click="selectTrack(results.tracks[0]!)"
                 >
                   <span class="block h-16 w-16 shrink-0 overflow-hidden rounded-xl bg-surface-overlay shadow-lg">
@@ -157,7 +157,7 @@
                     </p>
                   </span>
                   <span
-                    class="spring flex h-12 w-12 items-center justify-center rounded-full bg-accent/0 text-primary opacity-0 transition-all group-hover:bg-accent group-hover:text-accent-text group-hover:opacity-100"
+                    class="spring flex h-12 w-12 items-center justify-center rounded-full bg-accent/0 text-primary opacity-0 transition-transform group-hover:bg-accent group-hover:text-accent-text group-hover:opacity-100"
                   >
                     <Play class="text-lg"<i aria-hidden="true"  /> />
                   </span>
@@ -174,7 +174,7 @@
                   :key="item.id"
                   :ref="(el) => setItemRef('track', i, el)"
                   type="button"
-                  class="spring flex w-full items-center gap-3 rounded-xl px-3 py-2.5 transition-all"
+                  class="spring flex w-full items-center gap-3 rounded-xl px-3 py-2.5 transition-transform"
                   :class="
                     highlightedIndex === `track-${i}` ? 'bg-surface-active' : 'hover:bg-surface-hover'
                   "
@@ -217,7 +217,7 @@
                     :key="item.id"
                     :to="`/artist/${item.id}`"
                     :ref="(el) => setItemRef('artist', i, el)"
-                    class="spring flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5 transition-all"
+                    class="spring flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5 transition-transform"
                     :class="
                       highlightedIndex === `artist-${i}`
                         ? 'bg-surface-active'
@@ -263,7 +263,7 @@
                     :key="item.id"
                     :to="`/album/${item.id}`"
                     :ref="(el) => setItemRef('album', i, el)"
-                    class="spring flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5 transition-all"
+                    class="spring flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5 transition-transform"
                     :class="
                       highlightedIndex === `album-${i}`
                         ? 'bg-surface-active'
@@ -307,7 +307,7 @@
                     :key="item.id"
                     :to="`/playlists/${item.id}`"
                     :ref="(el) => setItemRef('playlist', i, el)"
-                    class="spring flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5 transition-all"
+                    class="spring flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5 transition-transform"
                     :class="
                       highlightedIndex === `playlist-${i}`
                         ? 'bg-surface-active'
@@ -667,6 +667,6 @@ onUnmounted(() => {
   transform: translateY(-10px) scale(0.98);
 }
 .spring {
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: opacity 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 </style>

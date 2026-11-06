@@ -1,7 +1,6 @@
 <template>
   <aside
-    class="hidden h-screen w-56 shrink-0 border-x border-border-subtle bg-bg-overlay/20 lg:block"
-    style="backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);"
+    class="hidden h-screen w-56 shrink-0 border-x border-border-subtle bg-surface-1 lg:block"
   >
     <div class="flex h-full flex-col">
       <!-- ── Panel Header ── -->

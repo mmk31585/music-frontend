@@ -9,7 +9,7 @@
       class="fixed inset-x-0 bottom-0 z-50 hidden select-none md:block"
     >
       <div
-        class="relative flex flex-col overflow-visible transition-all duration-300 ease-out"
+        class="relative flex flex-col overflow-visible transition-transform duration-300 ease-out"
         :class="collapsed ? 'pb-0' : ''"
         :style="barBackgroundStyle"
       >
@@ -72,7 +72,7 @@
             <GuestPlayGate action="play" @proceed="togglePlayPause" #default="{ proceed }">
               <button
                 type="button"
-                class="flex h-9 w-9 items-center justify-center rounded-full shadow-lg transition-all duration-200 hover:scale-110 active:scale-90 disabled:opacity-40"
+                class="flex h-9 w-9 items-center justify-center rounded-full shadow-lg transition-transform duration-200 hover:scale-110 active:scale-90 disabled:opacity-40"
                 :style="{ background: progressColor }"
                 :disabled="!currentTrack || isLoadingTrack"
                 :aria-label="playAriaLabel"
@@ -90,7 +90,7 @@
 
             <button
               type="button"
-              class="flex h-8 w-8 items-center justify-center rounded-full text-white/40 transition-all duration-200 hover:bg-white/10 hover:text-white"
+              class="flex h-8 w-8 items-center justify-center rounded-full text-white/40 transition-transform duration-200 hover:bg-white/10 hover:text-white"
               :aria-label="collapsed ? 'Expand player' : 'Collapse player'"
               @click="toggleCollapsed"
             >
@@ -165,7 +165,7 @@
 
                 <button
                   type="button"
-                  class="focus-visible:ring-spotify/60 focus-visible:ring-offset-surface-base flex h-9 w-9 items-center justify-center rounded-full text-white/40 transition-all duration-200 hover:bg-white/10 hover:text-white focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-95"
+                  class="focus-visible:ring-spotify/60 focus-visible:ring-offset-surface-base flex h-9 w-9 items-center justify-center rounded-full text-white/40 transition-transform duration-200 hover:bg-white/10 hover:text-white focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-95"
                   :disabled="!currentTrack"
                   aria-label="Toggle lyrics"
                   @click="$emit('toggle-lyrics')"
@@ -176,7 +176,7 @@
                 <button
                   v-if="currentTrack"
                   type="button"
-                  class="focus-visible:ring-spotify/60 focus-visible:ring-offset-surface-base flex h-9 w-9 items-center justify-center rounded-full transition-all duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-95"
+                  class="focus-visible:ring-spotify/60 focus-visible:ring-offset-surface-base flex h-9 w-9 items-center justify-center rounded-full transition-transform duration-200 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-95"
                   :class="
                     radio.isRadioActive.value
                       ? 'text-accent bg-accent/10 hover:bg-accent/20'
@@ -206,7 +206,7 @@
 
                 <button
                   type="button"
-                  class="focus-visible:ring-spotify/60 focus-visible:ring-offset-surface-base flex h-9 w-9 items-center justify-center rounded-full text-white/40 transition-all duration-200 hover:bg-white/10 hover:text-white focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-95"
+                  class="focus-visible:ring-spotify/60 focus-visible:ring-offset-surface-base flex h-9 w-9 items-center justify-center rounded-full text-white/40 transition-transform duration-200 hover:bg-white/10 hover:text-white focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-95"
                   :disabled="!currentTrack"
                   aria-label="Fullscreen"
                   @click="$emit('toggle-fullscreen')"
@@ -216,7 +216,7 @@
 
                 <button
                   type="button"
-                  class="focus-visible:ring-spotify/60 focus-visible:ring-offset-surface-base flex h-9 w-9 items-center justify-center rounded-full text-white/40 transition-all duration-200 hover:bg-white/10 hover:text-white focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-95"
+                  class="focus-visible:ring-spotify/60 focus-visible:ring-offset-surface-base flex h-9 w-9 items-center justify-center rounded-full text-white/40 transition-transform duration-200 hover:bg-white/10 hover:text-white focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-95"
                   :aria-label="collapsed ? 'Expand player' : 'Collapse player'"
                   @click="toggleCollapsed"
                 >
@@ -227,7 +227,7 @@
                 <div class="relative">
                   <button
                     type="button"
-                    class="focus-visible:ring-spotify/60 focus-visible:ring-offset-surface-base flex h-9 w-9 items-center justify-center rounded-full text-white/40 transition-all duration-200 hover:bg-white/10 hover:text-white focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-95"
+                    class="focus-visible:ring-spotify/60 focus-visible:ring-offset-surface-base flex h-9 w-9 items-center justify-center rounded-full text-white/40 transition-transform duration-200 hover:bg-white/10 hover:text-white focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:outline-none active:scale-95"
                     :disabled="!currentTrack"
                     aria-label="More options"
                     @click.stop="showOverflow = !showOverflow"

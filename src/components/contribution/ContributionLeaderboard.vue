@@ -27,7 +27,7 @@
       <div
         v-for="(c, idx) in contributors"
         :key="c.user_id"
-        class="group spring flex items-center gap-3 rounded-xl px-3 py-2.5 transition-all hover:bg-white/4"
+        class="group spring flex items-center gap-3 rounded-xl px-3 py-2.5 transition-transform hover:bg-white/4"
       >
         <!-- Rank badge -->
         <div
@@ -103,4 +103,16 @@ function rankClass(idx: number) {
   if (idx === 2) return 'bg-[#cd7f32]/15'
   return 'bg-white/5 text-white/30'
 }
+
+<style scoped>
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse {
+    animation: none !important;
+  }
+  .animate-spin {
+    animation: none !important;
+  }
+}
+</style>
+
 </script>

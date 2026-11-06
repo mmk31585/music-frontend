@@ -47,7 +47,7 @@
       </div>
       <div class="mt-2 h-2 overflow-hidden rounded-full bg-white/5">
         <div
-          class="from-spotify to-aurora-blue h-full rounded-full bg-linear-to-r transition-all duration-1000 ease-out"
+          class="from-spotify to-aurora-blue h-full rounded-full bg-linear-to-r transition-transform duration-1000 ease-out"
           :style="{ width: `${progressPercent}%` }"
         />
       </div>

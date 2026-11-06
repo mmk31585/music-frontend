@@ -11,7 +11,7 @@
         v-for="action in actions"
         :key="action.to"
         :to="action.to"
-        class="group flex items-center gap-4 rounded-xl border border-white/[3%] bg-white/[1%] p-4 transition-all hover:-translate-y-0.5 hover:border-white/[10%] hover:bg-white/[4%]"
+        class="group flex items-center gap-4 rounded-xl border border-white/[3%] bg-white/[1%] p-4 transition-transform hover:-translate-y-0.5 hover:border-white/[10%] hover:bg-white/[4%]"
       >
         <div
           class="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl"

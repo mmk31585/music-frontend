@@ -1,7 +1,7 @@
 <template>
   <button
     type="button"
-    class="group relative w-full overflow-hidden rounded-2xl bg-white/5 text-left transition-all duration-150"
+    class="group relative w-full overflow-hidden rounded-2xl bg-white/5 text-left transition-transform duration-150"
     :class="hoverClass"
     @click="$emit('open')"
   >

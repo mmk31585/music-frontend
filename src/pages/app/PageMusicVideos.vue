@@ -17,7 +17,7 @@
         v-for="f in filters"
         :key="f.value"
         type="button"
-        class="rounded-full px-4 py-2 text-sm font-bold transition-all"
+        class="rounded-full px-4 py-2 text-sm font-bold transition-transform"
         :class="
           activeFilter === f.value
             ? 'bg-white text-black'

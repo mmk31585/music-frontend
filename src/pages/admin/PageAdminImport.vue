@@ -86,7 +86,7 @@
         <p class="mt-1 text-xs text-slate-500">{{ importStage }}</p>
         <div class="mx-auto mt-4 h-2 w-full max-w-md overflow-hidden rounded-full bg-white/6">
           <div
-            class="h-full rounded-full bg-emerald-500 transition-all duration-500"
+            class="h-full rounded-full bg-emerald-500 transition-transform duration-500"
             :style="{ width: importProgress + '%' }"
           />
         </div>

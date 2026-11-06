@@ -42,19 +42,19 @@
         <!-- Stats Grid -->
         <div class="grid flex-1 grid-cols-3 gap-4 text-center md:grid-cols-3">
           <!-- XP -->
-          <div class="rounded-lg bg-white/5 p-3 transition-all hover:bg-white/10">
+          <div class="rounded-lg bg-white/5 p-3 transition-transform hover:bg-white/10">
             <div class="text-xs tracking-wider text-white/40 uppercase">XP</div>
             <div class="mt-1 text-lg font-bold text-white">
               {{ formatXP(profile?.total_xp ?? 0) }}
             </div>
           </div>
           <!-- Badges -->
-          <div class="rounded-lg bg-white/5 p-3 transition-all hover:bg-white/10">
+          <div class="rounded-lg bg-white/5 p-3 transition-transform hover:bg-white/10">
             <div class="text-xs tracking-wider text-white/40 uppercase">Badges</div>
             <div class="mt-1 text-lg font-bold text-white">{{ profile?.badges?.length || 0 }}</div>
           </div>
           <!-- Challenges -->
-          <div class="rounded-lg bg-white/5 p-3 transition-all hover:bg-white/10">
+          <div class="rounded-lg bg-white/5 p-3 transition-transform hover:bg-white/10">
             <div class="text-xs tracking-wider text-white/40 uppercase">Challenges</div>
             <div class="mt-1 text-lg font-bold text-white">
               {{ completedChallenges }}/{{ profile?.challenges?.length || 0 }}
@@ -72,7 +72,7 @@
       <button
         v-for="tab in tabs"
         :key="tab.key"
-        class="flex-1 rounded-lg py-2.5 text-sm font-medium transition-all duration-200"
+        class="flex-1 rounded-lg py-2.5 text-sm font-medium transition-transform duration-200"
         :class="
           activeTab === tab.key
             ? 'bg-white/10 text-white shadow-lg'

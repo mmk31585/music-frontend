@@ -11,7 +11,7 @@
       :aria-valuemax="duration"
       :aria-valuenow="currentTime"
       aria-label="Seek"
-      class="group relative h-1.5 w-1/4 cursor-pointer rounded-full transition-all duration-150"
+      class="group relative h-1.5 w-1/4 cursor-pointer rounded-full transition-transform duration-150"
       :class="isPlaying ? 'bg-white/15' : 'bg-white/10'"
       :dir="dir"
       @click="onSeekClick"
@@ -25,7 +25,7 @@
       <!-- Base track glow when playing -->
       <div
         v-if="isPlaying && progressColor"
-        class="absolute inset-0 rounded-full opacity-20 blur-xs transition-opacity duration-500"
+        class="absolute inset-0 rounded-full opacity-20 transition-opacity duration-500"
         :style="{ background: progressColor }"
       />
 
@@ -38,7 +38,7 @@
 
       <!-- Thumb dot - only visible on hover/focus/drag -->
       <div
-        class="ease-spring absolute top-1/2 size-4 -translate-y-1/2 scale-0 rounded-full opacity-0 shadow-xl transition-all duration-300 group-hover:scale-100 group-hover:opacity-100 group-focus-visible:scale-100 group-focus-visible:opacity-100"
+        class="ease-spring absolute top-1/2 size-4 -translate-y-1/2 scale-0 rounded-full opacity-0 shadow-xl transition-transform duration-300 group-hover:scale-100 group-hover:opacity-100 group-focus-visible:scale-100 group-focus-visible:opacity-100"
         :style="{
           left: `calc(${progressPercent}% - 8px)`,
           background: progressColor || 'var(--p-500)',

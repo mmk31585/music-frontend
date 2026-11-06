@@ -460,4 +460,16 @@ async function handleEnrich() {
     enriching.value = false
   }
 }
+
+<style scoped>
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse {
+    animation: none !important;
+  }
+  .animate-spin {
+    animation: none !important;
+  }
+}
+</style>
+
 </script>

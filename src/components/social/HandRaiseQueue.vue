@@ -80,11 +80,11 @@ defineEmits<{
 
 <style scoped>
 .hand-raise-item-leave-active {
-  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1), color 200ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .hand-raise-item-enter-active {
-  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1), color 200ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .hand-raise-item-leave-to {

@@ -25,7 +25,7 @@
         @click="$emit('play', track)"
         @contextmenu.prevent="openContextMenu($event, track)"
       >
-        <div class="relative aspect-square overflow-hidden rounded-xl bg-white/6 ring-1 ring-white/10 transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:ring-amber-500/30">
+        <div class="relative aspect-square overflow-hidden rounded-xl bg-white/6 ring-1 ring-white/10 transition-transform duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:ring-amber-500/30">
           <img
             v-if="track.cover_url"
             :src="track.cover_url"

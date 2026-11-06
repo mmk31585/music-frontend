@@ -85,7 +85,7 @@
             class="absolute inset-0 flex cursor-pointer items-center justify-center bg-black/30"
             @click="togglePlay"
           >
-            <div class="flex h-20 w-20 items-center justify-center rounded-full bg-white/5 text-white shadow-2xl surface-card transition-all hover:scale-110 hover:bg-white/10 md:h-24 md:w-24">
+            <div class="flex h-20 w-20 items-center justify-center rounded-full bg-white/5 text-white shadow-2xl surface-card transition-transform hover:scale-110 hover:bg-white/10 md:h-24 md:w-24">
               <Play aria-hidden="true" class="ml-1 text-4xl md:text-5xl" />
             </div>
           </div>
@@ -131,9 +131,9 @@
           >
             <div class="px-4 pb-1">
               <div class="group relative cursor-pointer py-2" @click="seekTo">
-                <div class="h-1 overflow-hidden rounded-full bg-white/15 transition-all group-hover:h-1.5">
+                <div class="h-1 overflow-hidden rounded-full bg-white/15 transition-transform group-hover:h-1.5">
                   <div
-                    class="h-full rounded-full bg-linear-to-r from-amber-400 to-amber-500 transition-all"
+                    class="h-full rounded-full bg-linear-to-r from-amber-400 to-amber-500 transition-transform"
                     :style="{ width: progressPercent + '%' }"
                   />
                 </div>
@@ -159,7 +159,7 @@
                   <component :is="isMuted ? VolumeOff : Volume2" aria-hidden="true"<i  class="text-sm" /> />
                 </button>
                 <div class="relative h-1 w-20 cursor-pointer overflow-hidden rounded-full bg-white/10" @click="seekVolume">
-                  <div class="h-full rounded-full bg-white/50 transition-all" :style="{ width: volumePercent + '%' }" />
+                  <div class="h-full rounded-full bg-white/50 transition-transform" :style="{ width: volumePercent + '%' }" />
                 </div>
               </div>
               <div class="flex-1" />
@@ -240,7 +240,7 @@
               </div>
               <button
                 type="button"
-                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-amber-500 text-black shadow-lg shadow-amber-500/20 transition-all hover:scale-105 hover:bg-amber-400 active:scale-95"
+                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-amber-500 text-black shadow-lg shadow-amber-500/20 transition-transform hover:scale-105 hover:bg-amber-400 active:scale-95"
                 :title="isTrackPlaying ? 'Now Playing' : 'Play Track'"
                 @click="playTrack"
               >

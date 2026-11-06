@@ -34,7 +34,7 @@
           v-for="genre in genres"
           :key="genre.id"
           type="button"
-          class="spring rounded-xl border px-5 py-2.5 text-sm font-medium transition-all"
+          class="spring rounded-xl border px-5 py-2.5 text-sm font-medium transition-transform"
           :class="
             selectedIds.includes(genre.id)
               ? 'border-spotify bg-spotify/15 text-spotify shadow-spotify/15 shadow-[0_0_12px]'
@@ -157,6 +157,6 @@ async function skip() {
 
 <style scoped>
 .spring {
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: color 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 </style>

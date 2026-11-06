@@ -15,7 +15,7 @@
       <div
         v-for="item in combined"
         :key="item.challenge.id"
-        class="overflow-hidden rounded-xl border border-white/5 transition-all duration-300"
+        class="overflow-hidden rounded-xl border border-white/5 transition-transform duration-300"
         :class="item.progress?.is_completed ? 'bg-spotify/5' : 'bg-white/3'"
       >
         <div class="p-4">
@@ -55,7 +55,7 @@
             </div>
             <div class="mt-1.5 h-2 overflow-hidden rounded-full bg-white/5">
               <div
-                class="h-full rounded-full transition-all duration-700"
+                class="h-full rounded-full transition-transform duration-700"
                 :class="
                   item.progress?.is_completed
                     ? 'bg-spotify'

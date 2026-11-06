@@ -14,7 +14,7 @@
       <p class="text-xs text-white/40">Get the best experience with our app</p>
     </div>
     <button
-      class="rounded-full bg-spotify px-4 py-2 text-xs font-bold text-black transition-all duration-200 hover:bg-spotify-hover active:scale-95 focus-visible:outline-2 focus-visible:outline-white"
+      class="rounded-full bg-spotify px-4 py-2 text-xs font-bold text-black transition-transform duration-200 hover:bg-spotify-hover active:scale-95 focus-visible:outline-2 focus-visible:outline-white"
       @click="install"
     >
       Install

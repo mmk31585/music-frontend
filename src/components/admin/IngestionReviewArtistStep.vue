@@ -30,7 +30,7 @@
       <div
         v-for="(artist, aIdx) in ctx.finalMetadata.artists"
         :key="aIdx"
-        class="overflow-hidden rounded-xl border transition-all duration-200"
+        class="overflow-hidden rounded-xl border transition-transform duration-200"
         :class="aIdx === 0
           ? 'border-emerald-500/30 bg-emerald-500/4'
           : 'border-white/6 bg-white/3'"
@@ -113,7 +113,7 @@
                 <img
                   :src="ctx.enrichment.value.spotify.artistImageUrl"
                   alt="Spotify"
-                  class="h-16 w-16 cursor-pointer rounded-lg object-cover shadow-xs ring-2 transition-all hover:opacity-80"
+                  class="h-16 w-16 cursor-pointer rounded-lg object-cover shadow-xs ring-2 transition-transform hover:opacity-80"
                   :class="artist.imageUrl === ctx.enrichment.value.spotify.artistImageUrl ? 'ring-green-500' : 'ring-transparent'"
                   @click="artist.imageUrl = ctx.enrichment.value!.spotify!.artistImageUrl"
                   @error="($event.target as HTMLImageElement).style.display='none'"
@@ -126,7 +126,7 @@
                 <img
                   :src="ctx.enrichment.value.lastfm.artistImageUrl"
                   alt="Last.fm"
-                  class="h-16 w-16 cursor-pointer rounded-lg object-cover shadow-xs ring-2 transition-all hover:opacity-80"
+                  class="h-16 w-16 cursor-pointer rounded-lg object-cover shadow-xs ring-2 transition-transform hover:opacity-80"
                   :class="artist.imageUrl === ctx.enrichment.value.lastfm.artistImageUrl ? 'ring-green-500' : 'ring-transparent'"
                   @click="artist.imageUrl = ctx.enrichment.value!.lastfm!.artistImageUrl"
                   @error="($event.target as HTMLImageElement).style.display='none'"
@@ -139,7 +139,7 @@
                 <img
                   :src="ctx.enrichment.value.ml.artistImageUrl"
                   alt="ML"
-                  class="h-16 w-16 cursor-pointer rounded-lg object-cover shadow-xs ring-2 transition-all hover:opacity-80"
+                  class="h-16 w-16 cursor-pointer rounded-lg object-cover shadow-xs ring-2 transition-transform hover:opacity-80"
                   :class="artist.imageUrl === ctx.enrichment.value.ml.artistImageUrl ? 'ring-green-500' : 'ring-transparent'"
                   @click="artist.imageUrl = ctx.enrichment.value!.ml!.artistImageUrl"
                   @error="($event.target as HTMLImageElement).style.display='none'"

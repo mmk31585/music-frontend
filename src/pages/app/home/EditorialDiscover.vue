@@ -10,7 +10,7 @@
       <div
         v-for="(item, i) in items"
         :key="item.id"
-        class="group relative overflow-hidden rounded-2xl border border-white/[4%] bg-white/[2%] transition-all hover:-translate-y-0.5 hover:border-white/[10%]"
+        class="group relative overflow-hidden rounded-2xl border border-white/[4%] bg-white/[2%] transition-transform hover:-translate-y-0.5 hover:border-white/[10%]"
         @contextmenu.prevent="openContextMenu($event, item)"
       >
         <div class="flex flex-col sm:flex-row">

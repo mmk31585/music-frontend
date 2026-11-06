@@ -1,12 +1,12 @@
 <template>
   <div
-    class="group grid grid-cols-[48px_1fr_auto] items-center gap-4 rounded-xl px-3 py-2.5 transition-all duration-200 hover:bg-surface-active"
+    class="group grid grid-cols-[48px_1fr_auto] items-center gap-4 rounded-xl px-3 py-2.5 transition-colors duration-200 hover:bg-surface-active"
     :class="isCurrent ? 'bg-surface-active shadow-[inset_3px_0_0_var(--accent)]' : ''"
     @contextmenu.prevent="openContextMenu"
   >
     <button
       type="button"
-      class="relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl bg-surface-active text-primary transition-all duration-200 hover:scale-105 hover:bg-accent hover:text-black disabled:cursor-wait disabled:opacity-70"
+      class="relative flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl bg-surface-active text-primary transition-transform transition-colors duration-200 hover:scale-105 hover:bg-accent hover:text-black disabled:cursor-wait disabled:opacity-70"
       :disabled="loadingThisTrack"
       @click="handlePlay"
     >
@@ -287,5 +287,11 @@ async function handlePlay() {
 @keyframes equalizer {
   from { transform: scaleY(0.45); opacity: 0.6; }
   to { transform: scaleY(1); opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eq-bar {
+    animation: none !important;
+  }
 }
 </style>

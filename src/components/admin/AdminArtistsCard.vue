@@ -292,4 +292,16 @@ function formatListeners(count: number): string {
   if (count >= 1_000) return `${(count / 1_000).toFixed(1)}K`
   return String(count)
 }
+
 </script>
+
+<style scoped>
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse {
+    animation: none !important;
+  }
+  .animate-spin {
+    animation: none !important;
+  }
+}
+</style>

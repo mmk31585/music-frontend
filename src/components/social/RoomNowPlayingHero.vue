@@ -169,7 +169,6 @@ const sourceBadgeClass = computed(() => {
   border-radius: 999px;
   background: rgba(0, 0, 0, 0.5);
   border: 2px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(4px);
 }
 
 @keyframes spinDisc {

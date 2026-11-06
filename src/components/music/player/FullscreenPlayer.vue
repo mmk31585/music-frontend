@@ -15,7 +15,7 @@
           <img
             v-if="currentTrack?.coverUrl"
             :src="currentTrack?.coverUrl"
-            class="h-full w-full object-cover opacity-40 md:opacity-50 transition-all duration-1000"
+            class="h-full w-full object-cover opacity-40 md:opacity-50 transition: opacity 100ms ease"
             style="filter: blur(100px) saturate(2)"
           />
         </div>
@@ -23,7 +23,7 @@
 
         <!-- ── Top bar ── -->
         <div class="relative z-10 flex shrink-0 items-center justify-between px-4 pt-3 md:px-8 md:pt-5" style="padding-top: max(0.75rem, env(safe-area-inset-top))">
-          <button class="flex h-10 w-10 items-center justify-center rounded-full text-secondary transition-all hover:text-primary hover:bg-surface-active" aria-label="Close" @click="close">
+          <button class="flex h-10 w-10 items-center justify-center rounded-full text-secondary transition: color 150ms ease, background-color 150ms ease hover:text-primary hover:bg-surface-active" aria-label="Close" @click="close">
             <ChevronDown aria-hidden="true" class="text-xl"  />
           </button>
           <p class="text-[10px] font-semibold tracking-[0.2em] text-muted uppercase">Now Playing</p>
@@ -31,7 +31,7 @@
             <!-- Lyrics toggle -->
             <button
               type="button"
-              class="flex h-10 w-10 items-center justify-center rounded-full transition-all"
+              class="flex h-10 w-10 items-center justify-center rounded-full transition: background-color 150ms ease"
               :class="activeTab === 'lyrics' ? 'bg-surface-active text-primary' : 'text-secondary hover:text-primary hover:bg-surface-active'"
               aria-label="Show lyrics"
               @click="activeTab = 'lyrics'"
@@ -41,7 +41,7 @@
             <!-- Queue toggle -->
             <button
               type="button"
-              class="flex h-10 w-10 items-center justify-center rounded-full transition-all"
+              class="flex h-10 w-10 items-center justify-center rounded-full transition: background-color 150ms ease"
               :class="activeTab === 'queue' ? 'bg-surface-active text-primary' : 'text-secondary hover:text-primary hover:bg-surface-active'"
               aria-label="Show queue"
               @click="activeTab = 'queue'"
@@ -51,7 +51,7 @@
             <!-- Pop out to Picture-in-Picture (mini player) -->
             <button
               type="button"
-              class="flex h-10 w-10 items-center justify-center rounded-full transition-all"
+              class="flex h-10 w-10 items-center justify-center rounded-full transition: background-color 150ms ease"
               :class="isPiPActive ? 'bg-surface-active text-primary' : 'text-secondary hover:text-primary hover:bg-surface-active'"
               aria-label="Pop out player"
               @click="togglePiP"
@@ -64,20 +64,20 @@
         <!-- ── Desktop: side-by-side (md+) ── -->
         <div class="relative z-10 hidden md:flex flex-1 min-h-0 px-8 pb-6">
           <div
-            class="flex flex-1 min-h-0 w-full mx-auto transition-all duration-300"
+            class="flex flex-1 min-h-0 w-full mx-auto transition-transform duration-300"
             :class="activeTab === 'queue' ? 'max-w-5xl justify-center gap-12' : 'max-w-7xl gap-8'"
           >
 
             <!-- LEFT: Cover + info + controls -->
             <div
-              class="flex flex-col items-center gap-4 shrink-0 justify-center pb-12 transition-all duration-300"
+              class="flex flex-col items-center gap-4 shrink-0 justify-center pb-12 transition-transform duration-300"
               :class="activeTab === 'queue' ? 'w-95 lg:w-105' : 'w-95 lg:w-105'"
             >
 
               <!-- Album art -->
               <div class="relative">
                 <div
-                  class="w-60 lg:w-70 aspect-square overflow-hidden rounded-3xl shadow-2xl transition-all duration-700"
+                  class="w-60 lg:w-70 aspect-square overflow-hidden rounded-3xl shadow-2xl transition-transform duration-700"
                   :class="isPlaying ? 'scale-100 cover-glow' : 'scale-95 opacity-80'"
                 >
                   <img
@@ -133,10 +133,10 @@
                   @mousemove="onSeekHover"
                   @mouseleave="seekHoverTime = null"
                 >
-                  <div class="absolute inset-x-0 h-1 rounded-full transition-all duration-150 group-hover:h-1.5" :class="isPlaying ? 'bg-surface-active' : 'bg-surface-active'" />
-                  <div v-if="isPlaying" class="absolute left-0 h-1 rounded-full opacity-25 blur-[3px] transition-all duration-150" :style="{ width: progressPercent + '%', background: progressColor }" />
-                  <div class="absolute left-0 h-1 rounded-full transition-all duration-150 group-hover:h-1.5" :style="{ width: progressPercent + '%', background: progressColor, boxShadow: `0 0 8px ${progressColor}66` }" />
-                  <div class="absolute top-1/2 -translate-y-1/2 size-4 rounded-full shadow-xl opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100 transition-all duration-300 ease-spring" :style="{ left: `calc(${progressPercent}% - 8px)`, background: progressColor, boxShadow: `0 0 0 3px ${progressColor}22, 0 4px 12px rgba(0,0,0,0.5)` }" />
+                  <div class="absolute inset-x-0 h-1 rounded-full transition-transform duration-150 group-hover:h-1.5" :class="isPlaying ? 'bg-surface-active' : 'bg-surface-active'" />
+                  <div v-if="isPlaying" class="absolute left-0 h-1 rounded-full opacity-25 transition-transform duration-150" :style="{ width: progressPercent + '%', background: progressColor }" />
+                  <div class="absolute left-0 h-1 rounded-full transition-transform duration-150 group-hover:h-1.5" :style="{ width: progressPercent + '%', background: progressColor, boxShadow: `0 0 8px ${progressColor}66` }" />
+                  <div class="absolute top-1/2 -translate-y-1/2 size-4 rounded-full shadow-xl opacity-0 group-hover:opacity-100 scale-0 group-hover:scale-100 group-focus-visible:scale-100 group-focus-visible:opacity-100 transition-transform duration-300 ease-spring" :style="{ left: `calc(${progressPercent}% - 8px)`, background: progressColor, boxShadow: `0 0 0 3px ${progressColor}22, 0 4px 12px rgba(0,0,0,0.5)` }" />
                   <!-- Seek preview tooltip -->
                   <div
                     v-if="seekHoverTime !== null && seekHoverPos !== null"
@@ -155,17 +155,17 @@
               <!-- Playback controls -->
               <div class="flex items-center justify-center gap-1 w-full max-w-sm">
                 <div class="flex shrink-0 items-center gap-1">
-                  <button class="flex h-9 w-9 items-center justify-center transition-all hover:scale-110" :class="liked ? 'text-aurora-pink' : 'text-tertiary hover:text-primary'" :aria-label="liked ? 'Unlike' : 'Like'" @click="toggleLike">
+                  <button class="flex h-9 w-9 items-center justify-center transition-transform hover:scale-110" :class="liked ? 'text-aurora-pink' : 'text-tertiary hover:text-primary'" :aria-label="liked ? 'Unlike' : 'Like'" @click="toggleLike">
                     <component :is="liked ? Heart : Heart" aria-hidden="true" class="text-base" />
                   </button>
-                  <button class="flex h-9 w-9 items-center justify-center transition-all hover:scale-110 text-tertiary hover:text-primary" aria-label="Add to playlist" @click="showAddToPlaylist = true">
+                  <button class="flex h-9 w-9 items-center justify-center transition-transform hover:scale-110 text-tertiary hover:text-primary" aria-label="Add to playlist" @click="showAddToPlaylist = true">
                     <ListPlus aria-hidden="true" class="text-base"  />
                   </button>
                 </div>
                 <div class="relative">
                   <button
                     type="button"
-                    class="relative flex h-9 w-9 items-center justify-center rounded-full transition-all duration-200 hover:scale-110"
+                    class="relative flex h-9 w-9 items-center justify-center rounded-full transition-transform hover:scale-110"
                     :class="shuffleMode !== 'off' ? 'text-aurora-purple' : 'text-tertiary hover:text-primary'"
                     :aria-label="shuffleMode === 'queue' ? 'Shuffle queue' : shuffleMode === 'catalog' ? 'Random catalog tracks' : shuffleMode === 'similar' ? 'Similar tracks' : 'Shuffle off'"
                     data-shuffle-btn
@@ -175,20 +175,20 @@
                     <span v-if="shuffleMode !== 'off'" class="absolute -top-0.5 -right-0.5 flex h-3 w-3 items-center justify-center rounded-full bg-aurora-purple text-[7px] font-bold text-primary">{{ shuffleMode === 'queue' ? 'Q' : shuffleMode === 'catalog' ? 'R' : 'S' }}</span>
                   </button>
                 </div>
-                <button class="flex h-9 w-9 items-center justify-center rounded-full text-tertiary transition-all duration-200 hover:text-primary hover:scale-110 disabled:opacity-20" :disabled="!hasPrevious" aria-label="Previous track" @click="playPrevious">
+                <button class="flex h-9 w-9 items-center justify-center rounded-full text-tertiary transition-transform duration-200 hover:text-primary hover:scale-110 disabled:opacity-20" :disabled="!hasPrevious" aria-label="Previous track" @click="playPrevious">
                   <SkipBack aria-hidden="true" class="text-lg"  />
                 </button>
-                <button class="flex h-14 w-14 items-center justify-center rounded-full shadow-2xl transition-all duration-200 active:scale-95 hover:scale-105 disabled:opacity-40" :style="{ background: progressColor }" :disabled="!currentTrack || isLoadingTrack" :aria-label="isLoadingTrack || isBuffering ? 'Loading' : isPlaying ? 'Pause' : 'Play'" @click="togglePlay">
+                <button class="flex h-14 w-14 items-center justify-center rounded-full shadow-2xl transition-transform active:scale-95 hover:scale-105 disabled:opacity-40" :style="{ background: progressColor }" :disabled="!currentTrack || isLoadingTrack" :aria-label="isLoadingTrack || isBuffering ? 'Loading' : isPlaying ? 'Pause' : 'Play'" @click="togglePlay">
                   <Loader2 aria-hidden="true" v-if="isLoadingTrack || isBuffering" class="text-xl text-primary animate-spin"  />
                   <component :is="isPlaying ? Pause : Play" aria-hidden="true" class="text-xl text-primary" />
                 </button>
-                <button class="flex h-9 w-9 items-center justify-center rounded-full text-tertiary transition-all duration-200 hover:text-primary hover:scale-110 disabled:opacity-20" :disabled="!hasNext" aria-label="Next track" @click="playNext">
+                <button class="flex h-9 w-9 items-center justify-center rounded-full text-tertiary transition-transform duration-200 hover:text-primary hover:scale-110 disabled:opacity-20" :disabled="!hasNext" aria-label="Next track" @click="playNext">
                   <SkipForward aria-hidden="true" class="text-lg"  />
                 </button>
                 <div class="relative">
                   <button
                     type="button"
-                    class="relative flex h-9 w-9 items-center justify-center rounded-full transition-all duration-200 hover:scale-110"
+                    class="relative flex h-9 w-9 items-center justify-center rounded-full transition-transform hover:scale-110"
                     :class="repeatMode !== 'off' ? 'text-aurora-pink' : 'text-tertiary hover:text-primary'"
                     :aria-label="repeatMode === 'off' ? 'Repeat off' : repeatMode === 'all' ? 'Repeat all' : 'Repeat one'"
                     data-repeat-btn
@@ -207,7 +207,7 @@
                 </button>
                 <div class="relative flex-1 flex items-center group/vol h-4">
                   <div class="absolute inset-x-0 h-0.5 rounded-full bg-surface-active" />
-                  <div class="absolute left-0 h-0.5 rounded-full transition-all" :style="{ width: `${muted ? 0 : Number(volume) * 100}%`, background: progressColor }" />
+                  <div class="absolute left-0 h-0.5 rounded-full transition-transform" :style="{ width: `${muted ? 0 : Number(volume) * 100}%`, background: progressColor }" />
                   <Slider :model-value="muted ? 0 : volume" @update:model-value="onVolume" :min="0" :max="1" :step="0.01" class="w-full z-10" aria-label="Volume" />
                 </div>
                 <button class="flex h-8 w-8 items-center justify-center text-tertiary transition-colors hover:text-primary shrink-0" aria-label="Toggle lyrics" @click="activeTab = activeTab === 'lyrics' ? 'now-playing' : 'lyrics'">
@@ -218,7 +218,7 @@
 
             <!-- RIGHT: Lyrics / Queue panel (desktop only) -->
             <div
-              class="min-h-0 flex flex-col md:pl-6 transition-all duration-300"
+              class="min-h-0 flex flex-col md:pl-6 transition-transform duration-300"
               :class="activeTab === 'lyrics' ? 'flex-1' : 'w-85 shrink-0'"
             >
 
@@ -268,7 +268,7 @@
                   >
                     <template #item="{ element: track, index }">
                       <div
-                        class="group flex items-center gap-3 rounded-xl px-3 py-2.5 transition-all duration-200 cursor-pointer"
+                        class="group flex items-center gap-3 rounded-xl px-3 py-2.5 transition-transform duration-200 cursor-pointer"
                         :class="index === 0 ? 'bg-surface-overlay ring-1 ring-border-subtle' : 'hover:bg-surface-overlay/60'"
                         @click="playQueueItem(index)"
                       >
@@ -287,8 +287,8 @@
                           <div v-else class="flex h-full items-center justify-center">
                             <Music aria-hidden="true" class="text-xs text-muted"  />
                           </div>
-                          <div class="absolute inset-0 flex items-center justify-center bg-bg-overlay/0 transition-all duration-200 group-hover:bg-bg-overlay/30">
-                            <Play aria-hidden="true" class="text-primary text-sm opacity-0 transition-all duration-200 group-hover:opacity-100 drop-shadow-lg"  />
+                          <div class="absolute inset-0 flex items-center justify-center bg-bg-overlay/0 transition-transform duration-200 group-hover:bg-bg-overlay/30">
+                            <Play aria-hidden="true" class="text-primary text-sm opacity-0 transition-transform duration-200 group-hover:opacity-100 drop-shadow-lg"  />
                           </div>
                         </div>
                         <div class="min-w-0 flex-1">
@@ -302,7 +302,7 @@
                         </span>
                         <button
                           type="button"
-                          class="flex h-7 w-7 items-center justify-center rounded-full text-muted opacity-0 group-hover:opacity-100 transition-all hover:bg-surface-active hover:text-primary/60 active:scale-90"
+                          class="flex h-7 w-7 items-center justify-center rounded-full text-muted opacity-0 group-hover:opacity-100 hover:bg-surface-active hover:text-primary/60 active:scale-90"
                           aria-label="Remove from queue"
                           @click.stop="removeFromQueue(index)"
                         >
@@ -336,7 +336,7 @@
           <!-- Drag handle for pull-to-close -->
           <div class="flex justify-center pt-2 pb-0 shrink-0">
             <div
-              class="h-1 w-10 rounded-full transition-all"
+              class="h-1 w-10 rounded-full transition-transform"
               :style="{ background: swipeProgress > 0.3 ? `${palette.vibrant}66` : 'rgba(255,255,255,0.2)' }"
             />
           </div>
@@ -348,7 +348,7 @@
             <div class="flex flex-col items-center pt-4">
               <div class="relative">
                 <div
-                  class="w-[min(200px,45vw)] aspect-square overflow-hidden rounded-2xl shadow-2xl transition-all duration-700"
+                  class="w-[min(200px,45vw)] aspect-square overflow-hidden rounded-2xl shadow-2xl transition-transform duration-700"
                   :class="isPlaying ? 'scale-100 cover-glow' : 'scale-95 opacity-80'"
                 >
                   <CoverImage
@@ -374,7 +374,7 @@
                   <p class="text-sm text-secondary mt-0.5 truncate max-w-55">{{ currentTrack?.artistName }}</p>
                 </div>
                 <div class="flex shrink-0 items-center gap-0.5">
-                  <button class="flex h-8 w-8 items-center justify-center transition-all hover:scale-110" :class="liked ? 'text-aurora-pink' : 'text-tertiary hover:text-primary'" :aria-label="liked ? 'Unlike' : 'Like'" @click="toggleLike">
+                  <button class="flex h-8 w-8 items-center justify-center transition-transform hover:scale-110" :class="liked ? 'text-aurora-pink' : 'text-tertiary hover:text-primary'" :aria-label="liked ? 'Unlike' : 'Like'" @click="toggleLike">
                     <component :is="liked ? Heart : Heart" aria-hidden="true" class="text-sm" />
                   </button>
                 </div>
@@ -385,11 +385,11 @@
             <div class="w-full mt-4 px-2 min-h-15 flex items-center justify-center">
               <div v-if="lyricsLoading" class="shimmer h-5 w-56 rounded bg-surface-overlay" />
               <template v-else-if="activeLineText">
-                <div class="transition-all duration-700 ease-out text-center">
-                  <p class="text-lg font-bold leading-relaxed transition-all duration-500" :style="{ color: palette.vibrant, textShadow: `0 0 40px ${palette.vibrant}44` }">{{ activeLineText }}</p>
+                <div class="transition-transform duration-700 ease-out text-center">
+                  <p class="text-lg font-bold leading-relaxed transition-transform duration-500" :style="{ color: palette.vibrant, textShadow: `0 0 40px ${palette.vibrant}44` }">{{ activeLineText }}</p>
                 </div>
                 <div v-if="parsedLines.length > 1" class="absolute bottom-1 left-1/2 -translate-x-1/2 flex items-center gap-1">
-                  <span v-for="dot in Math.min(parsedLines.length, 7)" :key="dot" class="h-1 rounded-full transition-all duration-300" :class="dot - 1 === activeLineIdx ? 'w-3 opacity-80' : 'w-1 opacity-20'" :style="{ background: dot - 1 === activeLineIdx ? palette.vibrant : '#fff' }" />
+                  <span v-for="dot in Math.min(parsedLines.length, 7)" :key="dot" class="h-1 rounded-full transition-transform duration-300" :class="dot - 1 === activeLineIdx ? 'w-3 opacity-80' : 'w-1 opacity-20'" :style="{ background: dot - 1 === activeLineIdx ? palette.vibrant : '#fff' }" />
                 </div>
               </template>
               <template v-else>
@@ -439,20 +439,20 @@
 
             <!-- Playback controls (mobile) -->
             <div class="flex items-center justify-center gap-2 mt-3">
-              <button data-shuffle-btn class="flex h-9 w-9 items-center justify-center rounded-full text-tertiary transition-all hover:text-primary active:scale-90" :class="shuffleMode !== 'off' ? 'text-aurora-purple' : ''" aria-label="Shuffle" @click="openShuffleMenu($event)">
+              <button data-shuffle-btn class="flex h-9 w-9 items-center justify-center rounded-full text-tertiary transition-transform hover:text-primary active:scale-90" :class="shuffleMode !== 'off' ? 'text-aurora-purple' : ''" aria-label="Shuffle" @click="openShuffleMenu($event)">
                 <ArrowUpDown aria-hidden="true" class="text-sm"  />
               </button>
-              <button class="flex h-9 w-9 items-center justify-center rounded-full text-tertiary transition-all hover:text-primary active:scale-90" :disabled="!hasPrevious" aria-label="Previous track" @click="playPrevious">
+              <button class="flex h-9 w-9 items-center justify-center rounded-full text-tertiary transition-transform hover:text-primary active:scale-90" :disabled="!hasPrevious" aria-label="Previous track" @click="playPrevious">
                 <SkipBack aria-hidden="true" class="text-lg"  />
               </button>
-              <button class="flex h-12 w-12 items-center justify-center rounded-full shadow-2xl transition-all active:scale-90" :style="{ background: progressColor }" :disabled="!currentTrack || isLoadingTrack" :aria-label="isLoadingTrack || isBuffering ? 'Loading' : isPlaying ? 'Pause' : 'Play'" @click="togglePlay">
+              <button class="flex h-12 w-12 items-center justify-center rounded-full shadow-2xl transition-transform active:scale-90" :style="{ background: progressColor }" :disabled="!currentTrack || isLoadingTrack" :aria-label="isLoadingTrack || isBuffering ? 'Loading' : isPlaying ? 'Pause' : 'Play'" @click="togglePlay">
                 <Loader2 aria-hidden="true" v-if="isLoadingTrack || isBuffering" class="text-lg text-primary animate-spin"  />
                 <component :is="isPlaying ? Pause : Play" aria-hidden="true" class="text-lg ml-0.5 text-primary" />
               </button>
-              <button class="flex h-9 w-9 items-center justify-center rounded-full text-tertiary transition-all hover:text-primary active:scale-90" :disabled="!hasNext" aria-label="Next track" @click="playNext">
+              <button class="flex h-9 w-9 items-center justify-center rounded-full text-tertiary transition-transform hover:text-primary active:scale-90" :disabled="!hasNext" aria-label="Next track" @click="playNext">
                 <SkipForward aria-hidden="true" class="text-lg"  />
               </button>
-              <button data-repeat-btn class="flex h-9 w-9 items-center justify-center rounded-full text-tertiary transition-all hover:text-primary active:scale-90" :class="repeatMode !== 'off' ? 'text-aurora-pink' : ''" aria-label="Repeat" @click="openRepeatMenu($event)">
+              <button data-repeat-btn class="flex h-9 w-9 items-center justify-center rounded-full text-tertiary transition-transform hover:text-primary active:scale-90" :class="repeatMode !== 'off' ? 'text-aurora-pink' : ''" aria-label="Repeat" @click="openRepeatMenu($event)">
                 <RefreshCw aria-hidden="true" class="text-sm"  />
               </button>
             </div>
@@ -482,7 +482,6 @@
               aria-label="Select shuffle mode"
               class="shuffle-menu fixed z-9999 min-w-37.5 rounded-xl border border-border-default bg-surface-raised p-1.5 shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
               :style="shuffleMenuPos"
-              style="backdrop-filter: blur(24px);"
               @keydown="onMenuKeydown($event, 'shuffle')"
             >
               <button v-for="(mode, idx) in shuffleModes" :key="mode.value" type="button" :ref="(el) => { if (el) shuffleItemRefs[idx] = el as HTMLElement }" role="menuitem" :tabindex="idx === 0 ? 0 : -1" class="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-xs font-bold transition hover:bg-surface-active" :class="shuffleMode === mode.value ? 'text-aurora-purple bg-surface-overlay' : 'text-secondary hover:text-primary'" @click="setShuffleMode(mode.value)">
@@ -500,7 +499,6 @@
               aria-label="Select repeat mode"
               class="repeat-menu fixed z-9999 min-w-32.5 rounded-xl border border-border-default bg-surface-raised p-1.5 shadow-[0_8px_32px_rgba(0,0,0,0.6)]"
               :style="repeatMenuPos"
-              style="backdrop-filter: blur(24px);"
               @keydown="onMenuKeydown($event, 'repeat')"
             >
               <button v-for="(mode, idx) in repeatModes" :key="mode.value" type="button" :ref="(el) => { if (el) repeatItemRefs[idx] = el as HTMLElement }" role="menuitem" :tabindex="idx === 0 ? 0 : -1" class="flex w-full items-center gap-2.5 rounded-lg px-3 py-2 text-xs font-bold transition hover:bg-surface-active" :class="repeatMode === mode.value ? 'text-aurora-pink bg-surface-overlay' : 'text-secondary hover:text-primary'" @click="setRepeatMode(mode.value)">
@@ -1017,7 +1015,7 @@ watch([() => lyricsContent.value, () => lyricsType.value], () => {
 
 .fullscreen-enter-active,
 .fullscreen-leave-active {
-  transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+  transition: opacity 0.5s cubic-bezier(0.19, 1, 0.22, 1), transform 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 }
 .fullscreen-enter-from,
 .fullscreen-leave-to {

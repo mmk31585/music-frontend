@@ -120,7 +120,7 @@
                 <td class="px-5 py-3.5">
                   <button
                     type="button"
-                    class="hover:bg-spotify/20 hover:text-spotify flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-all disabled:opacity-30"
+                    class="hover:bg-spotify/20 hover:text-spotify flex h-8 w-8 items-center justify-center rounded-lg text-slate-500 transition-transform disabled:opacity-30"
                     :disabled="isTrackLoading(track)"
                     :aria-label="'Play ' + track.title"
                     :title="isTrackPlaying(track) ? 'Now playing' : 'Play track'"
@@ -288,7 +288,7 @@
             >
               <button
                 type="button"
-                class="bg-spotify flex h-12 w-12 items-center justify-center rounded-full text-black shadow-xl transition-all hover:scale-110 active:scale-90 disabled:opacity-40"
+                class="bg-spotify flex h-12 w-12 items-center justify-center rounded-full text-black shadow-xl transition-transform hover:scale-110 active:scale-90 disabled:opacity-40"
                 :disabled="isTrackLoading(track)"
                 aria-label="Play track"
                 @click="handlePlayTrack(track)"

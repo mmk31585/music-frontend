@@ -45,7 +45,7 @@
           <!-- Active line: glow pill + particle shimmer -->
           <span
             v-if="idx === activeIdx"
-            class="absolute -inset-x-6 -inset-y-2 rounded-2xl transition-all duration-700 ease-out"
+            class="absolute -inset-x-6 -inset-y-2 rounded-2xl transition-transform duration-700 ease-out"
             :class="isRtl ? 'glow-rtl' : 'glow-ltr'"
             :style="{
               background: `radial-gradient(ellipse at ${isRtl ? '80% 50%' : '20% 50%'}, ${props.activeColor || '#a855f7'}18 0%, transparent 65%)`,
@@ -57,7 +57,7 @@
           <span
             v-if="idx === activeIdx"
             :class="[
-              'absolute top-3/5 -translate-y-1/2 text-4xl font-bold tracking-wider transition-all duration-500',
+              'absolute top-3/5 -translate-y-1/2 text-4xl font-bold tracking-wider transition-transform duration-500',
               isRtl ? '-right-6' : '-left-8',
             ]"
             :style="{ color: props.activeColor || '#a855f7', opacity: 0.4 }"
@@ -69,13 +69,13 @@
             <span
               v-for="(word, wIdx) in line.words"
               :key="wIdx"
-              class="relative transition-all duration-80 ease-linear"
+              class="relative transition-transform duration-80 ease-linear"
               :style="wordStyle(line, wIdx)"
               >{{ word.text }}&nbsp;</span
             >
           </template>
           <template v-else>
-            <span class="relative transition-all duration-300">{{ line.text }}</span>
+            <span class="relative transition-transform duration-300">{{ line.text }}</span>
           </template>
         </span>
       </button>

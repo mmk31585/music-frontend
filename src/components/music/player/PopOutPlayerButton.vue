@@ -1,7 +1,7 @@
 <template>
   <button
     type="button"
-    class="flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm text-white transition-all hover:bg-white/15 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
+    class="flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm text-white transition-transform hover:bg-white/15 active:scale-95 disabled:cursor-not-allowed disabled:opacity-50"
     :disabled="disabled"
     @click="onClick"
   >

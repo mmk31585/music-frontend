@@ -19,7 +19,7 @@
           />
           <div class="absolute inset-0 bg-bg-overlay/55" />
           <div
-            class="absolute inset-0 transition-all duration-1000"
+            class="absolute inset-0 transition-transform duration-1000"
             :style="auroraGradient"
           />
         </div>
@@ -27,7 +27,7 @@
         <div class="relative z-10 flex h-14 items-center justify-between px-4 md:px-6">
           <button
             type="button"
-            class="flex h-10 w-10 items-center justify-center rounded-full text-secondary transition-all hover:bg-surface-active hover:text-primary focus-visible:ring-2 focus-visible:ring-accent"
+            class="flex h-10 w-10 items-center justify-center rounded-full text-secondary transition-transform hover:bg-surface-active hover:text-primary focus-visible:ring-2 focus-visible:ring-accent"
             @click="close"
             aria-label="بستن"
           >
@@ -41,7 +41,7 @@
           <div class="flex items-center gap-1">
             <button
               type="button"
-              class="flex h-10 w-10 items-center justify-center rounded-full text-secondary transition-all hover:bg-surface-active hover:text-primary focus-visible:ring-2 focus-visible:ring-accent"
+              class="flex h-10 w-10 items-center justify-center rounded-full text-secondary transition-transform hover:bg-surface-active hover:text-primary focus-visible:ring-2 focus-visible:ring-accent"
               @click="showOverflow = !showOverflow"
               aria-label="بیشتر"
               :aria-expanded="showOverflow"
@@ -59,7 +59,7 @@
             <div class="flex w-full max-w-md flex-1 flex-col items-center justify-center gap-5">
               <div class="relative h-70 w-70 md:h-80 md:w-80">
                 <div
-                  class="relative h-full w-full overflow-hidden rounded-2xl shadow-[0_24px_80px_rgba(0,0,0,0.7)] transition-all duration-1000"
+                  class="relative h-full w-full overflow-hidden rounded-2xl shadow-[0_24px_80px_rgba(0,0,0,0.7)] transition-transform duration-1000"
                   :class="{ 'shadow-[0_0_60px_rgba(29,185,84,0.2)]': isPlaying }"
                 >
                   <img
@@ -67,7 +67,7 @@
                     :src="coverUrl"
                     :alt="title"
                     loading="lazy"
-                    class="h-full w-full object-cover transition-all duration-300"
+                    class="h-full w-full object-cover transition-transform duration-300"
                     :class="{ 'animate-[art-pop_300ms_cubic-bezier(0.34,1.56,0.64,1)]': !!currentTrack }"
                     @error="onImgError"
                   />
@@ -122,9 +122,9 @@
                   @mousemove="onProgressHover"
                   @mouseleave="hoverPos = null"
                 >
-                  <div class="h-1 w-full rounded-full bg-surface-active transition-all duration-150 group-hover/seeks:h-1.5">
+                  <div class="h-1 w-full rounded-full bg-surface-active transition-transform duration-150 group-hover/seeks:h-1.5">
                     <div
-                      class="relative h-full rounded-full bg-accent transition-all duration-100"
+                      class="relative h-full rounded-full bg-accent transition-transform duration-100"
                       :style="{ width: `${Math.min(progressPct, 100)}%` }"
                     >
                       <div
@@ -150,7 +150,7 @@
                 <button
                   type="button"
                   :aria-label="shuffleMode !== 'off' ? 'Shuffle on' : 'Shuffle off'"
-                  class="relative flex h-8 w-8 items-center justify-center rounded-full transition-all hover:bg-surface-active hover:text-primary active:scale-90"
+                  class="relative flex h-8 w-8 items-center justify-center rounded-full transition-transform hover:bg-surface-active hover:text-primary active:scale-90"
                   :class="shuffleMode !== 'off' ? 'text-accent' : 'text-[rgba(255,255,255,0.35)]'"
                   :title="shuffleMode === 'off' ? 'Shuffle off' : shuffleMode === 'queue' ? 'Shuffle queue' : shuffleMode === 'catalog' ? 'Random catalog tracks' : 'Similar tracks'"
                   @click="toggleShuffle"
@@ -164,7 +164,7 @@
 
                 <button
                   type="button"
-                  class="flex h-10 w-10 items-center justify-center rounded-full text-secondary transition-all hover:bg-surface-active hover:text-primary active:scale-90 disabled:opacity-20"
+                  class="flex h-10 w-10 items-center justify-center rounded-full text-secondary transition-transform hover:bg-surface-active hover:text-primary active:scale-90 disabled:opacity-20"
                   :disabled="!hasPrevious"
                   @click="playPrevious"
                   aria-label="قبلی"
@@ -175,7 +175,7 @@
                 <button
                   type="button"
                   :aria-label="isPlaying ? 'Pause' : 'Play'"
-                  class="relative flex h-16 w-16 items-center justify-center rounded-full bg-accent text-primary shadow-lg transition-all active:scale-95 disabled:opacity-40"
+                  class="relative flex h-16 w-16 items-center justify-center rounded-full bg-accent text-primary shadow-lg transition-transform active:scale-95 disabled:opacity-40"
                   :style="{ transitionTimingFunction: 'var(--ease-spring)', transitionDuration: '150ms' }"
                   :disabled="!currentTrack || isLoadingTrack"
                   @click="togglePlayPause"
@@ -190,7 +190,7 @@
 
                 <button
                   type="button"
-                  class="flex h-10 w-10 items-center justify-center rounded-full text-secondary transition-all hover:bg-surface-active hover:text-primary active:scale-90 disabled:opacity-20"
+                  class="flex h-10 w-10 items-center justify-center rounded-full text-secondary transition-transform hover:bg-surface-active hover:text-primary active:scale-90 disabled:opacity-20"
                   :disabled="!hasNext"
                   @click="playNext"
                   aria-label="بعدی"
@@ -201,7 +201,7 @@
                 <button
                   type="button"
                   :aria-label="repeatTitle"
-                  class="relative flex h-8 w-8 items-center justify-center rounded-full transition-all hover:bg-surface-active hover:text-primary active:scale-90"
+                  class="relative flex h-8 w-8 items-center justify-center rounded-full transition-transform hover:bg-surface-active hover:text-primary active:scale-90"
                   :class="repeatMode !== 'off' ? 'text-accent' : 'text-[rgba(255,255,255,0.35)]'"
                   @click="toggleRepeat"
                 >
@@ -216,7 +216,7 @@
               <div class="flex items-center gap-4 text-tertiary">
                 <button
                   type="button"
-                  class="flex h-8 w-8 items-center justify-center rounded-full transition-all hover:text-primary active:scale-90"
+                  class="flex h-8 w-8 items-center justify-center rounded-full transition-transform hover:text-primary active:scale-90"
                   :aria-label="muted ? 'باز کردن صدا' : 'بی صدا'"
                   @click="toggleMute"
                 >
@@ -242,7 +242,7 @@
 
                 <button
                   type="button"
-                  class="flex h-8 items-center gap-1.5 rounded-full bg-surface-overlay/60 px-3 text-xs font-bold transition-all hover:bg-surface-active hover:text-primary active:scale-95"
+                  class="flex h-8 items-center gap-1.5 rounded-full bg-surface-overlay/60 px-3 text-xs font-bold transition-transform hover:bg-surface-active hover:text-primary active:scale-95"
                   :class="{ 'bg-accent-subtle text-accent': playbackRate !== 1 }"
                   @click="cycleSpeed"
                 >
@@ -252,7 +252,7 @@
 
                 <button
                   type="button"
-                  class="flex h-8 items-center gap-1.5 rounded-full bg-surface-overlay/60 px-3 text-xs font-bold transition-all hover:bg-surface-active hover:text-primary active:scale-95"
+                  class="flex h-8 items-center gap-1.5 rounded-full bg-surface-overlay/60 px-3 text-xs font-bold transition-transform hover:bg-surface-active hover:text-primary active:scale-95"
                   :class="{ 'bg-accent-subtle text-accent': sleepTimerMinutes > 0 }"
                   @click="sleepMenuOpen = !sleepMenuOpen"
                 >
@@ -262,7 +262,7 @@
 
                 <button
                   type="button"
-                  class="flex h-8 items-center gap-1.5 rounded-full bg-surface-overlay/60 px-3 text-xs font-bold transition-all hover:bg-surface-active hover:text-primary active:scale-95"
+                  class="flex h-8 items-center gap-1.5 rounded-full bg-surface-overlay/60 px-3 text-xs font-bold transition-transform hover:bg-surface-active hover:text-primary active:scale-95"
                   :class="{ 'bg-accent-subtle text-accent': crossfadeDuration > 0 }"
                   @click="cycleCrossfade"
                 >
@@ -272,7 +272,7 @@
 
                 <button
                   type="button"
-                  class="flex h-8 w-8 items-center justify-center rounded-full transition-all hover:text-primary active:scale-90"
+                  class="flex h-8 w-8 items-center justify-center rounded-full transition-transform hover:text-primary active:scale-90"
                   aria-label="Picture in Picture"
                   @click="onTogglePiP"
                 >
@@ -289,7 +289,7 @@
                   :key="track.id"
                   role="button"
                   tabindex="0"
-                  class="group flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2 transition-all hover:bg-surface-overlay"
+                  class="group flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2 transition-transform hover:bg-surface-overlay"
                   @click="playQueueItem(queueIndex + 1 + idx)"
                   @keydown.enter="playQueueItem(queueIndex + 1 + idx)"
                   @keydown.space.prevent="playQueueItem(queueIndex + 1 + idx)"
@@ -370,7 +370,7 @@
                     :draggable="queueTracks.length > 1"
                     role="button"
                     tabindex="0"
-                    class="group flex cursor-grab items-center gap-3 rounded-xl px-3 py-2.5 transition-all hover:bg-surface-overlay"
+                    class="group flex cursor-grab items-center gap-3 rounded-xl px-3 py-2.5 transition-transform hover:bg-surface-overlay"
                     @dragstart="onDragStart(idx)"
                     @dragover.prevent="onDragOver(idx)"
                     @dragend="onDragEnd"
@@ -401,7 +401,7 @@
                     <span class="text-xs text-muted tabular-nums">{{ formatTime(track.durationSeconds) }}</span>
                     <button
                       type="button"
-                      class="flex h-7 w-7 items-center justify-center rounded-full text-secondary opacity-0 transition-all hover:bg-surface-active hover:text-primary/60 group-hover:opacity-100"
+                      class="flex h-7 w-7 items-center justify-center rounded-full text-secondary opacity-0 transition-transform hover:bg-surface-active hover:text-primary/60 group-hover:opacity-100"
                       @click.stop="removeFromQueue(idx)"
                       aria-label="حذف از صف"
                     >
@@ -436,7 +436,7 @@
               {{ tab.label }}
             </button>
             <div
-              class="absolute bottom-0 h-0.5 bg-accent transition-all duration-200"
+              class="absolute bottom-0 h-0.5 bg-accent transition-transform duration-200"
               :style="tabIndicatorStyle"
               style="transition-timing-function: cubic-bezier(0.19, 1, 0.22, 1)"
             />
@@ -448,12 +448,12 @@
             v-if="sleepMenuOpen"
             class="absolute bottom-20 left-1/2 z-20 -translate-x-1/2"
           >
-            <div class="glass-darker flex items-center gap-1.5 rounded-full px-3 py-1.5 shadow-lg">
+            <div class="flex items-center gap-1.5 rounded-full px-3 py-1.5 shadow-lg bg-surface-3 border border-border-default">
               <button
                 v-for="opt in sleepOptions"
                 :key="opt.value"
                 type="button"
-                class="rounded-full px-3 py-1.5 text-xs font-medium text-secondary transition-all hover:bg-surface-active hover:text-primary"
+                class="rounded-full px-3 py-1.5 text-xs font-medium text-secondary transition-transform hover:bg-surface-active hover:text-primary"
                 :class="{ 'bg-accent/15! text-accent!': sleepTimerMinutes === opt.value }"
                 @click="setTimer(opt.value)"
               >

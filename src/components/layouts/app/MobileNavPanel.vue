@@ -205,7 +205,7 @@ function handleLogout() {
 <style scoped>
 .slide-fade-enter-active,
 .slide-fade-leave-active {
-  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1), color 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .slide-fade-enter-from {
   opacity: 0;

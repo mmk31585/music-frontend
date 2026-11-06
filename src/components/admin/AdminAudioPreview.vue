@@ -24,7 +24,7 @@
           @keydown.right.prevent="skip(5)"
         >
           <div
-            class="absolute inset-y-0 start-0 h-full rounded-full bg-emerald-500 transition-all duration-150"
+            class="absolute inset-y-0 start-0 h-full rounded-full bg-emerald-500 transition-transform duration-150"
             :style="{ width: `${duration ? (currentTime / duration) * 100 : 0}%` }"
           />
         </div>

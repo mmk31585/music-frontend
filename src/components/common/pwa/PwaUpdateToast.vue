@@ -10,7 +10,7 @@
       </div>
       <p class="text-sm text-white">New version available</p>
       <button
-        class="rounded-full bg-spotify px-4 py-1.5 text-xs font-bold text-black transition-all duration-200 hover:bg-spotify-hover active:scale-95 focus-visible:outline-2 focus-visible:outline-white"
+        class="rounded-full bg-spotify px-4 py-1.5 text-xs font-bold text-black transition-transform duration-200 hover:bg-spotify-hover active:scale-95 focus-visible:outline-2 focus-visible:outline-white"
         @click="refresh"
       >
         RefreshCw

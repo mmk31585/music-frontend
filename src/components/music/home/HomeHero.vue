@@ -66,7 +66,7 @@
           <div class="mt-5 flex flex-wrap gap-3">
             <button
               type="button"
-              class="inline-flex h-12 cursor-pointer items-center gap-2 rounded-full bg-accent px-8 text-base font-bold text-black transition-all hover:bg-accent-hover hover:scale-105 active:scale-95 focus-visible:ring-2 focus-visible:ring-spotify focus-visible:ring-offset-2 focus-visible:outline-hidden"
+              class="inline-flex h-12 cursor-pointer items-center gap-2 rounded-full bg-accent px-8 text-base font-bold text-black transition: background-color 150ms ease, transform 150ms ease hover:bg-accent-hover hover:scale-105 active:scale-95 focus-visible:ring-2 focus-visible:ring-spotify focus-visible:ring-offset-2 focus-visible:outline-hidden"
               :aria-label="'پخش ' + currentItem.title"
               @click="$emit('play', currentItem)"
             >
@@ -75,7 +75,7 @@
             </button>
             <button
               type="button"
-              class="inline-flex h-12 cursor-pointer items-center gap-2 rounded-full border border-white/15 bg-white/4 px-6 text-base font-medium text-white transition-all hover:bg-white/10 active:scale-95 focus-visible:ring-2 focus-visible:ring-spotify focus-visible:ring-offset-2 focus-visible:outline-hidden"
+              class="inline-flex h-12 cursor-pointer items-center gap-2 rounded-full border border-white/15 bg-white/4 px-6 text-base font-medium text-white transition: background-color 150ms ease, transform 150ms ease hover:bg-white/10 active:scale-95 focus-visible:ring-2 focus-visible:ring-spotify focus-visible:ring-offset-2 focus-visible:outline-hidden"
               @click="$emit('add-to-library', currentItem)"
             >
               <Plus aria-hidden="true" class="text-sm"  />
@@ -128,7 +128,7 @@
         v-for="(item, i) in items"
         :key="i"
         type="button"
-        class="cursor-pointer rounded-full transition-all"
+        class="cursor-pointer rounded-full transition-transform"
         :class="i === activeIndex
           ? 'w-6 bg-white'
           : 'w-2 bg-white/30'"
@@ -279,9 +279,21 @@ onUnmounted(() => {
 </script>
 
 <style scoped>
+@media (prefers-reduced-motion: reduce) {
+  .slide-fade-enter-active,
+  .slide-fade-leave-active {
+    transition: none;
+  }
+  .slide-fade-enter-from,
+  .slide-fade-leave-to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
 .slide-fade-enter-active,
 .slide-fade-leave-active {
-  transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1), transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .slide-fade-enter-from {
   opacity: 0;

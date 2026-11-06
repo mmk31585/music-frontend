@@ -79,7 +79,7 @@
                 :key="track.id"
                 role="option"
                 :aria-selected="focusedIdx === i"
-                class="group flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5 transition-all"
+                class="group flex cursor-pointer items-center gap-3 rounded-xl px-3 py-2.5 transition-transform"
                 :class="focusedIdx === i ? 'bg-white/12 ring-1 ring-white/20' : 'hover:bg-white/8'"
                 @click="selectTrack(track)"
                 @mouseenter="focusedIdx = i"

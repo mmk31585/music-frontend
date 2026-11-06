@@ -698,8 +698,11 @@ onUnmounted(() => {
   transition:
     color 120ms ease,
     background 120ms ease;
-  outline: none;
   -webkit-tap-highlight-color: transparent;
+}
+.ctx-item:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--ring-focus);
 }
 
 .ctx-item:hover,

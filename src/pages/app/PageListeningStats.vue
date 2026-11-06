@@ -16,7 +16,7 @@
         :key="p.key"
         role="tab"
         :aria-selected="activePeriod === p.key"
-        class="rounded-lg px-5 py-2 text-sm font-medium transition-all duration-200"
+        class="rounded-lg px-5 py-2 text-sm font-medium transition-transform duration-200"
         :class="
           activePeriod === p.key
             ? 'bg-white/10 text-white shadow-lg'

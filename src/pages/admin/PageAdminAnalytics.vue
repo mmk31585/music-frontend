@@ -94,7 +94,7 @@
           <div v-else class="flex items-end gap-2" style="height: 160px">
             <div v-for="(day, i) in chartData.dailyPlays" :key="i" class="group relative flex-1">
               <div
-                class="w-full rounded-t bg-emerald-500/60 transition-all hover:bg-emerald-400/80"
+                class="w-full rounded-t bg-emerald-500/60 transition-transform hover:bg-emerald-400/80"
                 :style="{ height: `${Math.max(4, (day.count / maxPlayCount) * 100)}%` }"
               >
                 <div
@@ -140,7 +140,7 @@
           <div v-else class="flex items-end gap-2" style="height: 160px">
             <div v-for="(month, i) in chartData.userGrowth" :key="i" class="group relative flex-1">
               <div
-                class="w-full rounded-t bg-blue-500/60 transition-all hover:bg-blue-400/80"
+                class="w-full rounded-t bg-blue-500/60 transition-transform hover:bg-blue-400/80"
                 :style="{ height: `${Math.max(4, (month.count / maxUserGrowth) * 100)}%` }"
               >
                 <div

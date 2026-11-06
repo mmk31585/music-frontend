@@ -78,7 +78,7 @@
               <button
                 :id="'queue-item-' + index"
                 type="button"
-                class="group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-all duration-200"
+                class="group flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition-transform duration-200"
                 :class="canReorder ? 'cursor-pointer' : ''"
                 :aria-label="`${track.title} by ${track.artistName}. Press Enter to play, Arrow Up or Down to reorder.`"
                 @click="$emit('playFromQueue', index)"
@@ -286,7 +286,7 @@ const { sections, header, accentColor } = useTrackContextMenu(
 <style scoped>
 .slide-right-enter-active,
 .slide-right-leave-active {
-  transition: all 0.25s ease;
+  transition: transform 0.25s ease, opacity 0.25s ease;
 }
 .slide-right-enter-from {
   transform: translateX(100%);

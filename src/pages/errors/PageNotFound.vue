@@ -8,11 +8,11 @@ const router = useRouter()
 <template>
   <section class="bg-surface-dark relative z-10 min-h-screen py-30">
     <!-- Aurora background -->
-    <div class="aurora-bg pointer-events-none fixed inset-0" aria-hidden="true">
-      <div class="aurora-spot-1 bg-spotify/10 -start-40 -top-40" />
-      <div class="aurora-spot-2 bg-aurora-blue/8 -end-40 -top-60" />
+    <div class="relative overflow-none pointer-events-none fixed inset-0" aria-hidden="true">
+      <div class="absolute -start-40 -top-40 rounded-full bg-spotify/10" />
+      <div class="absolute -end-40 -top-60 rounded-full bg-aurora-blue/8" />
       <div
-        class="aurora-spot-1 bg-electric-purple/8 start-1/3 top-20"
+        class="absolute start-1/3 top-20 rounded-full bg-electric-purple/8"
         style="animation-delay: -8s; width: 350px; height: 350px"
       />
     </div>

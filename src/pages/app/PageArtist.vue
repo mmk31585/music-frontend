@@ -30,8 +30,8 @@
 
     <template v-else-if="artist">
       <div class="relative overflow-hidden rounded-2xl border border-white/6" :style="headerBg">
-        <div class="aurora-spot-1 bg-spotify/10 -top-60 -left-40" />
-        <div class="aurora-spot-2 bg-aurora-blue/8 -right-40 -bottom-40" />
+        <div class="absolute -top-60 -left-40 rounded-full bg-spotify/10" />
+        <div class="absolute -right-40 -bottom-40 rounded-full bg-aurora-blue/8" />
         <div class="relative z-10">
           <ArtistHero
             :artist="artist"

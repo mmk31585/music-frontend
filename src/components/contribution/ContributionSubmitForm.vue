@@ -9,7 +9,7 @@
           v-for="option in contributionTypes"
           :key="option.value"
           type="button"
-          class="spring flex flex-col items-center gap-2 rounded-xl border border-white/6 p-4 text-center transition-all hover:border-white/20 hover:bg-white/4"
+          class="spring flex flex-col items-center gap-2 rounded-xl border border-white/6 p-4 text-center transition-transform hover:border-white/20 hover:bg-white/4"
           :class="{ 'border-spotify! bg-spotify/10!': selectedType === option.value }"
           @click="selectedType = option.value; step = 2"
         >
@@ -45,7 +45,7 @@
           v-for="t in targetOptions"
           :key="t.value"
           type="button"
-          class="spring rounded-lg border border-white/6 px-3 py-2 text-xs font-medium transition-all"
+          class="spring rounded-lg border border-white/6 px-3 py-2 text-xs font-medium transition-transform"
           :class="
             form.target_type === t.value
               ? 'border-spotify! bg-spotify/10! text-spotify!'
@@ -62,7 +62,7 @@
         type="text"
         placeholder="Target ID (UUID)"
         aria-label="Target ID"
-        class="focus:ring-spotify/50 w-full rounded-xl bg-white/5 px-4 py-3 text-sm text-white placeholder-white/20 ring-1 ring-white/6 outline-hidden transition-all"
+        class="focus:ring-spotify/50 w-full rounded-xl bg-white/5 px-4 py-3 text-sm text-white placeholder-white/20 ring-1 ring-white/6 outline-hidden transition-transform"
       />
 
       <div v-if="selectedType === 'lyrics' || selectedType === 'translation'">
@@ -71,7 +71,7 @@
           type="text"
           placeholder="Language code (e.g., fa, en, ar)"
           aria-label="Language code"
-          class="focus:ring-spotify/50 w-full rounded-xl bg-white/5 px-4 py-3 text-sm text-white placeholder-white/20 ring-1 ring-white/6 outline-hidden transition-all"
+          class="focus:ring-spotify/50 w-full rounded-xl bg-white/5 px-4 py-3 text-sm text-white placeholder-white/20 ring-1 ring-white/6 outline-hidden transition-transform"
         />
       </div>
 
@@ -82,7 +82,7 @@
         placeholder="Paste your contribution content here...
 For lyrics: paste the full lyrics text
 For LRC format: [00:00.00]Line 1&#10;[00:05.00]Line 2"
-        class="focus:ring-spotify/50 w-full resize-y rounded-xl bg-white/5 px-4 py-3 font-mono text-sm text-white placeholder-white/20 ring-1 ring-white/6 outline-hidden transition-all"
+        class="focus:ring-spotify/50 w-full resize-y rounded-xl bg-white/5 px-4 py-3 font-mono text-sm text-white placeholder-white/20 ring-1 ring-white/6 outline-hidden transition-transform"
       />
 
       <input
@@ -90,7 +90,7 @@ For LRC format: [00:00.00]Line 1&#10;[00:05.00]Line 2"
         type="text"
         placeholder="Brief summary of your change (optional)"
         aria-label="Summary"
-        class="focus:ring-spotify/50 w-full rounded-xl bg-white/5 px-4 py-3 text-sm text-white placeholder-white/20 ring-1 ring-white/6 outline-hidden transition-all"
+        class="focus:ring-spotify/50 w-full rounded-xl bg-white/5 px-4 py-3 text-sm text-white placeholder-white/20 ring-1 ring-white/6 outline-hidden transition-transform"
       />
 
       <div class="flex items-center gap-2">
@@ -106,7 +106,7 @@ For LRC format: [00:00.00]Line 1&#10;[00:05.00]Line 2"
       <div class="flex gap-3">
         <button
           type="button"
-          class="spring flex-1 rounded-xl bg-white/5 py-3 text-sm font-medium text-white/50 transition-all hover:bg-white/10 hover:text-white/70"
+          class="spring flex-1 rounded-xl bg-white/5 py-3 text-sm font-medium text-white/50 transition-transform hover:bg-white/10 hover:text-white/70"
           @click="reset"
         >
           Cancel
@@ -114,7 +114,7 @@ For LRC format: [00:00.00]Line 1&#10;[00:05.00]Line 2"
         <button
           type="button"
           :disabled="!canSubmit || submitting"
-          class="spring bg-spotify hover:bg-spotify-hover flex-1 rounded-xl py-3 text-sm font-bold text-black transition-all disabled:opacity-40"
+          class="spring bg-spotify hover:bg-spotify-hover flex-1 rounded-xl py-3 text-sm font-bold text-black transition-transform disabled:opacity-40"
           @click="submit"
         >
           <Loader2 aria-hidden="true" v-if="submitting" class="mr-2 animate-spin" />
@@ -250,4 +250,16 @@ async function submit() {
     submitting.value = false
   }
 }
+
+<style scoped>
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulse {
+    animation: none !important;
+  }
+  .animate-spin {
+    animation: none !important;
+  }
+}
+</style>
+
 </script>

@@ -11,7 +11,7 @@
             <span class="text-secondary w-20 shrink-0 truncate text-xs">{{ g.name }}</span>
             <div class="bg-surface-active/80 h-1.5 flex-1 overflow-hidden rounded-full">
               <div
-                class="h-full rounded-full transition-all duration-700"
+                class="h-full rounded-full transition-transform duration-700"
                 :style="{ width: g.percent + '%', background: g.color }"
               />
             </div>

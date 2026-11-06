@@ -9,11 +9,11 @@
         v-for="mood in moods"
         :key="mood.id"
         type="button"
-        class="group relative flex aspect-square cursor-pointer flex-col items-center justify-center gap-2 overflow-hidden rounded-2xl p-4 text-center transition-all duration-300 hover:scale-[1.03] hover:brightness-110 focus-visible:ring-2 focus-visible:ring-spotify focus-visible:ring-offset-2 focus-visible:outline-hidden"
+        class="group relative flex aspect-square cursor-pointer flex-col items-center justify-center gap-2 overflow-hidden rounded-2xl p-4 text-center transition-transform duration-300 hover:scale-[1.03] hover:brightness-110 focus-visible:ring-2 focus-visible:ring-spotify focus-visible:ring-offset-2 focus-visible:outline-hidden"
         :style="{ background: mood.gradient }"
         @click="$emit('select', mood.id)"
       >
-        <div class="absolute inset-0 rounded-2xl border-2 border-white/0 transition-all duration-300 group-hover:border-white/15" />
+        <div class="absolute inset-0 rounded-2xl border-2 border-white/0 transition-transform duration-300 group-hover:border-white/15" />
         <component :is="mood.icon" class="relative z-10 h-8 w-8 text-white drop-shadow-lg" />
         <span class="relative z-10 text-sm font-bold text-white drop-shadow-xl">{{ mood.label }}</span>
       </button>

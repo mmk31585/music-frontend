@@ -1,9 +1,9 @@
 <template>
   <div class="relative mx-auto min-h-screen w-full pb-36">
     <!-- ── Ambient Aurora Background ── -->
-    <div class="aurora-bg pointer-events-none fixed inset-0" aria-hidden="true">
-      <div class="aurora-spot-1" />
-      <div class="aurora-spot-2" />
+    <div class="relative overflow-none pointer-events-none fixed inset-0" aria-hidden="true">
+      <div class="absolute rounded-full" />
+      <div class="absolute rounded-full" />
     </div>
 
     <div class="relative z-10">
@@ -18,10 +18,10 @@
             <!-- Aurora overlay -->
             <div class="pointer-events-none absolute inset-0 overflow-hidden rounded-3xl">
               <div
-                class="absolute -top-1/2 -right-1/4 h-96 w-96 rounded-full bg-spotify/10 blur-[120px] animate-aurora-drift"
+                class="absolute -top-1/2 -right-1/4 h-96 w-96 rounded-full bg-spotify/10 animate-aurora-drift"
               />
               <div
-                class="absolute -bottom-1/2 -left-1/4 h-80 w-80 rounded-full bg-aurora-purple/10 blur-[100px] animate-aurora-drift-2"
+                class="absolute -bottom-1/2 -left-1/4 h-80 w-80 rounded-full bg-aurora-purple/10 animate-aurora-drift-2"
               />
             </div>
 
@@ -129,7 +129,7 @@
               v-for="mood in moodOptions"
               :key="mood.value"
               type="button"
-              class="reveal-up group relative flex shrink-0 items-center gap-2 rounded-full border px-4 py-2.5 text-xs font-bold transition-all duration-300"
+              class="reveal-up group relative flex shrink-0 items-center gap-2 rounded-full border px-4 py-2.5 text-xs font-bold transition-transform duration-300"
               :class="[
                 selectedMood === mood.value
                   ? 'border-spotify/40 bg-spotify/15 text-white shadow-lg shadow-spotify/10'
@@ -263,7 +263,7 @@
                 <div class="hidden items-center gap-1.5 md:flex">
                   <div class="flex h-1.5 w-12 overflow-hidden rounded-full bg-white/10">
                     <div
-                      class="h-full rounded-full transition-all duration-500"
+                      class="h-full rounded-full transition-transform duration-500"
                       :class="getEnergyBarColor(track.energy ?? 0)"
                       :style="{ width: `${Math.min((track.energy ?? 0) * 100, 100)}%` }"
                     />
@@ -302,7 +302,7 @@
             v-for="card in categoryCards"
             :key="card.to"
             :to="card.to"
-            class="group relative overflow-hidden rounded-2xl border border-white/6 p-6 transition-all duration-500 hover:-translate-y-1 hover:border-white/12"
+            class="group relative overflow-hidden rounded-2xl border border-white/6 p-6 transition-transform duration-500 hover:-translate-y-1 hover:border-white/12"
           >
             <!-- Hover gradient overlay -->
             <div
@@ -324,7 +324,7 @@
             </div>
             <!-- Arrow indicator -->
             <div
-              class="absolute right-5 bottom-5 flex h-8 w-8 items-center justify-center rounded-full border border-white/6 text-xs text-white/30 transition-all duration-300 group-hover:border-white/15 group-hover:text-white/70"
+              class="absolute right-5 bottom-5 flex h-8 w-8 items-center justify-center rounded-full border border-white/6 text-xs text-white/30 transition-transform duration-300 group-hover:border-white/15 group-hover:text-white/70"
             >
               <ArrowRight aria-hidden="true" class=""  />
             </div>
@@ -373,7 +373,7 @@
               @contextmenu.prevent="openContextMenu($event, track)"
             >
               <div
-                class="relative mb-3 aspect-square overflow-hidden rounded-2xl bg-white/5 shadow-lg ring-1 ring-white/6 transition-all duration-500 group-hover:scale-[1.02] group-hover:ring-spotify/30"
+                class="relative mb-3 aspect-square overflow-hidden rounded-2xl bg-white/5 shadow-lg ring-1 ring-white/6 transition-transform duration-500 group-hover:scale-[1.02] group-hover:ring-spotify/30"
               >
                 <img
                   v-if="track.cover_url"
@@ -388,7 +388,7 @@
                 </div>
                 <!-- Play overlay -->
                 <div
-                  class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-all duration-300 group-hover:opacity-100"
+                  class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-transform duration-300 group-hover:opacity-100"
                 >
                   <div
                     class="flex h-12 w-12 items-center justify-center rounded-full bg-spotify/90 text-black shadow-xl shadow-spotify/20 transition-transform duration-300 group-hover:scale-105"
@@ -439,7 +439,7 @@
               @contextmenu.prevent="openContextMenu($event, track)"
             >
               <div
-                class="relative mb-3 aspect-square overflow-hidden rounded-2xl bg-white/5 shadow-lg ring-1 ring-white/6 transition-all duration-500 group-hover:scale-[1.02] group-hover:ring-aurora-purple/30"
+                class="relative mb-3 aspect-square overflow-hidden rounded-2xl bg-white/5 shadow-lg ring-1 ring-white/6 transition-transform duration-500 group-hover:scale-[1.02] group-hover:ring-aurora-purple/30"
               >
                 <img
                   v-if="track.cover_url"
@@ -453,7 +453,7 @@
                   <Music aria-hidden="true" class="text-2xl text-white/20"  />
                 </div>
                 <div
-                  class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-all duration-300 group-hover:opacity-100"
+                  class="absolute inset-0 flex items-center justify-center bg-black/40 opacity-0 transition-transform duration-300 group-hover:opacity-100"
                 >
                   <div
                     class="flex h-12 w-12 items-center justify-center rounded-full bg-aurora-purple/90 text-white shadow-xl shadow-aurora-purple/20 transition-transform duration-300 group-hover:scale-105"
@@ -488,10 +488,10 @@
           >
             <div class="pointer-events-none absolute inset-0 overflow-hidden rounded-2xl">
               <div
-                class="absolute -top-1/3 -left-1/4 h-64 w-64 rounded-full bg-aurora-purple/10 blur-[100px]"
+                class="absolute -top-1/3 -left-1/4 h-64 w-64 rounded-full bg-aurora-purple/10"
               />
               <div
-                class="absolute -bottom-1/3 -right-1/4 h-64 w-64 rounded-full bg-spotify/10 blur-[100px]"
+                class="absolute -bottom-1/3 -right-1/4 h-64 w-64 rounded-full bg-spotify/10"
               />
             </div>
 
@@ -533,7 +533,7 @@
                   @click="playTrack(track, idx)"
                 >
                   <div
-                    class="relative mb-2 aspect-square overflow-hidden rounded-xl bg-white/5 ring-1 ring-white/6 transition-all duration-300 group-hover:ring-aurora-purple/30"
+                    class="relative mb-2 aspect-square overflow-hidden rounded-xl bg-white/5 ring-1 ring-white/6 transition-transform duration-300 group-hover:ring-aurora-purple/30"
                   >
                     <img
                       v-if="track.cover_url"

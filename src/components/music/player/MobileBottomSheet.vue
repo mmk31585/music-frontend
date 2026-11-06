@@ -49,7 +49,7 @@
 
             <button
               type="button"
-              class="flex h-10 w-10 items-center justify-center rounded-full text-secondary transition-all hover:bg-surface-active hover:text-primary"
+              class="flex h-10 w-10 items-center justify-center rounded-full text-secondary transition-transform hover:bg-surface-active hover:text-primary"
               aria-label="Close"
               @click="close"
             >
@@ -61,7 +61,7 @@
           <div class="mt-3 flex items-center gap-3">
             <button
               type="button"
-              class="spring flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium transition-all active:scale-95 min-h-11"
+              class="spring flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-medium transition-transform active:scale-95 min-h-11"
               :class="liked ? '' : 'text-tertiary hover:bg-surface-overlay'"
               :style="liked ? { color: accentColor, backgroundColor: `${accentColor}15` } : {}"
               @click="liked = !liked"
@@ -99,7 +99,7 @@
           >
             <button
               type="button"
-              class="relative flex flex-col items-center gap-1 transition-all hover:text-primary active:scale-90"
+              class="relative flex flex-col items-center gap-1 transition-transform hover:text-primary active:scale-90"
               :class="shuffleMode !== 'off' ? '' : 'text-tertiary'"
               :style="shuffleMode !== 'off' ? { color: accentColor } : {}"
               :title="shuffleMode === 'off' ? 'Shuffle off' : shuffleMode === 'queue' ? 'Shuffle queue' : shuffleMode === 'catalog' ? 'Random catalog tracks' : 'Similar tracks'"
@@ -115,7 +115,7 @@
 
             <button
               type="button"
-              class="text-secondary transition-all hover:text-primary active:scale-90 disabled:opacity-30"
+              class="text-secondary transition-transform hover:text-primary active:scale-90 disabled:opacity-30"
               :disabled="!hasPrevious"
               aria-label="Previous track"
               @click="playPrevious"
@@ -125,7 +125,7 @@
 
             <button
               type="button"
-              class="spring relative flex h-16 w-16 items-center justify-center rounded-full bg-white text-black shadow-xl transition-all hover:scale-110 hover:text-primary active:scale-95"
+              class="spring relative flex h-16 w-16 items-center justify-center rounded-full bg-white text-black shadow-xl transition-transform hover:scale-110 hover:text-primary active:scale-95"
               :style="
                 isPlaying
                   ? {
@@ -155,7 +155,7 @@
 
             <button
               type="button"
-              class="text-secondary transition-all hover:text-primary active:scale-90 disabled:opacity-30"
+              class="text-secondary transition-transform hover:text-primary active:scale-90 disabled:opacity-30"
               :disabled="!hasNext"
               aria-label="Next track"
               @click="playNext"
@@ -165,7 +165,7 @@
 
             <button
               type="button"
-              class="flex flex-col items-center gap-1 transition-all hover:text-primary active:scale-90"
+              class="flex flex-col items-center gap-1 transition-transform hover:text-primary active:scale-90"
               :class="repeatMode !== 'off' ? '' : 'text-tertiary'"
               :style="repeatMode !== 'off' ? { color: accentColor } : {}"
               @click="toggleRepeat"
@@ -182,7 +182,7 @@
             <div class="flex items-center gap-3">
               <button
                 type="button"
-                class="flex h-10 w-10 items-center justify-center rounded-full text-tertiary transition-all hover:bg-surface-active hover:text-primary"
+                class="flex h-10 w-10 items-center justify-center rounded-full text-tertiary transition-transform hover:bg-surface-active hover:text-primary"
                 :aria-label="muted ? 'Unmute' : 'Mute'"
                 @click="toggleMute"
               >
@@ -201,7 +201,7 @@
 
             <button
               type="button"
-              class="spring flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-bold transition-all"
+              class="spring flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-bold transition-transform"
               :class="playbackRate !== 1 ? '' : 'text-tertiary'"
               :style="
                 playbackRate !== 1
@@ -216,7 +216,7 @@
 
             <button
               type="button"
-              class="flex h-10 w-10 items-center justify-center rounded-full text-tertiary transition-all hover:bg-surface-active hover:text-primary"
+              class="flex h-10 w-10 items-center justify-center rounded-full text-tertiary transition-transform hover:bg-surface-active hover:text-primary"
               aria-label="Fullscreen"
               @click="$emit('open-fullscreen')"
             >
@@ -475,7 +475,7 @@ onUnmounted(() => {
   transform: translateY(100%);
 }
 .spring {
-  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: transform 0.3s cubic-bezier(0.34, 1, 0.22, 1), background-color 0.3s cubic-bezier(0.34, 1, 0.22, 1);
 }
 @keyframes heart-pop {
   0% {

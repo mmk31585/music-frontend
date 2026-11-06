@@ -12,7 +12,7 @@
       <div
         v-for="(g) in items"
         :key="g.name"
-        class="h-full transition-all duration-500 first:rounded-s-full last:rounded-e-full"
+        class="h-full transition-transform duration-500 first:rounded-s-full last:rounded-e-full"
         :style="{ width: g.percent + '%', backgroundColor: g.color }"
       />
     </div>

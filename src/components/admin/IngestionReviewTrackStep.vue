@@ -31,7 +31,7 @@
         <img
           :src="ctx.embeddedCover.value"
           alt="Embedded"
-          class="h-24 w-24 cursor-pointer rounded-lg object-cover shadow-md ring-2 transition-all"
+          class="h-24 w-24 cursor-pointer rounded-lg object-cover shadow-md ring-2 transition-transform"
           :class="
             ctx.finalMetadata.track.coverUrl === ctx.embeddedCover.value
               ? 'ring-green-500'
@@ -47,7 +47,7 @@
         <img
           :src="ctx.suggestedAlbumCover.value"
           alt="Spotify"
-          class="h-24 w-24 cursor-pointer rounded-lg object-cover shadow-md ring-2 transition-all"
+          class="h-24 w-24 cursor-pointer rounded-lg object-cover shadow-md ring-2 transition-transform"
           :class="
             ctx.finalMetadata.track.coverUrl === ctx.suggestedAlbumCover.value
               ? 'ring-green-500'
@@ -63,7 +63,7 @@
         <img
           :src="ctx.suggestedLastfmAlbumCover.value"
           alt="Last.fm"
-          class="h-24 w-24 cursor-pointer rounded-lg object-cover shadow-md ring-2 transition-all"
+          class="h-24 w-24 cursor-pointer rounded-lg object-cover shadow-md ring-2 transition-transform"
           :class="
             ctx.finalMetadata.track.coverUrl === ctx.suggestedLastfmAlbumCover.value
               ? 'ring-green-500'
@@ -79,7 +79,7 @@
         <img
           :src="ctx.enrichment.value.ml.albumCoverUrl"
           alt="ML"
-          class="h-24 w-24 cursor-pointer rounded-lg object-cover shadow-md ring-2 transition-all"
+          class="h-24 w-24 cursor-pointer rounded-lg object-cover shadow-md ring-2 transition-transform"
           :class="
             ctx.finalMetadata.track.coverUrl === ctx.enrichment.value.ml.albumCoverUrl
               ? 'ring-green-500'
@@ -250,7 +250,7 @@
                 if (el) syncedLyricLineRefs[idx] = el as HTMLElement
               }
             "
-            class="cursor-pointer px-2 py-1.5 text-center text-sm leading-relaxed transition-all duration-300"
+            class="cursor-pointer px-2 py-1.5 text-center text-sm leading-relaxed transition-transform duration-300"
             :class="{
               'scale-105 font-bold text-white': idx === activeLyricLine,
               'text-white/15': activeLyricLine >= 0 && idx < activeLyricLine,

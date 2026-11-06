@@ -1,9 +1,9 @@
 <template>
   <div class="relative mx-auto min-h-screen w-full pb-36">
     <!-- ── Ambient Aurora ── -->
-    <div class="aurora-bg pointer-events-none fixed inset-0" aria-hidden="true">
-      <div class="aurora-spot-1" />
-      <div class="aurora-spot-2" />
+    <div class="relative overflow-none pointer-events-none fixed inset-0" aria-hidden="true">
+      <div class="absolute rounded-full" />
+      <div class="absolute rounded-full" />
     </div>
 
     <div class="relative z-10 px-4 pt-8 md:px-6 lg:px-8">

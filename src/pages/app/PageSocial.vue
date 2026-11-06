@@ -3,9 +3,9 @@
     <!-- ── Dynamic Hero ── -->
     <div class="relative overflow-hidden rounded-2xl p-8 md:p-10">
       <div class="pointer-events-none absolute inset-0" aria-hidden="true">
-        <div class="bg-spotify/8 absolute -top-40 -right-40 h-125 w-125 rounded-full blur-3xl" />
+        <div class="bg-spotify/8 absolute -top-40 -right-40 h-125 w-125 rounded-full" />
         <div
-          class="bg-aurora-purple/6 absolute -bottom-20 -left-20 h-75 w-75 rounded-full blur-3xl"
+          class="bg-aurora-purple/6 absolute -bottom-20 -left-20 h-75 w-75 rounded-full"
         />
         <div class="absolute inset-0 bg-linear-to-br from-black/40 via-transparent to-black/60" />
       </div>

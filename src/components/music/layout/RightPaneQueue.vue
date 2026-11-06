@@ -13,7 +13,7 @@
       </h3>
       <button
         type="button"
-        class="text-tertiary hover:text-primary text-[10px] font-bold transition-all duration-150"
+        class="text-tertiary hover:text-primary text-[10px] font-bold transition-transform duration-150"
         @click="$emit('clear')"
       >
         Clear
@@ -25,7 +25,7 @@
         v-for="(track, idx) in visibleItems"
         :key="track.id"
         type="button"
-        class="hover:bg-surface-hover flex w-full items-center gap-3 rounded-xl px-3 py-2 text-left transition-all duration-150 active:scale-[0.99]"
+        class="hover:bg-surface-hover flex w-full items-center gap-3 rounded-xl px-3 py-2 text-left transition-transform duration-150 active:scale-[0.99]"
         @click="$emit('play', idx)"
         @contextmenu.prevent="openContextMenu($event, track)"
       >
@@ -55,7 +55,7 @@
     <button
       v-if="items.length > maxVisible"
       type="button"
-      class="text-tertiary hover:bg-surface-hover hover:text-primary mt-1 flex w-full items-center justify-center gap-1.5 rounded-xl px-3 py-2 text-[11px] font-bold transition-all duration-150"
+      class="text-tertiary hover:bg-surface-hover hover:text-primary mt-1 flex w-full items-center justify-center gap-1.5 rounded-xl px-3 py-2 text-[11px] font-bold transition-transform duration-150"
       @click="showAll = !showAll"
     >
       <ChevronUp v-if="showAll" :size="12" />

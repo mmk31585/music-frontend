@@ -155,7 +155,7 @@
         icon-pos="right"
         :loading="loading"
         :disabled="loading"
-        class="auth-btn w-full border-0 bg-spotify text-black font-semibold hover:bg-spotify-hover transition-all duration-200 mt-6"
+        class="auth-btn w-full border-0 bg-spotify text-black font-semibold hover:bg-spotify-hover transition: background-color 150ms ease, box-shadow 150ms ease mt-6"
       />
 
       <!-- Switch to login -->
@@ -200,7 +200,7 @@ const { form, errors, apiError, loading, onSubmit } = useRegisterForm()
   padding-top: 10px !important;
   padding-bottom: 10px !important;
   font-size: 0.875rem !important;
-  transition: all 0.2s ease !important;
+  transition: background-color 150ms ease, border-color 150ms ease !important;
 }
 
 :deep(.auth-input:focus) {
@@ -263,7 +263,7 @@ const { form, errors, apiError, loading, onSubmit } = useRegisterForm()
 
 .fade-slide-enter-active,
 .fade-slide-leave-active {
-  transition: all 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .fade-slide-enter-from,

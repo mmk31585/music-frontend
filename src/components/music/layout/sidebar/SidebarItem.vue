@@ -14,7 +14,7 @@
   <RouterLink
     v-else-if="item.to"
     :to="item.to"
-    class="group relative flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-150"
+    class="group relative flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-transform duration-150"
     :class="activeClass"
     :aria-current="isActive ? 'page' : undefined"
   >
