@@ -10,3 +10,11 @@ import { Loader2 } from 'lucide-vue-next'
     <span>Loading…</span>
   </div>
 </template>
+
+<style scoped>
+@media (prefers-reduced-motion: reduce) {
+  .animate-spin {
+    animation: none !important;
+  }
+}
+</style>

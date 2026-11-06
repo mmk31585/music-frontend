@@ -223,3 +223,11 @@ onMounted(() => {
   }
 })
 </script>
+
+<style scoped>
+@media (prefers-reduced-motion: reduce) {
+  .animate-spin {
+    animation: none !important;
+  }
+}
+</style>
