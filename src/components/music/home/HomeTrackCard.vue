@@ -11,11 +11,12 @@
       :style="{ borderRadius: radius + 'px' }"
     >
       <img
-        v-if="item.cover_url || item.coverUrl || item.track_cover_url"
+        v-if="coverSrc"
         :src="coverSrc"
         :alt="altText"
         class="h-full w-full object-cover transition duration-500 group-hover:scale-110"
         loading="lazy"
+        @error="onImgError"
       />
       <div v-else class="flex h-full items-center justify-center">
         <Music aria-hidden="true" class="text-2xl text-muted"  />
@@ -105,7 +106,30 @@ const artistName = computed(() => {
   return props.item.artist_name || props.item.artistName || ''
 })
 
-const coverSrc = computed((): string | undefined => (props.item.cover_url || props.item.coverUrl || props.item.track_cover_url) ?? undefined)
+const coverSrc = computed(() => {
+    const raw = props.item.cover_url || props.item.coverUrl || props.item.track_cover_url
+    if (!raw) return undefined
+    // Already a full URL
+    if (raw.startsWith('http://') || raw.startsWith('https://')) {
+        // Replace frontend domain with S3 bucket if needed
+        const frontendDomain = 'https://music-frontend-umber-delta.vercel.app'
+        const s3Base = import.meta.env.VITE_S3_PUBLIC_BASE_URL || 'https://s3-cinereous-flame-554008738594.s3.us-east-1.amazonaws.com'
+        if (raw.startsWith(frontendDomain)) {
+            return raw.replace(frontendDomain, s3Base)
+        }
+        return raw
+    }
+    // Relative path - prepend S3 base URL
+    const s3Base = import.meta.env.VITE_S3_PUBLIC_BASE_URL || 'https://s3-cinereous-flame-554008738594.s3.us-east-1.amazonaws.com'
+    return `${s3Base}/${raw.replace(/^\//, '')}`
+})
+
+const onImgError = (e: Event) => {
+    const target = e.target as HTMLImageElement
+    // Show a default colored placeholder instead of broken image
+    target.src = 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22 viewBox=%220 0 200 200%22%3E%3Crect width=%22200%22 height=%22200%22 fill=%22%231a1a1a%22/%3E%3Ccircle cx=%22100%22 cy=%22100%22 r=%2260%22 fill=%22%232a2a2a%22/%3E%3Ctext x=%22100%22 y=%22105%22 text-anchor=%22middle%22 fill=%22%23666%22 font-size=%2214%22 font-family=%22sans-serif%22%3ENo Cover%3C/text%3E%3C/svg%3E'
+    target.onerror = null // prevent infinite loop
+}
 
 const altText = computed(() => {
   const title = props.item.title || props.item.track_title || ''
