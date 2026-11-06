@@ -542,11 +542,12 @@ onUnmounted(() => {
   background: var(--surface-popover);
   border: 1px solid var(--surface-border);
   box-shadow: var(--shadow-overlay);
-  backdrop-filter: blur(32px);
-  -webkit-backdrop-filter: blur(32px);
   padding: 8px;
   z-index: 301;
+}
+.ctx-menu:focus-visible {
   outline: none;
+  box-shadow: 0 0 0 2px var(--ring-focus);
 }
 
 /* ── Header ──────────────────────────────────────────────── */
