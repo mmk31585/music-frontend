@@ -135,7 +135,7 @@
                 <Wand2 aria-hidden="true" class=""></Wand2>Enrichment Suggestions
               </h4>
 
-              <div v-if="uploadResult.coverArtUrl || spotifyAlbumCover" class="mb-4 flex flex-wrap gap-4">
+              <div v-if="uploadResult.coverArtUrl || spotifyAlbumCover || hasEmbeddedCover" class="mb-4 flex flex-wrap gap-4">
                 <div v-if="uploadResult.coverArtUrl">
                   <p class="mb-1.5 text-xs font-medium text-slate-500">Embedded</p>
                   <img
@@ -144,6 +144,12 @@
                     class="h-24 w-24 rounded-lg object-cover shadow-xs ring-1 ring-white/8"
                     loading="lazy"
                   />
+                </div>
+                <div v-else-if="hasEmbeddedCover">
+                  <p class="mb-1.5 text-xs font-medium text-slate-500">Embedded</p>
+                  <div class="h-24 w-24 rounded-lg bg-white/8 flex items-center justify-center border border-white/10">
+                    <span class="text-[10px] text-slate-400">Cover in file</span>
+                  </div>
                 </div>
                 <div v-if="spotifyAlbumCover">
                   <p class="mb-1.5 text-xs font-medium text-slate-500">Spotify Art</p>
@@ -493,6 +499,8 @@ const showSuggestions = computed(() => suggestions.value.length > 0)
 
 const spotifyAlbumCover = computed(() => enrichmentResult.value?.spotify?.albumCoverUrl || null)
 const spotifyArtistImage = computed(() => enrichmentResult.value?.spotify?.artistImageUrl || null)
+
+const hasEmbeddedCover = computed(() => uploadResult.value?.extractedMetadata?.hasCoverArt || false)
 
 const musicBrainzInfo = computed(() => {
   const mb = enrichmentResult.value?.musicbrainz
