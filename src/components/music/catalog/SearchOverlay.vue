@@ -13,13 +13,13 @@
           <!-- Search input -->
           <div class="relative flex items-center border-b border-border-default px-4">
             <Search aria-hidden="true" class="text-sm text-secondary"  />
-            <input
+            <InputText
               ref="inputRef"
               v-model="query"
               type="text"
               placeholder="Search tracks, artists, albums, playlists..."
               aria-label="Search tracks, artists, albums, playlists"
-              class="flex-1 bg-transparent px-3 py-4 text-sm text-primary outline-hidden placeholder:text-muted"
+              class=" bg-transparent border-0 w-full focus-visible:outline-0! px-3 py-4 text-sm text-primary placeholder:text-muted"
               @keydown="onKeydown"
               @input="onInput"
             />
@@ -358,6 +358,7 @@ import { usePlayer } from '@/composables/player'
 import { useAppToast } from '@/composables/useAppToast'
 import { onImgError } from '@/utils/helpers'
 import { buildPlaybackTrack } from '@/factories/playbackTrack'
+import InputText from 'primevue/inputtext'
 
 interface SearchItem {
   id: string | number
