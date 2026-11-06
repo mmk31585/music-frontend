@@ -7,6 +7,6 @@ import { Loader2 } from 'lucide-vue-next'
     aria-busy="true"
   >
     <Loader2 aria-hidden="true" class="mr-2 animate-spin" />
-    <span>Loading...</span>
+    <span>Loading…</span>
   </div>
 </template>

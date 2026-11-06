@@ -13,7 +13,7 @@
         </div>
       </div>
 
-      <InputText v-model="query" placeholder="Search tracks, artists, albums..." aria-label="Search" class="hidden rounded-full bg-surface-overlay px-4 py-2 text-sm text-secondary transition hover:bg-surface-active md:block border-0! outline-hidden! focus-visible:ring-2 focus-visible:ring-accent/50" />
+      <InputText v-model="query" placeholder="Search tracks, artists, albums…" aria-label="Search" class="hidden rounded-full bg-surface-overlay px-4 py-2 text-sm text-secondary transition hover:bg-surface-active md:block border-0! outline-hidden! focus-visible:ring-2 focus-visible:ring-accent/50" />
     </div>
   </header>
 </template>
