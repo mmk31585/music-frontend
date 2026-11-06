@@ -726,7 +726,7 @@ function playAllSearchResults() {
     buildPlaybackTrack({
       id: String(t.id),
       title: t.title || undefined,
-      artist_name: t.artists || 'Unknown',
+      artist_name: t.artist_name || 'Unknown',
       album_title: t.album_title || null,
       cover_url: t.cover_url || null,
       duration_seconds: t.duration_seconds ?? null,
