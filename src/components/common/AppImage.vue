@@ -21,6 +21,8 @@
     :loading="lazy ? 'lazy' : undefined"
     class="h-full w-full object-cover"
     :class="imgClass"
+    :width="width"
+    :height="height"
     @error="onError"
     @load="onLoad"
   />
@@ -39,6 +41,8 @@ interface Props {
   containerStyle?: string
   imgClass?: string
   iconSize?: string
+  width?: number
+  height?: number
 }
 
 withDefaults(defineProps<Props>(), {
@@ -50,6 +54,8 @@ withDefaults(defineProps<Props>(), {
   containerStyle: '',
   imgClass: '',
   iconSize: '1.5rem',
+  width: 400,
+  height: 400,
 })
 
 const emit = defineEmits<{
