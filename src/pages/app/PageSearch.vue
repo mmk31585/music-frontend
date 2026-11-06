@@ -23,7 +23,7 @@
           type="text"
           placeholder="What do you want to listen to?"
           aria-label="Search tracks, artists, and albums"
-          class="w-full rounded-full border-0 bg-white/4 py-3.5 pl-11 pr-14 text-sm text-white placeholder:text-white/30 focus:bg-white/6"
+          class="w-full border-0 bg-white/4 py-3.5 pl-11 pr-14 text-sm text-white placeholder:text-white/30 focus:bg-white/6"
           @input="onInput"
           @keydown.enter="doSearch"
           @focus="showRecent = true"
