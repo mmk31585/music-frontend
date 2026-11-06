@@ -3,6 +3,7 @@ import { Image, Loader2, Tag, User, UserPlus } from 'lucide-vue-next'
 import { computed, reactive, ref, watch, onUnmounted } from 'vue'
 import { useToast } from 'primevue/usetoast'
 import { useLyricsApi } from '@/services/api/lyrics'
+import { useTracksApi } from '@/services/api/catalog/tracks'
 import { useArtistsApi } from '@/services/api/catalog/artists'
 import { usePlayerApi } from '@/services/api/player'
 import { formatDuration } from '@/utils/format'
@@ -79,9 +80,8 @@ export type TrackFormPayload = {
   release_date: string | null
   label: string | null
 
+  audio_url: string | null
   cover_url: string | null
-  audioFile: File | null
-  coverFile: File | null
 }
 
 type TrackMetadataResult = {
@@ -171,6 +171,7 @@ const isEditMode = computed(() => props.mode === 'edit')
 const form = reactive({
   title: '',
   duration_seconds: null as number | null,
+  audio_url: null as string | null,
   cover_url: null as string | null,
 
   track_number: null as number | null,
@@ -188,8 +189,11 @@ const form = reactive({
   release_date: '' as string | null,
   label: '' as string | null,
 
-  audioFile: null as File | null,
+  /** Selected cover file (uploaded on submit, not sent in JSON payload) */
   coverFile: null as File | null,
+
+  /** Selected audio file (uploaded on submit, not sent in JSON payload) */
+  audioFile: null as File | null,
 
   /** Blob URL for uploaded audio preview (create mode) */
   uploadedAudioPreviewUrl: null as string | null,
@@ -349,9 +353,8 @@ function resetForm() {
   form.language = ''
   form.release_date = ''
   form.label = ''
-
-  form.audioFile = null
-  form.coverFile = null
+  form.audio_url = null
+  form.cover_url = null
   form.uploadedAudioPreviewUrl = null
 
   primaryArtistModels.value = []
@@ -384,6 +387,7 @@ function resetForm() {
 function hydrateFromTrack(track: ExistingTrack) {
   form.title = track.title ?? ''
   form.duration_seconds = track.duration_seconds ?? null
+  form.audio_url = track.audio_url ?? null
   form.cover_url = track.cover_url ?? null
 
   form.track_number = track.track_number ?? null
@@ -996,13 +1000,50 @@ function buildCreditsPayload() {
   return uniqCredits([...primaryCredits, ...featuredCredits, ...extraCredits])
 }
 
-function submitForm() {
+async function submitForm() {
   const title = form.title.trim()
 
   if (!title) return
   if (!primaryArtistModels.value.length) return
 
   const credits = buildCreditsPayload()
+
+  let coverUrl = form.cover_url
+  let audioUrl = form.audio_url ?? null
+
+  // Upload cover file first if one was selected, then use returned URL
+  if (form.coverFile) {
+    try {
+      const tracksApi = useTracksApi()
+      const uploadRes = await tracksApi.adminUploadTrackCover(form.coverFile)
+      coverUrl = uploadRes.url ?? null
+    } catch {
+      toast.add({
+        severity: 'error',
+        summary: 'Cover upload failed',
+        detail: 'Please try again or select a different cover image.',
+        life: 3000,
+      })
+      return
+    }
+  }
+
+  // Upload audio file first if one was selected, then use returned URL
+  if (form.audioFile) {
+    try {
+      const tracksApi = useTracksApi()
+      const uploadRes = await tracksApi.adminUploadTrackAudio(form.audioFile)
+      audioUrl = uploadRes.url ?? null
+    } catch {
+      toast.add({
+        severity: 'error',
+        summary: 'Audio upload failed',
+        detail: 'Please try again or select a different audio file.',
+        life: 3000,
+      })
+      return
+    }
+  }
 
   const payload: TrackFormPayload = {
     title,
@@ -1031,9 +1072,8 @@ function submitForm() {
     release_date: form.release_date?.trim() || null,
     label: form.label?.trim() || null,
 
-    cover_url: form.cover_url,
-    audioFile: form.audioFile,
-    coverFile: form.coverFile,
+    audio_url: audioUrl,
+    cover_url: coverUrl,
   }
 
   emit('submit', payload)
@@ -1563,6 +1603,7 @@ function seekAudioPreview(event: Event) {
     audioPreviewCurrent.value = value
   }
 }
+
 </script>
 
 <template>
