@@ -149,15 +149,6 @@ function formatData(data: unknown): string {
   return JSON.stringify(data, null, 2)
 }
 
-<style scoped>
-@media (prefers-reduced-motion: reduce) {
-  .animate-pulse {
-    animation: none !important;
-  }
-  .animate-spin {
-    animation: none !important;
-  }
-}
 </script>
 
 <style scoped>
@@ -169,4 +160,4 @@ function formatData(data: unknown): string {
     animation: none !important;
   }
 }
-</script>
+</style>

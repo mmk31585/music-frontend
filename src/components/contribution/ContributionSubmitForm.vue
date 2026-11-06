@@ -251,6 +251,8 @@ async function submit() {
   }
 }
 
+</script>
+
 <style scoped>
 @media (prefers-reduced-motion: reduce) {
   .animate-pulse {
@@ -261,5 +263,3 @@ async function submit() {
   }
 }
 </style>
-
-</script>

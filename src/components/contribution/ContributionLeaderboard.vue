@@ -104,6 +104,8 @@ function rankClass(idx: number) {
   return 'bg-white/5 text-white/30'
 }
 
+</script>
+
 <style scoped>
 @media (prefers-reduced-motion: reduce) {
   .animate-pulse {
@@ -114,5 +116,3 @@ function rankClass(idx: number) {
   }
 }
 </style>
-
-</script>
