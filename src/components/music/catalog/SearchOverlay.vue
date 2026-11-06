@@ -349,7 +349,7 @@
 </template>
 
 <script setup lang="ts">
-import { ChevronLeft, Disc3, History, List, Loader2, Music, Play, _RefreshCw, Search, User, X } from 'lucide-vue-next'
+import { ChevronLeft, Disc3, History, List, Loader2, Music, Play,  Search, User, X } from 'lucide-vue-next'
 import { ref, watch, onMounted, onUnmounted, nextTick } from 'vue'
 import { useRouter } from 'vue-router'
 import { useSearchApi, type SearchResult } from '@/services/api/catalog/search'

@@ -11,7 +11,7 @@
         :class="moodSpotClass"
       />
       <div
-        class="absolute -bottom-1/3 -start-1/4 h-100 w-100 rounded-full opacity-20 transition-transform duration-1000"
+        class="absolute -bottom-1/3 -inset-s-1/4 h-100 w-100 rounded-full opacity-20 transition-transform duration-1000"
         :class="moodSpotClass2"
       />
     </div>
