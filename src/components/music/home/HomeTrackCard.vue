@@ -106,8 +106,20 @@ const artistName = computed(() => {
   return props.item.artist_name || props.item.artistName || ''
 })
 
+const apiOrigin = import.meta.env.VITE_API_ORIGIN || 'http://localhost:8080'
+
 const coverSrc = computed(() => {
-    const raw = props.item.cover_url || props.item.coverUrl || props.item.track_cover_url
+    const item = props.item
+    if (!item) return undefined
+
+    // Use Go proxy endpoint for cover images (avoids CORS, goes through backend)
+    const draftId = item.id || item.track_id
+    if (draftId) {
+        return `${apiOrigin}/api/v1/admin/ingestion/drafts/${draftId}/cover`
+    }
+
+    // Fallback to direct cover_url
+    const raw = item.cover_url || item.coverUrl || item.track_cover_url
     if (!raw) return undefined
     // Already a full URL
     if (raw.startsWith('http://') || raw.startsWith('https://')) {
